@@ -165,6 +165,60 @@
         .dropdown .btn:hover {
             background-color: #1a5f7f;
         }
+
+        .content-frame {
+            position: fixed;
+            top: 101px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: calc(100vh - 101px);
+            border: none;
+            background-color: white;
+        }
+
+        .welcome-content {
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .welcome-content h2 {
+            color: #0F4761;
+            margin-bottom: 20px;
+        }
+
+        .welcome-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .tutorial-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .tutorial-list li {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tutorial-list li a {
+            text-decoration: none;
+            color: #0F4761;
+            font-weight: 600;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .tutorial-list li a:hover {
+            color: #667eea;
+        }
     </style>
 </head>
 <body>
@@ -176,49 +230,84 @@
 
         <div class="tabs">
             <div class="tab-wrapper">
-                <a href="index.html" class="tab">Home</a>
+                <a href="#" onclick="loadHome(); return false;" class="tab">Home</a>
             </div>
             <div class="tab-wrapper">
-                <a href="Tut_01.htm" class="tab">Tutorial 1</a>
+                <a href="#" onclick="loadTutorial('Tut_01.htm'); return false;" class="tab">Tutorial 1</a>
                 <div class="dropdown">
                     <h3>Getting Started</h3>
                     <p>Begin your journey into XR multimodal interaction. This tutorial covers the basic concepts and setup required to start developing XR applications.</p>
-                    <a href="Tut_01.htm" class="btn">Start Tutorial</a>
+                    <a href="#" onclick="loadTutorial('Tut_01.htm'); return false;" class="btn">Start Tutorial</a>
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="Tut_02.htm" class="tab">Tutorial 2</a>
+                <a href="#" onclick="loadTutorial('Tut_02.htm'); return false;" class="tab">Tutorial 2</a>
                 <div class="dropdown">
                     <h3>Core Concepts</h3>
                     <p>Dive deeper into the fundamental principles of XR development and multimodal interaction patterns.</p>
-                    <a href="Tut_02.htm" class="btn">Start Tutorial</a>
+                    <a href="#" onclick="loadTutorial('Tut_02.htm'); return false;" class="btn">Start Tutorial</a>
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="Tut_03.htm" class="tab">Tutorial 3</a>
+                <a href="#" onclick="loadTutorial('Tut_03.htm'); return false;" class="tab">Tutorial 3</a>
                 <div class="dropdown">
                     <h3>Advanced Techniques</h3>
                     <p>Explore advanced techniques and best practices for creating immersive XR experiences with multimodal interactions.</p>
-                    <a href="Tut_03.htm" class="btn">Start Tutorial</a>
+                    <a href="#" onclick="loadTutorial('Tut_03.htm'); return false;" class="btn">Start Tutorial</a>
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="Tut_04_05.htm" class="tab">Tutorial 4</a>
+                <a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;" class="tab">Tutorial 4</a>
                 <div class="dropdown">
                     <h3>Practical Applications</h3>
                     <p>Learn how to apply your knowledge to real-world XR scenarios and practical use cases.</p>
-                    <a href="Tut_04_05.htm" class="btn">Start Tutorial</a>
+                    <a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;" class="btn">Start Tutorial</a>
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="Tut_04_05.htm" class="tab">Tutorial 5</a>
+                <a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;" class="tab">Tutorial 5</a>
                 <div class="dropdown">
                     <h3>Project Development</h3>
                     <p>Build a complete XR project from start to finish, integrating all the concepts learned in previous tutorials.</p>
-                    <a href="Tut_04_05.htm" class="btn">Start Tutorial</a>
+                    <a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;" class="btn">Start Tutorial</a>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="content-frame" class="content-frame" style="display: none;"></iframe>
+        <div id="home-content" class="content-frame">
+            <div class="welcome-content">
+                <h2>Welcome to XR Multimodal Interaction</h2>
+                <p>This tutorial series will guide you through the fundamentals of Extended Reality (XR) and multimodal interaction design. Each tutorial builds upon the previous one to provide comprehensive understanding of XR development.</p>
+                
+                <h3 style="color: #0F4761; margin-top: 30px; margin-bottom: 15px;">Available Tutorials</h3>
+                <ul class="tutorial-list">
+                    <li><a href="#" onclick="loadTutorial('Tut_01.htm'); return false;">Tutorial 1 - Getting Started</a></li>
+                    <li><a href="#" onclick="loadTutorial('Tut_02.htm'); return false;">Tutorial 2 - Core Concepts</a></li>
+                    <li><a href="#" onclick="loadTutorial('Tut_03.htm'); return false;">Tutorial 3 - Advanced Techniques</a></li>
+                    <li><a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;">Tutorial 4 - Practical Applications</a></li>
+                    <li><a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;">Tutorial 5 - Project Development</a></li>
+                </ul>
+
+                <div style="margin-top: 30px; padding: 20px; background-color: #e8f4f8; border-radius: 4px;">
+                    <p style="margin: 0;"><strong>Note:</strong> Hover over each tutorial in the menu above to see more details, or click on any tutorial to get started.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function loadTutorial(filename) {
+            document.getElementById('home-content').style.display = 'none';
+            var iframe = document.getElementById('content-frame');
+            iframe.style.display = 'block';
+            iframe.src = filename;
+        }
+
+        function loadHome() {
+            document.getElementById('content-frame').style.display = 'none';
+            document.getElementById('home-content').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
