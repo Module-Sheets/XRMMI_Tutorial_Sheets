@@ -206,18 +206,43 @@
             margin-bottom: 10px;
             border-radius: 4px;
             border-left: 4px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .tutorial-list li a {
+        .tutorial-link {
             text-decoration: none;
             color: #0F4761;
             font-weight: 600;
             font-size: 1.1em;
             cursor: pointer;
+            flex: 1;
         }
 
-        .tutorial-list li a:hover {
+        .tutorial-link:hover {
             color: #667eea;
+        }
+
+        .download-btn {
+            background-color: #0F4761;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            background-color: #1a5f7f;
+        }
+
+        .download-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -282,11 +307,52 @@
                 
                 <h3 style="color: #0F4761; margin-top: 30px; margin-bottom: 15px;">Available Tutorials</h3>
                 <ul class="tutorial-list">
-                    <li><a href="#" onclick="loadTutorial('Tut_01.htm'); return false;">Tutorial 1 - XR Base Level Rig | <i>Build Own, Custom Input Actions and Controller Script</i></a></li>
-                    <li><a href="#" onclick="loadTutorial('Tut_02.htm'); return false;">Tutorial 2 - XRIT Base Level Rig | <i>Build Own, Tracked Pose Driver Control</i></a></li>
-                    <li><a href="#" onclick="loadTutorial('Tut_03.htm'); return false;">Tutorial 3 - Unity Lighting | <i>Use Week 2 or Week 3/4 Rig Package</i></a></li>
-                    <li><a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;">Tutorial 4 - XRIT XR Rig 2025 (XRIT 2.4.3) | <i>Load Package from BB</i></a></li>
-                    <li><a href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;">Tutorial 5 - XRIT XR Rig 2026 (XRIT 3.0.10) | <i>Load Prefab from Unity</i></a></li>
+                    <li>
+                        <a class="tutorial-link" href="#" onclick="loadTutorial('Tut_01.htm'); return false;">Tutorial 1 - XR Base Level Rig
+                            <p>
+                                <i>Build Own Rig, Input Actions, Controller Script</i>
+                            </p>
+                        </a>
+                        <div class="download-group">
+                            <a class="download-btn" href="https://github.com/Module-Sheets/XRMMI_Tutorial_Sheets/blob/main/Packages/Tut_01_2025_SCENE.unitypackage" target="_blank" rel="noopener">Download Scene Package</a>
+                            <a class="download-btn" href="https://github.com/Module-Sheets/XRMMI_Tutorial_Sheets/blob/main/Packages/Tut_01_2026_EXPORT.unitypackage" target="_blank" rel="noopener">Download Export Package</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="tutorial-link" href="#" onclick="loadTutorial('Tut_02.htm'); return false;">Tutorial 2 - XRIT Base Level Rig
+                            <p>
+                                <i>Build Own Rig, Tracked Pose Driver Control</i>
+                            </p>
+                        </a>
+                        <div class="download-group">
+                            <a class="download-btn" href="downloads/Tut_02_A.zip" download>Download Start Package</a>
+                            <a class="download-btn" href="downloads/Tut_02_B.zip" download>Download Finish Package</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="tutorial-link" href="#" onclick="loadTutorial('Tut_03.htm'); return false;">Tutorial 3 - Unity Lighting 
+                            <p>
+                                <i>Use Week 2 or Week 3/4 Rig Package</i>
+                            </p>
+                        </a>
+                        <a class="download-btn" href="downloads/Tut_03.zip" download>Download</a>
+                    </li>
+                    <li>
+                        <a class="tutorial-link" href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;">Tutorial 4 - XRIT XR Rig 2025 (XRIT 2.4.3)
+                            <p>
+                                <i>Load 2025 XRIT XR Rig Package from BB</i>
+                            </p>
+                        </a>
+                        <a class="download-btn" href="downloads/Tut_04.zip" download>Download</a>
+                    </li>
+                    <li>
+                        <a class="tutorial-link" href="#" onclick="loadTutorial('Tut_04_05.htm'); return false;">Tutorial 5 - XRIT XR Rig 2026 (XRIT 3.0.10)
+                            <p>
+                                <i>Load 2026 XRIT XR Rig Prefab from Unity</i>
+                            </p>
+                        </a>
+                        <a class="download-btn" href="downloads/Tut_05.zip" download>Download</a>
+                    </li>
                 </ul>
 
                 <div style="margin-top: 30px; padding: 20px; background-color: #e8f4f8; border-radius: 4px;">
