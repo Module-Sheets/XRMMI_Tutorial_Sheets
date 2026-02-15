@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 01-02 - XR Control Scene Setup Overview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        .highlight {
+            background-color: #ffff00;
+            padding: 2px 4px;
+        }
+        .warning {
+            background-color: #ff00ff;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+        .important {
+            background-color: #90EE90;
+            padding: 10px;
+            border-left: 4px solid #00AA00;
+            margin: 15px 0;
+        }
+        .error-warning {
+            background-color: #EA9999;
+            padding: 10px;
+            border-left: 4px solid #CC0000;
+            margin: 15px 0;
+        }
+        ol, ul {
+            margin-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        a {
+            color: #467886;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 20px 0;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .note {
+            background-color: #E8F4F8;
+            padding: 10px;
+            border-left: 4px solid #467886;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 01-02 Overview: Build XR Control Scene from Scratch</h1>
+
+        <p><em>Overview Only: Building an XR Control scene from scratch with manual setup and then switching to automated XRIT systems.</em></p>
+
+        <h2>Part 1: Manual XR Control Scene Setup</h2>
+
+        <h3>1. Build XR Control scene from scratch</h3>
+
+        <ol type="a">
+            <li>Import OpenXR in Package Manager Window/unity registry dropdown
+                <ol type="i">
+                    <li>Restarts using New Input System - accept</li>
+                </ol>
+            </li>
+
+            <li>Top Menu/Edit/Project Settings/XR Plug-In Management/OpenXR:
+                <ol type="i">
+                    <li>XR Plug-In Management: Tick OpenXR</li>
+                    <li>XR Plug-In Management/OpenXR:
+                        <ol type="I">
+                            <li>Add Khronos Simple Controller Profile</li>
+                            <li>Enable Mock Runtime (only required for custom mock controller, not XRIT mock controller)</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+
+            <li>Convert Main Camera to XRRig</li>
+
+            <li>Add Hand Controller objects (spheres with empty objects as pivot/parent)</li>
+
+            <li>Add Tracked Pose Driver Component to each sphere
+                <ol type="i">
+                    <li>Select Generic XR Controller</li>
+                    <li>Select Left or Right controller</li>
+                    <li><span class="error-warning">Not capable of taking proper mock inputs</span></li>
+                </ol>
+            </li>
+
+            <li>Add Simulated Control system – Script
+                <ol type="i">
+                    <li>Add MockController.cs Script from BB to Camera Offset</li>
+                    <li>Create own Input Actions Game Object and Mouse binding</li>
+                    <li>Mock Controller Script and TPD map Input Actions to Controllers</li>
+                    <li>Next we do it with Unity XRIT automated systems</li>
+                </ol>
+            </li>
+        </ol>
+
+        <h2>Part 2: Switch to New XRIT Simulated Control System (XR Device Simulator)</h2>
+
+        <h3>2. Switch to new XRIT Simulated control system</h3>
+
+        <ol type="a">
+            <li>Package Window: Add XRIT, including Starter Assets, and XR Device Simulator
+                <ol type="i">
+                    <li>If new install, decline the new interaction layer mask upgrade? (Edit:ProjectSettings:XRIT:)</li>
+                </ol>
+            </li>
+
+            <li>Controllers: Add Tracked Pose Driver Script (not component as in Week 1)
+                <ol type="i">
+                    <li>Add bindings for device rotation</li>
+                    <li>Add bindings for device position</li>
+                </ol>
+            </li>
+
+            <li>Project Settings: Disable mock runtime</li>
+
+            <li>Add XR Device Simulator prefab located in:
+                <ol type="i">
+                    <li><code>Assets\Samples\XR Interaction Toolkit\2.0.4\XR Device Simulator</code></li>
+                </ol>
+            </li>
+
+            <li>Press play to test</li>
+        </ol>
+
+        <div class="note">
+            <strong>Note:</strong> This transition from manual mock controller setup to automated XRIT systems demonstrates both approaches. The manual method provides understanding of the underlying systems, while XRIT automation provides a faster, more standardized workflow for future projects.
+        </div>
+
+    </div>
+</body>
+</html>

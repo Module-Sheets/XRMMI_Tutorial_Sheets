@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 02 - VR Package Import/Export and XRIT Setup</title>
+    <style>
+        :root {
+            --bg: #f5f7fb;
+            --surface: #ffffff;
+            --text: #1b1f24;
+            --muted: #5b6777;
+            --accent: #0F4761;
+            --accent-light: #467886;
+            --note: #E8F4F8;
+            --warn: #FFF3CD;
+            --border: #d9dde5;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background-color: var(--surface);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px var(--shadow);
+            padding: 40px;
+        }
+
+        h1 {
+            color: var(--accent);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 12px;
+            margin: 0 0 12px 0;
+            font-size: 2.1em;
+        }
+
+        h2 {
+            color: var(--accent);
+            margin-top: 36px;
+            font-size: 1.6em;
+            border-left: 4px solid var(--accent-light);
+            padding-left: 12px;
+        }
+
+        h3 {
+            color: var(--accent-light);
+            margin-top: 24px;
+            font-size: 1.2em;
+        }
+
+        p {
+            margin: 12px 0;
+        }
+
+        a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ol, ul {
+            margin: 12px 0 20px 0;
+            padding-left: 28px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        em {
+            color: var(--muted);
+        }
+
+        .note {
+            background-color: var(--note);
+            border-left: 4px solid var(--accent-light);
+            padding: 12px 14px;
+            margin: 14px 0;
+            border-radius: 6px;
+        }
+
+        .warning {
+            background-color: var(--warn);
+            border-left: 4px solid #f0b429;
+            padding: 12px 14px;
+            margin: 14px 0;
+            border-radius: 6px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 18px auto 8px auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 2px 6px var(--shadow);
+        }
+
+        .caption {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.95em;
+            margin-bottom: 18px;
+        }
+
+        code {
+            background: #f3f4f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", monospace;
+            font-size: 0.95em;
+        }
+
+        .section-intro {
+            background: #f9fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 14px 0 24px 0;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 02 Part 1: VR Package Import/Export</h1>
+        <p><strong>2: XRIT and Samples Install</strong><br>
+           1a: Export and Import XRRig Packages<br>
+           2: Import XR Interaction Toolkit</p>
+
+        <p><em>The BB VR Package or your own project from week 01 is a good option for working with pre made or transferable elements. You should make your own, and ensure you can start or transfer VR projects quickly via Unity Packages.</em></p>
+
+        <p><strong>The main workflow for 2026 Tutorial 02 is:</strong></p>
+
+        <p><strong>Part 1:</strong></p>
+        <ol>
+            <li>Export your XR Rig Scene from Tutorial 01 as a Unity Package if it is basic – include dependencies.</li>
+            <li>Create an XR Rig Prefab from the Tutorial 01 Scene if the Scene or Project has other work in it. You can export this Prefab with dependencies for a clean rig.</li>
+            <li>In new or target project for Tutorial 02:
+                <ol type="a">
+                    <li>Install OpenXR Package – fix any issues in Edit/Project Settings/XR Project Management/Project Validation.</li>
+                    <li>Import your XR Rig package – and depending on the package:
+                        <ol type="i">
+                            <li>Scene Package: A scene will import with the XR Rig in it.</li>
+                            <li>Prefab Package: Create a scene importing the prefab XR Rig.</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <p><strong>Part 2:</strong></p>
+        <ol>
+            <li>Import XR Interaction Toolkit.</li>
+            <li>Import XRIT Samples:
+                <ol type="a">
+                    <li>Starter Assets</li>
+                    <li>XR Device Simulator</li>
+                    <li>Legacy XR Input Readers</li>
+                </ol>
+            </li>
+        </ol>
+
+        <p><strong>Part 2a:</strong></p>
+        <ol start="3">
+            <li>Import a Basic XRIT XR Rig from 2025 Package <strong>here</strong> – this will be basic and serve as a bridge from week 1 to this week.
+                <ol type="a">
+                    <li>Add and Implement the Tracked Pose Driver (New Input System).</li>
+                    <li>Add Bindings to run controllers.</li>
+                    <li>This uses OpenXR and the XR Device Simulator to run, and gives a full set of controls.</li>
+                </ol>
+                <p><em>(Tutorial 01 was the Legacy Tracked Pose Driver with Generic Controllers run by the MockControllers.cs Script)</em></p>
+                <p><em>(Tutorial 02 is new Tracked Pose Drivers using XR Input Actions)</em></p>
+            </li>
+        </ol>
+
+        <p><strong>Part 2b:</strong></p>
+        <ol start="4">
+            <li>Create a Standard XRIT XR Rig 2026 –
+                <ol type="a">
+                    <li>This will have more fully featured inputs and interactions.</li>
+                    <li>Just use the basics for now – the rest will bring you to weeks 4 and 5 and CW1.</li>
+                    <li>Implement the Tracked Pose Driver (New Input System).</li>
+                    <li>Add Bindings to run controllers.</li>
+                    <li>This uses OpenXR and the XR Device Simulator to run, and gives a full set of controls.</li>
+                </ol>
+                <p><em>(Tutorial 01 was the Legacy Tracked Pose Driver with Generic Controllers run by the MockControllers.cs Script)</em></p>
+                <p><em>(Tutorial 02 is new Tracked Pose Drivers using XR Input Actions)</em></p>
+            </li>
+        </ol>
+
+        <div class="note">
+            <strong>Note:</strong> The XR Camera Rig may be called XR Rig or XR Origin depending on your package and version. All should be the same, apart from specific implementations.
+        </div>
+
+        <p><strong>Video - In Lecture 02 (from 7:20 to 28:00):</strong><br>
+            <a href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=151503a5-fa42-4c02-8fda-b27600b68c79">https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=151503a5-fa42-4c02-8fda-b27600b68c79</a>
+        </p>
+
+        <h2>Part 1: Export Your Tutorial 01 Work</h2>
+        <ol>
+            <li>Export your Tutorial 01 work as a package either via Scene or Prefab:
+                <ol type="a">
+                    <li>Scene Export to Package: Export the scene as a package with dependencies and scripts.
+                        <ol type="i">
+                            <li>At top menu, select “Assets/Export Package/”.</li>
+                            <li>Have all selected (Basic Scene this week). Select “Include Dependencies” and “Include Scripts”.</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <p class="caption">This is a basic scene export.</p>
+        <img src="Tut%2002%20Update%202026%2014b_files/image001.png" alt="Basic scene export">
+        <p class="caption"><a href="https://gyazo.com/209364281e999609a3ea2d9ad3d37c08">https://gyazo.com/209364281e999609a3ea2d9ad3d37c08</a></p>
+
+        <p class="caption">This is what a more complex scene export may look like.</p>
+        <img src="Tut%2002%20Update%202026%2014b_files/image002.png" alt="Complex scene export">
+        <p class="caption"><a href="https://gyazo.com/d984a68851ea8b6e369ea6cacb6240dd">https://gyazo.com/d984a68851ea8b6e369ea6cacb6240dd</a></p>
+
+        <ol start="1">
+            <li value="1">Prefab Export to Package:
+                <ol type="i">
+                    <li>Drag the <strong>XRRig</strong> from Hierarchy to Project window to create a prefab (make a prefab folder to organise first).</li>
+                    <li>Right click on Prefab in Project Window and Select “Export Package” – Select “Include Dependencies” and “Include Scripts”.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image003.png" alt="Prefab export example">
+        <p class="caption"><a href="https://gyazo.com/67f0cc4ede4407541f1a587630d93548">https://gyazo.com/67f0cc4ede4407541f1a587630d93548</a></p>
+
+        <ol start="2">
+            <li>For Tutorial 02 start with a blank 3D Project and scene.
+                <ol type="a">
+                    <li>Export your last weeks project via steps above.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <p><strong>Reload that or the one prepared in Blackboard:</strong><br>
+            <a href="https://learning.westminster.ac.uk/bbcswebdav/pid-6093914-dt-content-rid-55792202_1/xid-55792202_1?xythos-download=true">https://learning.westminster.ac.uk/bbcswebdav/pid-6093914-dt-content-rid-55792202_1/xid-55792202_1?xythos-download=true</a>
+        </p>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image004.png" alt="Minimal implementation example">
+        <p class="caption">Minimal implementation</p>
+        <p class="caption"><a href="https://gyazo.com/7f1a0ebf014140ddbb99003fc584b1b5">https://gyazo.com/7f1a0ebf014140ddbb99003fc584b1b5</a></p>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image003.png" alt="Minimal implementation example 2">
+        <p class="caption"><a href="https://gyazo.com/67f0cc4ede4407541f1a587630d93548">https://gyazo.com/67f0cc4ede4407541f1a587630d93548</a></p>
+        <p class="caption">Minimal implementation</p>
+
+        <ol start="3">
+            <li>Keep all selected, but review the elements coming in. Some names may be different, but the setup is the same.
+                <ol type="a">
+                    <li><strong>NewControls</strong> (MockController) is the name of the InputActions and cs script – <em>yours may vary</em>.</li>
+                    <li>There are imported settings under the XR folder; this is an imported scene of the last tutorial task with all OpenXR element settings exported.</li>
+                </ol>
+            </li>
+            <li>The Sample Scene will reload, as it is the name of the new package scene.</li>
+            <li>There will be errors due to packages OpenXR (and XR Plugin management along with it) not being installed.</li>
+            <li><strong>Install OpenXR</strong> – This installs the New Input System and also XR Plugin Management. This is all that is needed. Mock HMD is not needed as we are doing our own base scene for more control and understanding (also future and platform proofing).</li>
+            <li>Open top menu “Edit/Project Settings/XR Plugin Management” and check the OpenXR.</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image005.png" alt="OpenXR settings">
+        <p class="caption"><a href="https://gyazo.com/1160bab87797725b1c27a4b5cf288280">https://gyazo.com/1160bab87797725b1c27a4b5cf288280</a></p>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image006.png" alt="Project validation">
+        <p class="caption"><a href="https://gyazo.com/f5a3924b84d82b6be2602a30ce052035">https://gyazo.com/f5a3924b84d82b6be2602a30ce052035</a></p>
+
+        <ol start="8">
+            <li>Select “Fix All” to remove the yellow errors.</li>
+        </ol>
+
+        <div class="note">
+            <strong>Note:</strong> Clicking “Fix All” prevents bugs appearing later and requires no additional input. If left unfixed, the project sometimes crashes when building, prevents teleportation, and inverts hand orientation in the simulator. It is good practice to click Fix All.
+        </div>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image007.png" alt="Fix All in Project Validation">
+        <p class="caption"><a href="https://gyazo.com/ee59b0873710a9cc137c636fa4712633">https://gyazo.com/ee59b0873710a9cc137c636fa4712633</a></p>
+
+        <ol start="9">
+            <li>Add Interaction <strong>Kronos Simple Interaction profile</strong> as in first week – add with “+” and drop down box to select “Don’t select Mock Runtime”.</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image008.png" alt="Kronos Simple Interaction profile">
+        <p class="caption"><a href="https://gyazo.com/aeb04c5dce4326f097e80fb0f670f4de">https://gyazo.com/aeb04c5dce4326f097e80fb0f670f4de</a></p>
+
+        <ol start="10">
+            <li>Select <strong>Mock Input</strong> in the Controls mapping script on the Camera Offset:</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image009.png" alt="Mock Input selection">
+        <p class="caption"><a href="https://gyazo.com/1527e464c6abec01188af99b0bb3da31">https://gyazo.com/1527e464c6abec01188af99b0bb3da31</a></p>
+
+        <ol start="11">
+            <li>Play to test and troubleshoot.</li>
+            <li>Try exporting package and re-importing – we need to use this as an initial backup, then move on to GitHub.
+                <ol type="a">
+                    <li>Select your scene.</li>
+                    <li>At top menu, select “Assets/Export Package/”.</li>
+                    <li>Get used to selecting only what is needed, and export and import one as a test to see it works.</li>
+                    <li>Given the structure above, try to ignore script and asset names, and look at what elements are required. Here is one screenshot from a historical package export with a lot of content unneeded today, with the required selected for export – note that the Mock HMD names used in this do not reflect the unity Mock HMD, but replace it. (also, the <strong>ControllerMarker.cs</strong> is a debugging script)</li>
+                </ol>
+            </li>
+        </ol>
+
+        <div class="warning">
+            <strong>Note:</strong> Below is a more complex project export. Yours may not look the same.
+        </div>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image010.png" alt="Complex project export example">
+        <p class="caption"><a href="https://gyazo.com/85a18a667f0d42cb4475bf9d666856a0">https://gyazo.com/85a18a667f0d42cb4475bf9d666856a0</a></p>
+
+        <ol start="12">
+            <li value="12">
+                <ol type="a">
+                    <li value="5">The package exported from the first tutorial is tidier, as it was created and named for the tutorial, but it is good practice to recognise and export what you need.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image011.png" alt="Package export example">
+        <p class="caption"><a href="https://gyazo.com/56d1644a6a92790904fc32b816e7769e">https://gyazo.com/56d1644a6a92790904fc32b816e7769e</a></p>
+
+        <ol start="12">
+            <li value="12">
+                <ol type="a">
+                    <li value="6">Remember to tick “Include Dependencies” (this is ticked by default).</li>
+                    <li>Alternatively, you can drag the <strong>XR Rig</strong> to Project Window to make it a <strong>Prefab</strong> and right-click export it as a <strong>package</strong> there with dependencies – this is cleaner and easier.</li>
+                    <li>Import, then:
+                        <ol type="i">
+                            <li>Install <strong>Open XR</strong> Plugin (which brings in <strong>New Input System</strong> and <strong>XR Plugin Management</strong>).</li>
+                            <li>Open desired scene, and tick “Mock Input” on Camera Offset Game Object Script.</li>
+                        </ol>
+                    </li>
+                    <li>Package example:</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image012.png" alt="Package example screenshot">
+        <p class="caption"><a href="https://gyazo.com/5d76e204aa4eeb800faf9a49bcdf0a96">https://gyazo.com/5d76e204aa4eeb800faf9a49bcdf0a96</a></p>
+
+        <p class="caption">More Advanced Package Example:</p>
+        <img src="Tut%2002%20Update%202026%2014b_files/image013.png" alt="Advanced package example">
+        <p class="caption"><a href="https://gyazo.com/4a427043142e7655ea9e684d744a774c">https://gyazo.com/4a427043142e7655ea9e684d744a774c</a></p>
+
+        <ol start="13">
+            <li>You should now be used to importing and exporting working XR packages.</li>
+        </ol>
+
+        <p><strong>Done Part 1!</strong></p>
+
+        <h1>Tutorial 02 Part 2: XR Interaction Toolkit XR Rig</h1>
+        <p><strong>2: XRIT and Samples Install</strong><br>
+           2a: Basic XRRig Legacy (2025)<br>
+           2b: Standard XRRig New (2026)</p>
+
+        <p><strong>Tutorial 02 part 02: XR Interaction Toolkit (with XR Device Simulator)</strong></p>
+
+        <p><strong>Video runthrough (no Audio):</strong><br>
+            <a href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=89e2f096-2552-4528-acbf-b1110086b18f">https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=89e2f096-2552-4528-acbf-b1110086b18f</a>
+        </p>
+
+        <h2>Part 2: XRIT and Samples Install</h2>
+        <ol start="14">
+            <li>Lets now look at Unity’s <strong>XR Interaction Toolkit</strong>, which does some of the further heavy lifting for us and gives more options.</li>
+            <li>In Package Window, add <strong>XR Interaction Toolkit</strong>, then click <strong>Samples</strong>, and add <strong>Starter Assets</strong>, <strong>XR Device Simulator</strong>, and <strong>Legacy XR Input Readers</strong>.</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image014.png" alt="XRIT samples install">
+        <p class="caption"><a href="https://gyazo.com/05c09b9defbd23e4aa083d422d7cef57">https://gyazo.com/05c09b9defbd23e4aa083d422d7cef57</a></p>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image015.png" alt="XRIT samples list">
+        <p class="caption"><a href="https://gyazo.com/f4fc61187523636c2057215249804f58">https://gyazo.com/f4fc61187523636c2057215249804f58</a></p>
+
+        <h2>Part 2a: Basic XRIT XRRig Legacy (2025)</h2>
+        <ol>
+            <li>Lets now look at Unity’s <strong>XR Interaction Toolkit</strong>, which does some of the further heavy lifting for us and gives more options.</li>
+            <li>For a Basic <strong>XRIT Rig</strong> – lets look at the 2025 (2.6.3) version:</li>
+        </ol>
+
+        <ol type="a">
+            <li>Import package here:</li>
+        </ol>
+        <p><a href="https://learning.westminster.ac.uk/bbcswebdav/pid-6093915-dt-content-rid-55792205_1/xid-55792205_1?xythos-download=true">https://learning.westminster.ac.uk/bbcswebdav/pid-6093915-dt-content-rid-55792205_1/xid-55792205_1?xythos-download=true</a></p>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image016.png" alt="Basic XRIT rig package">
+        <p class="caption"><a href="https://gyazo.com/ae6da0e43029e1d70539349cccf296eb">https://gyazo.com/ae6da0e43029e1d70539349cccf296eb</a></p>
+
+        <ol start="3">
+            <li>Replace Main Camera in Scene with XRRig Legacy Prefab from Project folder that you just imported as a package.</li>
+            <li>In the camera and controllers, add the new version of TPD: <strong>Tracked Pose Driver (New Input System)</strong>. This works directly with the <strong>XR Simulated Controller Prefab</strong>.</li>
+            <li><strong>Add Bindings</strong> for <strong>Position Input</strong> and <strong>Rotation Input</strong> (+ Button):
+                <ol type="a">
+                    <li>Click + on Input action.</li>
+                    <li>Add binding (Position Input and Rotation Input).</li>
+                    <li>Double click binding.</li>
+                    <li>Select <strong>Path</strong> at top and go to <code>/XR Controller/XR Controller/XR Controller (Left/Right Hand)</code> for Position or Rotation.</li>
+                    <li>With the UI bug, you can click on the name needed. This is then active, and you can press enter to navigate or select.</li>
+                    <li>Adding tracking state is not required to function, but can allow you to access the values for scripting.</li>
+                    <li>Add Tracked Pose Driver Components to Main Camera and populate bindings as below:</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image017.png" alt="Tracked Pose Driver bindings">
+        <p class="caption"><a href="https://gyazo.com/c36d70a9fd07540b6f25c6a848acc3a8">https://gyazo.com/c36d70a9fd07540b6f25c6a848acc3a8</a></p>
+
+        <ol type="a" start="8">
+            <li>Populate Left Controller as below:</li>
+        </ol>
+        <img src="Tut%2002%20Update%202026%2014b_files/image018.png" alt="Left controller bindings">
+        <p class="caption"><a href="https://gyazo.com/594570d9ccbc4bd9070277858b6c1cc8">https://gyazo.com/594570d9ccbc4bd9070277858b6c1cc8</a></p>
+
+        <ol type="a" start="9">
+            <li>Populate Right Controller as below:</li>
+        </ol>
+        <img src="Tut%2002%20Update%202026%2014b_files/image019.png" alt="Right controller bindings">
+        <p class="caption"><a href="https://gyazo.com/1d924f19ccaa035504364c3308139549">https://gyazo.com/1d924f19ccaa035504364c3308139549</a></p>
+
+        <ol start="6">
+            <li>Enable OpenXR in Project Settings:</li>
+        </ol>
+        <img src="Tut%2002%20Update%202026%2014b_files/image020.png" alt="Enable OpenXR">
+        <p class="caption"><a href="https://gyazo.com/d9b64ab05432ce7c95cdb7fda01ba10c">https://gyazo.com/d9b64ab05432ce7c95cdb7fda01ba10c</a></p>
+
+        <ol start="7">
+            <li>Tick on the yellow warning sign next to OpenXR Plugin under XR Plugin management.
+                <ol type="a">
+                    <li>Under Project validation tick “Fix All”.</li>
+                    <li>This will fix all settings to make the install stable, and also prompt you to create a profile in the OpenXR section.</li>
+                    <li>Add a Khronos Simple Controller Profile if needed using the “+” sign and also add any desired HMD hardware profile.</li>
+                    <li>“Mock Runtime” in Open XR section is not needed.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image021.png" alt="OpenXR project validation">
+        <p class="caption"><a href="https://gyazo.com/304d761e02e4075c73feab4dc50c21a7">https://gyazo.com/304d761e02e4075c73feab4dc50c21a7</a></p>
+
+        <ol start="8">
+            <li>Enable Simulator in Edit/Project settings/XR Interaction Toolkit:
+                <ol type="a">
+                    <li>Tick “Use XR Device Simulator in Scenes”.</li>
+                    <li>Ensure <strong>XR Device Simulator</strong> is selected in the prefab box.</li>
+                    <li>You do not need to drag the XR Device Simulator Prefab into any scenes when this is ticked; it will automatically add it and work if no hardware/hardware profile is detected.</li>
+                    <li>“Instantiate in Editor Only” is not needed.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image022.png" alt="XR Device Simulator settings">
+        <p class="caption"><a href="https://gyazo.com/4d935eec0cd01eb30e023ee94abee42b">https://gyazo.com/4d935eec0cd01eb30e023ee94abee42b</a></p>
+
+        <ol start="9">
+            <li>Run and test with below controls:
+                <ol type="a">
+                    <li>Controls are now <em>Hold-Left Shift and move mouse for Left Controller Rotate</em>.</li>
+                    <li><em>Hold-Space and move mouse for Right Controller Rotate.</em></li>
+                    <li><em>Hold down Middle Mouse as well to Translate above, or R to toggle between Move and Rotate.</em></li>
+                    <li><em>Camera controls are Hold-RMB and Move Mouse.</em></li>
+                    <li><em>Hold down Middle Mouse to orbit.</em></li>
+                    <li><em><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.0/manual/xr-device-simulator.html">https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.0/manual/xr-device-simulator.html</a></em></li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image023.png" alt="XR Device Simulator controls">
+        <p class="caption"><a href="https://gyazo.com/301086d3ee4ba368fd0ba46695c5ef75">https://gyazo.com/301086d3ee4ba368fd0ba46695c5ef75</a></p>
+
+        <h2>Part 2b: Standard XRIT XRRig (2026)</h2>
+        <ol start="10">
+            <li>Add an <strong>XR Origin (VR)</strong> (not the XR Origin (XR Rig)) by right clicking on hierarchy and creating a <strong>XR/XR Origin (VR)</strong>.</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image024.png" alt="Create XR Origin (VR)">
+        <p class="caption"><a href="https://gyazo.com/89f75ee799d0f2c8e985aaff67613c45">https://gyazo.com/89f75ee799d0f2c8e985aaff67613c45</a></p>
+
+        <ol start="11">
+            <li>Deactivate or delete any pre-existing Main Camera in the scene.</li>
+            <li>Add Empty Game Objects (zeroed out) as before as Left and Right Controllers.</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image025.png" alt="Controller objects">
+        <p class="caption"><a href="https://gyazo.com/726278fe14b97c3e62894b56158acc9c">https://gyazo.com/726278fe14b97c3e62894b56158acc9c</a></p>
+
+        <ol start="13">
+            <li>In the camera and controllers, add the new version of TPD: <strong>Tracked Pose Driver (New Input System)</strong>. This works directly with the <strong>XR Device Simulator</strong> in the background.</li>
+            <li><strong>Add Bindings</strong> for <strong>Position Input</strong> and <strong>Rotation Input</strong> (+ Button):
+                <ol type="a">
+                    <li>Click + on Input action.</li>
+                    <li>Add binding (Position Input and Rotation Input).</li>
+                    <li>Double click binding.</li>
+                    <li>Select <strong>Path</strong> at top and go to <code>/XR Controller/XR Controller/XR Controller (Left/Right Hand)</code> for Position or Rotation.</li>
+                    <li>With the UI bug, you can click on the name needed. This is then active, and you can press enter to navigate or select.</li>
+                    <li>Adding tracking state is not required to function, but can allow you to access the values for scripting.</li>
+                    <li>Add <strong>XR Ray Interactor</strong>, <strong>Line Renderer</strong>, <strong>XR Interactor Line Visual</strong>, but <strong>XR Controller</strong> or <strong>Sorting Group</strong> is no longer needed.</li>
+                    <li>Parent zeroed out spheres of scale (0.05, 0.05, 0.05) to left and right controllers as controller visuals.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image026.png" alt="Ray interactor setup">
+        <p class="caption"><a href="https://gyazo.com/ec10098bbdf600b4908c6f320d499116">https://gyazo.com/ec10098bbdf600b4908c6f320d499116</a></p>
+
+        <ol start="15">
+            <li>Now do the Camera.</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image027.png" alt="Camera setup">
+        <p class="caption"><a href="https://gyazo.com/1fbf0d62bebe4d95a53fc22dd531f4c5">https://gyazo.com/1fbf0d62bebe4d95a53fc22dd531f4c5</a></p>
+
+        <ol start="16">
+            <li>Play to test.
+                <ol type="a">
+                    <li>Controls are now <em>Hold-Left Shift and move mouse for Left Controller Rotate</em>.</li>
+                    <li><em>Hold-Space and move mouse for Right Controller Rotate.</em></li>
+                    <li><em>Hold down Middle Mouse as well to Translate above, or R to toggle between Move and Rotate.</em></li>
+                    <li><em>Camera controls are Hold-RMB and Move Mouse.</em></li>
+                    <li><em>Hold down Middle Mouse to orbit.</em></li>
+                    <li><em><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.0/manual/xr-device-simulator.html">https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.0/manual/xr-device-simulator.html</a></em></li>
+                </ol>
+            </li>
+        </ol>
+
+        <ol start="17">
+            <li><strong>Tracked Pose Driver</strong> historically brought in the XR Controller inputs via <strong>the XR Device Simulator</strong> (activated in scenes in project settings), but now it does it directly without the <strong>XR Controller</strong> Component, and without the need for an <strong>XR Device Simulator</strong> in the Hierarchy.</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image028.png" alt="Tracked Pose Driver update">
+        <p class="caption"><a href="https://gyazo.com/ddda7fa99304ac54bd8ec2af1c6d3673">https://gyazo.com/ddda7fa99304ac54bd8ec2af1c6d3673</a></p>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image029.png" alt="XR Device Simulator prefab">
+        <p class="caption"><a href="https://gyazo.com/03924772eb7a61fcf1bf6d906d7e2783">https://gyazo.com/03924772eb7a61fcf1bf6d906d7e2783</a></p>
+
+        <ol type="a">
+            <li>The <strong>XR Device Simulator</strong> looks as above in the Prefab. It handles all Input Actions like we created in Week 01. It does not need to be in the scene directly anymore, but is accessed as needed if ticked in the Project Settings.</li>
+            <li>That is an XRIT Rig/Origin Legacy from scratch, as an incremental upgrade.</li>
+            <li><strong><em>Try exporting as a package with dependencies and importing, as you did with Tutorial 01.</em></strong></li>
+            <li>In week 4, we look at the XRIT New Full Rig - XR Origin (XR Rig), which includes Ray Interactors, Direct Interactors, and also the XR Starter Assets, which allows us to use the XR Default input actions via an XR Controller script. This combines the <strong>XR Ray Interactor</strong>, <strong>Line Renderer</strong> and <strong>XR Interactor Line Visual</strong> in a single <strong>Near-Far Interactor</strong>.</li>
+        </ol>
+
+        <p class="caption">Full New Rig is here XR Origin (XR Rig):</p>
+        <img src="Tut%2002%20Update%202026%2014b_files/image030.png" alt="Full XR Origin rig">
+        <p class="caption"><a href="https://gyazo.com/63175e44d6907a7e68bd50fb56b9cd3a">https://gyazo.com/63175e44d6907a7e68bd50fb56b9cd3a</a></p>
+
+        <ol type="a" start="5">
+            <li>This can be found in <code>Assets/Samples/XR Interaction Toolkit/3.0.10/Starter Assets/Prefabs/</code>:</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image031.png" alt="Starter Assets prefabs">
+        <p class="caption"><a href="https://gyazo.com/25ba55421e4f6dbf39cc36bd5b57ba69">https://gyazo.com/25ba55421e4f6dbf39cc36bd5b57ba69</a></p>
+
+        <ol type="a" start="6">
+            <li>Extras:
+                <ol type="i">
+                    <li>Modify an existing Binding in TPD – make an Alternative via your Input Actions.</li>
+                    <li>Try Controller Prefabs with XR Origin (VR).</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image032.png" alt="Controller prefabs">
+        <p class="caption"><a href="https://gyazo.com/d5699b7931da3443b99e4ed99d8d45b8">https://gyazo.com/d5699b7931da3443b99e4ed99d8d45b8</a></p>
+
+        <ol type="i" start="3">
+            <li>Add Direct interactors and Grabbables (more in Week 4):</li>
+        </ol>
+
+        <p><a href="https://www.youtube.com/watch?v=4N0AZ3NZimo&t=2s">https://www.youtube.com/watch?v=4N0AZ3NZimo&t=2s</a></p>
+
+        <ol>
+            <li>Ray Interactable and Direct Interactors must be on separate objects.</li>
+            <li>They can both be parented to a controller pivot.</li>
+            <li>Add a grabbable script to an object for interactions with the above.</li>
+        </ol>
+
+        <ol type="i" start="4">
+            <li>Look at Open XR Controller Samples and Controller Input Samples:</li>
+        </ol>
+
+        <img src="Tut%2002%20Update%202026%2014b_files/image033.png" alt="Controller samples">
+        <p class="caption"><a href="https://gyazo.com/183da9d7a01e92f8b10d211e9896764e">https://gyazo.com/183da9d7a01e92f8b10d211e9896764e</a></p>
+
+        <p><strong>Done Week 2!</strong></p>
+    </div>
+</body>
+</html>

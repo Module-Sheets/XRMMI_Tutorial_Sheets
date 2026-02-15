@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 03 - Lighting Setup</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        .highlight {
+            background-color: #ffff00;
+            padding: 2px 4px;
+        }
+        .warning {
+            background-color: #ff00ff;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+        .important {
+            background-color: #90EE90;
+            padding: 10px;
+            border-left: 4px solid #00AA00;
+            margin: 15px 0;
+        }
+        .error-warning {
+            background-color: #EA9999;
+            padding: 10px;
+            border-left: 4px solid #CC0000;
+            margin: 15px 0;
+        }
+        ol, ul {
+            margin-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        a {
+            color: #467886;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 20px 0;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .note {
+            background-color: #E8F4F8;
+            padding: 10px;
+            border-left: 4px solid #467886;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 03: Lighting Setup</h1>
+
+        <h2>Part 1: Non-URP (Standard) Lighting</h2>
+
+        <p><strong>Reference:</strong> <a href="https://universityofwestminster-my.sharepoint.com/:w:/g/personal/fergusj_westminster_ac_uk/Eaw0Vbuk-wdCgO3ItNzLWZ8BShfIFen7qDlaJEdHRllgdg?e=bEHSPK">Non URP Lighting.docx</a></p>
+
+        <h3>Tutorial Video</h3>
+        <div class="video-container">
+            <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=499a5e2a-fff0-4ac1-bb20-b27b00d0581b&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    allow="autoplay">
+            </iframe>
+        </div>
+
+        <p><em>We will start with a built in render pipeline project template from the Unity Hub and build our own post-processing from scratch to do basic lighting, reflection, and emission with the standard shaders</em></p>
+
+        <ol>
+            <li>Import the base XR UnityPackage from last week and install XR packages, or just use your completed week 01 or 02 Unity project.</li>
+            <li>Test that it runs</li>
+            <li>Scale Plane up to 5, 5, 5 and add 3 Spheres</li>
+            <li>Materials for Objects:
+                <ol type="a">
+                    <li>Glow Material for Sphere
+                        <ol type="i">
+                            <li>Create Material</li>
+                            <li>Drag onto sphere in hierarchy</li>
+                            <li>Name Glow Mat</li>
+                            <li>Tick Emission in Inspector Window</li>
+                            <li>Pick HDR color to be bright</li>
+                            <li>Adjust HDR intensity above 1 at bottom of HDR pop up</li>
+                            <li>Set Global Illumination drop down box to Baked</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="https://gyazo.com/8a9c9144aaef19cfeacc0c410ddcb8e2.png" alt="Glow Material Setup">
+        <p style="text-align: center;"><a href="https://gyazo.com/8a9c9144aaef19cfeacc0c410ddcb8e2">https://gyazo.com/8a9c9144aaef19cfeacc0c410ddcb8e2</a></p>
+
+        <ol start="4">
+            <ol type="a" start="2">
+                <li>Mirror Material for Spheres
+                    <ol type="i">
+                        <li>Create Material</li>
+                        <li>Name Mirror Mat</li>
+                        <li>Set Metallic and Smoothness to 1</li>
+                        <li>Note how the skybox is reflected</li>
+                        <li><span class="highlight">EXTRA: You could also make a Skybox CubeMap or Reflection Probe for more advanced reflections.</span></li>
+                    </ol>
+                </li>
+            </ol>
+        </ol>
+
+        <img src="https://gyazo.com/fd26f388267a34060e8c89fb7804f38f.png" alt="Mirror Material Setup">
+        <p style="text-align: center;"><a href="https://gyazo.com/fd26f388267a34060e8c89fb7804f38f">https://gyazo.com/fd26f388267a34060e8c89fb7804f38f</a></p>
+
+        <ol start="4">
+            <ol type="a" start="3">
+                <li>Material for Floor
+                    <ol type="i">
+                        <li>Create Material</li>
+                        <li>Name Floor Mat</li>
+                        <li>Import Texture, drag to Albedo Box</li>
+                        <li>Import Normal Map, drag to Normal Map box under Secondary Maps</li>
+                    </ol>
+                </li>
+            </ol>
+        </ol>
+
+        <img src="https://gyazo.com/343cbf260c4df621305df8de80ce8924.png" alt="Floor Material Setup">
+        <p style="text-align: center;"><a href="https://gyazo.com/343cbf260c4df621305df8de80ce8924">https://gyazo.com/343cbf260c4df621305df8de80ce8924</a></p>
+
+        <ol start="5">
+            <li>Go to Edit/Project Settings/Player/Other Settings – change color space to Linear</li>
+        </ol>
+
+        <img src="https://gyazo.com/bf9d6d58646218c0e755608e5685bfc9.png" alt="Color Space Linear">
+        <p style="text-align: center;"><a href="https://gyazo.com/bf9d6d58646218c0e755608e5685bfc9">https://gyazo.com/bf9d6d58646218c0e755608e5685bfc9</a></p>
+
+        <ol start="6">
+            <li>In Edit/Project Settings/Quality Settings – check quality is on "High" or "Ultra"</li>
+        </ol>
+
+        <img src="https://gyazo.com/39d8fb8ec473d758d8e0d7de0fcba314.png" alt="Quality Settings">
+        <p style="text-align: center;"><a href="https://gyazo.com/39d8fb8ec473d758d8e0d7de0fcba314">https://gyazo.com/39d8fb8ec473d758d8e0d7de0fcba314</a></p>
+
+        <ol start="7">
+            <li>Also select "Hard and Soft Shadows" and "Very High Resolution" from the drop down boxes. Under the Shadows section</li>
+        </ol>
+
+        <img src="https://gyazo.com/36cbd9425890e16e703aeec2b741af3f.png" alt="Shadow Settings">
+        <p style="text-align: center;"><a href="https://gyazo.com/36cbd9425890e16e703aeec2b741af3f">https://gyazo.com/36cbd9425890e16e703aeec2b741af3f</a></p>
+
+        <ol start="8">
+            <li>Open Lighting Window from top menu Window/Rendering/Lighting… and dock it beside the Inspector Tab</li>
+            <li>There are 4 tabs in Lighting, we start with the Scene tab</li>
+            <li>Click New Lighting Settings at the top to create a new setup</li>
+            <li>Lighting Panel, Scene tab - Baking Indirect Light:
+                <ol type="a">
+                    <li>Lighting/Scene – Tick Auto-Generate" at bottom</li>
+                    <li>Lighting mode to Baked Indirect</li>
+                    <li>Lightmapper to Progressive GPU</li>
+                    <li>Lightmap Compression to "None"</li>
+                </ol>
+            </li>
+        </ol>
+
+        <p><em>This is Baked indirect lighting with real time shadows.</em></p>
+
+        <img src="https://gyazo.com/c186cd8349892c1ffe7f98885cc51811.png" alt="Lighting Settings">
+        <p style="text-align: center;"><a href="https://gyazo.com/c186cd8349892c1ffe7f98885cc51811">https://gyazo.com/c186cd8349892c1ffe7f98885cc51811</a></p>
+
+        <ol start="12">
+            <li>In Project Window at bottom, right click and Create a new Material</li>
+            <li>In the New Materials Inspector Window, click the Shader drop down box and select Skybox, then Procedural. For procedural settings select:
+                <ol type="a">
+                    <li>Expose about 0.15</li>
+                    <li>Make Sky Tint and Ground Colour Dark Colours</li>
+                </ol>
+            </li>
+            <li>Name this new Skybox Material Dark Skybox, and select the Lighting Window again</li>
+            <li>In the Lighting Window, select the Environment tab and drag the Dark Skybox material into the Skybox Material box at the top</li>
+            <li>Further down, select Other Settings/Fog, and set as the following:
+                <ol type="a">
+                    <li>Color: Select Darker color</li>
+                    <li>Mode: Linear</li>
+                    <li>Start: 0</li>
+                    <li>End: 20</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="https://gyazo.com/95e3c6c67935fa4746c346dfdd453d18.png" alt="Fog Settings">
+        <p style="text-align: center;"><a href="https://gyazo.com/95e3c6c67935fa4746c346dfdd453d18">https://gyazo.com/95e3c6c67935fa4746c346dfdd453d18</a></p>
+
+        <ol start="17">
+            <li>You should have the default Directional Light in the Hierarchy</li>
+            <li>Select the Directional Light, and in In Directional Light Inspector Window select the following:
+                <ol type="a">
+                    <li>Mode drop down box: Mixed</li>
+                    <li>Shadow Type drop down box: Soft Shadows</li>
+                    <li>Under Shadow Type/Realtime Shadows: Zero out Normal Bias</li>
+                    <li>Under Shadow Type/Realtime Shadows: Adjust Strength of Realtime shadows to less than one. This eliminates the black shadows with ambient light from the skybox</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="https://gyazo.com/554b8ee75298f2311c8420c1296585aa.png" alt="Directional Light Settings">
+        <p style="text-align: center;"><a href="https://gyazo.com/554b8ee75298f2311c8420c1296585aa">https://gyazo.com/554b8ee75298f2311c8420c1296585aa</a></p>
+
+        <ol start="19">
+            <li>Post Processing Setup: Camera
+                <ol type="a">
+                    <li>In Window/Package Manager</li>
+                    <li>Select top left drop down for Unity Registry</li>
+                    <li>Search for Post Processing, Install</li>
+                    <li>In Hierarchy, select Main Camera, and in Inspector Window add Post Processing Layer as a Component (Add Component)</li>
+                    <li>Select Temporal Anti-Aliasing</li>
+                    <li>In top right, Add Layer, name Post Processing in a blank box or any preferred name</li>
+                    <li>Go back, set Main Camera Layer to Post Processing layer you just made</li>
+                    <li><span class="highlight">Select Post Processing layer in Post processing Component</span></li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="https://gyazo.com/860d5ca657e2f70b7f1d27f96eb9bf3b.png" alt="Post Processing Layer">
+        <p style="text-align: center;"><a href="https://gyazo.com/860d5ca657e2f70b7f1d27f96eb9bf3b">https://gyazo.com/860d5ca657e2f70b7f1d27f96eb9bf3b</a></p>
+
+        <ol start="19">
+            <ol type="a" start="9">
+                <li>Make sure HDR is set to Use Graphics Settings in the Camera settings:</li>
+            </ol>
+        </ol>
+
+        <img src="https://gyazo.com/5f1805a303ab78c6c8db5a5e727562ce.png" alt="HDR Settings">
+        <p style="text-align: center;"><a href="https://gyazo.com/5f1805a303ab78c6c8db5a5e727562ce">https://gyazo.com/5f1805a303ab78c6c8db5a5e727562ce</a></p>
+
+        <ol start="20">
+            <li>Post Processing Setup: Volume
+                <ol type="a">
+                    <li>Create Empty Game Object in Hierarchy</li>
+                    <li>Name it Post Processing Volume or any preferred name</li>
+                    <li>Add Component – Post Process Volume</li>
+                    <li>Tick "Is Global"</li>
+                    <li>Select Post Processing Layer made previously</li>
+                    <li>Create New Profile (new button on right)</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="https://gyazo.com/f3ff894ee14d48f6bd5230f7f204e50d.png" alt="Post Process Volume">
+        <p style="text-align: center;"><a href="https://gyazo.com/f3ff894ee14d48f6bd5230f7f204e50d">https://gyazo.com/f3ff894ee14d48f6bd5230f7f204e50d</a></p>
+
+        <ol start="20">
+            <ol type="a" start="7">
+                <li>Click on new profile created in box to locate in Project folder</li>
+                <li>Now select Volume and add effects
+                    <ol type="i">
+                        <li>Bloom
+                            <ol type="1">
+                                <li>Try adjustments above 1 for intensity, and about .8 for threshold</li>
+                                <li>You will have to adjust… the Skybox and some materials to not be pure white, so they do not bloom</li>
+                                <li>Now add objects with Emission materials for glow.</li>
+                            </ol>
+                        </li>
+                        <li>Ambient Occlusion
+                            <ol type="1">
+                                <li>Settings as below:</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </ol>
+
+        <img src="https://gyazo.com/2d7b37ec4694f17fb82b3706177b4850.png" alt="Ambient Occlusion">
+        <p style="text-align: center;"><a href="https://gyazo.com/2d7b37ec4694f17fb82b3706177b4850">https://gyazo.com/2d7b37ec4694f17fb82b3706177b4850</a></p>
+
+        <ol start="21">
+            <li>Make all objects Static for full lighting effect</li>
+            <li>Light and reflection Probes can be added for dynamic effects</li>
+        </ol>
+
+        <img src="https://gyazo.com/53b56eae57b18e70a33945970d081742.png" alt="Static Objects">
+        <p style="text-align: center;"><a href="https://gyazo.com/53b56eae57b18e70a33945970d081742">https://gyazo.com/53b56eae57b18e70a33945970d081742</a></p>
+
+        <h2>Part 2: URP (Universal Render Pipeline)</h2>
+
+        <p><strong>Reference:</strong> <a href="https://universityofwestminster-my.sharepoint.com/:w:/g/personal/fergusj_westminster_ac_uk/ERkCcC26fWhJsLzo7nhtb6gBTsoLcsfCKKRyNmeYpSep3w?e=6E0GYo">Tutorial Sheet 12 non URP Basic 2024 011.docx</a></p>
+
+        <ol>
+            <li>Do one of two ways below:
+                <ol type="a">
+                    <li>Create new Unity Project – URP example template from Unity Hub
+                        <ol type="i">
+                            <li>Import XR Unity Package you created from Tutorial 01 or 02</li>
+                            <li>Import OpenXR and implement project settings as in Tutorial 01</li>
+                            <li>Import XRIT and implement project settings if using Tutorial 02 package</li>
+                        </ol>
+                    </li>
+                    <li>Convert existing Standard Lighting (Built-in 3D) Unity Project to URP:
+                        <ol type="i">
+                            <li><a href="https://youtu.be/KpTK-OraZ-g">https://youtu.be/KpTK-OraZ-g</a></li>
+                            <li>In Existing project, Import Universal RP package from Unity Registry in Package Manager</li>
+                            <li>Right Click in Project window – Create Rendering/URP Asset with Universal Renderer</li>
+                            <li>Edit/Project Settings/Graphics/Select the URP (Universal Render Pipeline Asset you created above</li>
+                            <li>Convert materials: Window/Rendering/Render Pipeline Converter/
+                                <ol type="1">
+                                    <li>Select Built in to URP</li>
+                                    <li>Tick Rendering Settings</li>
+                                    <li>Tick Material Upgrade</li>
+                                    <li>Press Initialise Converters</li>
+                                    <li>Click Convert assets</li>
+                                </ol>
+                            </li>
+                            <li>Trouble shoot individual materials with change from Standard to URP in Inspector</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>Open and Check Lighting tab - Create New Lighting Setting from Button</li>
+            <li>Enable Baked Global Illumination under Mixed Lighting</li>
+            <li>Enable Auto Generate at bottom of page – this eliminates the black shadows by using ambient light from the skybox</li>
+            <li>Go to Edit/Project Settings/Player/Other Settings – change color space to Linear</li>
+            <li>In Edit/Project Settings/Quality/RenderPipelineAsset - check on URP-HighQuality(Universal Render Pipeline Asset) - click on circle to right of box to add if missing.</li>
+            <li>In the Inspector/Directional Light – rotate to 30,-150,0 or to taste</li>
+            <li>In Lighting Window – Environment Tab, test effects of using color rather than Skybox</li>
+            <li>Baking Indirect Light:
+                <ol type="a">
+                    <li>Lighting/Scene – Untick Auto-Generate at bottom</li>
+                    <li>Lighting mode: Dropdown box to Baked Indirect</li>
+                    <li>Lightmapper: Dropdown box to Progressive GPU</li>
+                    <li>Lightmap Compression: Dropdown box to None</li>
+                    <li>In Hierarchy, Inspector, make Café Static (and children)</li>
+                    <li>In Hierarchy, Inspector, Directional Light –
+                        <ol type="i">
+                            <li>Mode: Dropdown box to Mixed</li>
+                            <li>Shadows/Bias: dropdown box to Custom, zero out</li>
+                        </ol>
+                    </li>
+                    <li>In Lighting Window – clear baked data, then "Generate Lighting"</li>
+                    <li>This is Baked indirect lighting with real time shadows.</li>
+                </ol>
+            </li>
+            <li>Add Fog
+                <ol type="a">
+                    <li>Lighting Window/Environment/ Tick Fog</li>
+                    <li>Select Linear in Mode drop down box</li>
+                    <li>Set start to 5, end to 150</li>
+                    <li>Pick color</li>
+                </ol>
+            </li>
+            <li>Post Processing Setup - Camera
+                <ol type="a">
+                    <li>No Post Processing layers or setup needed with URP</li>
+                </ol>
+            </li>
+            <li>Post Processing Setup – Global Volume
+                <ol type="a">
+                    <li>No Post Processing Volume setup needed with URP
+                        <ol type="i">
+                            <li>Just make sure Global Volume is active and mode is Global</li>
+                            <li>Can adjust Weight of overall effect</li>
+                            <li>Check it has profile</li>
+                        </ol>
+                    </li>
+                    <li>Just Add Overrides for Options
+                        <ol type="i">
+                            <li>Defaults are Tonemapping, Bloom</li>
+                            <li>Tick to activate needed settings and adjust</li>
+                            <li>Suggested Overrides:
+                                <ol type="1">
+                                    <li>Ambient Occlusion</li>
+                                    <li>Depth of Field</li>
+                                    <li>Motion Blur</li>
+                                    <li>Vignette</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>For Glow/Emission –
+                        <ol type="i">
+                            <li>Check HDR in Main Camera (may be in First Person Character) is set to "Use Settings from Render Pipeline Asset"</li>
+                            <li>Create a Dark Skybox
+                                <ol type="1">
+                                    <li>Create Material</li>
+                                    <li>In shader dropdown select Skybox/Procedural</li>
+                                    <li>Adjust down Sun Tint, Atmosphere Tint</li>
+                                    <li>Take HDR exposure down to .3</li>
+                                    <li>Drag into Lighting/Environment/SkyboxMaterial box to replace old Skybox Material</li>
+                                    <li>Adjust Directional light Color down in Hierarchy to taste</li>
+                                    <li>Select Café Railings and adjust material to less than 100% White</li>
+                                </ol>
+                            </li>
+                            <li>Add Bloom to Volume
+                                <ol type="1">
+                                    <li>Try adjustments above 1 for intensity, and about .8 for threshold</li>
+                                    <li>You will have to adjust… the Skybox and some materials to not be pure white, so they do not bloom</li>
+                                    <li>You can now add objects with Emission materials for glow.</li>
+                                </ol>
+                            </li>
+                            <li>Glow - Create Cube with Emission Material
+                                <ol type="1">
+                                    <li>Create Material</li>
+                                    <li>Tick Emission</li>
+                                    <li>Pick HDR color to be bright</li>
+                                </ol>
+                            </li>
+                            <li>At this point you will want to rethink your Directional Light(s) and Rebake!</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <p><strong>References for Bloom:</strong></p>
+        <ul>
+            <li><a href="https://www.youtube.com/watch?v=bU1sBNfbdM4">https://www.youtube.com/watch?v=bU1sBNfbdM4</a></li>
+            <li><a href="https://youtu.be/WiDVoj5VQ4c">https://youtu.be/WiDVoj5VQ4c</a></li>
+            <li><a href="https://www.youtube.com/watch?v=czE2oLyrNLM">https://www.youtube.com/watch?v=czE2oLyrNLM</a></li>
+        </ul>
+
+        <h3>Troubleshooting (Settings to check):</h3>
+        <ul>
+            <li>Top Menu/Edit/Project Settings/Quality/Current Active Quality Level = High Fidelity or Ultra</li>
+            <li>Top Menu/Edit/Project Settings/Quality/Rendering/Render Pipeline Asset = URP "HighFidelity(Universal Render Pipeline Asset) (none if Standard)</li>
+            <li>Window/Rendering/Lighting/Scene/Lighting Settings/Lighting Settings Asset = "LightingSettingYouMade"(press New)</li>
+            <li>Window/Rendering/Lighting/Scene/Realtime Lighting/Realtime Global Illumination = off</li>
+            <li>Window/Rendering/Lighting/Scene/ Mixed Lighting /Baked Global Illumination = on</li>
+            <li>Window/Rendering/Lighting/Scene/Lightmapping Settings/Lightmapper = Progressive GPU</li>
+            <li>Window/Rendering/Lighting/Scene/Lightmapping Settings/AutoGenerate = off (press Generate Lighting as needed)</li>
+            <li>Hierarchy/Post Process Volume/Global Volume/Profile ("SampleProfile or ProfileYouMade"(press New)</li>
+            <li>Hierarchy/Post Process Volume/Post Process Volume/Overrides as desired...</li>
+            <li>Hierarchy/Post Process Volume/Lights/Light/Mode/Mixed</li>
+            <li>Hierarchy/Post Process Volume/Lights/Light/Shadow Type/Soft Shadows</li>
+            <li>Check Standard or URP Renderer: Project Settings/Graphics/ URP "HighFidelity(Universal Render Pipeline Asset)</li>
+            <li>Check Standard or URP Renderer: Project Settings/Graphics/URP Global Settings/UniversalRenderPipelineGlobalSettings (Universal Render Pipeline Global Settings)</li>
+            <li>Settings - <a href="https://www.youtube.com/watch?v=JjHwpP6elnc">How to Fix Pink Materials in Unity 2023 | Render Pipeline Basics</a></li>
+        </ul>
+
+        <h3>Additional Assets/Environments:</h3>
+        <ul>
+            <li><strong>Probuilder/Realtime CSG and UVs</strong></li>
+            <li><strong>Mecabricks and Pivots</strong></li>
+        </ul>
+
+        <h2 style="margin-top: 40px; font-size: 24px; text-align: center;">Done Week 3!</h2>
+    </div>
+</body>
+</html>

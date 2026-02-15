@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 04-05 - Unity XR Interaction Toolkit 3.0 - Optimized for Unity 6000.0.58</title>
+    <style>
+        /* Basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Calibri", "Arial", sans-serif;
+            font-size: 11pt;
+            line-height: 1.15;
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: "Calibri", sans-serif;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 16pt;
+            border-bottom: 3px solid #333;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin-top: 25px;
+            color: #2c3e50;
+        }
+
+        h3 {
+            font-size: 12pt;
+            margin-top: 15px;
+            color: #34495e;
+        }
+
+        h4 {
+            font-size: 11pt;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        p {
+            margin: 10px 0;
+            line-height: 1.15;
+        }
+
+        a {
+            color: #1155CC;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #663399;
+        }
+
+        /* Version warning box */
+        .version-warning {
+            background-color: #ffebee;
+            border: 3px solid #c62828;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .version-warning h2 {
+            margin-top: 0;
+            color: #c62828;
+        }
+
+        /* Modern approach boxes */
+        .modern-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .modern-box h3, .modern-box h4 {
+            color: #1b5e20;
+            margin-top: 10px;
+        }
+
+        /* Legacy context boxes */
+        .legacy-box {
+            background-color: #fff9c4;
+            border-left: 5px solid #f57f17;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .legacy-box h3, .legacy-box h4 {
+            color: #e65100;
+            margin-top: 10px;
+        }
+
+        /* Comparison boxes */
+        .comparison-box {
+            background-color: #e3f2fd;
+            border: 2px solid #1976d2;
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .comparison-box h3 {
+            color: #0d47a1;
+            margin-top: 0;
+        }
+
+        /* Info/Note boxes */
+        .note {
+            background-color: #FFF8DC;
+            padding: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #FFB6C1;
+            font-style: italic;
+        }
+
+        .info-box {
+            background-color: #e1f5fe;
+            border-left: 4px solid #0288d1;
+            padding: 12px;
+            margin: 15px 0;
+        }
+
+        /* Highlight boxes */
+        .highlight {
+            background-color: #FFFF00;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #FFA500;
+        }
+
+        .highlight-green {
+            background-color: #00FF00;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #008000;
+        }
+
+        /* Time badges */
+        .time-badge {
+            display: inline-block;
+            background-color: #5c6bc0;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 9pt;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Lists */
+        ol, ul {
+            margin-left: 36px;
+            margin-bottom: 10px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.15;
+        }
+
+        ol ol, ol ul, ul ol, ul ul {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            display: inline-block;
+        }
+
+        .image-caption {
+            font-size: 10pt;
+            font-style: italic;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .link-section {
+            text-align: center;
+            margin: 10px 0 20px 0;
+        }
+
+        /* Code/technical elements */
+        code, .code {
+            font-family: "Courier New", monospace;
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10pt;
+        }
+
+        /* Checkmarks and icons */
+        .checkmark {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .crossmark {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        /* Indentation */
+        .indent-1 {
+            margin-left: 36px;
+        }
+
+        .indent-2 {
+            margin-left: 72px;
+        }
+
+        /* Section breaks */
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 2px solid #ccc;
+        }
+
+        /* Video embeds */
+        .video-link {
+            display: block;
+            margin: 15px 0;
+            padding: 12px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Step boxes */
+        .step-box {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .step-number {
+            display: inline-block;
+            background-color: #1976d2;
+            color: white;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Underline */
+        .underline {
+            text-decoration: underline;
+        }
+
+        /* Bold */
+        strong, b {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- VERSION COMPATIBILITY HEADER -->
+        <div class="version-warning">
+            <h2>⚠️ UPDATED FOR UNITY 6000.0.58 + XR INTERACTION TOOLKIT 3.0.10 (2026)</h2>
+            <p><strong>This tutorial has been completely reorganized for XRIT 3.0's new architecture.</strong></p>
+            <p><strong>Major Changes in XRIT 3.0:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>ActionBasedController DEPRECATED:</strong> Old component removed - replaced by Input Readers</li>
+                <li><strong>GameObject Menu Creates Minimal Rig:</strong> XR Origin (VR) no longer includes controllers by default</li>
+                <li><strong>Complete Rig Now in Starter Assets:</strong> Use prefab for full setup with controllers</li>
+                <li><strong>Near-Far Interactor:</strong> New unified component replaces separate Direct + Ray interactors</li>
+                <li><strong>Input Readers:</strong> Built into interactors - no manual Input Action copying needed</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>📚 Teaching Approach:</strong> This tutorial teaches the modern XRIT 3.0 workflow, with legacy context provided for understanding older projects.</p>
+        </div>
+
+        <!-- Title -->
+        <h1>Tutorial 04-05 - Unity XR Interaction Toolkit Introduction</h1>
+        <p style="text-align: center; font-size: 10pt; color: #666; font-style: italic;">
+            Optimized for Unity 6000.0.58 + XR Interaction Toolkit 3.0.10
+        </p>
+
+        <p>&nbsp;</p>
+
+        <!-- Tutorial Overview -->
+        <div class="comparison-box">
+            <h3>📋 Tutorial Overview - 60 Minute Learning Path</h3>
+            <table>
+                <tr>
+                    <th style="width: 20%;">Time</th>
+                    <th style="width: 35%;">Section</th>
+                    <th style="width: 45%;">What You'll Learn</th>
+                </tr>
+                <tr>
+                    <td><strong>0-15 min</strong></td>
+                    <td><strong>Part 1: Quick Start</strong></td>
+                    <td>Get a working VR rig immediately using the Complete Rig prefab</td>
+                </tr>
+                <tr>
+                    <td><strong>15-30 min</strong></td>
+                    <td><strong>Part 2: Understanding</strong></td>
+                    <td>Inspect and understand components of the Complete Rig</td>
+                </tr>
+                <tr>
+                    <td><strong>30-50 min</strong></td>
+                    <td><strong>Part 3: Build Your Own</strong></td>
+                    <td>Create a custom rig from scratch using XRIT 3.0 components</td>
+                </tr>
+                <tr>
+                    <td><strong>50-60 min</strong></td>
+                    <td><strong>Part 4: Legacy Context</strong></td>
+                    <td>Understand historical approaches and work with older projects</td>
+                </tr>
+            </table>
+        </div>
+
+        <p>&nbsp;</p>
+
+        <!-- Tutorial Slides -->
+        <p>
+            <span class="underline"><strong>Supplemental Tutorial Slides (From slide 16):</strong></span>
+            <a href="https://docs.google.com/presentation/d/1OYKRUc4xQk6-QxhIQs3wG7ThayrVIxu1T-NwEIzzm8g/edit#slide=id.g1089158013f_0_15">
+                https://docs.google.com/presentation/d/1OYKRUc4xQk6-QxhIQs3wG7ThayrVIxu1T-NwEIzzm8g/edit#slide=id.g1089158013f_0_15
+            </a>
+        </p>
+
+        <p>&nbsp;</p>
+
+        <hr>
+
+        <!-- PART 1: QUICK START -->
+        <h2>🚀 PART 1: QUICK START - Working VR in 15 Minutes <span class="time-badge">0-15 MIN</span></h2>
+
+        <div class="modern-box">
+            <h3>🎯 Goal: Get a fully functional VR rig working immediately</h3>
+            <p><strong>Why start here?</strong> You'll see the end result first, then learn how it works. This "success-first" approach keeps motivation high!</p>
+        </div>
+
+        <h3>Step 1: Create New Project</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Create new 3D Unity Project</strong> in <strong>Unity 6000.0.58f2</strong></p>
+            <ul style="margin-left: 50px; margin-top: 10px;">
+                <li>Open Unity Hub</li>
+                <li>Click "New Project"</li>
+                <li>Select "3D (URP)" or "3D" template</li>
+                <li>Name: "XR Tutorial 04-05"</li>
+                <li>Click "Create Project"</li>
+            </ul>
+        </div>
+
+        <h3>Step 2: Install Required Packages</h3>
+        <div class="step-box">
+            <p><span class="step-number">2</span> <strong>Install OpenXR Plugin</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Open <strong>Window</strong> → <strong>Package Manager</strong></li>
+                <li>Change dropdown from "In Project" to <strong>"Unity Registry"</strong></li>
+                <li>Search for <strong>"OpenXR Plugin"</strong></li>
+                <li>Click <strong>Install</strong></li>
+                <li>Accept restart if prompted</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image001.gif" alt="OpenXR Installation">
+            <div class="link-section">
+                <a href="https://gyazo.com/d06b50d22d959cc286ef776f40316167">https://gyazo.com/d06b50d22d959cc286ef776f40316167</a>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">3</span> <strong>Configure OpenXR in Project Settings</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Open <strong>Edit</strong> → <strong>Project Settings</strong></li>
+                <li>Navigate to <strong>XR Plug-in Management</strong></li>
+                <li>Check <strong>OpenXR</strong></li>
+                <li>Click any yellow warnings and select <strong>"Fix All"</strong></li>
+                <li>Under <strong>OpenXR</strong> section, click the <strong>+</strong> button</li>
+                <li>Add <strong>"Khronos Simple Controller Profile"</strong></li>
+                <li>(Optional) Add your hardware HMD profile (e.g., Meta Quest, HTC Vive)</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image002.gif" alt="OpenXR Settings">
+            <div class="link-section">
+                <a href="https://gyazo.com/841193a1483543eab11e5989ca30f79b">https://gyazo.com/841193a1483543eab11e5989ca30f79b</a>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image003.jpg" alt="Khronos Profile">
+            <div class="link-section">
+                <a href="https://gyazo.com/1bbc3b2e9a25c5a4ca78cb999d848dec">https://gyazo.com/1bbc3b2e9a25c5a4ca78cb999d848dec</a>
+            </div>
+        </div>
+
+        <h3>Step 3: Install XR Interaction Toolkit 3.0.10+</h3>
+        <div class="step-box">
+            <p><span class="step-number">4</span> <strong>Install XR Interaction Toolkit</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>In <strong>Package Manager</strong>, ensure <strong>"Unity Registry"</strong> is selected</li>
+                <li>Scroll down or search for <strong>"XR Interaction Toolkit"</strong></li>
+                <li>Click <strong>Install</strong></li>
+                <li>Wait for installation to complete</li>
+            </ol>
+        </div>
+
+        <div class="modern-box">
+            <p><strong>🔔 Important XRIT 3.0 Change:</strong> You're installing version 3.0.10+, which has a completely different architecture from 2.x. The key difference: <strong>Input Readers</strong> are now built into interactors, eliminating manual Input Action copying.</p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">5</span> <strong>Install Required Samples</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>With <strong>XR Interaction Toolkit</strong> selected in Package Manager</li>
+                <li>Click the <strong>Samples</strong> tab</li>
+                <li>Find <strong>"Starter Assets"</strong> and click <strong>Import</strong></li>
+                <li>Find <strong>"XR Device Simulator"</strong> and click <strong>Import</strong></li>
+                <li>Wait for import to complete</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image004.gif" alt="XR Interaction Toolkit Installation">
+            <div class="link-section">
+                <a href="https://gyazo.com/98d766b317c6531c5958605302b70ab7">https://gyazo.com/98d766b317c6531c5958605302b70ab7</a>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <p><strong>📁 Where did the samples go?</strong> Check your Project window:</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><code>Assets/Samples/XR Interaction Toolkit/3.0.10/Starter Assets/</code></li>
+                <li><code>Assets/Samples/XR Interaction Toolkit/3.0.10/XR Device Simulator/</code></li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image005.gif" alt="Project Imports">
+            <div class="link-section">
+                <a href="https://gyazo.com/cdcb2cc669ac948f558b9894e63b6262">https://gyazo.com/cdcb2cc669ac948f558b9894e63b6262</a>
+            </div>
+        </div>
+
+        <h3>Step 4: Enable XR Device Simulator</h3>
+        <div class="step-box">
+            <p><span class="step-number">6</span> <strong>Enable Simulator for Testing Without Hardware</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Open <strong>Edit</strong> → <strong>Project Settings</strong></li>
+                <li>Go to <strong>XR Plug-in Management</strong></li>
+                <li>Find <strong>"XR Device Simulator"</strong> section</li>
+                <li>Check <strong>"Use XR Device Simulator in scenes"</strong></li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image006.gif" alt="XR Plugin Management">
+            <div class="link-section">
+                <a href="https://gyazo.com/efe493ae9f5000ff4e3fb093f8dbcf1d">https://gyazo.com/efe493ae9f5000ff4e3fb093f8dbcf1d</a>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <p><strong>What is XR Device Simulator?</strong> It lets you test VR interactions using your mouse and keyboard - no VR headset required! This is essential for rapid development and debugging.</p>
+        </div>
+
+        <h3>Step 5: Add the Complete XR Rig (THE KEY STEP!)</h3>
+
+        <div class="modern-box">
+            <h4>⚠️ CRITICAL XRIT 3.0 CHANGE</h4>
+            <p><strong>In XRIT 2.x:</strong> You used <strong>GameObject → XR → XR Origin (Action Based)</strong> which created a complete rig with controllers.</p>
+            <p><strong>In XRIT 3.0:</strong> That menu option creates a <strong>MINIMAL rig</strong> (just camera - NO controllers). Instead, use the <strong>Complete Rig Prefab</strong> from Starter Assets!</p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">7</span> <strong>Import the Complete XR Rig Prefab</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li><strong>Delete the Main Camera</strong> in your scene (we don't need it)</li>
+                <li>In <strong>Project window</strong>, navigate to:<br>
+                    <code>Assets/Samples/XR Interaction Toolkit/3.0.10/Starter Assets/Prefabs/</code>
+                </li>
+                <li>Find the prefab named <strong>"XR Origin (XR Rig)"</strong> or <strong>"Complete XR Origin Setup"</strong></li>
+                <li><strong>Drag it into your Hierarchy</strong></li>
+                <li>Position at (0, 0, 0) if not already</li>
+            </ol>
+        </div>
+
+        <div class="highlight-green">
+            <p><strong>🎉 Congratulations!</strong> You now have a complete, fully-functional VR rig with:</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> Head tracking (camera)</li>
+                <li><span class="checkmark">✓</span> Left and right hand controllers</li>
+                <li><span class="checkmark">✓</span> Near-Far Interactors (grab and point)</li>
+                <li><span class="checkmark">✓</span> Input Readers (automatic input handling)</li>
+                <li><span class="checkmark">✓</span> Controller visuals</li>
+                <li><span class="checkmark">✓</span> Locomotion system (teleport, movement)</li>
+            </ul>
+        </div>
+
+        <h3>Step 6: Add Scene Environment</h3>
+        <div class="step-box">
+            <p><span class="step-number">8</span> <strong>Create Test Environment</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Right-click in Hierarchy → <strong>3D Object → Plane</strong></li>
+                <li>Name it "Floor", set Position (0, 0, 0), Scale (2, 1, 2)</li>
+                <li>Right-click in Hierarchy → <strong>3D Object → Cube</strong></li>
+                <li>Name it "GrabbableCube", set Position (0, 1, 2)</li>
+                <li>With GrabbableCube selected, click <strong>Add Component</strong></li>
+                <li>Search for <strong>"XR Grab Interactable"</strong> and add it</li>
+                <li>(Optional) Create more cubes at different positions for testing</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image011.gif" alt="Scene Objects">
+            <div class="link-section">
+                <a href="https://gyazo.com/0bd770aeb4e0c913faf296983f56a2b9">https://gyazo.com/0bd770aeb4e0c913faf296983f56a2b9</a>
+            </div>
+        </div>
+
+        <h3>Step 7: Test Your VR Scene!</h3>
+        <div class="step-box">
+            <p><span class="step-number">9</span> <strong>Run and Test</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Click the <strong>Play</strong> button</li>
+                <li>Use these controls to test:</li>
+            </ol>
+            <ul style="margin-left: 70px; margin-top: 10px;">
+                <li><strong>Camera View:</strong> Right Mouse Button (hold) + Move Mouse</li>
+                <li><strong>Camera Rotate:</strong> RMB (hold) + Left Control + Move Mouse</li>
+                <li><strong>Left Hand:</strong> Left Shift (hold) + Move Mouse</li>
+                <li><strong>Right Hand:</strong> Space (hold) + Move Mouse</li>
+                <li><strong>Grab Object:</strong> Move hand near cube + Press <strong>G</strong></li>
+                <li><strong>Ray Pointer:</strong> Press <strong>Q</strong> (left) or <strong>E</strong> (right)</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image012.gif" alt="Test Feedback">
+            <div class="link-section">
+                <a href="https://gyazo.com/2e872132f5cd1b5b57480464615f419d">https://gyazo.com/2e872132f5cd1b5b57480464615f419d</a>
+            </div>
+        </div>
+
+        <div class="highlight-green">
+            <h4>🎊 SUCCESS CHECKPOINT</h4>
+            <p><strong>You should now be able to:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> See controller models in the scene</li>
+                <li><span class="checkmark">✓</span> Move the camera view around</li>
+                <li><span class="checkmark">✓</span> Control left and right hands</li>
+                <li><span class="checkmark">✓</span> Grab and move the cube</li>
+                <li><span class="checkmark">✓</span> See ray pointers when pressing Q or E</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Congratulations! You have a working VR application in under 15 minutes!</strong></p>
+        </div>
+
+        <p>&nbsp;</p>
+        <hr>
+
+        <!-- PART 2: UNDERSTANDING THE RIG -->
+        <h2>🔍 PART 2: UNDERSTANDING THE COMPLETE RIG <span class="time-badge">15-30 MIN</span></h2>
+
+        <div class="modern-box">
+            <h3>🎯 Goal: Understand what Unity gave you in the Complete Rig prefab</h3>
+            <p><strong>Why inspect?</strong> Understanding the architecture helps you customize, troubleshoot, and build your own rigs from scratch.</p>
+        </div>
+
+        <h3>Inspect the Hierarchy</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Expand the XR Origin in Hierarchy</strong></p>
+            <p style="margin-left: 50px;">Click the arrow next to "XR Origin (XR Rig)" to see the structure:</p>
+        </div>
+
+        <div class="code" style="background-color: #f5f5f5; padding: 15px; margin: 15px 0; font-family: 'Courier New', monospace;">
+XR Origin (XR Rig)<br>
+├── Camera Offset<br>
+│   ├── Main Camera<br>
+│   ├── LeftHand Controller<br>
+│   │   ├── LeftHand Interactor (Near-Far or Direct + Ray)<br>
+│   │   └── Controller Model (visual)<br>
+│   ├── RightHand Controller<br>
+│   │   ├── RightHand Interactor (Near-Far or Direct + Ray)<br>
+│   │   └── Controller Model (visual)<br>
+│   └── Locomotion System (optional)<br>
+└── XR Interaction Manager
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image007.gif" alt="XR Origin Setup">
+            <div class="link-section">
+                <a href="https://gyazo.com/20f67d127947bb03bf0486dbeae4f542">https://gyazo.com/20f67d127947bb03bf0486dbeae4f542</a>
+            </div>
+        </div>
+
+        <h3>Key Components Explained</h3>
+
+        <h4>1. XR Origin (Root GameObject)</h4>
+        <div class="info-box">
+            <p><strong>Component:</strong> XR Origin</p>
+            <p><strong>Purpose:</strong> Defines the "origin point" of your VR space. The camera and controllers are positioned relative to this origin. When you move the XR Origin, the entire player (camera + controllers) moves.</p>
+            <p><strong>Key Settings:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Camera Floor Offset Object:</strong> Reference to Camera Offset (for height adjustments)</li>
+                <li><strong>Requested Tracking Mode:</strong> Usually "Room Scale"</li>
+            </ul>
+        </div>
+
+        <h4>2. Camera Offset</h4>
+        <div class="info-box">
+            <p><strong>Purpose:</strong> Container for the camera and controllers. This allows you to adjust player height or position all player components together.</p>
+            <p><strong>Why it exists:</strong> In VR, the headset position (0,0,0) might be at floor level. Camera Offset lets you raise the player to standing height (typically Y = 1.36 meters).</p>
+        </div>
+
+        <h4>3. Main Camera</h4>
+        <div class="info-box">
+            <p><strong>Components:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Camera:</strong> Standard Unity camera - this is what renders the VR view</li>
+                <li><strong>Tracked Pose Driver:</strong> Receives position/rotation from the VR headset</li>
+                <li><strong>Audio Listener:</strong> Receives 3D audio (where you "hear" from)</li>
+            </ul>
+            <p><strong>Key Point:</strong> The Tracked Pose Driver automatically updates the camera position based on where the player moves their head in real space.</p>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image010.gif" alt="Tracked Pose Driver">
+            <div class="link-section">
+                <a href="https://gyazo.com/534a8b8ed9aad6beadc3b1c620086e54">https://gyazo.com/534a8b8ed9aad6beadc3b1c620086e54</a>
+            </div>
+        </div>
+
+        <h4>4. LeftHand / RightHand Controllers</h4>
+
+        <div class="modern-box">
+            <h4>🆕 XRIT 3.0 Architecture: Near-Far Interactors</h4>
+            <p><strong>What Changed:</strong> In XRIT 2.x, you needed TWO separate interactors per hand:</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="crossmark">✗</span> XR Direct Interactor (for touch-based grabbing)</li>
+                <li><span class="crossmark">✗</span> XR Ray Interactor (for distance pointing)</li>
+                <li><span class="crossmark">✗</span> ActionBasedController (for input - now deprecated)</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>XRIT 3.0 Solution:</strong> <strong>Near-Far Interactor</strong> - ONE component that does both!</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> Automatically grabs nearby objects (direct mode)</li>
+                <li><span class="checkmark">✓</span> Automatically points at distant objects (ray mode)</li>
+                <li><span class="checkmark">✓</span> Has built-in Input Readers (no manual setup!)</li>
+                <li><span class="checkmark">✓</span> Intelligent mode switching based on distance</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">2</span> <strong>Inspect a Hand Controller</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Select <strong>LeftHand Controller</strong> in Hierarchy</li>
+                <li>Look at the Inspector window</li>
+                <li>Find the <strong>Near-Far Interactor</strong> component (or XR Direct/Ray if using legacy setup)</li>
+                <li>Examine the settings:</li>
+            </ol>
+        </div>
+
+        <h4>Near-Far Interactor Component Breakdown:</h4>
+
+        <table>
+            <tr>
+                <th>Section</th>
+                <th>What It Does</th>
+            </tr>
+            <tr>
+                <td><strong>Input Configuration</strong></td>
+                <td>
+                    <strong>Input Readers</strong> embedded here!<br>
+                    • Select Action Reader (trigger button)<br>
+                    • Activate Action Reader (grip button)<br>
+                    • UI Press Action Reader (primary button)<br>
+                    <strong>Note:</strong> No manual Input Action references needed - it's automatic!
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Controller Node</strong></td>
+                <td>
+                    Which hand this interactor controls:<br>
+                    • Left Hand<br>
+                    • Right Hand
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Near Interaction</strong></td>
+                <td>
+                    • Sphere Collider (for detecting nearby objects)<br>
+                    • Attach Transform (where grabbed objects snap to)<br>
+                    • Collision radius (how close you need to be)
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Far Interaction</strong></td>
+                <td>
+                    • Ray Origin Transform<br>
+                    • Ray Length (how far you can point)<br>
+                    • Line Renderer (visual ray beam)<br>
+                    • Ray color and width settings
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Transition Settings</strong></td>
+                <td>
+                    • Enable Interaction Distance (when to switch modes)<br>
+                    • Smooth transitions between near and far
+                </td>
+            </tr>
+        </table>
+
+        <div class="info-box">
+            <p><strong>💡 Key Insight:</strong> Notice how you don't see any Input Action references to copy/paste? That's because <strong>Input Readers</strong> handle everything automatically in XRIT 3.0. This is the major architectural improvement!</p>
+        </div>
+
+        <h4>5. XR Interaction Manager</h4>
+        <div class="info-box">
+            <p><strong>Purpose:</strong> The "traffic controller" for all XR interactions in your scene.</p>
+            <p><strong>What it does:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li>Manages communication between Interactors (controllers) and Interactables (grabbable objects)</li>
+                <li>Handles hover, select, and activate events</li>
+                <li>Resolves conflicts when multiple interactors target the same object</li>
+                <li>Processes Input Reader data in XRIT 3.0</li>
+            </ul>
+            <p><strong>Important:</strong> Every scene needs exactly ONE XR Interaction Manager. The Complete Rig prefab includes it automatically.</p>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image009.gif" alt="Input Action Manager">
+            <div class="link-section">
+                <a href="https://gyazo.com/9b874069adec39b8b58e07eed3f98c94">https://gyazo.com/9b874069adec39b8b58e07eed3f98c94</a>
+            </div>
+        </div>
+
+        <h3>Understanding XR Grab Interactable</h3>
+
+        <div class="step-box">
+            <p><span class="step-number">3</span> <strong>Inspect the Grabbable Cube</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Select your <strong>GrabbableCube</strong> in Hierarchy</li>
+                <li>Look at the <strong>XR Grab Interactable</strong> component</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image023.gif" alt="XR Grab Interactable">
+            <div class="link-section">
+                <a href="https://gyazo.com/c2b2b111b8522bb774fb583ee8f80403">https://gyazo.com/c2b2b111b8522bb774fb583ee8f80403</a>
+            </div>
+        </div>
+
+        <h4>Key Settings:</h4>
+        <table>
+            <tr>
+                <th>Setting</th>
+                <th>What It Does</th>
+            </tr>
+            <tr>
+                <td><strong>Interaction Layer Mask</strong></td>
+                <td>Which interactors can interact with this object (usually "Default")</td>
+            </tr>
+            <tr>
+                <td><strong>Attach Transform</strong></td>
+                <td>Optional: Where the object snaps to when grabbed (leave empty for grab at touch point)</td>
+            </tr>
+            <tr>
+                <td><strong>Movement Type</strong></td>
+                <td>
+                    • Instantaneous (object teleports to hand)<br>
+                    • Kinematic (physics-based movement)<br>
+                    • Velocity Tracking (smooth interpolation)
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Throw on Detach</strong></td>
+                <td>Enable to allow throwing objects (tracks release velocity)</td>
+            </tr>
+        </table>
+
+        <div class="highlight-green">
+            <h4>✅ UNDERSTANDING CHECKPOINT</h4>
+            <p><strong>You should now understand:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> The XR Origin hierarchy and purpose of each GameObject</li>
+                <li><span class="checkmark">✓</span> How Near-Far Interactor combines direct + ray interactions</li>
+                <li><span class="checkmark">✓</span> What Input Readers are and why they replaced manual Input Action copying</li>
+                <li><span class="checkmark">✓</span> How XR Interaction Manager coordinates everything</li>
+                <li><span class="checkmark">✓</span> How to make objects grabbable with XR Grab Interactable</li>
+            </ul>
+        </div>
+
+        <p>&nbsp;</p>
+        <hr>
+
+        <!-- PART 3: BUILD YOUR OWN RIG -->
+        <h2>🔧 PART 3: BUILD YOUR OWN CUSTOM RIG <span class="time-badge">30-50 MIN</span></h2>
+
+        <div class="modern-box">
+            <h3>🎯 Goal: Create a custom XR rig from scratch using XRIT 3.0 components</h3>
+            <p><strong>Why build manually?</strong> Understanding the manual process gives you full control for custom projects and helps troubleshooting.</p>
+        </div>
+
+        <h3>Method 1: Minimal XR Origin + Near-Far Interactors (RECOMMENDED)</h3>
+
+        <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Create a New Scene</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>File → New Scene</li>
+                <li>Save as "CustomRig_Scene"</li>
+                <li>Delete the Main Camera (we'll create our own XR camera)</li>
+            </ol>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">2</span> <strong>Add Minimal XR Origin</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Right-click in Hierarchy</li>
+                <li>Select <strong>XR</strong> → <strong>XR Origin (VR)</strong></li>
+            </ol>
+        </div>
+
+        <div class="modern-box">
+            <p><strong>⚠️ XRIT 3.0 Note:</strong> This creates a MINIMAL rig - just the XR Origin, Camera Offset, and Main Camera. <strong>NO controllers are included!</strong> We'll add them manually.</p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">3</span> <strong>Add Near-Far Interactors for Hands</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>In Hierarchy, expand <strong>XR Origin</strong></li>
+                <li>Right-click on <strong>Camera Offset</strong></li>
+                <li>Select <strong>XR</strong> → <strong>Interaction</strong> → <strong>Near-Far Interactor</strong></li>
+                <li>Rename to <strong>"LeftHand Near-Far"</strong></li>
+                <li>Repeat steps 2-4 to create <strong>"RightHand Near-Far"</strong></li>
+            </ol>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">4</span> <strong>Configure Each Hand</strong></p>
+            <p style="margin-left: 50px;">For <strong>LeftHand Near-Far</strong>:</p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Select it in Hierarchy</li>
+                <li>In Inspector, find <strong>Near-Far Interactor</strong> component</li>
+                <li>Set <strong>Controller Node</strong> to <strong>"Left Hand"</strong></li>
+            </ol>
+            <p style="margin-left: 50px; margin-top: 10px;">For <strong>RightHand Near-Far</strong>:</p>
+            <ol style="margin-left: 50px; margin-top: 5px;">
+                <li>Select it in Hierarchy</li>
+                <li>Set <strong>Controller Node</strong> to <strong>"Right Hand"</strong></li>
+            </ol>
+        </div>
+
+        <div class="highlight-green">
+            <p><strong>🎉 That's it!</strong> Your custom rig is functionally complete. The Near-Far Interactors have built-in Input Readers, so no manual Input Action setup is required!</p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">5</span> <strong>Add Visual Feedback (Optional but Recommended)</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Right-click <strong>LeftHand Near-Far</strong> in Hierarchy</li>
+                <li>Select <strong>3D Object</strong> → <strong>Sphere</strong></li>
+                <li>Rename to "HandVisual"</li>
+                <li>Set Transform:
+                    <ul style="margin-top: 5px;">
+                        <li>Position: (0, 0, 0.05) - slightly forward</li>
+                        <li>Scale: (0.05, 0.05, 0.05) - small sphere</li>
+                    </ul>
+                </li>
+                <li>Repeat for <strong>RightHand Near-Far</strong></li>
+            </ol>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">6</span> <strong>Add Test Environment</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Create a Plane (floor) at (0, 0, 0)</li>
+                <li>Create a Cube at (0, 1, 2)</li>
+                <li>Add <strong>XR Grab Interactable</strong> component to the cube</li>
+            </ol>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">7</span> <strong>Test Your Custom Rig</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Press Play</li>
+                <li>Use XR Device Simulator controls (RMB for camera, Shift/Space for hands)</li>
+                <li>Press <strong>G</strong> when near the cube to grab it</li>
+                <li>Move hand away from objects and press <strong>Q</strong> or <strong>E</strong> to see ray mode activate automatically</li>
+            </ol>
+        </div>
+
+        <div class="modern-box">
+            <h4>💡 What You Just Experienced: Intelligent Mode Switching</h4>
+            <p>The Near-Far Interactor automatically:</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Near Mode:</strong> When your hand is close to an object, it uses direct grab (sphere collider)</li>
+                <li><strong>Far Mode:</strong> When no objects are nearby, it switches to ray pointer</li>
+                <li><strong>Smooth Transition:</strong> The switch happens seamlessly based on distance</li>
+            </ul>
+            <p>This is why XRIT 3.0's Near-Far Interactor is so powerful - you get both interaction modes in ONE component!</p>
+        </div>
+
+        <h3>Method 2: Advanced - Using XR Direct + Ray Interactors (Legacy Architecture)</h3>
+
+        <div class="legacy-box">
+            <h4>🎓 Educational Context: The XRIT 2.x Way</h4>
+            <p><strong>Why show this?</strong> Many existing projects and tutorials use separate Direct and Ray Interactors. Understanding this helps you work with older codebases.</p>
+            <p><strong>Note:</strong> This method works in XRIT 3.0 but is considered legacy. Use Near-Far Interactor for new projects.</p>
+        </div>
+
+        <div class="step-box">
+            <p><strong>Instead of Near-Far Interactors, add separate components:</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Right-click <strong>Camera Offset</strong></li>
+                <li>Select <strong>XR</strong> → <strong>Interaction</strong> → <strong>XR Direct Interactor (Action Based)</strong></li>
+                <li>Rename to "LeftHand Direct"</li>
+                <li>Right-click <strong>Camera Offset</strong> again</li>
+                <li>Select <strong>XR</strong> → <strong>Interaction</strong> → <strong>XR Ray Interactor (Action Based)</strong></li>
+                <li>Rename to "LeftHand Ray"</li>
+                <li>Repeat for right hand</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image019.gif" alt="Direct Interactors">
+            <div class="link-section">
+                <a href="https://gyazo.com/99ee758f24d00f75687ca86bd3300c57">https://gyazo.com/99ee758f24d00f75687ca86bd3300c57</a>
+            </div>
+        </div>
+
+        <div class="legacy-box">
+            <p><strong>Challenges with this approach:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li>Two components per hand to manage (4 total)</li>
+                <li>Potential conflicts between Direct and Ray (which takes priority?)</li>
+                <li>More complex configuration</li>
+                <li>Still needs Input Reader configuration in XRIT 3.0</li>
+            </ul>
+            <p><strong>Solution:</strong> Use Near-Far Interactor instead - it handles all of this automatically!</p>
+        </div>
+
+        <div class="highlight-green">
+            <h4>✅ BUILD YOUR OWN CHECKPOINT</h4>
+            <p><strong>You should now be able to:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> Create a minimal XR Origin from the GameObject menu</li>
+                <li><span class="checkmark">✓</span> Add Near-Far Interactors manually</li>
+                <li><span class="checkmark">✓</span> Configure Controller Nodes for left/right hands</li>
+                <li><span class="checkmark">✓</span> Understand why Near-Far is better than separate Direct + Ray</li>
+                <li><span class="checkmark">✓</span> Build a fully functional custom VR rig from scratch</li>
+            </ul>
+        </div>
+
+        <p>&nbsp;</p>
+        <hr>
+
+        <!-- PART 4: LEGACY CONTEXT -->
+        <h2>📜 PART 4: LEGACY SYSTEMS & HISTORICAL CONTEXT <span class="time-badge">50-60 MIN</span></h2>
+
+        <div class="legacy-box">
+            <h3>🎯 Goal: Understand older XRIT approaches for working with existing projects</h3>
+            <p><strong>Why learn this?</strong> Many tutorials, YouTube videos, and existing projects use XRIT 2.x architecture. This section helps you recognize and work with legacy systems.</p>
+        </div>
+
+        <h3>The Evolution of XR Interaction Toolkit</h3>
+
+        <div class="comparison-box">
+            <h3>🔄 How XR Rig Setup Has Changed</h3>
+            
+            <h4>XRIT 1.x - 2.x (2020-2023): The "Manual" Era</h4>
+            <table style="margin-top: 10px;">
+                <tr>
+                    <th>Component</th>
+                    <th>Setup Method</th>
+                    <th>Complexity</th>
+                </tr>
+                <tr>
+                    <td><strong>XR Rig Creation</strong></td>
+                    <td>
+                        • GameObject → XR → XR Rig (Action Based)<br>
+                        • Created complete rig with controllers<br>
+                        • Everything included in menu option
+                    </td>
+                    <td><span style="color: orange;">⚠️ Medium</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Input Handling</strong></td>
+                    <td>
+                        • <strong>ActionBasedController</strong> component<br>
+                        • Manual Input Action references (~10 fields)<br>
+                        • Copy/paste from XRI Default controllers<br>
+                        • Create or import .inputactions file
+                    </td>
+                    <td><span style="color: red;">❌ High</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Interactions</strong></td>
+                    <td>
+                        • Separate XR Direct Interactor<br>
+                        • Separate XR Ray Interactor<br>
+                        • Manual priority management<br>
+                        • Collision sphere configuration
+                    </td>
+                    <td><span style="color: red;">❌ High</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Total Setup Steps</strong></td>
+                    <td>~15-20 steps per hand</td>
+                    <td><span style="color: red;">❌ Time-consuming</span></td>
+                </tr>
+            </table>
+
+            <h4 style="margin-top: 20px;">XRIT 3.0+ (2024+): The "Streamlined" Era</h4>
+            <table style="margin-top: 10px;">
+                <tr>
+                    <th>Component</th>
+                    <th>Setup Method</th>
+                    <th>Complexity</th>
+                </tr>
+                <tr>
+                    <td><strong>XR Rig Creation</strong></td>
+                    <td>
+                        • GameObject → XR → XR Origin (VR) creates MINIMAL rig<br>
+                        • <strong>Use Complete Rig Prefab from Starter Assets</strong><br>
+                        • Drag and drop - instant setup
+                    </td>
+                    <td><span style="color: green;">✓ Easy</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Input Handling</strong></td>
+                    <td>
+                        • <strong>Input Readers</strong> embedded in interactors<br>
+                        • Automatic configuration<br>
+                        • No manual references needed<br>
+                        • ActionBasedController DEPRECATED
+                    </td>
+                    <td><span style="color: green;">✓ Easy</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Interactions</strong></td>
+                    <td>
+                        • <strong>Near-Far Interactor</strong> (unified component)<br>
+                        • Automatic mode switching<br>
+                        • Built-in collision detection<br>
+                        • Intelligent behavior
+                    </td>
+                    <td><span style="color: green;">✓ Easy</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Total Setup Steps</strong></td>
+                    <td>~3 steps (drag prefab, configure hand nodes, done)</td>
+                    <td><span style="color: green;">✓ Fast</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>What to Do When You Encounter Legacy Projects</h3>
+
+        <div class="info-box">
+            <h4>Scenario 1: You Find a Tutorial Using ActionBasedController</h4>
+            <p><strong>What you'll see in the tutorial:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li>Instructions to copy XR Controller component values</li>
+                <li>Pasting Input Action references into ~10 fields</li>
+                <li>Manual binding of Position, Rotation, Select, Activate actions</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>What you should do instead:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> Use the Complete Rig prefab from Starter Assets</li>
+                <li><span class="checkmark">✓</span> Or use Near-Far Interactors with automatic Input Readers</li>
+                <li><span class="checkmark">✓</span> Skip the entire copy/paste workflow</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image014.gif" alt="XRI Default Controllers">
+            <div class="image-caption">Legacy workflow: Searching for XRI Default controllers to copy component values (NO LONGER NEEDED in XRIT 3.0)</div>
+            <div class="link-section">
+                <a href="https://gyazo.com/9f925a1cb0fccd25f318928b29a8d32f">https://gyazo.com/9f925a1cb0fccd25f318928b29a8d32f</a>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image015.gif" alt="Copy XR Controller">
+            <div class="image-caption">Legacy workflow: Copying XR Controller component (DEPRECATED in XRIT 3.0 - use Input Readers instead)</div>
+            <div class="link-section">
+                <a href="https://gyazo.com/51fc5e269da347b049a92a34efbf3f5f">https://gyazo.com/51fc5e269da347b049a92a34efbf3f5f</a>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>Scenario 2: Opening an Existing XRIT 2.x Project</h4>
+            <p><strong>What happens:</strong> Unity will prompt you to upgrade to XRIT 3.0</p>
+            <p><strong>What you should know:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li>Unity provides automatic migration tools</li>
+                <li>ActionBasedController → Input Readers (automatic)</li>
+                <li>Namespaces update automatically</li>
+                <li>Most functionality preserved</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Recommendation:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li>Back up your project first!</li>
+                <li>Let Unity perform automatic migration</li>
+                <li>Test thoroughly after migration</li>
+                <li>Consider refactoring to Near-Far Interactors for cleaner code</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h4>Scenario 3: Teammate Uses Old Workflow</h4>
+            <p><strong>Solution:</strong> XRIT 3.0 supports both legacy and modern approaches!</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li>Legacy Direct + Ray Interactors still work</li>
+                <li>Can mix legacy and modern in same project</li>
+                <li>Gradually migrate to Near-Far Interactors</li>
+                <li>XR Interaction Manager handles both architectures</li>
+            </ul>
+        </div>
+
+        <h3>Key Deprecated Components Reference</h3>
+
+        <table>
+            <tr>
+                <th>Deprecated Component</th>
+                <th>Status in XRIT 3.0</th>
+                <th>Modern Replacement</th>
+            </tr>
+            <tr>
+                <td><strong>ActionBasedController</strong></td>
+                <td style="color: red;">❌ Deprecated - removed from packages</td>
+                <td><strong>Input Readers</strong> (embedded in interactors)</td>
+            </tr>
+            <tr>
+                <td><strong>Action Based XR Rig Prefab</strong></td>
+                <td style="color: red;">❌ Removed from GameObject menu</td>
+                <td><strong>Complete Rig Prefab</strong> from Starter Assets</td>
+            </tr>
+            <tr>
+                <td><strong>Manual Input Action Copying</strong></td>
+                <td style="color: orange;">⚠️ Still possible but unnecessary</td>
+                <td><strong>Automatic Input Readers</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Separate Direct + Ray Interactors</strong></td>
+                <td style="color: orange;">⚠️ Still functional but legacy</td>
+                <td><strong>Near-Far Interactor</strong> (unified component)</td>
+            </tr>
+            <tr>
+                <td><strong>Affordance System</strong></td>
+                <td style="color: red;">❌ Deprecated - replacement coming</td>
+                <td>New feedback system in future release</td>
+            </tr>
+        </table>
+
+        <div class="highlight-green">
+            <h4>✅ LEGACY CONTEXT CHECKPOINT</h4>
+            <p><strong>You should now understand:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> How XRIT has evolved from 2.x to 3.0</li>
+                <li><span class="checkmark">✓</span> Why ActionBasedController was deprecated</li>
+                <li><span class="checkmark">✓</span> What to do when encountering old tutorials</li>
+                <li><span class="checkmark">✓</span> How to work with existing XRIT 2.x projects</li>
+                <li><span class="checkmark">✓</span> Which components are legacy vs modern</li>
+            </ul>
+        </div>
+
+        <p>&nbsp;</p>
+        <hr>
+
+        <!-- BONUS: UI INTERACTIONS -->
+        <h2>🎨 BONUS: WORKING WITH UNITY UI IN VR</h2>
+
+        <div class="modern-box">
+            <h3>Good News: UI System Unchanged in XRIT 3.0!</h3>
+            <p>The Tracked Device Graphic Raycaster workflow is identical in XRIT 3.0. Both legacy (Direct/Ray) and modern (Near-Far) interactors work with UI.</p>
+        </div>
+
+        <div class="video-link">
+            <strong>Video Tutorial:</strong> <a href="https://www.youtube.com/watch?v=jbGgVDa_2q8&t=340s">UNITY XR INTERACTION TOOLKIT - UI INTERACTION!</a>
+        </div>
+
+        <h3>Quick Setup: World Space UI Canvas</h3>
+
+        <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Create UI Canvas</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Right-click Hierarchy → <strong>UI</strong> → <strong>Canvas</strong></li>
+                <li>If prompted, import TextMesh Pro essentials</li>
+                <li>Select the Canvas</li>
+                <li>In Inspector, change <strong>Render Mode</strong> to <strong>"World Space"</strong></li>
+                <li>Set Transform:
+                    <ul style="margin-top: 5px;">
+                        <li>Position: (0, 1.5, 2) - in front of player</li>
+                        <li>Scale: (0.005, 0.005, 0.005) - appropriate size</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image027.gif" alt="Canvas Setup">
+            <div class="link-section">
+                <a href="https://gyazo.com/1876d51ff01e1dee26c077d8004acb59">https://gyazo.com/1876d51ff01e1dee26c077d8004acb59</a>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">2</span> <strong>Add Button</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Right-click Canvas → <strong>UI</strong> → <strong>Button - TextMeshPro</strong></li>
+                <li>Scale button to (500, 300, 1)</li>
+                <li>Increase font size to 72</li>
+                <li>Change button colors (optional for visual feedback)</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image028.gif" alt="Button Colors">
+            <div class="link-section">
+                <a href="https://gyazo.com/b6f7de68fa88d13e4e20e3a01db3f9ca">https://gyazo.com/b6f7de68fa88d13e4e20e3a01db3f9ca</a>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">3</span> <strong>Add Tracked Device Graphic Raycaster</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Select the <strong>Canvas</strong></li>
+                <li>Click <strong>Add Component</strong></li>
+                <li>Search for <strong>"Tracked Device Graphic Raycaster"</strong></li>
+                <li>Add it</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image029.gif" alt="Tracked Device Graphic Raycaster">
+            <div class="link-section">
+                <a href="https://gyazo.com/c0f8bcdd845897f294e98281ffdaed1b">https://gyazo.com/c0f8bcdd845897f294e98281ffdaed1b</a>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">4</span> <strong>Configure Event System</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Select <strong>EventSystem</strong> in Hierarchy (auto-created with Canvas)</li>
+                <li><strong>Disable</strong> the "Standalone Input Module" or "Input System UI Input Module"</li>
+                <li>Click <strong>Add Component</strong></li>
+                <li>Search for <strong>"XR UI Input Module"</strong></li>
+                <li>Add it</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image030.gif" alt="XR UI Input Module">
+            <div class="link-section">
+                <a href="https://gyazo.com/3ed0d799126c33bd3e91719cea4f123c">https://gyazo.com/3ed0d799126c33bd3e91719cea4f123c</a>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">5</span> <strong>Test UI Interaction</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Press Play</li>
+                <li>Point your hand controller at the button (ray should appear)</li>
+                <li>The button should highlight on hover</li>
+                <li>Press the select button (G key in simulator) to click</li>
+            </ol>
+        </div>
+
+        <div class="modern-box">
+            <p><strong>💡 Near-Far Interactor + UI:</strong> The Near-Far Interactor automatically activates its ray when pointing at UI elements. The transition is seamless - no extra configuration needed!</p>
+        </div>
+
+        <p>&nbsp;</p>
+        <hr>
+
+        <!-- TUTORIAL 05 SECTION -->
+        <h2>📦 TUTORIAL 05: CW1 PROTOTYPE PACKAGE</h2>
+
+        <div class="info-box">
+            <p><strong>What is the CW1 Prototype Package?</strong> A pre-built XR project demonstrating advanced interactions, locomotion, and UI systems. This is your reference for coursework implementation.</p>
+        </div>
+
+        <h3>Step 1: Setup New Project for CW1 Package</h3>
+
+        <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Install Packages (as in Tutorial 04)</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Create new 3D project in Unity 6000.0.58</li>
+                <li>Install OpenXR Plugin</li>
+                <li>Configure OpenXR in Project Settings (add Khronos profile)</li>
+                <li>Install XR Interaction Toolkit 3.0.10+</li>
+                <li>Import Starter Assets sample</li>
+                <li>Import XR Device Simulator sample</li>
+                <li>Enable XR Device Simulator in Project Settings</li>
+            </ol>
+        </div>
+
+        <div class="modern-box">
+            <h4>⚠️ Package Compatibility with XRIT 3.0</h4>
+            <p>If the CW1 Prototype package was built with XRIT 2.x, Unity may prompt you to upgrade:</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>ActionBasedController</strong> → automatically migrated to Input Readers</li>
+                <li><strong>Namespace updates</strong> → handled by Unity's migration tools</li>
+                <li><strong>Deprecated warnings</strong> → components will still function</li>
+            </ul>
+            <p><strong>Recommendation:</strong> Accept the upgrade. Unity's migration tools are reliable and the package will work with XRIT 3.0.</p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">2</span> <strong>Import CW1 Prototype Package</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Download the package from Blackboard (Week 5 or Week 7)</li>
+                <li>In Unity: <strong>Assets</strong> → <strong>Import Package</strong> → <strong>Custom Package</strong></li>
+                <li>Select the downloaded .unitypackage file</li>
+                <li>Click <strong>Import All</strong></li>
+                <li>Wait for import to complete</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="Tutorial%2004%2005%20-%20Unity%20XR%20Interaction%20Toolkit%202026_files/image031.gif" alt="CW1 Package Import">
+            <div class="link-section">
+                <a href="https://gyazo.com/05035b47130f4e1e7d364cfde8f7f0cd">https://gyazo.com/05035b47130f4e1e7d364cfde8f7f0cd</a>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">3</span> <strong>Open and Test the Demo Scene</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>In Project window, navigate to <strong>XRLab/Scenes/</strong></li>
+                <li>Open <strong>tutorial-05</strong> scene</li>
+                <li>Ensure XR Device Simulator prefab is active in Hierarchy</li>
+                <li>Press Play to test</li>
+            </ol>
+        </div>
+
+        <h3>CW1 Package Controls Reference</h3>
+
+        <table>
+            <tr>
+                <th style="width: 30%;">Action</th>
+                <th style="width: 70%;">Controls (XR Device Simulator)</th>
+            </tr>
+            <tr>
+                <td><strong>Camera Pan</strong></td>
+                <td>RMB Hold + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Camera Rotate (POV)</strong></td>
+                <td>RMB Hold + Left Control + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Camera Rotate (YAW)</strong></td>
+                <td>RMB Hold + Scroll Wheel Press + Scroll</td>
+            </tr>
+            <tr>
+                <td><strong>Left Hand Move</strong></td>
+                <td>Left Shift Hold + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Right Hand Move</strong></td>
+                <td>Space Hold + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Hand Rotate</strong></td>
+                <td>Shift/Space Hold + Control + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Cast Ray (Left)</strong></td>
+                <td>Q Hold</td>
+            </tr>
+            <tr>
+                <td><strong>Cast Ray (Right)</strong></td>
+                <td>E Hold</td>
+            </tr>
+            <tr>
+                <td><strong>Grab Object</strong></td>
+                <td>Ray on target or hand near object + G Press</td>
+            </tr>
+            <tr>
+                <td><strong>Rotate Menu</strong></td>
+                <td>Grab menu + Left/Right Arrow Keys</td>
+            </tr>
+            <tr>
+                <td><strong>Teleport</strong></td>
+                <td>Space Bar + W (release when ray is green)</td>
+            </tr>
+        </table>
+
+        <div class="note">
+            <p><strong>Note:</strong> With XR Device Simulator, UI elements can be selected with the mouse cursor in addition to simulated ray interactors.</p>
+        </div>
+
+        <h3>What to Explore in CW1 Package</h3>
+
+        <ol>
+            <li><strong>Advanced Interactions:</strong> Examine how different objects have custom grab behaviors</li>
+            <li><strong>Locomotion Systems:</strong> Study teleportation anchors and snap turn implementation</li>
+            <li><strong>UI Integration:</strong> See how world-space UI menus are configured</li>
+            <li><strong>Custom Interactables:</strong> Try importing Mecabricks assets as interactables (see Week 05 extras)</li>
+        </ol>
+
+        <p>&nbsp;</p>
+        <hr>
+
+        <!-- WEEK 05 EXTRAS -->
+        <h2>🔗 WEEK 05 EXTRAS & RESOURCES</h2>
+
+        <h3>Additional Tutorials & Examples</h3>
+
+        <ol>
+            <li><strong>Grabbable Recap Videos:</strong>
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li><a href="https://youtu.be/iVfa_azjnNI?t=99">Unity VR Game Basics - PART 5 - XR Ray Interactor in 10 Minutes</a></li>
+                    <li><a href="https://learn.unity.com/tutorial/using-interactors-and-interactables-with-the-xr-interaction-toolkit">Unity Learn: Using Interactors and Interactables</a></li>
+                </ul>
+            </li>
+            <li><strong>Compare Week 5 package to XRIT official samples</strong> (scene is in XRLab/Scenes)</li>
+            <li><strong>Try importing Mecabricks assets</strong> to interact with 3D models</li>
+        </ol>
+
+        <h3>XRIT 3.0 Official Examples</h3>
+
+        <div class="highlight-green">
+            <p><strong>Unity's Official XRIT Samples Project (GitHub):</strong></p>
+            <p><a href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples</a></p>
+        </div>
+
+        <div class="modern-box">
+            <p><strong>⚠️ Important:</strong> Ensure you're using the branch compatible with XRIT 3.0.10+ for the latest examples including:</p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li>Near-Far Interactor demonstrations</li>
+                <li>Input Reader examples</li>
+                <li>Advanced locomotion systems</li>
+                <li>UI interaction patterns</li>
+            </ul>
+            <p>Look for the <strong>"main"</strong> or <strong>"3.0"</strong> branch in the repository.</p>
+        </div>
+
+        <div class="video-link">
+            <strong>Adding XR Device Simulator:</strong> <a href="https://youtu.be/d4bTpkvBwrs">How To Add The XR Device Simulator To Speed Up Development | Unity XR Interaction Toolkit</a>
+        </div>
+
+        <h3>Level Design Tools</h3>
+
+        <p><strong>Expand your skills with these Unity tools for building VR environments:</strong></p>
+
+        <ol>
+            <li><strong>Realtime CSG:</strong>
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Video Tutorial: <a href="https://www.youtube.com/watch?v=egm9QdKdQtM">https://www.youtube.com/watch?v=egm9QdKdQtM</a></li>
+                    <li>Great for architectural spaces and geometric environments</li>
+                </ul>
+            </li>
+            <li><strong>ProBuilder:</strong>
+                <ul style="margin-left: 20px; margin-top: 5px;">
+                    <li>Official Docs: <a href="https://docs.unity3d.com/Packages/com.unity.probuilder@4.0/manual/index.html">https://docs.unity3d.com/Packages/com.unity.probuilder@4.0/manual/index.html</a></li>
+                    <li>Unity Learn: <a href="https://learn.unity.com/search?k=%5B%22q%3Aprobuilder%22%5D">ProBuilder Tutorials</a></li>
+                    <li>Excellent for rapid prototyping and level blockouts</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p>&nbsp;</p>
+        <hr>
+
+        <!-- SUMMARY SECTION -->
+        <div class="comparison-box">
+            <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+            
+            <h3>What You've Accomplished:</h3>
+            <ul style="margin-left: 20px;">
+                <li><span class="checkmark">✓</span> Built a working VR application in under 15 minutes</li>
+                <li><span class="checkmark">✓</span> Understood the complete XR rig architecture</li>
+                <li><span class="checkmark">✓</span> Created custom rigs from scratch using modern XRIT 3.0 components</li>
+                <li><span class="checkmark">✓</span> Learned to work with legacy systems for existing projects</li>
+                <li><span class="checkmark">✓</span> Implemented world-space UI interactions</li>
+                <li><span class="checkmark">✓</span> Explored the CW1 prototype package</li>
+            </ul>
+
+            <h3>Key Concepts Mastered:</h3>
+            <table style="margin-top: 15px;">
+                <tr>
+                    <th>Concept</th>
+                    <th>What You Learned</th>
+                </tr>
+                <tr>
+                    <td><strong>XRIT 3.0 Architecture</strong></td>
+                    <td>Complete Rig prefab, Input Readers, Near-Far Interactor</td>
+                </tr>
+                <tr>
+                    <td><strong>XR Origin Structure</strong></td>
+                    <td>Camera Offset, Main Camera, Hand Controllers, Interaction Manager</td>
+                </tr>
+                <tr>
+                    <td><strong>Input Handling</strong></td>
+                    <td>Input Readers vs deprecated ActionBasedController</td>
+                </tr>
+                <tr>
+                    <td><strong>Interaction Modes</strong></td>
+                    <td>Near (direct grab) vs Far (ray point), unified in Near-Far Interactor</td>
+                </tr>
+                <tr>
+                    <td><strong>Legacy vs Modern</strong></td>
+                    <td>Why XRIT evolved, how to work with older projects</td>
+                </tr>
+            </table>
+
+            <h3>Recommended Workflow for Your Projects:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>New Projects:</strong> Use Complete Rig prefab + Near-Far Interactors (XRIT 3.0 native)</li>
+                <li><strong>Learning/Tutorials:</strong> Follow this guide's progressive structure</li>
+                <li><strong>Existing Projects:</strong> Accept Unity's automatic migration to XRIT 3.0</li>
+                <li><strong>Coursework:</strong> Build on CW1 prototype package foundation</li>
+            </ol>
+        </div>
+
+        <div class="highlight-green">
+            <h3>🎯 Next Steps:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Experiment:</strong> Customize the Complete Rig prefab for your needs</li>
+                <li><strong>Explore:</strong> Check out Unity's official XRIT examples on GitHub</li>
+                <li><strong>Build:</strong> Start implementing your coursework using these foundations</li>
+                <li><strong>Advanced Topics:</strong> Locomotion systems, custom interactables, advanced UI (coming in later tutorials)</li>
+            </ol>
+        </div>
+
+        <h3>📖 Additional Documentation & Resources</h3>
+        <ul>
+            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html">What's New in XRIT 3.0 (Official Unity Docs)</a></li>
+            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/upgrade-guide-3.0.html">XRIT 3.0 Upgrade Guide</a></li>
+            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/changelog/CHANGELOG.html">XRIT 3.0.10 Complete Changelog</a></li>
+            <li><a href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">Unity XR Interaction Toolkit Examples (GitHub)</a></li>
+            <li><a href="https://docs.unity3d.com/Manual/XR.html">Unity XR Documentation Hub</a></li>
+        </ul>
+
+        <p>&nbsp;</p>
+        <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
+            🎉 Congratulations! You've completed Tutorial 04-05! 🎉
+        </p>
+        <p style="text-align: center; font-style: italic; color: #666;">
+            You're now ready to build professional XR applications with Unity 6000.0.58 and XRIT 3.0.10
+        </p>
+        <p>&nbsp;</p>
+
+    </div>
+</body>
+</html>
