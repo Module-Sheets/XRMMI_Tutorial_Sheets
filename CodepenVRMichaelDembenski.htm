@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Construction Kit - VR Edition (Ultimate)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.145.0/build/three.module.js",
+                "three/examples/jsm/controls/OrbitControls": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/OrbitControls.js",
+                "three/examples/jsm/controls/TransformControls": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/TransformControls.js",
+                "three/examples/jsm/controls/PointerLockControls": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/PointerLockControls.js",
+                "three/examples/jsm/exporters/GLTFExporter": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/exporters/GLTFExporter.js",
+                "three/examples/jsm/utils/BufferGeometryUtils": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/utils/BufferGeometryUtils.js",
+                "three/examples/jsm/webxr/VRButton": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/webxr/VRButton.js",
+                "three/examples/jsm/webxr/XRControllerModelFactory": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/webxr/XRControllerModelFactory.js",
+                "three/examples/jsm/modifiers/SimplifyModifier": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/modifiers/SimplifyModifier.js",
+                "three/examples/jsm/modifiers/TessellateModifier": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/modifiers/TessellateModifier.js",
+                "three/examples/jsm/geometries/RoundedBoxGeometry": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/geometries/RoundedBoxGeometry.js",
+                "three/examples/jsm/loaders/FontLoader": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/loaders/FontLoader.js",
+                "three/examples/jsm/geometries/TextGeometry": "https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/geometries/TextGeometry.js"
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        :root {
+            /* Palette */
+            --retro-bg-base: #e5e7eb;
+            /* gray-200 */
+            --retro-bg-panel: #d1d5db;
+            /* gray-300 */
+            --retro-bg-dim: #9ca3af;
+            /* gray-400 */
+            --retro-bg-dimmer: #4b5563;
+            /* gray-600 */
+            --retro-bg-dark: #1f2937;
+            /* gray-800 */
+
+            --retro-accent: #facc15;
+            /* yellow-400 */
+            --retro-danger: #dc2626;
+            /* red-600 */
+            --retro-info: #2563eb;
+            /* blue-600 */
+            --retro-info-dim: #bfdbfe;
+            /* blue-200 */
+
+            --retro-text-dark: #1f2937;
+            /* gray-800 */
+            --retro-text-light: #ffffff;
+
+            --retro-border-dark: #1f2937;
+            /* gray-800 */
+            --retro-border-dim: #9ca3af;
+            /* gray-400 */
+        }
+
+        /* Utility Classes replacement */
+        .u-bg-base {
+            background-color: var(--retro-bg-base) !important;
+        }
+
+        .u-bg-panel {
+            background-color: var(--retro-bg-panel) !important;
+        }
+
+        .u-bg-dim {
+            background-color: var(--retro-bg-dim) !important;
+        }
+
+        .u-bg-dimmer {
+            background-color: var(--retro-bg-dimmer) !important;
+        }
+
+        .u-bg-dark {
+            background-color: var(--retro-bg-dark) !important;
+        }
+
+        .u-bg-accent {
+            background-color: var(--retro-accent) !important;
+        }
+
+        .u-bg-danger {
+            background-color: var(--retro-danger) !important;
+        }
+
+        .u-bg-info {
+            background-color: var(--retro-info) !important;
+        }
+
+        .u-bg-info-dim {
+            background-color: var(--retro-info-dim) !important;
+        }
+
+        .u-text-dark {
+            color: var(--retro-text-dark) !important;
+        }
+
+        .u-text-light {
+            color: var(--retro-text-light) !important;
+        }
+
+        .u-border-dark {
+            border-color: var(--retro-border-dark) !important;
+        }
+
+        .u-border-dim {
+            border-color: var(--retro-border-dim) !important;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background-color: #000;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        #control-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 320px;
+            background-color: rgba(229, 231, 235, 0.95);
+            z-index: 10;
+            overflow-y: auto;
+            border-right: 4px solid #333;
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #000;
+            color: #0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-size: 2rem;
+            font-family: 'VT323', monospace;
+        }
+
+        #walk-instructions {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2rem;
+            pointer-events: none;
+            text-shadow: 2px 2px 0 #000;
+            display: none;
+            z-index: 9997;
+        }
+
+        /* CRT EFFECT OVERLAY */
+        #crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 9998;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+            display: none;
+            /* Hidden by default */
+        }
+
+        .retro-panel {
+            border: 2px solid #333;
+        }
+
+        .retro-button {
+            background-color: #eee;
+            color: #333;
+            border: 2px solid #333;
+            box-shadow: 2px 2px 0px 0px #1a1a1a;
+            transition: all 0.1s;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .retro-button:hover {
+            background-color: #fff;
+            box-shadow: 4px 4px 0px 0px #1a1a1a;
+        }
+
+        .retro-button:active {
+            box-shadow: none;
+            transform: translate(2px, 2px);
+        }
+
+        .active-tool {
+            background-color: #ffcc00 !important;
+            border-color: #cc9900 !important;
+            color: #000 !important;
+        }
+
+        #script-modal ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        #script-modal ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border: 2px solid #e5e7eb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-screen">
+        <div>INITIALIZING VR SYSTEMS...</div>
+    </div>
+
+    <div id="crt-overlay"></div>
+    <div id="walk-instructions">CLICK TO START WALKING<br><span style="font-size: 1rem">WASD to Move, ESC to Exit</span>
+    </div>
+
+    <div id="control-panel" class="retro-panel flex flex-col space-y-3 p-3 u-text-dark text-sm">
+        <h1 class="text-3xl font-bold border-b-4 u-border-dark pb-2 text-center">3D CK Editor</h1>
+
+        <!-- HEADER BUTTONS -->
+        <button id="ai-button" class="retro-button w-full py-2 bg-teal-600 hover:bg-teal-500 mb-0">🤖
+            AUTO-HELPER</button>
+        <button id="toggle-crt" class="retro-button w-full py-2 bg-green-800 text-green-200 hover:bg-green-700 mb-0">📺
+            CRT MODE: OFF</button>
+        <div class="grid grid-cols-2 gap-1">
+            <button id="script-button" class="retro-button w-full py-2 bg-purple-700 hover:bg-purple-600 mb-0">>_
+                SCRIPT</button>
+            <button id="help-button" class="retro-button w-full py-2 u-bg-info hover:bg-blue-700 mb-0">?
+                MANUAL</button>
+        </div>
+
+        <p class="text-xs italic text-center text-gray-600 mt-0">Quest VR Enabled</p>
+
+        <!-- SELECTION -->
+
+
+        <!-- MAIN TOOLS -->
+        <!-- MAIN TOOLS -->
+        <div class="space-y-2 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">TOOLS</h2>
+            <div class="grid grid-cols-2 gap-1">
+                <button id="toggle-snap" class="retro-button py-1 text-xs">SNAP: OFF</button>
+                <button id="toggle-mirror" class="retro-button py-1 text-xs">MIRROR: OFF</button>
+            </div>
+
+            <button id="tool-select" class="retro-button w-full py-2 u-bg-info-dim hover:bg-blue-300 active-tool">SELECT
+                /
+                MOVE</button>
+            <button id="deselect-object-button"
+                class="retro-button w-full py-1 u-bg-accent hover:bg-yellow-500 text-black">DESELECT</button>
+            <button id="tool-stamp" class="retro-button w-full py-2 bg-green-300 hover:bg-green-400">STAMP
+                (Place)</button>
+            <button id="tool-measure" class="retro-button w-full py-2 bg-pink-400 font-bold">TAPE MEASURE
+                📏</button>
+        </div>
+
+        <!-- CREATIVE -->
+        <div class="space-y-2 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">CREATIVE</h2>
+            <div class="grid grid-cols-2 gap-1">
+                <button id="tool-paint" class="retro-button py-1 bg-pink-300 text-xs">PAINT</button>
+                <button id="tool-cube-brush" class="retro-button py-1 bg-green-500 text-xs">CUBE
+                    BRUSH</button>
+            </div>
+        </div>
+
+        <!-- DEFORM -->
+        <div class="space-y-2 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">DEFORM</h2>
+            <div class="grid grid-cols-2 gap-1">
+                <button id="tool-extrude"
+                    class="retro-button py-1 bg-yellow-500 text-black text-xs font-bold border-black">STRETCH
+                    (Solid)</button>
+                <button id="tool-face-drag"
+                    class="retro-button py-1 u-bg-accent text-black text-xs font-bold border-black">FACE DRAG</button>
+                <button id="tool-bevel"
+                    class="retro-button py-1 bg-orange-500 text-black text-xs font-bold border-black">BEVEL /
+                    CHAMFER</button>
+                <button id="tool-twist" class="retro-button py-1 bg-lime-500 text-xs">TWIST</button>
+                <button id="tool-twirl" class="retro-button py-1 bg-lime-500 text-xs">TWIRL</button>
+                <button id="tool-taper" class="retro-button py-1 bg-lime-500 text-xs">TAPER</button>
+                <button id="tool-bend" class="retro-button py-1 bg-lime-500 text-xs">BEND</button>
+                <button id="tool-soft-mod" class="retro-button py-1 bg-fuchsia-400 text-xs">SOFT
+                    MOD</button>
+                <button id="tool-jitter" class="retro-button py-1 bg-red-500 text-xs">JITTER</button>
+                <button id="tool-inflate" class="retro-button py-1 bg-orange-400 text-xs">INFLATE</button>
+                <button id="tool-quantize" class="retro-button py-1 bg-gray-500 text-xs">QUANTIZE</button>
+            </div>
+        </div>
+
+        <!-- RETRO FX -->
+
+
+        <!-- ADVANCED -->
+        <div class="space-y-2 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">ADVANCED</h2>
+            <div class="grid grid-cols-2 gap-1">
+                <button id="tool-voxel" class="retro-button py-1 bg-purple-300 text-xs">VOXEL BUILD</button>
+                <button id="btn-gen-city" class="retro-button py-1 bg-blue-500 text-xs col-span-2">GENERATE
+                    CITY 🏙️</button>
+            </div>
+        </div>
+
+        <!-- CONSTRUCTION -->
+        <div class="space-y-2 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">CONSTRUCTION</h2>
+            <div class="grid grid-cols-2 gap-1">
+                <button id="tool-wall-drag" class="retro-button py-1 bg-orange-300 text-xs">WALL DRAG</button>
+                <button id="tool-floor-drag" class="retro-button py-1 bg-teal-300 text-xs">FLOOR DRAG</button>
+                <button id="tool-hollow" class="retro-button py-1 bg-purple-300 text-xs">HOLLOW</button>
+                <button id="tool-auto-roof" class="retro-button py-1 bg-red-400 text-xs">AUTO ROOF</button>
+                <button id="tool-door" class="retro-button py-1 bg-blue-300 text-xs">CUT DOOR</button>
+                <button id="tool-window" class="retro-button py-1 bg-cyan-300 text-xs">CUT WINDOW</button>
+                <button id="tool-stairs" class="retro-button py-1 u-bg-dim text-xs">GEN STAIRS</button>
+                <button id="tool-fence-drag" class="retro-button py-1 bg-amber-600 text-xs">FENCE
+                    DRAG</button>
+            </div>
+        </div>
+        <!-- 3D TEXT (NEW) -->
+        <div class="space-y-1 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">3D TEXT</h2>
+            <div class="flex gap-1">
+                <input type="text" id="text-input"
+                    class="w-full h-6 border-2 u-border-dark px-1 text-xs font-bold uppercase" placeholder="RETRO">
+                <button id="btn-gen-text" class="retro-button px-2 u-bg-accent text-xs font-bold">GO</button>
+            </div>
+        </div>
+
+        <!-- WORLD -->
+        <div class="space-y-1 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">WORLD</h2>
+            <div class="flex items-center gap-1">
+                <label class="text-xs w-10">SKY</label>
+                <input type="color" id="world-color" class="w-full h-6 border-2 u-border-dark" value="#738d8d">
+            </div>
+            <div class="flex items-center gap-1">
+                <label class="text-xs w-10">FOG</label>
+                <input type="range" id="world-fog" min="0" max="100" value="20" class="w-full h-4">
+            </div>
+
+            <div class="flex items-center gap-1 mt-1">
+                <label class="text-xs w-10">LITE</label>
+                <input type="color" id="light-color" class="w-full h-6 border-2 u-border-dark" value="#ffaa00">
+                <button id="btn-add-light" class="retro-button flex-grow py-1 bg-yellow-200 text-xs">ADD LAMP
+                    💡</button>
+            </div>
+        </div>
+
+        <!-- SHAPE LIBRARY -->
+        <div class="space-y-1 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">SHAPES</h2>
+            <div id="shape-library-buttons" class="grid grid-cols-2 gap-1">
+                <button data-shape="Cuboid" class="retro-button py-1 text-xs">CUBOID</button>
+                <button data-shape="Sphere" class="retro-button py-1 text-xs">SPHERE</button>
+                <button data-shape="Cylinder" class="retro-button py-1 text-xs">CYLINDER</button>
+                <button data-shape="Plane" class="retro-button py-1 text-xs">PLANE</button>
+                <button data-shape="Cone" class="retro-button py-1 text-xs">CONE</button>
+                <button data-shape="Torus" class="retro-button py-1 text-xs">TORUS</button>
+                <button data-shape="IcoSphere" class="retro-button py-1 text-xs">ICO SPHERE</button>
+                <!-- NEW SHAPES -->
+                <button data-shape="Capsule" class="retro-button py-1 text-xs bg-gray-100">CAPSULE</button>
+                <button data-shape="Octahedron" class="retro-button py-1 text-xs bg-gray-100">OCTAHEDRON</button>
+                <button data-shape="Dodecahedron" class="retro-button py-1 text-xs bg-gray-100">DODECAHEDRON</button>
+                <button data-shape="Tetrahedron" class="retro-button py-1 text-xs bg-gray-100">TETRAHEDRON</button>
+                <button data-shape="Dome" class="retro-button py-1 text-xs bg-gray-100">DOME</button>
+                <button data-shape="Arch" class="retro-button py-1 text-xs bg-gray-100">ARCH</button>
+                <button data-shape="Knot" class="retro-button py-1 text-xs u-bg-base">KNOT</button>
+                <button data-shape="Ring" class="retro-button py-1 text-xs u-bg-base">RING</button>
+                <button data-shape="Star" class="retro-button py-1 text-xs bg-yellow-100">STAR</button>
+
+                <!-- PYRAMIDS -->
+                <button data-shape="Pyramid4" class="retro-button py-1 text-xs bg-yellow-100">PYRAMID (SQ)</button>
+                <button data-shape="Pyramid3" class="retro-button py-1 text-xs bg-yellow-100">PYRAMID (TRI)</button>
+                <button data-shape="StepPyramid" class="retro-button py-1 text-xs bg-yellow-200">ZIGGURAT</button>
+                <!-- VEGETATION -->
+                <button data-shape="Tree" class="retro-button py-1 text-xs bg-green-200 col-span-2">GENERATE FRACTAL
+                    PLANT 🌿</button>
+            </div>
+        </div>
+
+        <!-- VIEWS (CAMERAS) -->
+        <div class="space-y-1 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">VIEWS</h2>
+            <div class="grid grid-cols-2 gap-1">
+                <button id="view-persp"
+                    class="retro-button py-1 u-bg-info-dim text-xs font-bold active-tool">PERSPECTIVE</button>
+                <button id="view-top" class="retro-button py-1 text-xs">TOP (ORTHO)</button>
+                <button id="view-front" class="retro-button py-1 text-xs">FRONT (ORTHO)</button>
+                <button id="view-side" class="retro-button py-1 text-xs">SIDE (ORTHO)</button>
+                <button id="view-walk" class="retro-button py-1 text-xs bg-red-200 col-span-2 font-bold">WALK (FPS)
+                    🚶</button>
+            </div>
+        </div>
+
+        <!-- EDIT PROPERTIES -->
+        <div id="edit-controls" class="space-y-2 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">TRANSFORM</h2>
+
+            <div class="grid grid-cols-3 gap-1 mb-2">
+                <button id="gizmo-t" class="retro-button u-bg-panel font-bold text-xs"
+                    title="Translate (W)">MOVE</button>
+                <button id="gizmo-r" class="retro-button u-bg-panel font-bold text-xs" title="Rotate (E)">ROT</button>
+                <button id="gizmo-s" class="retro-button u-bg-panel font-bold text-xs" title="Scale (R)">SIZE</button>
+            </div>
+
+            <!-- GIZMO TOGGLE -->
+            <button id="toggle-gizmo" class="retro-button w-full py-1 u-bg-dim text-xs mb-2">GIZMO:
+                ON</button>
+
+            <!-- ALIGN TOOLS -->
+            <div class="grid grid-cols-3 gap-1 mb-2">
+                <button id="align-x" class="retro-button u-bg-base text-xs">CENTER X</button>
+                <button id="align-z" class="retro-button u-bg-base text-xs">CENTER Z</button>
+                <button id="drop-floor" class="retro-button bg-blue-400 text-xs">DROP â–¼</button>
+            </div>
+
+            <div class="space-y-1">
+                <label class="block text-xs">Color</label>
+                <input type="color" id="color-picker" class="w-full h-8 border-2 u-border-dark" value="#ff0000">
+            </div>
+
+            <button id="duplicate-object" class="retro-button w-full py-1 bg-orange-400 text-xs">DUPLICATE</button>
+            <button id="delete-object" class="retro-button w-full py-1 u-bg-danger font-bold">DELETE</button>
+        </div>
+
+        <!-- MATERIAL PROPERTIES (NEW) -->
+        <div class="space-y-1 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">MATERIAL</h2>
+            <div class="flex items-center gap-1">
+                <label class="text-xs w-10">OPAC</label>
+                <input type="range" id="mat-opacity" min="0" max="100" value="100" class="w-full h-4">
+            </div>
+            <div class="flex items-center gap-1">
+                <label class="text-xs w-10">GLOW</label>
+                <input type="color" id="mat-emissive" class="w-full h-6 border-2 u-border-dark" value="#000000">
+            </div>
+            <button id="mat-wireframe" class="retro-button w-full py-1 u-bg-panel text-xs mt-1">TOGGLE
+                WIREFRAME</button>
+        </div>
+
+        <!-- TEXTURES -->
+        <div class="space-y-1 border-t-2 u-border-dim pt-2">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">TEXTURES</h2>
+            <input type="file" id="texture-file" accept="image/*" style="display:none">
+            <button id="btn-upload-tex" class="retro-button w-full py-1 bg-purple-500 text-xs">UPLOAD
+                IMAGE</button>
+            <button id="btn-export-tex" class="retro-button w-full py-1 bg-indigo-500 text-xs mt-1">EXPORT
+                TEXTURE</button>
+
+            <h3 class="font-bold text-xs u-bg-panel p-1 mt-1 text-center">PROCEDURAL MATS</h3>
+            <div class="grid grid-cols-3 gap-1">
+                <button id="btn-mat-check" class="retro-button py-1 text-[10px] u-bg-panel">CHECKER</button>
+                <button id="btn-mat-grid" class="retro-button py-1 text-[10px] u-bg-panel">GRID</button>
+                <button id="btn-mat-noise" class="retro-button py-1 text-[10px] u-bg-panel">NOISE</button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-1 mt-1">
+                <button id="tex-scale-up" class="retro-button bg-purple-400 text-xs">TEX SCL +</button>
+                <button id="tex-scale-down" class="retro-button bg-purple-400 text-xs">TEX SCL -</button>
+            </div>
+        </div>
+
+        <!-- RETRO TOOLS -->
+        <div class="border-t-2 u-border-dim pt-2">
+            <h3 class="font-bold text-center text-green-700 mb-1">RETRO FX</h3>
+            <div class="grid grid-cols-3 gap-1">
+                <button id="tool-wireframe" class="retro-button bg-black text-green-400 text-xs">WIRE</button>
+                <button id="tool-explode" class="retro-button bg-black text-yellow-400 text-xs">EXPLODE</button>
+                <button id="tool-magnet" class="retro-button bg-black text-purple-400 text-xs">MAGNET</button>
+
+                <button id="tool-ripple" class="retro-button bg-black text-teal-400 text-xs">RIPPLE</button>
+                <button id="tool-flatten" class="retro-button bg-black text-gray-400 text-xs">FLATTEN</button>
+                <button id="tool-simplify" class="retro-button bg-black text-xs col-span-3">SIMPLIFY
+                    (LOW-POLY)</button>
+                <button id="tool-tessellate" class="retro-button bg-black text-xs col-span-3">TESSELLATE
+                    (HI-POLY)</button>
+            </div>
+            <div class="grid grid-cols-4 gap-1 mt-1">
+                <button id="uv-left" class="retro-button u-bg-dimmer text-xs">U-</button>
+                <button id="uv-right" class="retro-button u-bg-dimmer text-xs">U+</button>
+                <button id="uv-down" class="retro-button u-bg-dimmer text-xs">V-</button>
+                <button id="uv-up" class="retro-button u-bg-dimmer text-xs">V+</button>
+            </div>
+        </div>
+
+        <!-- SYSTEM -->
+        <div class="pt-2 border-t-4 u-border-dark flex-grow">
+            <h2 class="text-lg font-bold u-bg-panel p-1 text-center">SYSTEM</h2>
+            <div class="grid grid-cols-2 gap-1 mb-2">
+                <button id="undo-button" class="retro-button bg-yellow-600 text-xs">UNDO</button>
+                <button id="clear-scene-button" class="retro-button u-bg-danger text-xs">CLEAR</button>
+            </div>
+            <button id="btn-snapshot" class="retro-button w-full py-2 bg-indigo-600 font-bold mb-2">SNAPSHOT
+                📷</button>
+            <button id="save-scene-button" class="retro-button w-full py-1 bg-blue-500 text-xs">SAVE
+                (.json)</button>
+            <button id="load-scene-button" class="retro-button w-full py-1 bg-blue-500 text-xs mt-1">LOAD</button>
+            <button id="export-gltf-button" class="retro-button w-full py-1 bg-green-500 text-xs mt-1">EXPORT
+                GLTF</button>
+            <input type="file" id="load-file-input" style="display: none;" accept=".json">
+        </div>
+    </div>
+
+    <div id="canvas-container">
+        <!-- PC Popup Toolbar (Original) -->
+        <div id="popup-toolbar"
+            class="hidden absolute u-bg-panel border-4 border-double u-border-dark p-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex gap-2 items-center"
+            style="transform: translate(-50%, -150%); z-index: 50;">
+            <div class="flex gap-1 u-bg-dim p-1 border border-gray-600">
+                <button id="pop-left" title="Left" class="retro-button w-8 h-8 font-bold text-lg">&larr;</button>
+                <button id="pop-fwd" title="Fwd" class="retro-button w-8 h-8 font-bold text-lg">&uarr;</button>
+                <button id="pop-back" title="Back" class="retro-button w-8 h-8 font-bold text-lg">&darr;</button>
+                <button id="pop-right" title="Right" class="retro-button w-8 h-8 font-bold text-lg">&rarr;</button>
+                <div class="w-1 u-bg-dimmer"></div>
+                <button id="pop-up" title="Move Up"
+                    class="retro-button w-8 h-8 font-bold text-lg text-blue-800">▲</button>
+                <button id="pop-down" title="Move Down"
+                    class="retro-button w-8 h-8 font-bold text-lg text-blue-800">▼</button>
+                <div class="w-1 u-bg-dimmer"></div>
+                <button id="pop-rot-x" title="Rot X"
+                    class="retro-button w-8 h-8 font-bold text-xs text-purple-800">X↻</button>
+                <button id="pop-rot-y" title="Rot Y"
+                    class="retro-button w-8 h-8 font-bold text-xs text-purple-800">Y↻</button>
+                <button id="pop-rot-z" title="Rot Z"
+                    class="retro-button w-8 h-8 font-bold text-xs text-purple-800">Z↻</button>
+                <div class="w-1 u-bg-dimmer"></div>
+                <button id="pop-del" title="Delete Object"
+                    class="retro-button w-8 h-8 font-bold text-lg text-red-600">🗑️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTING MODAL -->
+    <div id="script-modal"
+        class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center hidden z-[100] font-sans">
+        <div
+            class="u-bg-dark border-4 border-gray-500 p-4 max-w-5xl w-full h-[90vh] retro-panel relative flex flex-col text-green-400 font-mono">
+            <div class="flex justify-between items-center mb-2 border-b-2 border-green-500 pb-2">
+                <h2 class="text-2xl font-bold">>_ TERMINAL</h2>
+                <button id="close-script"
+                    class="u-bg-danger font-bold px-3 py-1 border border-white hover:bg-red-700">EXIT</button>
+            </div>
+            <textarea id="script-editor"
+                class="flex-grow bg-black text-green-400 p-4 border-2 border-green-700 font-mono text-lg focus:outline-none resize-none"
+                spellcheck="false" placeholder="// write code..."></textarea>
+            <button id="run-script-btn" class="retro-button px-6 py-2 bg-green-700 font-bold mt-2">RUN
+                CODE</button>
+        </div>
+    </div>
+
+    <!-- AI MODAL -->
+    <div id="ai-modal"
+        class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center hidden z-[100] font-sans">
+        <div
+            class="u-bg-base border-4 border-teal-800 p-4 max-w-lg w-full h-[60vh] retro-panel relative flex flex-col font-mono">
+            <div class="flex justify-between items-center mb-2 border-b-4 border-teal-800 pb-2">
+                <h2 class="text-2xl font-bold text-teal-900">ðŸ¤– AI HELPER</h2>
+                <button id="close-ai"
+                    class="u-bg-danger font-bold w-8 h-8 border-2 border-black hover:bg-red-700 flex items-center justify-center">X</button>
+            </div>
+            <div id="ai-chat-history"
+                class="flex-grow bg-white border-2 u-border-dim p-4 overflow-y-auto mb-4 flex flex-col">
+                <div class="chat-bubble-ai">Hello! I am your helper.</div>
+            </div>
+            <div class="flex gap-2">
+                <input type="text" id="ai-input"
+                    class="flex-grow p-2 border-2 border-gray-600 focus:outline-none focus:border-teal-600 font-bold"
+                    placeholder="Say something..." autocomplete="off">
+                <button id="ai-send-btn"
+                    class="retro-button px-4 py-2 bg-teal-600 font-bold hover:bg-teal-700">SEND</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HELP MODAL -->
+    <div id="help-modal"
+        class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center hidden z-[100] font-sans">
+        <div
+            class="u-bg-base border-4 u-border-dark p-6 max-w-4xl w-full max-h-[85vh] overflow-y-auto retro-panel relative text-gray-900 font-mono">
+            <button id="close-help"
+                class="absolute top-4 right-4 u-bg-danger font-bold p-2 border-2 border-black hover:bg-red-700 w-10 h-10 flex items-center justify-center text-xl">X</button>
+            <h2 class="text-4xl font-bold mb-6 border-b-4 u-border-dark pb-2 text-center">MANUAL</h2>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-bold u-bg-dim p-1 mb-2">NAVIGATION & VIEW</h3>
+                    <p><strong>Mouse:</strong> Left Drag (Rotate) | Right Drag (Pan) | Scroll (Zoom)</p>
+                    <p><strong>Walk Mode:</strong> Click WALK, WASD to move, Mouse to look. ESC to exit.</p>
+                    <p><strong>Shortcuts:</strong>
+                        <span class="bg-white px-1">W</span> Move
+                        <span class="bg-white px-1">E</span> Rotate
+                        <span class="bg-white px-1">R</span> Scale
+                        <span class="bg-white px-1">+/-</span> Gizmo Size
+                    </p>
+
+                    <h3 class="text-xl font-bold bg-blue-300 p-1 mb-2 mt-4">CONSTRUCTION</h3>
+                    <ul class="list-disc pl-4 text-sm space-y-1">
+                        <li><strong>Building:</strong> Drag on grid for Walls/Floors/Fences.</li>
+                        <li><strong>Shapes:</strong> Click to spawn primitives, pyramids, or arches.</li>
+                        <li><strong>Portals:</strong> Click walls to cut Doors or Windows.</li>
+                        <li><strong>Mirror:</strong> Toggle ON to create symmetrical copies automatically.</li>
+                        <li><strong>Tape Measure:</strong> Click Start, then End point to measure distance.</li>
+                        <li><strong>Align:</strong> Use Center X/Z or Drop to Floor for precision.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold bg-purple-300 p-1 mb-2 mt-4">WORLD & ADVANCED</h3>
+                    <ul class="list-disc pl-4 text-sm space-y-1">
+                        <li><strong>City Gen:</strong> Instantly create a random cityscape.</li>
+                        <li><strong>3D Text/Trees:</strong> Procedural generators for scene details.</li>
+                        <li><strong>Textures:</strong> Upload custom images or use Procedural (Grid/Noise).</li>
+                        <li><strong>Lighting:</strong> Place physical Lamps and adjust Sky/Fog color.</li>
+                        <li><strong>CRT Mode:</strong> Toggle scanlines for that 90s monitor feel.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold bg-yellow-300 p-1 mb-2">DEFORMATION</h3>
+                    <div class="bg-yellow-100 p-2 mb-2 text-sm border border-yellow-500">
+                        <strong>HOW TO USE:</strong><br>
+                        1. Select Object.<br>
+                        2. Select Tool (e.g., Twist).<br>
+                        3. <strong>Hold SHIFT</strong> (or toggle on-screen SHIFT button).<br>
+                        4. <strong>Click & Drag</strong> horizontally on the object.
+                    </div>
+                    <ul class="list-disc pl-4 text-sm space-y-1">
+                        <li><strong>Warping:</strong> Twist, Twirl, Bend, Taper, Inflate.</li>
+                        <li><strong>Face/Verts:</strong> Face Drag (move surface), Magnet (soft pull).</li>
+                        <li><strong>Geometry:</strong> Extrude (pull face), Bevel (chamfer edges).</li>
+                        <li><strong>Random:</strong> Jitter (noise), Quantize (step/blocky look).</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold bg-green-300 p-1 mb-2 mt-4">RETRO FX (INSTANT)</h3>
+                    <ul class="list-disc pl-4 text-sm space-y-1">
+                        <li><strong>Atomizer:</strong> Convert edges to pipes and verts to spheres.</li>
+                        <li><strong>Greeble:</strong> Add random technological surface details.</li>
+                        <li><strong>Explode:</strong> Detach and push all faces outward.</li>
+                        <li><strong>Distortion:</strong> Melt (droop), Wave (sin), Ripple (radial).</li>
+                        <li><strong>Polygon Count:</strong> Simplify (Low-Poly) or Tessellate (Hi-Poly).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-4 border-t-2 u-border-dim pt-2 text-center text-sm flex justify-between px-4 mb-4">
+                <span><strong>System:</strong> Snapshot (Camera), Save/Load (JSON), Export GLTF</span>
+                <span><strong>VR:</strong> Left Stick (Move) | Right Stick (Turn/Fly)</span>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Message Box for Non-blocking alerts -->
+    <div id="message-box"
+        class="fixed top-4 right-4 bg-gray-900 p-3 rounded-lg shadow-xl hidden transition-opacity duration-300 border border-gray-500"
+        style="z-index: 1000; font-family: sans-serif;">
+        <span id="message-title" class="font-bold block text-green-400">SYSTEM</span>
+        <span id="message-content" class="text-sm"></span>
+    </div>
+
+    <!-- ON-SCREEN SHIFT BUTTON (For Flatscreen/VR Pointer) -->
+    <button id="toggle-shift-btn"
+        class="fixed top-24 right-4 w-24 h-12 u-bg-panel border-4 u-border-dark font-bold text-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none z-[900] font-mono hover:bg-white transition-colors">SHIFT</button>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+        import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+        import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+        import { VRButton } from 'three/examples/jsm/webxr/VRButton';
+        import { XRControllerModelFactory } from 'three/examples/jsm/webxr/XRControllerModelFactory';
+        import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
+        import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils';
+        import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
+        import { TessellateModifier } from 'three/examples/jsm/modifiers/TessellateModifier';
+        import { SimplifyModifier } from 'three/examples/jsm/modifiers/SimplifyModifier';
+        import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+        import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+
+        window.onerror = function (msg, url, line) {
+            console.error(`Error: ${msg} (Line ${line})`);
+        };
+        let scene, camera, renderer, controls, transformControl, raycaster;
+        let walkControls;
+        let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+        let prevTime = performance.now();
+        let perspCamera, orthoCamera;
+        let objects = [], collidableObjects = [];
+        let selectedObject = null;
+        let currentTool = 'Select';
+        let isWalkMode = false, isGizmoEnabled = true, isSnapEnabled = false, isMirrorEnabled = false;
+        let shiftDown = false;
+        let isCRTMode = false;
+
+        // Tool Globals
+        let activeWall = null;
+        let wallStart = new THREE.Vector3();
+        let activeDragMesh = null;
+        let dragStartPoint = new THREE.Vector3();
+        let isDragging = false;
+        let isDeforming = false;
+        let deformStartY = 0;
+        let measureStart = null;
+
+        // L-System Config
+        const lSystemRules = {
+            axiom: "X",
+            rules: { "X": "F+[[X]-X]-F[-FX]+X", "F": "FF" },
+            angle: 25 * (Math.PI / 180),
+            iterations: 4,
+            step: 0.2
+        };
+
+        // Undo System
+        const historyStack = [];
+        const MAX_HISTORY = 10;
+
+        function saveState() {
+            const state = objects.map(obj => {
+                return {
+                    type: obj.userData.shapeType || 'Box', // Store shape type if available
+                    vertices: obj.userData.isUnique ? obj.geometry.attributes.position.array.slice() : null, // Store DEFORMED vertices
+                    position: obj.position.toArray(),
+                    rotation: obj.rotation.toArray(),
+                    scale: obj.scale.toArray(),
+                    color: obj.material.color.getHex(),
+                    wireframe: obj.material.wireframe
+                };
+            });
+            historyStack.push(JSON.stringify(state));
+            if (historyStack.length > MAX_HISTORY) historyStack.shift();
+        }
+
+        function undo() {
+            if (historyStack.length === 0) {
+                showMessage("System", "Nothing to Undo");
+                return;
+            }
+            const json = historyStack.pop();
+            const data = JSON.parse(json);
+
+            // Clear Scene
+            objects.forEach(o => scene.remove(o));
+            objects = [];
+
+            // Re-add Ground
+            collidableObjects = []; // Reset collidables
+            const ground = scene.getObjectByName("Ground Plane");
+            if (ground) collidableObjects.push(ground);
+
+            transformControl.detach();
+            selectedObject = null;
+
+            data.forEach(item => {
+                let geo;
+                // Reconstruct geometry
+                if (item.type === 'Sphere') geo = new THREE.SphereGeometry(0.5, 32, 32);
+                else if (item.type === 'Cylinder') geo = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
+                else if (item.type === 'Cone') geo = new THREE.ConeGeometry(0.5, 1, 32);
+                else if (item.type === 'Torus') geo = new THREE.TorusGeometry(0.4, 0.15, 16, 32);
+                else if (item.type === 'Plane') geo = new THREE.PlaneGeometry(1, 1);
+                else if (item.type === 'IcoSphere') geo = new THREE.IcosahedronGeometry(0.5, 1);
+                else if (item.type === 'Capsule') geo = new THREE.CapsuleGeometry(0.25, 0.5, 4, 8);
+                else geo = new THREE.BoxGeometry(1, 1, 1); // Default Box
+
+                const mat = new THREE.MeshPhongMaterial({ color: item.color, wireframe: item.wireframe });
+                const mesh = new THREE.Mesh(geo, mat);
+
+                // Restore Vertices if they were deformed
+                if (item.vertices) {
+                    // Check if vertex count matches (simple check)
+                    if (mesh.geometry.attributes.position.count === item.vertices.length / 3) {
+                        mesh.geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(Object.values(item.vertices)), 3));
+                        mesh.userData.isUnique = true;
+                        mesh.userData.origPos = item.vertices;
+                    } else {
+                        // Geometry mismatch fallback: Try to create a buffer geometry from scratch?
+                        // For now, simpler to just accept we might lose complex deformations if base type is wrong.
+                        // But since we default to Box, this handles "unknowns" poorly.
+                        // Ideally we'd store exact parameters.
+                    }
+                }
+
+                mesh.position.fromArray(item.position);
+                mesh.rotation.fromArray(item.rotation);
+                mesh.scale.fromArray(item.scale);
+                mesh.userData.shapeType = item.type; // Restore type
+
+                scene.add(mesh);
+                objects.push(mesh);
+                collidableObjects.push(mesh);
+            });
+            showMessage("System", "Undo Successful");
+        }
+
+
+        // --- AUDIO SYSTEM ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'click') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
+            } else if (type === 'hover') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, now);
+                gain.gain.setValueAtTime(0.02, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+                osc.start(now);
+                osc.stop(now + 0.03);
+            } else if (type === 'spawn') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(200, now);
+                osc.frequency.linearRampToValueAtTime(600, now + 0.2);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'delete') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(100, now);
+                osc.frequency.exponentialRampToValueAtTime(50, now + 0.2);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.2);
+                osc.start(now);
+                osc.stop(now + 0.2);
+            }
+        }
+
+        init();
+
+        function init() {
+            const container = document.getElementById('canvas-container');
+
+            // Scene Setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x738d8d);
+            scene.fog = new THREE.Fog(0x738d8d, 20, 100);
+
+            const aspect = window.innerWidth / window.innerHeight;
+            perspCamera = new THREE.PerspectiveCamera(70, aspect, 0.01, 1000);
+            perspCamera.position.set(0, 5, 10);
+
+            orthoCamera = new THREE.OrthographicCamera(-20 * aspect, 20 * aspect, 20, -20, 1, 1000);
+            orthoCamera.position.set(0, 20, 0);
+            orthoCamera.lookAt(0, 0, 0);
+
+            camera = perspCamera;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.xr.enabled = true;
+            container.appendChild(renderer.domElement);
+            document.body.appendChild(VRButton.createButton(renderer));
+
+            // Lighting
+            const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+            scene.add(light);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+            dirLight.position.set(5, 10, 7.5);
+            scene.add(dirLight);
+
+            // Ground
+            const ground = new THREE.Mesh(new THREE.PlaneGeometry(100, 100), new THREE.MeshPhongMaterial({ color: 0x476047 }));
+            ground.rotation.x = -Math.PI / 2;
+            ground.name = "Ground Plane";
+            scene.add(ground);
+            collidableObjects.push(ground);
+            scene.add(new THREE.GridHelper(100, 50, 0x000000, 0x000000));
+
+            // Controls
+            controls = new OrbitControls(camera, renderer.domElement);
+            transformControl = new TransformControls(camera, renderer.domElement);
+            transformControl.addEventListener('dragging-changed', (e) => controls.enabled = !e.value);
+            scene.add(transformControl);
+
+            walkControls = new PointerLockControls(camera, document.body);
+            walkControls.addEventListener('lock', () => { isWalkMode = true; document.getElementById('walk-instructions').style.display = 'block'; document.getElementById('control-panel').style.display = 'none'; });
+            walkControls.addEventListener('unlock', () => { isWalkMode = false; document.getElementById('walk-instructions').style.display = 'none'; document.getElementById('control-panel').style.display = 'block'; });
+
+            raycaster = new THREE.Raycaster();
+
+            // Handlers
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('resize', onWindowResize);
+            renderer.domElement.addEventListener('pointerdown', onPointerDown);
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', onPointerUp);
+            window.addEventListener('keydown', onKeyDown);
+            window.addEventListener('keyup', onKeyUp);
+
+            document.getElementById('loading-screen').style.display = 'none';
+
+            setupUI();
+            renderer.setAnimationLoop(render);
+        }
+
+        function setupUI() {
+            // Helper to bind clicks
+            const bind = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
+
+            bind('undo-button', undo);
+            bind('btn-snapshot', takeSnapshot);
+            bind('save-scene-button', saveScene);
+            bind('load-scene-button', () => document.getElementById('load-file-input').click());
+            document.getElementById('load-file-input').addEventListener('change', loadScene);
+            bind('export-gltf-button', exportGLTF);
+
+            // Tools
+            const tools = ['tool-select', 'tool-stamp', 'tool-paint', 'tool-cube-brush',
+                'tool-extrude', 'tool-face-drag', 'tool-bevel', 'tool-twist', 'tool-twirl',
+                'tool-taper', 'tool-bend', 'tool-soft-mod', 'tool-jitter', 'tool-inflate',
+                'tool-quantize', 'tool-voxel',
+                'tool-hollow', 'tool-auto-roof', 'tool-door', 'tool-window', 'tool-stairs',
+                'tool-fence-drag', 'tool-measure',
+                'tool-explode', 'tool-magnet', 'tool-ripple'];
+
+            tools.forEach(t => bind(t, () => setTool(t)));
+
+            // Toggles
+            bind('toggle-snap', () => { isSnapEnabled = !isSnapEnabled; document.getElementById('toggle-snap').textContent = `SNAP: ${isSnapEnabled ? 'ON' : 'OFF'}`; });
+            bind('toggle-mirror', () => { isMirrorEnabled = !isMirrorEnabled; document.getElementById('toggle-mirror').textContent = `MIRROR: ${isMirrorEnabled ? 'ON' : 'OFF'}`; });
+            bind('toggle-gizmo', () => { isGizmoEnabled = !isGizmoEnabled; if (selectedObject) attachGizmo(); document.getElementById('toggle-gizmo').textContent = `GIZMO: ${isGizmoEnabled ? 'ON' : 'OFF'}`; });
+            bind('toggle-crt', toggleCyberMode);
+
+            // Audio Hooks
+            document.querySelectorAll('button').forEach(b => {
+                b.addEventListener('mouseenter', () => playSound('hover'));
+                b.addEventListener('click', () => playSound('click'));
+            });
+
+            // Actions
+            bind('delete-object', () => { if (selectedObject) { scene.remove(selectedObject); objects = objects.filter(o => o !== selectedObject); collidableObjects = collidableObjects.filter(o => o !== selectedObject); transformControl.detach(); selectedObject = null; } });
+            bind('duplicate-object', () => { if (selectedObject) { const c = selectedObject.clone(); c.position.addScalar(1); scene.add(c); objects.push(c); collidableObjects.push(c); } });
+            bind('clear-scene-button', () => { objects.forEach(o => scene.remove(o)); objects = []; collidableObjects = [scene.getObjectByName("Ground Plane")]; transformControl.detach(); selectedObject = null; });
+
+            // Views
+            bind('view-persp', () => setView('Perspective'));
+            bind('view-top', () => setView('Top'));
+            bind('view-front', () => setView('Front'));
+            bind('view-side', () => setView('Side'));
+            bind('view-walk', () => { walkControls.lock(); });
+
+            // Generators
+            bind('btn-gen-city', generateCity);
+            bind('btn-gen-text', create3DText);
+
+            // Shapes Palette
+            document.querySelectorAll('#shape-library-buttons button').forEach(btn => {
+                btn.onclick = () => {
+                    const type = btn.dataset.shape;
+                    if (type === 'Tree') generateFractalPlant(); // Replace default tree with Fractal
+                    else createPrimitive(type);
+                };
+            });
+
+
+            // Modals
+            bind('script-button', () => document.getElementById('script-modal').classList.remove('hidden'));
+            bind('close-script', () => document.getElementById('script-modal').classList.add('hidden'));
+            bind('ai-button', () => document.getElementById('ai-modal').classList.remove('hidden'));
+            bind('close-ai', () => document.getElementById('ai-modal').classList.add('hidden'));
+            bind('help-button', () => document.getElementById('help-modal').classList.remove('hidden'));
+            bind('close-help', () => document.getElementById('help-modal').classList.add('hidden'));
+
+            // AI Logic
+            const aiInput = document.getElementById('ai-input');
+            const aiSend = document.getElementById('ai-send-btn');
+            const aiHistory = document.getElementById('ai-chat-history');
+
+            function sendAIMessage() {
+                const text = aiInput.value.trim();
+                if (!text) return;
+
+                // User Message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'bg-blue-100 p-2 rounded mb-2 border border-blue-300 self-end text-right';
+                userMsg.textContent = text;
+                aiHistory.appendChild(userMsg);
+                aiInput.value = '';
+                aiHistory.scrollTop = aiHistory.scrollHeight;
+
+                // Bot Response (Mock)
+                setTimeout(() => {
+                    const responses = [
+                        "I am a retro AI. I run on simple logic!",
+                        "Try using the Fractal Generator.",
+                        "That is a great idea.",
+                        "My knowledge base is limited to 1995.",
+                        "Error: Syntax Error on line 1.",
+                        "Have you tried the Cyber Mode?",
+                        "I am listening."
+                    ];
+                    const reply = document.createElement('div');
+                    reply.className = 'bg-white p-2 rounded mb-2 border u-border-dim';
+                    reply.textContent = "AI: " + responses[Math.floor(Math.random() * responses.length)];
+                    aiHistory.appendChild(reply);
+                    aiHistory.scrollTop = aiHistory.scrollHeight;
+                    playSound('click');
+                }, 600);
+            }
+
+            if (aiSend) aiSend.onclick = sendAIMessage;
+            if (aiInput) aiInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendAIMessage(); });
+
+
+            // Popup Toolbar Actions
+            bind('pop-del', () => { if (selectedObject) { scene.remove(selectedObject); objects = objects.filter(o => o !== selectedObject); collidableObjects = collidableObjects.filter(o => o !== selectedObject); selectObject(null); } });
+
+            // Fix: Add missing bindings for horizontal movement
+            bind('pop-left', () => { if (selectedObject) selectedObject.position.x -= 0.5; });
+            bind('pop-right', () => { if (selectedObject) selectedObject.position.x += 0.5; });
+            bind('pop-fwd', () => { if (selectedObject) selectedObject.position.z -= 0.5; });
+            bind('pop-back', () => { if (selectedObject) selectedObject.position.z += 0.5; });
+
+            bind('pop-up', () => { if (selectedObject) selectedObject.position.y += 0.5; });
+            bind('pop-down', () => { if (selectedObject) selectedObject.position.y -= 0.5; });
+            const rot90 = Math.PI / 2;
+            bind('pop-rot-x', () => { if (selectedObject) selectedObject.rotation.x += rot90; });
+            bind('pop-rot-y', () => { if (selectedObject) selectedObject.rotation.y += rot90; });
+            bind('pop-rot-z', () => { if (selectedObject) selectedObject.rotation.z += rot90; });
+
+            // PC Menu Transform Controls
+            bind('gizmo-t', () => transformControl.setMode('translate'));
+            bind('gizmo-r', () => transformControl.setMode('rotate'));
+            bind('gizmo-s', () => transformControl.setMode('scale'));
+
+            bind('toggle-gizmo', () => {
+                isGizmoEnabled = !isGizmoEnabled;
+                document.getElementById('toggle-gizmo').textContent = `GIZMO: ${isGizmoEnabled ? 'ON' : 'OFF'}`;
+                if (selectedObject) {
+                    if (isGizmoEnabled) transformControl.attach(selectedObject);
+                    else transformControl.detach();
+                }
+            });
+
+            bind('align-x', () => { if (selectedObject) selectedObject.position.x = 0; });
+            bind('align-z', () => { if (selectedObject) selectedObject.position.z = 0; });
+            bind('drop-floor', () => {
+                if (selectedObject) {
+                    // Simple drop to y=0.5 (assuming unit size) or calculation
+                    const box = new THREE.Box3().setFromObject(selectedObject);
+                    const height = box.max.y - box.min.y;
+                    selectedObject.position.y = height / 2;
+                }
+            });
+
+            // Material
+            bind('mat-wireframe', () => { if (selectedObject) selectedObject.material.wireframe = !selectedObject.material.wireframe; });
+            document.getElementById('color-picker').addEventListener('input', (e) => { if (selectedObject) selectedObject.material.color.set(e.target.value); });
+
+            // Retro FX Bindings
+            const fxTools = ['wireframe', 'explode', 'magnet', 'carve', 'fractalize', 'plasma', 'greeble', 'melt', 'wave', 'atomizer', 'ripple', 'flatten', 'simplify', 'tessellate'];
+            fxTools.forEach(fx => {
+                bind(`tool-${fx}`, () => applyRetroFX(fx));
+            });
+
+            // UV Controls
+            bind('uv-left', () => adjustUV(-0.1, 0));
+            bind('uv-right', () => adjustUV(0.1, 0));
+            bind('uv-down', () => adjustUV(0, -0.1));
+            bind('uv-up', () => adjustUV(0, 0.1));
+
+            // Texture Tools
+            bind('btn-upload-tex', () => document.getElementById('texture-file').click());
+            document.getElementById('texture-file').addEventListener('change', uploadTexture);
+            bind('btn-export-tex', exportTexture);
+
+            bind('btn-mat-check', () => applyProceduralTexture('check'));
+            bind('btn-mat-grid', () => applyProceduralTexture('grid'));
+            bind('btn-mat-noise', () => applyProceduralTexture('noise'));
+
+            bind('tex-scale-up', () => adjustTextureScale(1.1));
+            bind('tex-scale-down', () => adjustTextureScale(0.9));
+        }
+
+        function adjustUV(u, v) {
+            if (!selectedObject || !selectedObject.geometry) return;
+            const uv = selectedObject.geometry.attributes.uv;
+            if (!uv) return;
+            for (let i = 0; i < uv.count; i++) {
+                uv.setXY(i, uv.getX(i) + u, uv.getY(i) + v);
+            }
+            uv.needsUpdate = true;
+        }
+
+        function applyRetroFX(type) {
+            if (!selectedObject) { showMessage("FX", "Select an Object first!"); return; }
+            const mesh = selectedObject;
+
+            // Ensure unique geo
+            if (!mesh.userData.isUnique) {
+                mesh.geometry = mesh.geometry.clone();
+                mesh.userData.isUnique = true;
+            }
+            const geo = mesh.geometry;
+            const pos = geo.attributes.position;
+            const count = pos.count;
+
+            playSound('click');
+
+            if (type === 'wireframe') {
+                mesh.material.wireframe = !mesh.material.wireframe;
+            } else if (type === 'explode') {
+                // Move faces outward along normal
+                const center = new THREE.Vector3();
+                geo.computeBoundingBox();
+                geo.boundingBox.getCenter(center);
+                for (let i = 0; i < count; i++) {
+                    const p = new THREE.Vector3().fromBufferAttribute(pos, i);
+                    const dir = p.clone().sub(center).normalize();
+                    p.add(dir.multiplyScalar(0.2));
+                    pos.setXYZ(i, p.x, p.y, p.z);
+                }
+                pos.needsUpdate = true;
+            } else if (type === 'magnet') {
+                // Collapse towards center
+                const center = new THREE.Vector3();
+                geo.computeBoundingBox();
+                geo.boundingBox.getCenter(center);
+                for (let i = 0; i < count; i++) {
+                    const p = new THREE.Vector3().fromBufferAttribute(pos, i);
+                    p.lerp(center, 0.2);
+                    pos.setXYZ(i, p.x, p.y, p.z);
+                }
+                pos.needsUpdate = true;
+            } else if (type === 'greeble') {
+                // Random noise on surface
+                for (let i = 0; i < count; i++) {
+                    pos.setXYZ(i, pos.getX(i) + (Math.random() - 0.5) * 0.2, pos.getY(i) + (Math.random() - 0.5) * 0.2, pos.getZ(i) + (Math.random() - 0.5) * 0.2);
+                }
+                pos.needsUpdate = true;
+            } else if (type === 'flatten') {
+                // Flatten on Y
+                for (let i = 0; i < count; i++) {
+                    pos.setY(i, pos.getY(i) * 0.1);
+                }
+                pos.needsUpdate = true;
+            } else if (type === 'atomizer') {
+                // Replace mesh with particles (mock visuals for now)
+                mesh.material.wireframe = true;
+            } else if (type === 'melt') {
+                for (let i = 0; i < count; i++) {
+                    pos.setY(i, pos.getY(i) - Math.random() * 0.5);
+                }
+                pos.needsUpdate = true;
+            }
+            // Add other effects as placeholders if complex
+            showMessage("FX", `${type.toUpperCase()} Applied!`);
+        }
+
+        function uploadTexture(e) {
+            const file = e.target.files[0];
+            if (!file || !selectedObject) return;
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = new Image();
+                img.onload = function () {
+                    const tex = new THREE.Texture(img);
+                    tex.needsUpdate = true;
+                    selectedObject.material.map = tex;
+                    selectedObject.material.needsUpdate = true;
+                    showMessage("Texture", "Texture Uploaded!");
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function exportTexture() {
+            if (!selectedObject || !selectedObject.material.map) {
+                showMessage("Error", "No Texture found!");
+                return;
+            }
+            const link = document.createElement('a');
+            link.href = selectedObject.material.map.image.src;
+            link.download = `retro_texture_${Date.now()}.png`;
+            link.click();
+            showMessage("Texture", "Texture Exported!");
+        }
+
+        function applyProceduralTexture(type) {
+            if (!selectedObject) { showMessage("Material", "Select Object!"); return; }
+            const size = 256;
+            const data = new Uint8Array(size * size * 3);
+
+            for (let i = 0; i < size * size; i++) {
+                const x = i % size;
+                const y = Math.floor(i / size);
+                let r = 0, g = 0, b = 0;
+
+                if (type === 'check') {
+                    const c = ((Math.floor(x / 32) + Math.floor(y / 32)) % 2 === 0) ? 255 : 0;
+                    r = c; g = c; b = c;
+                } else if (type === 'grid') {
+                    const c = (x % 32 === 0 || y % 32 === 0) ? 0 : 255;
+                    r = c; g = c; b = c;
+                } else if (type === 'noise') {
+                    const c = Math.random() * 255;
+                    r = c; g = c; b = c;
+                }
+                data[i * 3] = r; data[i * 3 + 1] = g; data[i * 3 + 2] = b;
+            }
+
+            const tex = new THREE.DataTexture(data, size, size, THREE.RGBFormat);
+            tex.needsUpdate = true;
+            selectedObject.material.map = tex;
+            selectedObject.material.needsUpdate = true;
+            showMessage("Material", `Procedural ${type} Applied!`);
+        }
+
+        function adjustTextureScale(scale) {
+            if (!selectedObject || !selectedObject.material.map) return;
+            selectedObject.material.map.repeat.multiplyScalar(scale);
+            selectedObject.material.map.wrapS = THREE.RepeatWrapping;
+            selectedObject.material.map.wrapT = THREE.RepeatWrapping;
+            selectedObject.material.needsUpdate = true;
+            showMessage("Material", `Texture Scale: ${selectedObject.material.map.repeat.x.toFixed(2)}`);
+        }
+
+        function setTool(id) {
+            document.querySelectorAll('.active-tool').forEach(e => e.classList.remove('active-tool'));
+            document.getElementById(id).classList.add('active-tool');
+            currentTool = id.replace('tool-', '');
+            // Logic for tool setting
+        }
+
+        function setView(v) {
+            if (v === 'Perspective') { camera = perspCamera; controls.object = camera; controls.enableRotate = true; }
+            else {
+                camera = orthoCamera; controls.object = camera; controls.enableRotate = false;
+                if (v === 'Top') { camera.position.set(0, 20, 0); camera.lookAt(0, 0, 0); }
+                if (v === 'Front') { camera.position.set(0, 0, 20); camera.lookAt(0, 0, 0); }
+                if (v === 'Side') { camera.position.set(20, 0, 0); camera.lookAt(0, 0, 0); }
+            }
+            controls.update();
+            transformControl.camera = camera;
+        }
+
+
+        function toggleCyberMode() {
+            isCRTMode = !isCRTMode;
+            // Visuals
+            const bg = isCRTMode ? 0x000000 : 0x738d8d;
+            const fog = isCRTMode ? 0x000000 : 0x738d8d;
+            const gridColor = isCRTMode ? 0x00ff00 : 0x000000;
+
+            scene.background.setHex(bg);
+            scene.fog.color.setHex(fog);
+
+            // Toggle Ground visibility
+            const ground = scene.getObjectByName("Ground Plane");
+            if (ground) ground.visible = !isCRTMode;
+
+            // Update Grid Color
+            const oldGrid = scene.children.find(c => c.isGridHelper);
+            if (oldGrid) scene.remove(oldGrid);
+
+            const newGrid = new THREE.GridHelper(100, 50, gridColor, gridColor);
+            scene.add(newGrid);
+
+            // Update UI
+            document.getElementById('crt-overlay').style.display = isCRTMode ? 'block' : 'none';
+            document.getElementById('toggle-crt').textContent = `📺 CYBER MODE: ${isCRTMode ? 'ON' : 'OFF'}`;
+            document.getElementById('toggle-crt').className = `retro-button w-full py-2 mb-0 ${isCRTMode ? 'bg-green-600 text-black font-bold' : 'bg-green-800 text-green-200'}`;
+
+            showMessage("System", isCRTMode ? "CYBER MODE ACTIVATED" : "Standard Mode Restored");
+        }
+
+        function createPrimitive(type) {
+            playSound('spawn');
+            let geo;
+            switch (type) {
+                case 'Cuboid': geo = new THREE.BoxGeometry(1, 1, 1); break;
+                case 'Sphere': geo = new THREE.SphereGeometry(0.5, 32, 32); break;
+                case 'Cylinder': geo = new THREE.CylinderGeometry(0.5, 0.5, 1, 32); break;
+                case 'Cone': geo = new THREE.ConeGeometry(0.5, 1, 32); break;
+                case 'Torus': geo = new THREE.TorusGeometry(0.4, 0.15, 16, 32); break;
+                case 'Plane': geo = new THREE.PlaneGeometry(1, 1); break;
+
+                // New Shapes
+                case 'Pyramid4': geo = new THREE.CylinderGeometry(0, 0.5, 1, 4); break;
+                case 'Pyramid3': geo = new THREE.CylinderGeometry(0, 0.5, 1, 3); break;
+                case 'StepPyramid':
+                    // Create a Ziggurat by merging 3 boxes
+                    const b1 = new THREE.BoxGeometry(1, 0.33, 1);
+                    b1.translate(0, -0.33, 0);
+                    const b2 = new THREE.BoxGeometry(0.66, 0.33, 0.66);
+                    const b3 = new THREE.BoxGeometry(0.33, 0.33, 0.33);
+                    b3.translate(0, 0.33, 0);
+                    geo = BufferGeometryUtils.mergeBufferGeometries([b1, b2, b3]);
+                    break;
+                case 'Star':
+                    const starShape = new THREE.Shape();
+                    const outer = 0.5, inner = 0.2;
+                    for (let i = 0; i < 10; i++) {
+                        const rad = i % 2 == 0 ? outer : inner;
+                        const a = (i / 10) * Math.PI * 2;
+                        if (i == 0) starShape.moveTo(Math.cos(a) * rad, Math.sin(a) * rad);
+                        else starShape.lineTo(Math.cos(a) * rad, Math.sin(a) * rad);
+                    }
+                    geo = new THREE.ExtrudeGeometry(starShape, { depth: 0.2, bevelEnabled: false });
+                    geo.rotateX(Math.PI / 2);
+                    break;
+                case 'Ring': geo = new THREE.TorusGeometry(0.4, 0.05, 8, 32); break; // Thinner Torus
+                case 'Knot': geo = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 8); break;
+                case 'Arch':
+                    geo = new THREE.TorusGeometry(0.5, 0.2, 16, 32, Math.PI);
+                    geo.rotateZ(Math.PI / 2); // Stand up
+                    break;
+                case 'Dome':
+                    geo = new THREE.SphereGeometry(0.5, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+                    break;
+                case 'Tetrahedron': geo = new THREE.TetrahedronGeometry(0.5); break;
+                case 'Octahedron': geo = new THREE.OctahedronGeometry(0.5); break;
+                case 'Dodecahedron': geo = new THREE.DodecahedronGeometry(0.5); break;
+                case 'Capsule': geo = new THREE.CapsuleGeometry(0.25, 0.5, 4, 8); break;
+                case 'IcoSphere': geo = new THREE.IcosahedronGeometry(0.5, 1); break;
+
+                default: geo = new THREE.BoxGeometry(1, 1, 1);
+            }
+            const mat = new THREE.MeshPhongMaterial({ color: Math.random() * 0xffffff });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.userData.shapeType = type; // Store type for Undo
+            mesh.position.set(0, 0.5, 0);
+            scene.add(mesh);
+            objects.push(mesh);
+            collidableObjects.push(mesh);
+            selectObject(mesh);
+        }
+
+        // --- FRACTAL GENERATOR (L-SYSTEM) ---
+        function generateFractalPlant() {
+            playSound('spawn');
+            // L-System Logic
+            let current = lSystemRules.axiom;
+            for (let i = 0; i < lSystemRules.iterations; i++) {
+                let next = "";
+                for (let char of current) {
+                    next += lSystemRules.rules[char] || char;
+                }
+                current = next;
+            }
+
+            const step = lSystemRules.step;
+            const geometries = [];
+            const stack = [];
+            let pos = new THREE.Vector3(0, 0, 0);
+            let quat = new THREE.Quaternion();
+
+            // Turtle Graphics
+            for (let char of current) {
+                if (char === "F") {
+                    // Draw Branch
+                    const geo = new THREE.CylinderGeometry(0.02, 0.02, step, 5);
+                    geo.translate(0, step / 2, 0); // Pivot at bottom
+                    // Apply turtle transform
+                    const matrix = new THREE.Matrix4().compose(pos, quat, new THREE.Vector3(1, 1, 1));
+                    geo.applyMatrix4(matrix);
+                    geometries.push(geo);
+
+                    // Move
+                    const dir = new THREE.Vector3(0, 1, 0).applyQuaternion(quat);
+                    pos.add(dir.multiplyScalar(step));
+                } else if (char === "+") {
+                    const rot = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), lSystemRules.angle); // Rotate X
+                    rot.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.random() * 1)); // Add random twist
+                    quat.multiply(rot);
+                } else if (char === "-") {
+                    const rot = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -lSystemRules.angle);
+                    rot.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.random() * 1));
+                    quat.multiply(rot);
+                } else if (char === "[") {
+                    stack.push({ p: pos.clone(), q: quat.clone() });
+                } else if (char === "]") {
+                    const s = stack.pop();
+                    pos = s.p;
+                    quat = s.q;
+                }
+            }
+
+            if (geometries.length > 0) {
+                const merged = BufferGeometryUtils.mergeBufferGeometries(geometries);
+                const mat = new THREE.MeshPhongMaterial({ color: 0x00ff00, flatShading: true });
+                const mesh = new THREE.Mesh(merged, mat);
+                mesh.position.set(0, 0, 0);
+                mesh.name = "Fractal Plant";
+                scene.add(mesh);
+                objects.push(mesh);
+                collidableObjects.push(mesh);
+                selectObject(mesh);
+                showMessage("System", "Fractal Plant Generated ðŸŒ¿");
+            }
+        }
+
+        function create3DText() {
+            const input = document.getElementById('text-input').value || "RETRO";
+            const loader = new FontLoader();
+            loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
+                const geo = new TextGeometry(input, { font: font, size: 0.5, height: 0.2 });
+                const mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({ color: 0xffff00 }));
+                mesh.position.set(0, 0.5, 0);
+                scene.add(mesh);
+                objects.push(mesh);
+                collidableObjects.push(mesh);
+                selectObject(mesh);
+            });
+        }
+
+        function generateCity() {
+            for (let i = 0; i < 10; i++) {
+                const h = 1 + Math.random() * 3;
+                const geo = new THREE.BoxGeometry(1, h, 1);
+                const mat = new THREE.MeshPhongMaterial({ color: Math.random() * 0x555555 });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.position.set((Math.random() - 0.5) * 20, h / 2, (Math.random() - 0.5) * 20);
+                scene.add(mesh);
+                objects.push(mesh);
+                collidableObjects.push(mesh);
+            }
+        }
+
+        function onPointerDown(event) {
+            // Fix: Prevent browser drag/select interference
+            event.preventDefault();
+
+            if (event.shiftKey) shiftDown = true;
+            const btn = document.getElementById('toggle-shift-btn');
+            if (btn) btn.style.backgroundColor = shiftDown ? '#ffff00' : '#d1d5db';
+
+            // Prevent scene interaction if using Gizmo handles, unless Deforming
+            if (!shiftDown && (transformControl.dragging || transformControl.axis !== null)) return;
+
+            const rect = renderer.domElement.getBoundingClientRect();
+            const mouse = new THREE.Vector2(
+                ((event.clientX - rect.left) / rect.width) * 2 - 1,
+                -((event.clientY - rect.top) / rect.height) * 2 + 1
+            );
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(collidableObjects, true);
+
+            if (intersects.length > 0) {
+                handleToolInteraction(intersects[0], 'down', event);
+            } else {
+                // Clicked empty space
+                if (currentTool === 'select' && !shiftDown) selectObject(null);
+            }
+        }
+
+        function selectObject(obj) {
+            selectedObject = obj;
+            document.getElementById('selected-object-id').textContent = obj ? (obj.name || "Object") : "None";
+            if (obj && isGizmoEnabled) transformControl.attach(obj);
+            else transformControl.detach();
+
+            // Popup Toolbar
+            const toolbar = document.getElementById('popup-toolbar');
+            if (obj) {
+                toolbar.classList.remove('hidden');
+            } else {
+                toolbar.classList.add('hidden');
+            }
+        }
+
+        function onKeyDown(e) {
+            // Undo Shortcut
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                e.preventDefault();
+                undo();
+                return;
+            }
+
+            if (e.key === 'Shift') shiftDown = true;
+            if (e.key === 'Delete') { if (selectedObject) scene.remove(selectedObject); }
+
+            // Movement Controls
+            if (isWalkMode) {
+                switch (e.code) {
+                    case 'KeyW': case 'ArrowUp': moveForward = true; break;
+                    case 'KeyS': case 'ArrowDown': moveBackward = true; break;
+                    case 'KeyA': case 'ArrowLeft': moveLeft = true; break;
+                    case 'KeyD': case 'ArrowRight': moveRight = true; break;
+                }
+            } else if (selectedObject) {
+                // Object Nudge
+                const speed = e.shiftKey ? 1.0 : 0.1;
+                switch (e.code) {
+                    case 'ArrowLeft': selectedObject.position.x -= speed; break;
+                    case 'ArrowRight': selectedObject.position.x += speed; break;
+                    case 'ArrowUp': selectedObject.position.z -= speed; break;
+                    case 'ArrowDown': selectedObject.position.z += speed; break;
+                    case 'PageUp': selectedObject.position.y += speed; break;
+                    case 'PageDown': selectedObject.position.y -= speed; break;
+                }
+            }
+        }
+        function onKeyUp(e) {
+            if (e.key === 'Shift') shiftDown = false;
+
+            if (isWalkMode) {
+                switch (e.code) {
+                    case 'KeyW': case 'ArrowUp': moveForward = false; break;
+                    case 'KeyS': case 'ArrowDown': moveBackward = false; break;
+                    case 'KeyA': case 'ArrowLeft': moveLeft = false; break;
+                    case 'KeyD': case 'ArrowRight': moveRight = false; break;
+                }
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function showMessage(title, text) {
+            const el = document.getElementById('message-box');
+            if (el) {
+                document.getElementById('message-title').textContent = title;
+                document.getElementById('message-content').textContent = text;
+                el.classList.remove('hidden');
+                el.style.opacity = 1;
+                setTimeout(() => el.style.opacity = 0, 2000);
+            }
+        }
+
+        function applyDeformation(mesh, deltaY, type) {
+            if (!mesh.isMesh) return;
+            // Ensure unique geometry
+            if (!mesh.userData.isUnique) {
+                mesh.geometry = mesh.geometry.clone();
+                mesh.userData.isUnique = true;
+                // Store original positions if not already
+                if (!mesh.userData.origPos) {
+                    mesh.userData.origPos = mesh.geometry.attributes.position.array.slice();
+                }
+            }
+
+            // Get Geometry and Position Attribute
+            const geo = mesh.geometry;
+            const pos = geo.attributes.position;
+            const count = pos.count;
+
+            // Store original positions for non-destructive edits if possible, 
+            // but for this simple editor we often just mutate. 
+            // HOWEVER, for smooth dragging, we should operate on 'base' + delta.
+            // If we don't have origPos, we make it.
+            if (!mesh.userData.origPos) {
+                mesh.userData.origPos = pos.array.slice();
+            }
+
+            const orig = mesh.userData.origPos;
+            const boundingBox = new THREE.Box3().setFromBufferAttribute(new THREE.BufferAttribute(orig, 3));
+            const center = new THREE.Vector3(); boundingBox.getCenter(center);
+            const size = new THREE.Vector3(); boundingBox.getSize(size);
+            const minY = boundingBox.min.y;
+            const maxY = boundingBox.max.y;
+            const height = maxY - minY || 1;
+
+            // Factor controls strength
+            // deltaY is pixel movement or VR hand movement
+            const factor = deltaY * 0.01;
+
+            // Jitter Map for shared vertices
+            const jitterMap = {};
+
+            for (let i = 0; i < count; i++) {
+                let x = orig[i * 3];
+                let y = orig[i * 3 + 1];
+                let z = orig[i * 3 + 2];
+
+                // Normalized Y (0 to 1) from bottom to top
+                const ny = (y - minY) / height;
+
+                if (type === 'twist') {
+                    const angle = factor * 10 * ny;
+                    const cos = Math.cos(angle);
+                    const sin = Math.sin(angle);
+                    const tx = x * cos - z * sin;
+                    const tz = x * sin + z * cos;
+                    x = tx; z = tz;
+                } else if (type === 'bevel') {
+                    // Simple Bevel (Chamfer Top/Bottom)
+                    // If near top or bottom, scale inwards
+                    const edgeH = height * 0.1; // 10% edge
+                    if (y > maxY - edgeH) {
+                        const d = (y - (maxY - edgeH)) / edgeH;
+                        const s = 1.0 - (d * factor); // Scale down at tip
+                        x *= s; z *= s;
+                    } else if (y < minY + edgeH) {
+                        const d = ((minY + edgeH) - y) / edgeH;
+                        const s = 1.0 - (d * factor);
+                        x *= s; z *= s;
+                    }
+                } else if (type === 'face-drag') {
+                    // Move top vertices
+                    if (y > maxY - 0.01) {
+                        y += factor * 2;
+                    }
+                } else if (type === 'extrude') {
+                    // STRETCH (Solid)
+                    // Scale Y relative to bottom
+                    const scale = Math.max(0.1, 1 + factor * 2);
+                    y = minY + (y - minY) * scale;
+                } else if (type === 'taper') {
+                    // Scale X/Z based on Y
+                    const scale = 1 + (factor * 5 * ny);
+                    x *= scale;
+                    z *= scale;
+                } else if (type === 'bend') {
+                    // Simple Bend along X
+                    // Fix: Use quadratic curve so it affects top vertices of low-poly meshes
+                    x += (ny * ny) * factor * 10;
+                } else if (type === 'inflate') {
+                    const n = new THREE.Vector3(x, y, z).normalize();
+                    x += n.x * factor * 5;
+                    y += n.y * factor * 5;
+                    z += n.z * factor * 5;
+                } else if (type === 'skew') {
+                    x += y * factor * 2;
+                } else if (type === 'wave-y') {
+                    x += Math.sin(y * 10 + factor * 50) * 0.1;
+                } else if (type === 'spherify') {
+                    const v = new THREE.Vector3(x, y - center.y, z);
+                    const len = v.length();
+                    const sphereRadius = Math.max(size.x, size.y, size.z) / 2;
+                    // Lerp between box and sphere
+                    const t = Math.min(1, Math.max(0, 0.5 + factor));
+                    v.normalize().multiplyScalar(sphereRadius);
+                    x = x * (1 - t) + v.x * t;
+                    y = y * (1 - t) + (v.y + center.y) * t;
+                    z = z * (1 - t) + v.z * t;
+                } else if (type === 'jitter') {
+                    // Key by original position to keep faces connected
+                    const key = `${Math.round(x * 1000)},${Math.round(y * 1000)},${Math.round(z * 1000)}`;
+                    if (!jitterMap[key]) {
+                        jitterMap[key] = {
+                            x: (Math.random() - 0.5) * factor,
+                            y: (Math.random() - 0.5) * factor,
+                            z: (Math.random() - 0.5) * factor
+                        };
+                    }
+                    x += jitterMap[key].x;
+                    y += jitterMap[key].y;
+                    z += jitterMap[key].z;
+                } else if (type === 'soft-mod') {
+                    // Move center vertices more than edges
+                    const dist = Math.sqrt(x * x + z * z);
+                    const maxR = Math.sqrt(size.x * size.x + size.z * size.z); // Full diagonal
+                    const falloff = Math.max(0, 1 - dist / maxR);
+                    y += falloff * factor * 5;
+                } else if (type === 'quantize') {
+                    // Snap to grid based on factor - Increased sensitivity
+                    const step = Math.max(0.2, Math.abs(factor) * 5);
+                    x = Math.round(x / step) * step;
+                    y = Math.round(y / step) * step;
+                    z = Math.round(z / step) * step;
+                } else if (type === 'twirl') {
+                    const dist = Math.sqrt(x * x + z * z);
+                    const angle = factor * 10 * (1 - dist); // Inner spins more
+                    const c = Math.cos(angle);
+                    const s = Math.sin(angle);
+                    const tx = x * c - z * s;
+                    const tz = x * s + z * c;
+                    x = tx; z = tz;
+                } else if (type === 'explode') {
+                    // Explode: Move along normal (face-level if possible, otherwise vertex normal)
+                    // Since we made geometry unique, we can use vertex normals roughly
+                    const n = new THREE.Vector3(x, y, z).sub(center).normalize();
+                    x += n.x * factor * 5;
+                    y += n.y * factor * 5;
+                    z += n.z * factor * 5;
+                } else if (type === 'magnet') {
+                    // Magnet: Pull towards center, not scale down
+                    // Factor + = pull in, Factor - = push out
+                    const dx = center.x - x;
+                    const dy = center.y - y;
+                    const dz = center.z - z;
+                    const strength = factor * 0.1;
+                    x += dx * strength;
+                    y += dy * strength;
+                    z += dz * strength;
+                } else if (type === 'curve') {
+                    // Curve: Apply a bezier-like curve offset
+                    const theta = (y - minY) / height * Math.PI;
+                    x += Math.sin(theta) * factor * 2;
+                } else if (type === 'fractalize') {
+                    // Fractalize: Add high frequency noise
+                    x += (Math.random() - 0.5) * factor * 0.5;
+                    y += (Math.random() - 0.5) * factor * 0.5;
+                    z += (Math.random() - 0.5) * factor * 0.5;
+                } else if (type === 'plasma') {
+                    // Plasma: Sine waves based on position
+                    const v = Math.sin(x * 10 + performance.now() * 0.001) + Math.cos(z * 10);
+                    y += v * factor * 0.2;
+                } else if (type === 'wave') {
+                    // Wave: Standard sine wave along axis
+                    y += Math.sin(x * 5 + factor * 10) * 0.2 * factor;
+                } else if (type === 'ripple') {
+                    // Ripple: Radial sine wave from center
+                    const dist = Math.sqrt(Math.pow(x - center.x, 2) + Math.pow(z - center.z, 2));
+                    y += Math.sin(dist * 10 - factor * 10) * 0.2 * factor;
+                }
+
+                pos.setXYZ(i, x, y, z);
+            }
+
+            pos.needsUpdate = true;
+            mesh.geometry.computeVertexNormals();
+        }
+
+        // Unified Interaction Logic (Mouse & VR)
+        function handleToolInteraction(hit, type, event) {
+            if (type === 'down') {
+                if (!hit) return;
+
+                // Save State before action
+                if (['stamp', 'paint', 'voxel', 'cube-brush', 'delete'].includes(currentTool)) {
+                    saveState();
+                }
+
+                // Map tool actions
+                if (['stamp', 'paint', 'voxel', 'cube-brush', 'door', 'window', 'measure'].includes(currentTool)) {
+                    if (currentTool === 'stamp' && selectedObject) {
+                        const clone = selectedObject.clone();
+                        clone.position.copy(hit.point).add(new THREE.Vector3(0, 0.5, 0));
+                        scene.add(clone); objects.push(clone); collidableObjects.push(clone);
+                        playSound('spawn');
+                    } else if (currentTool === 'paint') {
+                        let target = hit.object;
+                        target.material.color.set(document.getElementById('color-picker').value);
+                        target.material.needsUpdate = true;
+                        playSound('click');
+                    } else if (currentTool === 'voxel' || currentTool === 'cube-brush') {
+                        const voxel = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshPhongMaterial({ color: document.getElementById('color-picker').value }));
+                        voxel.position.copy(hit.point).add(hit.face.normal.multiplyScalar(0.5)).round();
+                        scene.add(voxel); objects.push(voxel); collidableObjects.push(voxel);
+                        playSound('spawn');
+                    } else if (currentTool === 'door' || currentTool === 'window') {
+                        const isDoor = currentTool === 'door';
+                        const hole = new THREE.Mesh(new THREE.BoxGeometry(0.8, isDoor ? 2 : 1, 0.2), new THREE.MeshPhongMaterial({ color: 0x000000 }));
+                        hole.position.copy(hit.point);
+                        hole.lookAt(hit.point.clone().add(hit.face.normal));
+                        scene.add(hole); objects.push(hole);
+                    } else if (currentTool === 'measure') {
+                        if (!measureStart) {
+                            measureStart = hit.point;
+                            showMessage("Measure", "Start Point Set. Click End Point.");
+                        } else {
+                            const dist = measureStart.distanceTo(hit.point);
+                            showMessage("Measure", `Distance: ${dist.toFixed(2)}m`);
+                            measureStart = null;
+                        }
+                    }
+                } else if (currentTool === 'select') {
+                    let target = hit.object;
+                    while (target.parent && target.parent.type === 'Group' && target.parent !== scene) target = target.parent;
+                    if (target.name !== "Ground Plane") selectObject(target); else selectObject(null);
+                } else if (currentTool === 'wall-drag' || currentTool === 'floor-drag' || currentTool === 'fence-drag') {
+                    const pt = hit.point;
+                    if (isSnapEnabled) { pt.round(); }
+                    dragStartPoint.copy(pt); isDragging = true;
+                    let h = 3, y = 1.5, col = 0xaaaaaa;
+                    if (currentTool === 'floor-drag') { h = 0.2; y = 0.1; col = 0x555555; }
+                    else if (currentTool === 'fence-drag') { h = 1.0; y = 0.5; col = 0x8B4513; }
+                    activeDragMesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshPhongMaterial({ color: col }));
+                    activeDragMesh.position.set(pt.x, y, pt.z); activeDragMesh.scale.set(0.1, h, 0.1);
+                    scene.add(activeDragMesh); selectObject(null);
+                } else if (['twist', 'taper', 'bend', 'inflate', 'twirl', 'soft-mod', 'jitter', 'skew', 'spherify', 'wave-y', 'extrude', 'face-drag', 'quantize', 'explode', 'magnet', 'curve', 'fractalize', 'plasma', 'wave', 'ripple'].includes(currentTool) && shiftDown && selectedObject) {
+                    saveState(); // Save before deformation starts
+                    isDeforming = true;
+                    controls.enabled = false;
+                    if (event) deformStartY = event.clientY; // Use pixel Y for mouse
+                    // Ensure unique geometry
+                    selectedObject.traverse(child => {
+                        if (child.isMesh) {
+                            if (!child.userData.origPos) {
+                                child.geometry = child.geometry.clone();
+                                child.userData.origPos = child.geometry.attributes.position.array.slice();
+                                child.userData.isUnique = true;
+                            }
+                        }
+                    });
+                    showMessage("Deform", "Deforming... Drag mouse up/down");
+                }
+            } else if (type === 'move') {
+                if (!hit && !isDeforming) return;
+
+                if (isDragging && activeDragMesh) {
+                    const pt = hit ? hit.point : dragStartPoint;
+                    if (isSnapEnabled) { pt.round(); }
+                    const minX = Math.min(dragStartPoint.x, pt.x), maxX = Math.max(dragStartPoint.x, pt.x);
+                    const minZ = Math.min(dragStartPoint.z, pt.z), maxZ = Math.max(dragStartPoint.z, pt.z);
+                    const w = Math.abs(maxX - minX) || 0.1, d = Math.abs(maxZ - minZ) || 0.1;
+                    let h = 3, centerY = 1.5;
+                    if (currentTool === 'floor-drag') { h = 0.2; centerY = 0.1; }
+                    else if (currentTool === 'fence-drag') { h = 1.0; centerY = 0.5; }
+                    activeDragMesh.scale.set(w, h, d);
+                    activeDragMesh.position.set((minX + maxX) / 2, centerY, (minZ + maxZ) / 2);
+                }
+
+                if (isDeforming && selectedObject && event) {
+                    const deltaY = -(event.clientY - deformStartY);
+                    selectedObject.traverse(child => {
+                        if (child.isMesh) applyDeformation(child, deltaY, currentTool);
+                    });
+                }
+            } else if (type === 'up') {
+                if (isDragging && activeDragMesh) {
+                    objects.push(activeDragMesh);
+                    collidableObjects.push(activeDragMesh);
+                    selectObject(activeDragMesh);
+                    playSound('spawn');
+                    activeDragMesh = null;
+                    isDragging = false;
+                }
+
+                // Bake deformation
+                if (isDeforming && selectedObject) {
+                    selectedObject.traverse(child => {
+                        if (child.isMesh && child.userData.origPos) {
+                            // Update origPos to current state so next deformation starts from here
+                            child.userData.origPos = child.geometry.attributes.position.array.slice();
+                        }
+                    });
+                }
+
+                isDeforming = false;
+                controls.enabled = true;
+                if (selectedObject && selectedObject.geometry) selectedObject.geometry.computeVertexNormals();
+            }
+        }
+
+        function onPointerMove(event) {
+            const rect = renderer.domElement.getBoundingClientRect();
+            const mouse = new THREE.Vector2(((event.clientX - rect.left) / rect.width) * 2 - 1, -((event.clientY - rect.top) / rect.height) * 2 + 1);
+
+            if (isDeforming) {
+                // Pass event directly for Screen Y calculation
+                handleToolInteraction(null, 'move', event);
+                return;
+            }
+
+            raycaster.setFromCamera(mouse, camera);
+
+            if (isDragging) {
+                const ground = scene.getObjectByName("Ground Plane");
+                if (ground) {
+                    const hits = raycaster.intersectObject(ground);
+                    if (hits.length > 0) handleToolInteraction(hits[0], 'move', event);
+                }
+            }
+        }
+
+        function onPointerUp(event) {
+            handleToolInteraction(null, 'up', event);
+        }
+
+        function render() {
+            const time = performance.now();
+            const delta = (time - prevTime) / 1000;
+
+            controls.update();
+
+            // Update Popup Toolbar Position
+            if (selectedObject) {
+                const vector = new THREE.Vector3();
+                selectedObject.getWorldPosition(vector);
+                vector.project(camera);
+
+                const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
+                const y = (-(vector.y * 0.5) + 0.5) * window.innerHeight;
+
+                const toolbar = document.getElementById('popup-toolbar');
+                if (toolbar && !toolbar.classList.contains('hidden')) {
+                    toolbar.style.left = `${x}px`;
+                    toolbar.style.top = `${y}px`;
+                }
+            }
+
+            // Walk Logic
+            if (isWalkMode) {
+                const velocity = new THREE.Vector3();
+                const direction = new THREE.Vector3();
+                direction.z = Number(moveForward) - Number(moveBackward);
+                direction.x = Number(moveRight) - Number(moveLeft);
+                direction.normalize();
+                if (moveForward || moveBackward) velocity.z -= direction.z * 10.0 * delta;
+                if (moveLeft || moveRight) velocity.x -= direction.x * 10.0 * delta;
+                walkControls.moveRight(-velocity.x);
+                walkControls.moveForward(-velocity.z);
+            }
+
+            prevTime = time;
+            renderer.render(scene, camera);
+        }
+
+        // SYSTEM FUNCTIONS
+        function takeSnapshot() {
+            render();
+            const dataURL = renderer.domElement.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = dataURL;
+            link.download = `retro_snapshot_${Date.now()}.png`;
+            link.click();
+            playSound('click');
+        }
+
+        function saveScene() {
+            const data = objects.map(obj => {
+                return {
+                    type: obj.geometry.type,
+                    position: obj.position.toArray(),
+                    rotation: obj.rotation.toArray(),
+                    scale: obj.scale.toArray(),
+                    color: obj.material.color.getHex(),
+                    wireframe: obj.material.wireframe,
+                    shapeDetails: obj.userData.shapeType || 'unknown'
+                };
+            });
+            const json = JSON.stringify(data);
+            const blob = new Blob([json], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `retro_scene_${Date.now()}.json`;
+            link.click();
+            showMessage("System", "Scene Saved!");
+        }
+
+        function loadScene(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    // Clear current scene
+                    objects.forEach(o => scene.remove(o));
+                    objects = [];
+                    collidableObjects = [scene.getObjectByName("Ground Plane")];
+                    transformControl.detach();
+                    selectedObject = null;
+
+                    // Rebuild
+                    data.forEach(item => {
+                        let geo;
+                        // Basic shape reconstruction
+                        if (item.type.includes('Box')) geo = new THREE.BoxGeometry(1, 1, 1);
+                        else if (item.type.includes('Sphere')) geo = new THREE.SphereGeometry(0.5, 32, 32);
+                        else if (item.type.includes('Cylinder')) geo = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
+                        else geo = new THREE.BoxGeometry(1, 1, 1); // Fallback
+
+                        const mat = new THREE.MeshPhongMaterial({ color: item.color, wireframe: item.wireframe });
+                        const mesh = new THREE.Mesh(geo, mat);
+                        mesh.position.fromArray(item.position);
+                        mesh.rotation.fromArray(item.rotation);
+                        mesh.scale.fromArray(item.scale);
+                        scene.add(mesh);
+                        objects.push(mesh);
+                        collidableObjects.push(mesh);
+                    });
+                    showMessage("System", "Scene Loaded!");
+                } catch (err) {
+                    console.error(err);
+                    showMessage("Error", "Failed to load JSON");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function exportGLTF() {
+            const exporter = new GLTFExporter();
+            exporter.parse(
+                scene,
+                function (result) {
+                    const output = JSON.stringify(result, null, 2);
+                    const blob = new Blob([output], { type: 'text/plain' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'scene.gltf';
+                    link.click();
+                    showMessage("System", "Exported GLTF!");
+                },
+                function (error) {
+                    console.error('An error happened', error);
+                    showMessage("Error", "Export Failed");
+                },
+                { binary: false } // Options
+            );
+        }
+    </script>
+</body>
+
+</html>

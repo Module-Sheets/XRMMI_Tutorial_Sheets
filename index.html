@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XR Multimodal Interaction - Tutorials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+            overflow: visible;
+        }
+
+        .header {
+            background-color: #0F4761;
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 1.5em;
+            margin: 0;
+            display: inline;
+        }
+
+        .header p {
+            font-size: 1.5em;
+            opacity: 0.9;
+            display: inline;
+            margin-left: 15px;
+        }
+
+        .header p:before {
+            content: '|';
+            margin-right: 15px;
+            opacity: 0.5;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #f5f5f5;
+            border-bottom: 2px solid #0F4761;
+            position: fixed;
+            top: 48px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-wrapper {
+            flex: 1;
+            position: relative;
+            min-width: 120px;
+            overflow: visible;
+        }
+
+        .tab {
+            width: 100%;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #e0e0e0;
+            border: none;
+            border-right: 1px solid #ccc;
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            transition: all 0.3s ease;
+            display: block;
+            text-decoration: none;
+        }
+
+        .tab-wrapper:last-child .tab {
+            border-right: none;
+        }
+
+        .tab:hover {
+            background-color: #0F4761;
+            color: white;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            min-width: 250px;
+            background-color: white;
+            border: 2px solid #0F4761;
+            border-top: none;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-wrapper:hover .dropdown,
+        .tab:hover + .dropdown,
+        .dropdown:hover {
+            display: block;
+        }
+
+        .dropdown h3 {
+            color: #0F4761;
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        .dropdown p {
+            color: #666;
+            margin: 0 0 10px 0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .dropdown .btn {
+            display: inline-block;
+            background-color: #0F4761;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .dropdown .btn:hover {
+            background-color: #1a5f7f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>XR Multimodal Interaction</h1>
+            <p>Tutorial Series</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab-wrapper">
+                <a href="index.html" class="tab">Home</a>
+            </div>
+            <div class="tab-wrapper">
+                <a href="Tut_01.htm" class="tab">Tutorial 1</a>
+                <div class="dropdown">
+                    <h3>Getting Started</h3>
+                    <p>Begin your journey into XR multimodal interaction. This tutorial covers the basic concepts and setup required to start developing XR applications.</p>
+                    <a href="Tut_01.htm" class="btn">Start Tutorial</a>
+                </div>
+            </div>
+            <div class="tab-wrapper">
+                <a href="Tut_02.htm" class="tab">Tutorial 2</a>
+                <div class="dropdown">
+                    <h3>Core Concepts</h3>
+                    <p>Dive deeper into the fundamental principles of XR development and multimodal interaction patterns.</p>
+                    <a href="Tut_02.htm" class="btn">Start Tutorial</a>
+                </div>
+            </div>
+            <div class="tab-wrapper">
+                <a href="Tut_03.htm" class="tab">Tutorial 3</a>
+                <div class="dropdown">
+                    <h3>Advanced Techniques</h3>
+                    <p>Explore advanced techniques and best practices for creating immersive XR experiences with multimodal interactions.</p>
+                    <a href="Tut_03.htm" class="btn">Start Tutorial</a>
+                </div>
+            </div>
+            <div class="tab-wrapper">
+                <a href="Tut_04_05.htm" class="tab">Tutorial 4</a>
+                <div class="dropdown">
+                    <h3>Practical Applications</h3>
+                    <p>Learn how to apply your knowledge to real-world XR scenarios and practical use cases.</p>
+                    <a href="Tut_04_05.htm" class="btn">Start Tutorial</a>
+                </div>
+            </div>
+            <div class="tab-wrapper">
+                <a href="Tut_04_05.htm" class="tab">Tutorial 5</a>
+                <div class="dropdown">
+                    <h3>Project Development</h3>
+                    <p>Build a complete XR project from start to finish, integrating all the concepts learned in previous tutorials.</p>
+                    <a href="Tut_04_05.htm" class="btn">Start Tutorial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
