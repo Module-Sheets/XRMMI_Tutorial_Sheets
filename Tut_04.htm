@@ -371,8 +371,8 @@
         </div>
 
         <div class="image-container">
-            <img src="https://gyazo.com/98d766b317c6531c5958605302b70ab7.png" alt="XR Interaction Toolkit Installation">
-            <p style="text-align: center;"><a href="https://gyazo.com/98d766b317c6531c5958605302b70ab7">https://gyazo.com/98d766b317c6531c5958605302b70ab7</a></p>
+            <img src="https://gyazo.com/37b2b81ceafc22ed5e3ddeb50b2cdfc4.png" alt="XR Interaction Toolkit Installation">
+            <p style="text-align: center;"><a href="https://gyazo.com/37b2b81ceafc22ed5e3ddeb50b2cdfc4">https://gyazo.com/98d766b317c6531c5958605302b70ab7</a></p>
         </div>
         <div class="image-container">
             <img src="https://gyazo.com/0f70ebd973f0ed2f71ee0167e8a42a16.png" alt="XR Interaction Toolkit Installation">
@@ -429,6 +429,20 @@
                 <li>Find the prefab named <strong>"XR Origin (XR Rig) 2025 Basic PlusOptions"</strong> in the Assets/Prefabs Folder</li>
                 <li><strong>Drag it into your Hierarchy</strong></li>
                 <li>Position at (0, 0, 0) if not already</li>
+                <li>Update Standard Materials if needed</li>
+                <li>Run to Test</li>
+                <li>Controls are:<br>
+                    <code><ul>
+                        RMB to Rotate Camera<br>
+                        L-Shift + Mouse to Rotate L Controller<br>
+                        Space + Mouse to Rotate R Controller<br>
+                        L-Shift + MMB to Move L Controller<br>
+                        Space + MMB to Move R Controller<br>
+                        </ul>
+                    </code>
+                </li>
+                <li>Notice XR Controller (Action-Based) Component is Deprecated</li>
+                <li>Notice Tracked Pose Driver Components are turned off for each controller</li>
             </ol>
         </div>
 
@@ -457,10 +471,10 @@
             <ul style="margin-left: 20px; margin-top: 5px;">
                 <li><span class="checkmark">✓</span> Head tracking (camera)</li>
                 <li><span class="checkmark">✓</span> Left and right hand controllers</li>
-                <li><span class="checkmark">✓</span> Near-Far Interactors (grab and point)</li>
+                <li><span class="checkmark">✓</span> Ray and Direct Interactors (grab and point)</li>
+                <li><span class="checkmark">✓</span> Secondary Ray and Direct Interactors (we will investigate)</li>
                 <li><span class="checkmark">✓</span> Input Readers (automatic input handling)</li>
                 <li><span class="checkmark">✓</span> Controller visuals</li>
-                <li><span class="checkmark">✓</span> Locomotion system (teleport, movement)</li>
             </ul>
         </div>
 
@@ -470,17 +484,20 @@
             <ol style="margin-left: 50px; margin-top: 10px;">
                 <li>Right-click in Hierarchy → <strong>3D Object → Plane</strong></li>
                 <li>Name it "Floor", set Position (0, 0, 0), Scale (2, 1, 2)</li>
-                <li>Right-click in Hierarchy → <strong>3D Object → Cube</strong></li>
+                <li>Right-click in Hierarchy → <strong>XR / Grab Interactible</strong></ol>li>
+                <li>This Also Brings in an <strong>XR Interaction Manager</strong><i> - This handles the input and interaction logic for XR</i></li>
+                <li>Right-click in Hierarchy → <strong>3D Object / Cube</strong></li>
                 <li>Name it "GrabbableCube", set Position (0, 1, 2)</li>
                 <li>With GrabbableCube selected, click <strong>Add Component</strong></li>
                 <li>Search for <strong>"XR Grab Interactable"</strong> and add it</li>
                 <li>(Optional) Create more cubes at different positions for testing</li>
+                <li>In Project Window Right Click and Create new materials for the cubes, adjust the colors, and drag them onto the cubes</li>
             </ol>
         </div>
 
         <div class="image-container">
-            <img src="https://gyazo.com/0bd770aeb4e0c913faf296983f56a2b9.png" alt="Scene Objects">
-            <p style="text-align: center;"><a href="https://gyazo.com/0bd770aeb4e0c913faf296983f56a2b9">https://gyazo.com/0bd770aeb4e0c913faf296983f56a2b9</a></p>
+            <img src="https://gyazo.com/92d6e1ae9a2b0cbedbee9980832bc543.png" alt="Scene Objects">
+            <p style="text-align: center;"><a href="https://gyazo.com/92d6e1ae9a2b0cbedbee9980832bc543">https://gyazo.com/0bd770aeb4e0c913faf296983f56a2b9</a></p>
         </div>
 
         <h3>Step 7: Test Your VR Scene!</h3>
@@ -495,8 +512,19 @@
                 <li><strong>Camera Rotate:</strong> RMB (hold) + Left Control + Move Mouse</li>
                 <li><strong>Left Hand:</strong> Left Shift (hold) + Move Mouse</li>
                 <li><strong>Right Hand:</strong> Space (hold) + Move Mouse</li>
-                <li><strong>Grab Object:</strong> Move hand near cube + Press <strong>G</strong></li>
-                <li><strong>Ray Pointer:</strong> Press <strong>Q</strong> (left) or <strong>E</strong> (right)</li>
+                <li><strong>Grab Object:</strong> Move Controller, Direct Interactor Object or Sphere with Direct Interactor near cube + Press <strong>G</strong> to Grab</li>
+                <li><strong>Ray Pointer:</strong> Point Controller with Active Ray Interactor at Grabbable Object, when ray turns white, press <strong>G</strong> to Grab</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">10</span> <strong>Adjust Direct And Ray Interactor Options</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Far and Near Attach Modes for Ray Interactors and Attach Transforms for Direct Interactors work with Various Object and Child Setups </li>
+            </ol>
+            <ul style="margin-left: 70px; margin-top: 10px;">
+                <li><i> Switch <strong>Far Attach Mode</strong> to <strong>Far</strong> in <strong>XR Grab Interactible Components</strong> on Grabbable Objects so that Rays can grab objects without transferring them to the hand</i></li>
+                <li><i>A <strong>Direct Interactor</strong> can be on a child sphere so the child collider grabs with an offset, or a <strong>Direct Interactor</strong> could have a large collision zone, but use the child sphere as an <strong>Attach Transform</strong>offset in the <strong> XR Direct Interactor Component</strong></i></li>
             </ul>
         </div>
 
@@ -513,7 +541,7 @@
                 <li><span class="checkmark">✓</span> Move the camera view around</li>
                 <li><span class="checkmark">✓</span> Control left and right hands</li>
                 <li><span class="checkmark">✓</span> Grab and move the cube</li>
-                <li><span class="checkmark">✓</span> See ray pointers when pressing Q or E</li>
+                <li><span class="checkmark">✓</span> See Ray pointers when active and Grab with them</li>
             </ul>
             <p style="margin-top: 10px;"><strong>Congratulations! You have a working VR application in under 15 minutes!</strong></p>
         </div>
