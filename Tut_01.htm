@@ -121,7 +121,7 @@
         <ol>
             <li><span class="highlight">Start with Unity 6000.0.58f2</span></li>
             
-            <li>Create a new project in Unity Hub. <span class="highlight">Don't use <strong>VR Core</strong></span>, start a basic 3D package
+            <li>Create a new project in Unity Hub. <span class="highlight">Don't use <strong>VR Core</strong></span>, start a Universal 3D Core package
                 <ol type="a">
                     <li>Built in Render pipeline or</li>
                     <li>Universal Render Pipeline</li>
@@ -131,25 +131,23 @@
             <li>Open the Package Manager under the Window Menu at the top</li>
         </ol>
 
-        <img src="https://gyazo.com/5f148c9d5afc50ea908f181321e4eacd.png" alt="Package Manager Menu">
-
         <ol start="4">
-            <li>In Package Manager, select the drop down menu to change Packages: In Project to Unity Registry.</li>
+            <li>In Package Manager, select the Unity Registry in the left hand menu.</li>
             
             <li>Find <strong>OpenXR</strong> in Plugin in the package list, and click the install button</li>
             
-            <li><span class="highlight">Unity will want to restart to install the <strong>New Input System</strong></span></li>
+            <li>Fix Any Yellow errors with the Fix All Button</li>
         </ol>
 
-        <img src="https://gyazo.com/5f148c9d5afc50ea908f181321e4eacd.png" alt="New Input System Install">
-        <p style="text-align: center;"><a href="https://gyazo.com/5f148c9d5afc50ea908f181321e4eacd">https://gyazo.com/5f148c9d5afc50ea908f181321e4eacd</a></p>
+        <img src="https://i.gyazo.com/43e80ba910bc247e737e47835f1c50b4.png" alt="Fix all Yellow Errors">
+        <p style="text-align: center;"><a href="https://gyazo.com/43e80ba910bc247e737e47835f1c50b4">https://gyazo.com/5f148c9d5afc50ea908f181321e4eacd</a></p>
 
         <ol start="7">
-            <li>Note that <strong>XR Plugin Management</strong> at the bottom is also available</li>
+            <li><strong>XR Plugin Management</strong> is installed with OpenXR.</li>
         </ol>
 
-        <img src="https://gyazo.com/f6ec7b1be3132638547821c89e078183.png" alt="XR Plugin Management">
-        <p style="text-align: center;"><a href="https://gyazo.com/f6ec7b1be3132638547821c89e078183">https://gyazo.com/f6ec7b1be3132638547821c89e078183</a></p>
+        <img src="https://i.gyazo.com/c5b9788a0cb777cd10b55c8e9b27fd92.png" alt="XR Plugin Management">
+        <p style="text-align: center;"><a href="https://gyazo.com/c5b9788a0cb777cd10b55c8e9b27fd92">https://gyazo.com/f6ec7b1be3132638547821c89e078183</a></p>
 
         <ol start="8">
             <li><strong>XR Interaction Toolkit</strong> is also there, but will not be installed for now.</li>
@@ -161,7 +159,7 @@
         <p style="text-align: center;"><a href="https://gyazo.com/bd2b763acf6b5ea8140620f48c359342">https://gyazo.com/bd2b763acf6b5ea8140620f48c359342</a></p>
 
         <ol start="10">
-            <li>You should unlock and remove the <strong>Visual Studio Code Editor</strong>, as this is deprecated, and make sure <strong>Visual Studio Editor</strong> is up to date: <strong>2.0.22 - Unlock at top right of package window and press update for Visual Studio Editor 2.0.22</strong></li>
+            <li>You should unlock and remove the <strong>Visual Studio Code Editor</strong>, if it is there, as this is deprecated, and make sure <strong>Visual Studio Editor</strong> is up to date: <strong>2.0.22 - Unlock at top right of package window and press update for Visual Studio Editor 2.0.22</strong></li>
             
             <li>Open <strong>Project Settings</strong> under the <strong>Edit</strong> button in the top menu:</li>
             
@@ -172,17 +170,14 @@
         <p style="text-align: center;"><a href="https://gyazo.com/94bb4c310a8a811c33a8d08fb282fa63">https://gyazo.com/94bb4c310a8a811c33a8d08fb282fa63</a></p>
 
         <ol start="13">
-            <li>Tick <strong>OpenXR</strong>, <span class="highlight">then the yellow warning sign next to it</span> (Controller Profile and Pose Control)</li>
+            <li>Tick <strong>OpenXR</strong>, <span class="highlight">then fix any yellow warning sign errors</span></li>
             
-            <li>To fix the yellow Profile error, Select the <strong>OpenXR</strong> tab on left, click edit button next to the "at least one interaction profile must be added error", and add a <strong>Khronos Simple Controller Profile</strong> by pressing the plus sign under the "Enabled Interaction Profiles" box. (you can also add any hardware you want at this point, we will not be using that but the basic simulator setup via a mock input script). <span class="highlight">Leave any other yellow errors for now</span></li>
+            <li>Select the <strong>OpenXR</strong> tab on left and add a <strong>Khronos Simple Controller Profile</strong> by pressing the plus sign under the "Enabled Interaction Profiles" box. (you can also add any hardware you want at this point, we will not be using that but the basic simulator setup via a mock input script).</li>
         </ol>
 
         <img src="https://gyazo.com/504922c903830c317891df22410d185c.png" alt="Interaction Profiles">
         <p style="text-align: center;"><a href="https://gyazo.com/504922c903830c317891df22410d185c">https://gyazo.com/504922c903830c317891df22410d185c</a></p>
 
-        <img src="https://gyazo.com/5484ba1dbd6aeff0c77a0faa949b2601.png" alt="Profile Configuration">
-        <p style="text-align: center;"><a href="https://gyazo.com/5484ba1dbd6aeff0c77a0faa949b2601">https://gyazo.com/5484ba1dbd6aeff0c77a0faa949b2601</a></p>
-        <p style="text-align: center;">Don't fix the above, not needed</p>
 
         <ol start="15">
             <li>Add a 3D Plane to the Scene by selecting <strong>Game Object</strong> in the Top Menu, then <strong>3D Object</strong>, then <strong>Plane</strong>. If you create it here, it will be zeroed out (preferable), otherwise you can select the Plane in the left hand panel called <strong>Hierarchy</strong>, which acts as a scene manager, and look to the far right panel (<strong>Inspector</strong>). Under <strong>Transform</strong>, there are three dots in the top right, select these and click the "reset" option to zero out all transform values. (you can also type in values)</li>
@@ -193,7 +188,7 @@
         <img src="https://gyazo.com/08fc45c8684f10acbe34c9ed32a39b94.png" alt="Material Selection">
         <p style="text-align: center;"><a href="https://gyazo.com/08fc45c8684f10acbe34c9ed32a39b94">https://gyazo.com/08fc45c8684f10acbe34c9ed32a39b94</a></p>
 
-        <img src="https://gyazo.com/9f8e4a7e6c7e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Wireframe Material">
+        <img src="https://i.gyazo.com/1a30b4ff369e75e05c9406e3f6b91a85.gif" alt="Wireframe Material">
 
         <ol start="17">
             <li>Unity provides a Main Camera as standard, but we need to convert this to an <strong>XR Rig</strong> from <strong>OpenXR</strong>. FIRST RESET THE MAIN CAMERA TRANSFORMS IN INSPECTOR to 0,0,0 pos and rot. Right click on the main camera in the Hierarchy window and in the pop up menu select XR/XR Origin to convert it <em>(not action based, we will add controllers)</em></li>
@@ -202,19 +197,19 @@
         <img src="https://gyazo.com/97896180bef23040365e7b29b6862075.png" alt="XR Origin Configuration">
         <p style="text-align: center;"><a href="https://gyazo.com/97896180bef23040365e7b29b6862075">https://gyazo.com/97896180bef23040365e7b29b6862075</a></p>
 
-        <p style="text-align: center;">Camera offset should now read as this:</p>
+        <p style="text-align: center;">Camera offset Requested Tracking mode shouldbe set to device:</p>
         <img src="https://gyazo.com/889bb53cce6065837fafae443d2e004d.png" alt="Camera Offset">
         <p style="text-align: center;"><a href="https://gyazo.com/889bb53cce6065837fafae443d2e004d">https://gyazo.com/889bb53cce6065837fafae443d2e004d</a></p>
 
         <p>and you can expand the nested game objects with the arrow on the left:</p>
-        <img src="https://gyazo.com/7c9e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Hierarchy Expanded">
+        <img src="https://i.gyazo.com/c4b8990aa7e61cd0a96fbf26c26cb548.gif" alt="Hierarchy Expanded">
 
         <ol start="19">
             <li>Test by clicking the play button</li>
             <li>Save scene and project</li>
         </ol>
 
-        <img src="https://gyazo.com/5f148c9d5afc50ea908f181321e4eacd.png" alt="Save Options">
+        <img src="https://i.gyazo.com/fdd63e207524f6c893fb44d9249b15ae.png" alt="Save Options">
 
         <ol start="21">
             <li>That should be the Camera working. Now We will set up Hand Tracking.</li>
@@ -242,25 +237,24 @@
             <li>Now add a "<strong>Tracked Pose Driver</strong>" component to each of your spheres. With Sphere selected Select <strong>add component</strong> in <strong>Inspector window</strong> and scroll down to <strong>XR</strong> to select this. Do not select the <strong>Script</strong> one using the <strong>Input system</strong>.</li>
         </ol>
 
-        <img src="https://gyazo.com/16a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Add Component Menu">
-        <img src="https://gyazo.com/17a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Tracked Pose Driver">
+        <img src="https://i.gyazo.com/92c9f7e9c2f25210866f1feeeb00145b.gif" alt="Add Component Menu"><img src="https://i.gyazo.com/70a8b0b64908688580732c050d889dc8.gif" alt="Tracked Pose Driver">
 
         <ol start="25">
             <li>Next select the <strong>Tracked Pose Driver</strong> component in <strong>Inspector</strong> for each <strong>Sphere</strong>, and under the <strong>Device</strong> drop down box select <strong>Generic XR Controller</strong></li>
         </ol>
 
-        <img src="https://gyazo.com/18a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Device Selection">
+        <img src="https://i.gyazo.com/e886a431c41db0e777b87202904a3204.gif" alt="Device Selection">
 
         <ol start="26">
             <li>Then in the <strong>Pose Source</strong> box select <strong>Left</strong> or <strong>Right Controller</strong> as needed:</li>
         </ol>
 
-        <img src="https://gyazo.com/19a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Pose Source">
+        <img src="https://i.gyazo.com/6f20e95b72b450d940c84f15bd9011ac.gif" alt="Pose Source">
 
         <ol start="27">
             <li>This will not work on playback yet, we need to have a <strong>simulated control system</strong></li>
             
-            <li><span class="highlight">Edit/Parent each <strong>Pivot</strong> to the <strong>Camera Offset Game Object</strong> (Child of <strong>XR Rig</strong>) in the <strong>Hierarchy</strong> by dragging and dropping one by one - make sure they stay zeroed out</span></li>
+            <li><span class="highlight">Parent each <strong>Pivot</strong> to the <strong>Camera Offset Game Object</strong> (Child of <strong>XR Rig</strong>) in the <strong>Hierarchy</strong> by dragging and dropping one by one - make sure they stay zeroed out</span></li>
             
             <li><span class="highlight">Now you can move the Left and Right Pivots 2 units in Z so they are seen by the camera:</span></li>
         </ol>
@@ -295,57 +289,57 @@
             <li><strong>OpenXR</strong> does not have built in control mapping to the <strong>New Input System</strong>, so we will create them. For this we need an <strong>Input Actions</strong> GameObject asset. In the <strong>Project</strong> Window, select Assets, and right click in the assets window to the right. Select "<strong>Create</strong>", and the Input Actions will be at the bottom. I will leave this called "<strong>New Controls.InputActions</strong>". This is how the New Unity Input system works.</li>
         </ol>
 
-        <img src="https://gyazo.com/23a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Create Input Actions">
+        <img src="https://i.gyazo.com/7624750058fcbe607a672306e44c3709.gif" alt="Create Input Actions">
 
         <ol start="33">
             <li>Double click on the file to open the <strong>InputActions</strong> file created, we will be creating a <strong>Control Scheme</strong> for an <strong>Action Map</strong>. Click the plus sign on the left panel, and give it the name "<strong>MouseInput</strong>". <span class="warning">At the top right – also click Auto-Save or you may lose work!</span></li>
         </ol>
 
-        <img src="https://gyazo.com/24a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Input Actions Window">
+        <img src="https://i.gyazo.com/65aba5edd6dc5d3dd676094a22603549.gif" alt="Input Actions Window">
 
         <ol start="34">
             <li>Now in the middle of the window, double click on the green action name and give it a name, in this case we will be getting the <strong>mouse X</strong> value, so call it <strong>MouseX</strong>. After this click on the dropdown in the "<strong>Action</strong>" section and choose "<strong>Pass Through</strong>" as we want to pass this information into a <strong>C# script</strong>. Now a new dropdown should appear, change this dropdown to <strong>Control Type:</strong> "<strong>Axis</strong>"</li>
         </ol>
 
-        <img src="https://gyazo.com/25a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Action Configuration">
-        <img src="https://gyazo.com/26a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Control Type Axis">
+        <img src="https://i.gyazo.com/1a1664c1f865a2b3c5c22dd22e998787.gif" alt="Action Configuration">
+        <img src="https://i.gyazo.com/0801b9f219db8fb440d5b697f722e71f.gif" alt="Control Type Axis">
 
         <ol start="35">
             <li>Now we need to let the input action know that we are using a mouse. To do this first click on the "<strong>No Control Schemes</strong>" dropdown in the top left and click "<strong>Add Control Scheme</strong>". Call this <strong>Inputs</strong>. After this go to the <strong>List</strong>, select the "<strong>+</strong>", add "<strong>Mouse</strong>" from the drop down menu, and select "<strong>Virtual Mouse</strong>" and then click the "<strong>Save</strong>" button on the control scheme menu.</li>
         </ol>
 
-        <div class="warning">
+        <!--<div class="warning">
             <p>Please note – In this years version of Unity – the search bar is cut off and the selections are unresponsive, you need to click in the remaining search bar seen, type in virtual, scroll to the bottom and select the Virtual Mouse, select it in the cutoff search bar (select all or click), and press enter to access!</p>
-        </div>
+        </div>-->
 
-        <img src="https://gyazo.com/27a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Control Scheme">
-        <img src="https://gyazo.com/28a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Virtual Mouse Selection">
-        <img src="https://gyazo.com/29a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Control Scheme Save">
+        <img src="https://i.gyazo.com/b897cb540cb8052b47044ea8be3c8ba7.gif" alt="Control Scheme">
+        <img src="https://i.gyazo.com/73ad6e8432c08a7514d7b746536f77e5.gif" alt="Virtual Mouse Selection">
+        <img src="https://i.gyazo.com/db098c6d62678dfb8bb32a961e3522f1.gif" alt="Control Scheme Save">
 
         <ol start="36">
             <li>The binding under the <strong>MouseX</strong> should change to <strong>no binding&gt;{GLOBAL}</strong>. Now click on the blue "<strong>Binding</strong>" section under the <strong>MouseX</strong> Action, click on the <strong>down arrow</strong> in the <strong>Path</strong> box to the right, and search for "<strong>Delta/X [Mouse]</strong>" If you do not find it then double check you did the previous step correctly and remembered to save.</li>
         </ol>
 
-        <img src="https://gyazo.com/30a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Binding Path">
+        <img src="https://i.gyazo.com/9fd9fe74c7aa5b126c92156b3be8ea2a.gif" alt="Binding Path">
 
         <ol start="37">
             <li>Next right click on the green <strong>MouseX</strong> action and duplicate it. Rename the duplicate to <strong>MouseY</strong> and click on the blue "<strong>binding</strong>" section. Now change that binding path to "<strong>Delta/Y [Mouse]</strong>".</li>
         </ol>
 
-        <img src="https://gyazo.com/31a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="MouseY Binding">
+        <img src="https://i.gyazo.com/6b61cbe7ce99e6d6e154a5eb1a1dc613.gif" alt="MouseY Binding">
 
         <ol start="38">
             <li>Now we will add another 2 actions to get information about the scroll wheel. This will be used later on to move the controller spheres forwards and backwards. To do this make 2 duplicates of the green actions and name them "<strong>MouseWheelUp</strong>" and "<strong>MouseWheelDown</strong>". Click on the blue binding for each of these and set "<strong>MouseWheelUp</strong>" to "<strong>Scroll/Y [Mouse]</strong> and "<strong>MouseWheelDown</strong>" to "<strong>Scroll/X [Mouse]</strong>".</li>
         </ol>
 
-        <img src="https://gyazo.com/32a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Scroll Wheel Actions">
-        <img src="https://gyazo.com/33a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Scroll Bindings">
+        <img src="https://i.gyazo.com/764711ab854bb19bb6982ffa0d65a3c2.gif" alt="Scroll Wheel Actions">
+        <img src="https://i.gyazo.com/c148aa45f44a008a31f1c5f860a6f064.gif" alt="Scroll Bindings">
 
         <ol start="39">
             <li><span class="warning">Click Save Asset and/or make sure you tick <strong>autosave</strong> in top right, or you will lose your work.</span></li>
         </ol>
 
-        <img src="https://gyazo.com/34a4b8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4f3a8e4.png" alt="Save Asset">
+        <img src="https://i.gyazo.com/43bc02deeaf839bc8e415d95759052a0.gif" alt="Save Asset">
 
         <ol start="40">
             <li>Generate a C# Class in the Inspector Window for the <strong>InputActions</strong> Asset (C# Script)
