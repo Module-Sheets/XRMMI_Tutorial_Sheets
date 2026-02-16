@@ -529,9 +529,15 @@
         </div>
 
         <div class="image-container">
-            <img src="https://gyazo.com/2e872132f5cd1b5b57480464615f419d.png" alt="Test Feedback">
-            <p style="text-align: center;"><a href="https://gyazo.com/2e872132f5cd1b5b57480464615f419d">https://gyazo.com/2e872132f5cd1b5b57480464615f419d</a></p>
+            <img src="https://gyazo.com/c64c5a402d286b77c7fda0ae258e6890.png" alt="Test Feedback">
+            <p style="text-align: center;"><a href="https://gyazo.com/c64c5a402d286b77c7fda0ae258e6890">https://gyazo.com/2e872132f5cd1b5b57480464615f419d</a></p>
         </div>
+
+        <div class="image-container">
+            <img src="https://gyazo.com/6c632aa1a3194e6962d6098bfb76533c.png" alt="Test Feedback">
+            <p style="text-align: center;"><a href="https://gyazo.com/6c632aa1a3194e6962d6098bfb76533c">https://gyazo.com/2e872132f5cd1b5b57480464615f419d</a></p>
+        </div>
+
 
         <div class="highlight-green">
             <h4>🎊 SUCCESS CHECKPOINT</h4>
@@ -553,14 +559,28 @@
         <h2>🔍 PART 2: UNDERSTANDING THE COMPLETE RIG <span class="time-badge">15-30 MIN</span></h2>
 
         <div class="modern-box">
-            <h3>🎯 Goal: Understand what Unity gave you in the Complete Rig prefab</h3>
+            <h3>🎯 Goal: Understand what Unity gave you in the Complete 3.x Rig prefab</h3>
             <p><strong>Why inspect?</strong> Understanding the architecture helps you customize, troubleshoot, and build your own rigs from scratch.</p>
         </div>
 
-        <h3>Inspect the Hierarchy</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span> <strong>Expand the XR Origin in Hierarchy</strong></p>
+        <h3>Import 3.x Rig and Inspect the Hierarchy</h3>
+<!--         <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Drag the Rig Expand the XR Origin in Hierarchy</strong></p>
             <p style="margin-left: 50px;">Click the arrow next to "XR Origin (XR Rig)" to see the structure:</p>
+        </div> -->
+
+        <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Import the Complete 3.x XR Rig Prefab</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li><strong>Delete the Main Camera</strong> in your scene (we don't need it)</li>
+                <li>In <strong>Project window</strong>, navigate to:<br>
+                    <code>Assets/Samples/XR Interaction Toolkit/3.0.10/Starter Assets/Prefabs/</code>
+                </li>
+                <li>Find the prefab named <strong>"XR Origin (XR Rig)"</strong> or <strong>"Complete XR Origin Setup"</strong></li>
+                <li><strong>Drag it into your Hierarchy</strong></li>
+                <li>Position at (0, 0, 0) if not already</li>
+                <li>Click the arrow next to "XR Origin (XR Rig)" to see the structure:</li>
+            </ol>
         </div>
 
         <div class="code" style="background-color: #f5f5f5; padding: 15px; margin: 15px 0; font-family: 'Courier New', monospace;">
