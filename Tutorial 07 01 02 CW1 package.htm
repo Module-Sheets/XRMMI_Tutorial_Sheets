@@ -1,0 +1,455 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:"Aptos Narrow";}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Arial",sans-serif;}
+p.paragraph, li.paragraph, div.paragraph
+	{mso-style-name:paragraph;
+	margin-right:0cm;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.wacimagecontainer
+	{mso-style-name:wacimagecontainer;}
+span.eop
+	{mso-style-name:eop;}
+.MsoChpDefault
+	{font-family:"Arial",sans-serif;}
+.MsoPapDefault
+	{line-height:115%;}
+@page WordSection1
+	{size:595.45pt 841.7pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB link=blue vlink=purple style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><b><u>Tutorial 07 01</u></b></p>
+
+<p class=MsoNormal>(This will help you start to work with the XR Lab CW1 package)</p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Install XR Interaction Toolkit (if not already installed)</li>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal>XR Device Simulator</li>
+  <li class=MsoNormal>Starter Assets</li>
+ </ol>
+ <li class=MsoNormal>Install XR Plugin Manager (if not already installed)</li>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal>Check OpenXR is installed - no samples needed</li>
+  <li class=MsoNormal>Check Edit/Project Settings</li>
+  <ol style='margin-top:0cm' start=1 type=i>
+   <li class=MsoNormal>Add <b>Khronos Simple Controller profile</b> in <b>OpenXR</b></li>
+   <li class=MsoNormal><b><span style='background:yellow'>Unity Mock HMD</span></b><span
+       style='background:yellow'> in OpenXR Not Needed</span></li>
+   <li class=MsoNormal><b><span style='background:yellow'>Mock runtime </span></b><span
+       style='background:yellow'>Not Needed</span></li>
+   <li class=MsoNormal><span style='background:yellow'>XR Plug-In Management/XR
+       Interaction Toolkit/XR Device Simulator Settings/ Tick <b>Use XR Device
+       Simulator in Scenes</b>.</span></li>
+  </ol>
+ </ol>
+</ol>
+
+<p class=MsoNormal align=center style='text-align:center'><img width=602
+height=357 id="Picture 8"
+src="Tutorial%2007%2001%2002%20CW1%20package_files/image001.gif"><br>
+<a href="https://gyazo.com/2bb78e5b2a7cc70e50e471355c95c961" target="_blank">https://gyazo.com/2bb78e5b2a7cc70e50e471355c95c961</a></p>
+
+<ol style='margin-top:0cm' start=3 type=1>
+ <li class=MsoNormal>Import the “CW1Project.unitypackage” from the BlackBoard
+     week 07</li>
+ <li class=MsoNormal>This brings in the new <b>XR Interaction Setup </b>prefab</li>
+ <li class=MsoNormal>This new XRIT prefab contains everything needed in an XR
+     Rig, including:</li>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal><b>Input Action Manager</b> GO/Component</li>
+  <li class=MsoNormal><b>XR Interaction Manager</b> GO/Component</li>
+  <li class=MsoNormal><b>Event System</b> GO/Component with <b>XR UI Input
+      Module</b> Component</li>
+  <li class=MsoNormal><b>XR Origin (XR Rig)</b></li>
+  <ol style='margin-top:0cm' start=1 type=i>
+   <li class=MsoNormal><b>XR Origin </b>Component</li>
+   <li class=MsoNormal><b>Character Controller </b>Component</li>
+   <li class=MsoNormal><b>Character Controller Driver </b>Component</li>
+   <li class=MsoNormal><b>XR Input Modality Manager</b> Component</li>
+   <li class=MsoNormal><b>XR Gaze Assistance </b>Component</li>
+  </ol>
+  <li class=MsoNormal><b>Camera Offset </b>Parented to XR Origin</li>
+  <li class=MsoNormal>Children of<b> Camera Offset:</b></li>
+  <ol style='margin-top:0cm' start=1 type=i>
+   <li class=MsoNormal>Main Camera with <b>Tracked Pose Driver</b> Component</li>
+   <li class=MsoNormal>Gaze Interactor GO/</li>
+   <ol style='margin-top:0cm' start=1 type=1>
+    <li class=MsoNormal><b>XR Gaze Interactor</b> Component</li>
+    <li class=MsoNormal><b>XR Controller</b> Component (pre-populated with <b>XRI
+        Input Actions</b>)</li>
+    <li class=MsoNormal><b>Gaze Input Manager</b> Component</li>
+   </ol>
+   <li class=MsoNormal><b>Gaze Stabilized</b> GO with <b>XR Transform
+       Stabilizer</b> Component</li>
+   <li class=MsoNormal><b>Left/Right Controller</b> GO</li>
+   <ol style='margin-top:0cm' start=1 type=1>
+    <li class=MsoNormal><b>Action Based Controller Manager </b>Component</li>
+    <li class=MsoNormal><b>XR Controller (Action Based) Component</b></li>
+    <ol style='margin-top:0cm' start=1 type=a>
+     <li class=MsoNormal>With<b> XRI Input Actions</b></li>
+    </ol>
+    <li class=MsoNormal><b>XR Interaction Group</b> Component (for controlling
+        overrides)</li>
+    <li class=MsoNormal>Interactor Children:</li>
+    <ol style='margin-top:0cm' start=1 type=a>
+     <li class=MsoNormal><b>Poke Interactor </b>GO</li>
+     <ol style='margin-top:0cm' start=1 type=i>
+      <li class=MsoNormal><b>XR Poke Interactor</b> Component</li>
+     </ol>
+     <li class=MsoNormal><b>Direct Interactor </b>GO</li>
+     <ol style='margin-top:0cm' start=1 type=i>
+      <li class=MsoNormal><b>XR Direct Interactor</b> Component</li>
+      <li class=MsoNormal><b>Sphere Collider </b>Component, Is Trigger</li>
+     </ol>
+     <li class=MsoNormal><b>Ray Interactor </b>GO</li>
+     <ol style='margin-top:0cm' start=1 type=i>
+      <li class=MsoNormal><b>XR Ray Interactor</b> Component</li>
+      <li class=MsoNormal><b>Line Renderer </b>Component</li>
+      <li class=MsoNormal><b>XR Interactor Line Visual </b>Component</li>
+      <li class=MsoNormal><b>Sorting Group </b>Component</li>
+     </ol>
+     <li class=MsoNormal><b>Teleport Interactor </b>GO</li>
+    </ol>
+    <li class=MsoNormal><b>Left/Right Controller Stabilized</b> GO with <b>XR
+        Transform Stabilizer</b> Component</li>
+   </ol>
+   <li class=MsoNormal><b>Locomotion System </b>GO and Component with children:</li>
+   <ol style='margin-top:0cm' start=1 type=1>
+    <li class=MsoNormal><b>Turn </b>GO</li>
+    <li class=MsoNormal><b>Move</b> GO</li>
+    <li class=MsoNormal><b>Grab Move</b> GO</li>
+    <li class=MsoNormal><b>Teleportation </b>GO</li>
+    <li class=MsoNormal><b>Climb</b> GO</li>
+   </ol>
+  </ol>
+ </ol>
+</ol>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=292 height=376 id="Picture 9"
+src="Tutorial%2007%2001%2002%20CW1%20package_files/image002.gif"
+alt="A screenshot of a computer&#10;&#10;Description automatically generated"><br>
+<a href="https://gyazo.com/0b209dc030eb1b25e92eb8ec788bbcf5" target="_blank">https://gyazo.com/0b209dc030eb1b25e92eb8ec788bbcf5</a></p>
+
+<ol style='margin-top:0cm' start=6 type=1>
+ <li class=MsoNormal>Play and Test with following controls:</li>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal><span style='background:yellow'>WASD for movement</span></li>
+  <li class=MsoNormal><span style='background:yellow'>Q, E for up and down</span></li>
+  <li class=MsoNormal><span style='background:yellow'>LShift for Left
+      Controller rotation</span></li>
+  <li class=MsoNormal><span style='background:yellow'>Space for Right
+      Controller Rotation</span></li>
+  <li class=MsoNormal><span style='background:yellow'>Test Selection Gun by
+      picking up with Left Controller when near (Direct Interactor) – Click LMB
+      to fire ray to select object</span></li>
+ </ol>
+ <li class=MsoNormal>Test Gaze Interactable via Simple Interactable</li>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal>Simple Interactible on 3D Object</li>
+  <li class=MsoNormal>Interactible Events/First/Last Hover - drag 3D Object
+      into Runtime Only box</li>
+  <li class=MsoNormal>Interactible Events/First/Last Hover - Select an
+      interaction from drop down box: MeshRenderer.material </li>
+  <li class=MsoNormal>Drag in materials for enter and exit</li>
+  <li class=MsoNormal>Mesh Collider with Is Trigger ticked</li>
+ </ol>
+</ol>
+
+<p class=paragraph style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;vertical-align:baseline'><span class=wacimagecontainer><span
+lang=EN-US style='font-size:9.0pt;font-family:"Segoe UI",sans-serif'><img
+border=0 width=602 height=292 id="Picture 10"
+src="Tutorial%2007%2001%2002%20CW1%20package_files/image003.gif"
+alt="A screenshot of a computer&#10;&#10;Description automatically generated"></span></span><span
+class=eop><span lang=EN-US style='font-family:"Aptos",sans-serif'>&nbsp;</span></span><a
+href="https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2"><span lang=EN-US
+style='font-family:"Aptos",sans-serif'>https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2</span></a><span
+class=eop><span lang=EN-US style='font-family:"Aptos",sans-serif'>&nbsp;</span></span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<ol style='margin-top:0cm' start=8 type=1>
+ <li class=MsoNormal>Test Grab Interactable with Existing table Objects</li>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal>Try adding New Grab Interactables as in Tutorial 04-05</li>
+ </ol>
+</ol>
+
+<p class=MsoListParagraph style='text-indent:-18.0pt'><span style='background:
+yellow'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span>Test XR Lab Component Menu System</p>
+
+<ol style='margin-top:0cm' start=9 type=1>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal>Open Component Menus and Spawn selected objects as per
+      this video: </li>
+ </ol>
+</ol>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-indent:36.0pt'><a
+href="https://universityofwestminster-my.sharepoint.com/:v:/g/personal/fergusj_westminster_ac_uk/ETemfsmEWh5Ou5Cl1lyoERIBlM8MZEz0SmH1Vq3H1A0iOA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&amp;e=sRoZMn">Demo-2024-03-04
+16-39-48.mp4</a></p>
+
+<ol style='margin-top:0cm' start=9 type=1>
+ <ol style='margin-top:0cm' start=2 type=1>
+  <li class=MsoNormal>LMB will interact with UI Buttons and sliders to select
+      and Spawn objects</li>
+  <li class=MsoNormal>Test <b>Ray</b> <b>Selection Gun</b> by picking up with
+      Left Controller when near (Direct Interactor) – Click LMB to fire ray to
+      select object</li>
+  <li class=MsoNormal><span style='background:yellow'>Once object is selected
+      with the <b>Ray Selector gun,</b> you can alter its components</span></li>
+  <ol style='margin-top:0cm' start=1 type=i>
+   <li class=MsoNormal>Try the UI panels to alter the makeup of the objects.</li>
+   <ol style='margin-top:0cm' start=1 type=1>
+    <li class=MsoNormal>Material Color</li>
+    <li class=MsoNormal>Offset</li>
+    <li class=MsoNormal>Physics</li>
+    <li class=MsoNormal>View and add components</li>
+   </ol>
+   <li class=MsoNormal>Add Mecabricks assets</li>
+   <ol style='margin-top:0cm' start=1 type=1>
+    <li class=MsoNormal>Download from site with normal smoothing and no groups</li>
+    <li class=MsoNormal>Unzip, Rename and drag into models folder in Unity
+        scene</li>
+    <li class=MsoNormal>Select top level of model in project window and adjust
+        size in model tab in Inspector on right to .01, and click apply</li>
+   </ol>
+  </ol>
+ </ol>
+</ol>
+
+<p class=MsoNormal><img border=0 width=602 height=620 id=image4.png
+src="Tutorial%2007%2001%2002%20CW1%20package_files/image004.gif"></p>
+
+<p class=MsoNormal><a href="https://gyazo.com/7e87a925895fca517804fefceb3fc935"><span
+style='color:#1155CC;background:white'>https://gyazo.com/7e87a925895fca517804fefceb3fc935</span></a></p>
+
+<ol style='margin-top:0cm' start=9 type=1>
+ <ol style='margin-top:0cm' start=4 type=1>
+  <ol style='margin-top:0cm' start=2 type=i>
+   <ol style='margin-top:0cm' start=4 type=1>
+    <li class=MsoNormal><span style='background:white'>Create prefab</span></li>
+    <ol style='margin-top:0cm' start=1 type=a>
+     <li class=MsoNormal><span style='background:white'>Drag model from Project
+         window to Hierarchy</span></li>
+     <li class=MsoNormal><span style='background:white'>Add box collider</span></li>
+     <li class=MsoNormal><span style='background:white'>Add Grab Intractable</span></li>
+     <li class=MsoNormal><span style='background:white'>Drag from Hierarchy to
+         Project Window/Prefab folder</span></li>
+     <li class=MsoNormal><span style='background:white'>Select Original Prefab
+         option in popup window.</span></li>
+    </ol>
+   </ol>
+  </ol>
+ </ol>
+</ol>
+
+<p class=MsoNormal><img border=0 width=601 height=671 id=image5.png
+src="Tutorial%2007%2001%2002%20CW1%20package_files/image005.gif"></p>
+
+<p class=MsoNormal><a href="https://gyazo.com/2ca6d229aab17fa3a07c2b33d2dc45b5"><span
+style='color:#1155CC;background:white'>https://gyazo.com/2ca6d229aab17fa3a07c2b33d2dc45b5</span></a></p>
+
+<ol style='margin-top:0cm' start=9 type=1>
+ <ol style='margin-top:0cm' start=4 type=1>
+  <ol style='margin-top:0cm' start=2 type=i>
+   <ol style='margin-top:0cm' start=5 type=1>
+    <li class=MsoNormal><span style='background:white'>Add to prefab spawning
+        list:</span></li>
+    <ol style='margin-top:0cm' start=1 type=a>
+     <li class=MsoNormal><span style='background:white'>Search for <b>ObjectSpawnerMenu.prefab</b>
+         in Project Search</span></li>
+     <li class=MsoNormal><span style='background:white'>This is placed in the <b>VR
+         Editor Standalone/ InGameEditorSplitMenus</b> in the scene</span></li>
+     <li class=MsoNormal><span style='background:white'>View in Inscector,
+         scroll down</span></li>
+     <li class=MsoNormal><span style='background:white'>Expand <b>Prefabs to
+         Spawn</b></span></li>
+     <li class=MsoNormal><span style='background:white'>Hit <b>+</b> to add a
+         box</span></li>
+     <li class=MsoNormal><span style='background:white'>Drag new prefab into
+         box</span></li>
+    </ol>
+    <li class=MsoNormal><span style='background:white'>Run to test - they
+        should be spawnable as the 3rd item in the menu</span></li>
+   </ol>
+  </ol>
+ </ol>
+</ol>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=602 height=551 id="Picture 11"
+src="Tutorial%2007%2001%2002%20CW1%20package_files/image006.gif"
+alt="A screenshot of a computer&#10;&#10;Description automatically generated"><br>
+<a href="https://gyazo.com/a79d79daaa831f7c6249ec754e980b64" target="_blank">https://gyazo.com/a79d79daaa831f7c6249ec754e980b64</a></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><b><u><span style='text-decoration:none'>&nbsp;</span></u></b></p>
+
+<p class=MsoNormal><i><span style='font-size:14.0pt;line-height:115%'>Ready for
+some CW1 extra points???</span></i></p>
+
+<p class=MsoNormal><b><u><span style='text-decoration:none'>&nbsp;</span></u></b></p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal>V</p>
+
+<p class=MsoNormal><b><u>Tutorial 07 02 (Extra)</u></b></p>
+
+<p class=MsoNormal>Build with the XR Lab VR UI Menu Prefabs:</p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=301 height=182 id="Picture 2119551232"
+src="Tutorial%2007%2001%2002%20CW1%20package_files/image007.gif"></p>
+
+<p class=MsoNormal align=center style='text-align:center'><a
+href="https://gyazo.com/dda4f3cdfd550f1e86bafdc6ac50eeeb">https://gyazo.com/dda4f3cdfd550f1e86bafdc6ac50eeeb</a></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>Create
+a new scene in your CW1 project</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>Create
+an XR Rig, make sure it is functional</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>a.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>In
+XR Controller component of Left and Right Controllers, click on icon to left of
+three dots and add XRI Default Left and Right Controller inputs</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>b.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>Search
+in project and add Left and Right Controller prefabs</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>Create
+primitives</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>Take
+one of the menu prefabs in the XRLab package folder
+(Assets/XRLab/Prefabs/VREditor Menus)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>Start
+with Component menu, then you can select the primitives components and
+materials if you add the Selection Gun.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span><span dir=LTR></span>This
+is a good sandbox to ensure you understand the architecture.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

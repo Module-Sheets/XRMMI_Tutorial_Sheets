@@ -3,318 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutorial 04-05 - Unity XR Interaction Toolkit 3.0 - Optimized for Unity 6000.0.58</title>
+    <title>Tutorial 04 : XRIT 2.4.3 Rig for Legacy Troubleshooting</title>
     <style>
-        /* Basic styling */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: "Calibri", "Arial", sans-serif;
-            font-size: 11pt;
-            line-height: 1.15;
-            color: #333;
-            background-color: #fff;
-            padding: 20px;
-        }
-
-        .container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             max-width: 900px;
             margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
         }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-family: "Calibri", sans-serif;
-            margin: 20px 0 10px 0;
-            font-weight: bold;
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         h1 {
-            font-size: 16pt;
-            border-bottom: 3px solid #333;
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
             padding-bottom: 10px;
         }
-
         h2 {
-            font-size: 14pt;
-            margin-top: 25px;
-            color: #2c3e50;
+            color: #0F4761;
+            margin-top: 30px;
         }
-
         h3 {
-            font-size: 12pt;
-            margin-top: 15px;
-            color: #34495e;
+            color: #467886;
+            margin-top: 20px;
         }
-
         h4 {
-            font-size: 11pt;
-            margin-top: 10px;
-            color: #555;
+            color: #467886;
+            margin-top: 16px;
         }
-
         p {
             margin: 10px 0;
-            line-height: 1.15;
         }
-
         a {
-            color: #1155CC;
+            color: #467886;
+            text-decoration: none;
+        }
+        a:hover {
             text-decoration: underline;
         }
-
-        a:visited {
-            color: #663399;
-        }
-
-        /* Version warning box */
-        .version-warning {
-            background-color: #ffebee;
-            border: 3px solid #c62828;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-
-        .version-warning h2 {
-            margin-top: 0;
-            color: #c62828;
-        }
-
-        /* Modern approach boxes */
-        .modern-box {
-            background-color: #e8f5e9;
-            border-left: 5px solid #2e7d32;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        .modern-box h3, .modern-box h4 {
-            color: #1b5e20;
-            margin-top: 10px;
-        }
-
-        /* Legacy context boxes */
-        .legacy-box {
-            background-color: #fff9c4;
-            border-left: 5px solid #f57f17;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        .legacy-box h3, .legacy-box h4 {
-            color: #e65100;
-            margin-top: 10px;
-        }
-
-        /* Comparison boxes */
-        .comparison-box {
-            background-color: #e3f2fd;
-            border: 2px solid #1976d2;
-            padding: 18px;
-            margin: 20px 0;
-            border-radius: 6px;
-        }
-
-        .comparison-box h3 {
-            color: #0d47a1;
-            margin-top: 0;
-        }
-
-        /* Info/Note boxes */
-        .note {
-            background-color: #FFF8DC;
-            padding: 12px;
-            margin: 15px 0;
-            border-left: 4px solid #FFB6C1;
-            font-style: italic;
-        }
-
-        .info-box {
-            background-color: #e1f5fe;
-            border-left: 4px solid #0288d1;
-            padding: 12px;
-            margin: 15px 0;
-        }
-
-        /* Highlight boxes */
-        .highlight {
-            background-color: #FFFF00;
-            padding: 10px;
-            margin: 10px 0;
-            border-left: 4px solid #FFA500;
-        }
-
-        .highlight-green {
-            background-color: #00FF00;
-            padding: 10px;
-            margin: 10px 0;
-            border-left: 4px solid #008000;
-        }
-
-        /* Time badges */
-        .time-badge {
-            display: inline-block;
-            background-color: #5c6bc0;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 9pt;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        /* Lists */
         ol, ul {
-            margin-left: 36px;
+            margin-left: 20px;
             margin-bottom: 10px;
         }
-
         li {
-            margin-bottom: 8px;
-            line-height: 1.15;
+            margin: 8px 0;
         }
-
-        ol ol, ol ul, ul ol, ul ul {
-            margin-top: 5px;
-            margin-bottom: 5px;
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
-
-        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
         }
-
         th {
-            background-color: #f0f0f0;
+            background-color: #f0f4f7;
             border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
-            font-weight: bold;
+            color: #0F4761;
         }
-
         td {
             border: 1px solid #ddd;
             padding: 8px;
         }
-
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-
-        /* Images */
-        img {
-            max-width: 100%;
-            height: auto;
-            margin: 15px 0;
-            border: 1px solid #ddd;
-            padding: 5px;
-        }
-
-        .image-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .image-container img {
-            display: inline-block;
-        }
-
-        .image-caption {
-            font-size: 10pt;
-            font-style: italic;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .link-section {
-            text-align: center;
-            margin: 10px 0 20px 0;
-        }
-
-        /* Code/technical elements */
         code, .code {
-            font-family: "Courier New", monospace;
-            background-color: #f5f5f5;
+            background-color: #f4f4f4;
             padding: 2px 6px;
             border-radius: 3px;
-            font-size: 10pt;
+            font-family: 'Courier New', monospace;
         }
-
-        /* Checkmarks and icons */
-        .checkmark {
-            color: #2e7d32;
-            font-weight: bold;
-        }
-
-        .crossmark {
-            color: #c62828;
-            font-weight: bold;
-        }
-
-        /* Indentation */
-        .indent-1 {
-            margin-left: 36px;
-        }
-
-        .indent-2 {
-            margin-left: 72px;
-        }
-
-        /* Section breaks */
         hr {
             margin: 30px 0;
             border: none;
             border-top: 2px solid #ccc;
         }
-
-        /* Video embeds */
-        .video-link {
-            display: block;
+        .note {
+            background-color: #E8F4F8;
+            padding: 10px;
+            border-left: 4px solid #467886;
             margin: 15px 0;
+        }
+        .info-box {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
             padding: 12px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        /* Step boxes */
-        .step-box {
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            padding: 15px;
             margin: 15px 0;
             border-radius: 4px;
         }
-
+        .modern-box {
+            background-color: #f4f8ff;
+            border-left: 4px solid #0F4761;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .legacy-box {
+            background-color: #FFF3CD;
+            border-left: 4px solid #f0b429;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .version-warning {
+            background-color: #EA9999;
+            border-left: 4px solid #CC0000;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .comparison-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .highlight {
+            background-color: #ffff00;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #FFA500;
+        }
+        .highlight-green {
+            background-color: #EAF7EA;
+            border-left: 4px solid #00AA00;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
         .step-number {
             display: inline-block;
-            background-color: #1976d2;
-            color: white;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
+            min-width: 24px;
+            padding: 2px 6px;
+            margin-right: 6px;
+            border-radius: 12px;
+            background-color: #0F4761;
+            color: #ffffff;
             text-align: center;
-            border-radius: 50%;
             font-weight: bold;
-            margin-right: 10px;
         }
-
-        /* Underline */
+        .time-badge {
+            display: inline-block;
+            background-color: #0F4761;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+        .video-link {
+            background-color: #f4f4f4;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            display: inline-block;
+        }
+        .image-caption {
+            font-size: 0.95em;
+            font-style: italic;
+            color: #666;
+            margin-top: 5px;
+        }
         .underline {
             text-decoration: underline;
         }
-
-        /* Bold */
-        strong, b {
+        .checkmark {
+            color: #00AA00;
+            font-weight: bold;
+        }
+        .crossmark {
+            color: #CC0000;
             font-weight: bold;
         }
     </style>
@@ -322,6 +207,8 @@
 <body>
     <div class="container">
         
+        <h1>Tutorial 04 : XRIT 2.4.3 Rig for Legacy Troubleshooting</h1>
+
         <!-- VERSION COMPATIBILITY HEADER -->
         <div class="version-warning">
             <h2>⚠️ UPDATED FOR UNITY 6000.0.58 + XR INTERACTION TOOLKIT 3.0.10 (2026)</h2>
@@ -338,7 +225,7 @@
         </div>
 
         <!-- Title -->
-        <h1>Tutorial 04-05 - Unity XR Interaction Toolkit Introduction</h1>
+        <h2>Tutorial 04-05 - Unity XR Interaction Toolkit Introduction</h2>
         <p style="text-align: center; font-size: 10pt; color: #666; font-style: italic;">
             Optimized for Unity 6000.0.58 + XR Interaction Toolkit 3.0.10
         </p>
@@ -1299,274 +1186,6 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
-
-        <!-- TUTORIAL 05 SECTION -->
-        <h2>📦 TUTORIAL 05: CW1 PROTOTYPE PACKAGE</h2>
-
-        <div class="info-box">
-            <p><strong>What is the CW1 Prototype Package?</strong> A pre-built XR project demonstrating advanced interactions, locomotion, and UI systems. This is your reference for coursework implementation.</p>
-        </div>
-
-        <h3>Step 1: Setup New Project for CW1 Package</h3>
-
-        <div class="step-box">
-            <p><span class="step-number">1</span> <strong>Install Packages (as in Tutorial 04)</strong></p>
-            <ol style="margin-left: 50px; margin-top: 10px;">
-                <li>Create new 3D project in Unity 6000.0.58</li>
-                <li>Install OpenXR Plugin</li>
-                <li>Configure OpenXR in Project Settings (add Khronos profile)</li>
-                <li>Install XR Interaction Toolkit 3.0.10+</li>
-                <li>Import Starter Assets sample</li>
-                <li>Import XR Device Simulator sample</li>
-                <li>Enable XR Device Simulator in Project Settings</li>
-            </ol>
-        </div>
-
-        <div class="modern-box">
-            <h4>⚠️ Package Compatibility with XRIT 3.0</h4>
-            <p>If the CW1 Prototype package was built with XRIT 2.x, Unity may prompt you to upgrade:</p>
-            <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><strong>ActionBasedController</strong> → automatically migrated to Input Readers</li>
-                <li><strong>Namespace updates</strong> → handled by Unity's migration tools</li>
-                <li><strong>Deprecated warnings</strong> → components will still function</li>
-            </ul>
-            <p><strong>Recommendation:</strong> Accept the upgrade. Unity's migration tools are reliable and the package will work with XRIT 3.0.</p>
-        </div>
-
-        <div class="step-box">
-            <p><span class="step-number">2</span> <strong>Import CW1 Prototype Package</strong></p>
-            <ol style="margin-left: 50px; margin-top: 10px;">
-                <li>Download the package from Blackboard (Week 5 or Week 7)</li>
-                <li>In Unity: <strong>Assets</strong> → <strong>Import Package</strong> → <strong>Custom Package</strong></li>
-                <li>Select the downloaded .unitypackage file</li>
-                <li>Click <strong>Import All</strong></li>
-                <li>Wait for import to complete</li>
-            </ol>
-        </div>
-
-        <div class="image-container">
-            <img src="https://gyazo.com/05035b47130f4e1e7d364cfde8f7f0cd.png" alt="CW1 Package Import">
-            <p style="text-align: center;"><a href="https://gyazo.com/05035b47130f4e1e7d364cfde8f7f0cd">https://gyazo.com/05035b47130f4e1e7d364cfde8f7f0cd</a></p>
-        </div>
-
-        <div class="step-box">
-            <p><span class="step-number">3</span> <strong>Open and Test the Demo Scene</strong></p>
-            <ol style="margin-left: 50px; margin-top: 10px;">
-                <li>In Project window, navigate to <strong>XRLab/Scenes/</strong></li>
-                <li>Open <strong>tutorial-05</strong> scene</li>
-                <li>Ensure XR Device Simulator prefab is active in Hierarchy</li>
-                <li>Press Play to test</li>
-            </ol>
-        </div>
-
-        <h3>CW1 Package Controls Reference</h3>
-
-        <table>
-            <tr>
-                <th style="width: 30%;">Action</th>
-                <th style="width: 70%;">Controls (XR Device Simulator)</th>
-            </tr>
-            <tr>
-                <td><strong>Camera Pan</strong></td>
-                <td>RMB Hold + Mouse Move</td>
-            </tr>
-            <tr>
-                <td><strong>Camera Rotate (POV)</strong></td>
-                <td>RMB Hold + Left Control + Mouse Move</td>
-            </tr>
-            <tr>
-                <td><strong>Camera Rotate (YAW)</strong></td>
-                <td>RMB Hold + Scroll Wheel Press + Scroll</td>
-            </tr>
-            <tr>
-                <td><strong>Left Hand Move</strong></td>
-                <td>Left Shift Hold + Mouse Move</td>
-            </tr>
-            <tr>
-                <td><strong>Right Hand Move</strong></td>
-                <td>Space Hold + Mouse Move</td>
-            </tr>
-            <tr>
-                <td><strong>Hand Rotate</strong></td>
-                <td>Shift/Space Hold + Control + Mouse Move</td>
-            </tr>
-            <tr>
-                <td><strong>Cast Ray (Left)</strong></td>
-                <td>Q Hold</td>
-            </tr>
-            <tr>
-                <td><strong>Cast Ray (Right)</strong></td>
-                <td>E Hold</td>
-            </tr>
-            <tr>
-                <td><strong>Grab Object</strong></td>
-                <td>Ray on target or hand near object + G Press</td>
-            </tr>
-            <tr>
-                <td><strong>Rotate Menu</strong></td>
-                <td>Grab menu + Left/Right Arrow Keys</td>
-            </tr>
-            <tr>
-                <td><strong>Teleport</strong></td>
-                <td>Space Bar + W (release when ray is green)</td>
-            </tr>
-        </table>
-
-        <div class="note">
-            <p><strong>Note:</strong> With XR Device Simulator, UI elements can be selected with the mouse cursor in addition to simulated ray interactors.</p>
-        </div>
-
-        <h3>What to Explore in CW1 Package</h3>
-
-        <ol>
-            <li><strong>Advanced Interactions:</strong> Examine how different objects have custom grab behaviors</li>
-            <li><strong>Locomotion Systems:</strong> Study teleportation anchors and snap turn implementation</li>
-            <li><strong>UI Integration:</strong> See how world-space UI menus are configured</li>
-            <li><strong>Custom Interactables:</strong> Try importing Mecabricks assets as interactables (see Week 05 extras)</li>
-        </ol>
-
-        <p>&nbsp;</p>
-        <hr>
-
-        <!-- WEEK 05 EXTRAS -->
-        <h2>🔗 WEEK 05 EXTRAS & RESOURCES</h2>
-
-        <h3>Additional Tutorials & Examples</h3>
-
-        <ol>
-            <li><strong>Grabbable Recap Videos:</strong>
-                <ul style="margin-left: 20px; margin-top: 5px;">
-                    <li><a href="https://youtu.be/iVfa_azjnNI?t=99">Unity VR Game Basics - PART 5 - XR Ray Interactor in 10 Minutes</a></li>
-                    <li><a href="https://learn.unity.com/tutorial/using-interactors-and-interactables-with-the-xr-interaction-toolkit">Unity Learn: Using Interactors and Interactables</a></li>
-                </ul>
-            </li>
-            <li><strong>Compare Week 5 package to XRIT official samples</strong> (scene is in XRLab/Scenes)</li>
-            <li><strong>Try importing Mecabricks assets</strong> to interact with 3D models</li>
-        </ol>
-
-        <h3>XRIT 3.0 Official Examples</h3>
-
-        <div class="highlight-green">
-            <p><strong>Unity's Official XRIT Samples Project (GitHub):</strong></p>
-            <p><a href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples</a></p>
-        </div>
-
-        <div class="modern-box">
-            <p><strong>⚠️ Important:</strong> Ensure you're using the branch compatible with XRIT 3.0.10+ for the latest examples including:</p>
-            <ul style="margin-left: 20px; margin-top: 5px;">
-                <li>Near-Far Interactor demonstrations</li>
-                <li>Input Reader examples</li>
-                <li>Advanced locomotion systems</li>
-                <li>UI interaction patterns</li>
-            </ul>
-            <p>Look for the <strong>"main"</strong> or <strong>"3.0"</strong> branch in the repository.</p>
-        </div>
-
-        <div class="video-link">
-            <strong>Adding XR Device Simulator:</strong> <a href="https://youtu.be/d4bTpkvBwrs">How To Add The XR Device Simulator To Speed Up Development | Unity XR Interaction Toolkit</a>
-        </div>
-
-        <h3>Level Design Tools</h3>
-
-        <p><strong>Expand your skills with these Unity tools for building VR environments:</strong></p>
-
-        <ol>
-            <li><strong>Realtime CSG:</strong>
-                <ul style="margin-left: 20px; margin-top: 5px;">
-                    <li>Video Tutorial: <a href="https://www.youtube.com/watch?v=egm9QdKdQtM">https://www.youtube.com/watch?v=egm9QdKdQtM</a></li>
-                    <li>Great for architectural spaces and geometric environments</li>
-                </ul>
-            </li>
-            <li><strong>ProBuilder:</strong>
-                <ul style="margin-left: 20px; margin-top: 5px;">
-                    <li>Official Docs: <a href="https://docs.unity3d.com/Packages/com.unity.probuilder@4.0/manual/index.html">https://docs.unity3d.com/Packages/com.unity.probuilder@4.0/manual/index.html</a></li>
-                    <li>Unity Learn: <a href="https://learn.unity.com/search?k=%5B%22q%3Aprobuilder%22%5D">ProBuilder Tutorials</a></li>
-                    <li>Excellent for rapid prototyping and level blockouts</li>
-                </ul>
-            </li>
-        </ol>
-
-        <p>&nbsp;</p>
-        <hr>
-
-        <!-- SUMMARY SECTION -->
-        <div class="comparison-box">
-            <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
-            
-            <h3>What You've Accomplished:</h3>
-            <ul style="margin-left: 20px;">
-                <li><span class="checkmark">✓</span> Built a working VR application in under 15 minutes</li>
-                <li><span class="checkmark">✓</span> Understood the complete XR rig architecture</li>
-                <li><span class="checkmark">✓</span> Created custom rigs from scratch using modern XRIT 3.0 components</li>
-                <li><span class="checkmark">✓</span> Learned to work with legacy systems for existing projects</li>
-                <li><span class="checkmark">✓</span> Implemented world-space UI interactions</li>
-                <li><span class="checkmark">✓</span> Explored the CW1 prototype package</li>
-            </ul>
-
-            <h3>Key Concepts Mastered:</h3>
-            <table style="margin-top: 15px;">
-                <tr>
-                    <th>Concept</th>
-                    <th>What You Learned</th>
-                </tr>
-                <tr>
-                    <td><strong>XRIT 3.0 Architecture</strong></td>
-                    <td>Complete Rig prefab, Input Readers, Near-Far Interactor</td>
-                </tr>
-                <tr>
-                    <td><strong>XR Origin Structure</strong></td>
-                    <td>Camera Offset, Main Camera, Hand Controllers, Interaction Manager</td>
-                </tr>
-                <tr>
-                    <td><strong>Input Handling</strong></td>
-                    <td>Input Readers vs deprecated ActionBasedController</td>
-                </tr>
-                <tr>
-                    <td><strong>Interaction Modes</strong></td>
-                    <td>Near (direct grab) vs Far (ray point), unified in Near-Far Interactor</td>
-                </tr>
-                <tr>
-                    <td><strong>Legacy vs Modern</strong></td>
-                    <td>Why XRIT evolved, how to work with older projects</td>
-                </tr>
-            </table>
-
-            <h3>Recommended Workflow for Your Projects:</h3>
-            <ol style="margin-left: 20px; margin-top: 10px;">
-                <li><strong>New Projects:</strong> Use Complete Rig prefab + Near-Far Interactors (XRIT 3.0 native)</li>
-                <li><strong>Learning/Tutorials:</strong> Follow this guide's progressive structure</li>
-                <li><strong>Existing Projects:</strong> Accept Unity's automatic migration to XRIT 3.0</li>
-                <li><strong>Coursework:</strong> Build on CW1 prototype package foundation</li>
-            </ol>
-        </div>
-
-        <div class="highlight-green">
-            <h3>🎯 Next Steps:</h3>
-            <ol style="margin-left: 20px; margin-top: 10px;">
-                <li><strong>Experiment:</strong> Customize the Complete Rig prefab for your needs</li>
-                <li><strong>Explore:</strong> Check out Unity's official XRIT examples on GitHub</li>
-                <li><strong>Build:</strong> Start implementing your coursework using these foundations</li>
-                <li><strong>Advanced Topics:</strong> Locomotion systems, custom interactables, advanced UI (coming in later tutorials)</li>
-            </ol>
-        </div>
-
-        <h3>📖 Additional Documentation & Resources</h3>
-        <ul>
-            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html">What's New in XRIT 3.0 (Official Unity Docs)</a></li>
-            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/upgrade-guide-3.0.html">XRIT 3.0 Upgrade Guide</a></li>
-            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/changelog/CHANGELOG.html">XRIT 3.0.10 Complete Changelog</a></li>
-            <li><a href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">Unity XR Interaction Toolkit Examples (GitHub)</a></li>
-            <li><a href="https://docs.unity3d.com/Manual/XR.html">Unity XR Documentation Hub</a></li>
-        </ul>
-
-        <p>&nbsp;</p>
-        <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
-            🎉 Congratulations! You've completed Tutorial 04-05! 🎉
-        </p>
-        <p style="text-align: center; font-style: italic; color: #666;">
-            You're now ready to build professional XR applications with Unity 6000.0.58 and XRIT 3.0.10
-        </p>
-        <p>&nbsp;</p>
 
     </div>
 </body>

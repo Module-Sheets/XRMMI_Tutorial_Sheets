@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 07 : XR Lab CW1 Package Introduction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        h4 {
+            color: #467886;
+            margin-top: 16px;
+        }
+        a {
+            color: #467886;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ol, ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background-color: #f0f4f7;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: #0F4761;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        code, .code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 2px solid #ccc;
+        }
+        .note {
+            background-color: #E8F4F8;
+            padding: 10px;
+            border-left: 4px solid #467886;
+            margin: 15px 0;
+        }
+        .info-box {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .modern-box {
+            background-color: #f4f8ff;
+            border-left: 4px solid #0F4761;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .highlight {
+            background-color: #ffff00;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #FFA500;
+        }
+        .highlight-green {
+            background-color: #EAF7EA;
+            border-left: 4px solid #00AA00;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 07 : XR Lab CW1 Package Introduction</h1>
+
+        <p class="note"><em>This will help you start to work with the XR Lab CW1 package</em></p>
+
+        <h2>Tutorial 07.01 : Getting Started with CW1 Package</h2>
+
+        <ol>
+            <li>Install XR Interaction Toolkit (if not already installed)
+                <ol>
+                    <li>XR Device Simulator</li>
+                    <li>Starter Assets</li>
+                </ol>
+            </li>
+            <li>Install XR Plugin Manager (if not already installed)
+                <ol>
+                    <li>Check OpenXR is installed - no samples needed</li>
+                    <li>Check Edit/Project Settings
+                        <ol>
+                            <li>Add <strong>Khronos Simple Controller profile</strong> in <strong>OpenXR</strong></li>
+                            <li><strong>Unity Mock HMD</strong> in OpenXR Not Needed</li>
+                            <li><strong>Mock runtime</strong> Not Needed</li>
+                            <li>XR Plug-In Management/XR Interaction Toolkit/XR Device Simulator Settings/ Tick <strong>Use XR Device Simulator in Scenes</strong></li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tutorial%2007%2001%2002%20CW1%20package_files/image001.gif" alt="XR Device Simulator setup screenshot">
+        <p><a href="https://gyazo.com/2bb78e5b2a7cc70e50e471355c95c961" target="_blank">https://gyazo.com/2bb78e5b2a7cc70e50e471355c95c961</a></p>
+
+        <ol start="3">
+            <li>Import the <strong>CW1Project.unitypackage</strong> from the BlackBoard week 07</li>
+            <li>This brings in the new <strong>XR Interaction Setup</strong> prefab</li>
+            <li>This new XRIT prefab contains everything needed in an XR Rig, including:
+                <ol>
+                    <li><strong>Input Action Manager</strong> GO/Component</li>
+                    <li><strong>XR Interaction Manager</strong> GO/Component</li>
+                    <li><strong>Event System</strong> GO/Component with <strong>XR UI Input Module</strong> Component</li>
+                    <li><strong>XR Origin (XR Rig)</strong>
+                        <ol>
+                            <li><strong>XR Origin</strong> Component</li>
+                            <li><strong>Character Controller</strong> Component</li>
+                            <li><strong>Character Controller Driver</strong> Component</li>
+                            <li><strong>XR Input Modality Manager</strong> Component</li>
+                            <li><strong>XR Gaze Assistance</strong> Component</li>
+                        </ol>
+                    </li>
+                    <li><strong>Camera Offset</strong> Parented to XR Origin</li>
+                    <li>Children of <strong>Camera Offset</strong>:
+                        <ol>
+                            <li>Main Camera with <strong>Tracked Pose Driver</strong> Component</li>
+                            <li>Gaze Interactor GO/
+                                <ol>
+                                    <li><strong>XR Gaze Interactor</strong> Component</li>
+                                    <li><strong>XR Controller</strong> Component (pre-populated with <strong>XRI Input Actions</strong>)</li>
+                                    <li><strong>Gaze Input Manager</strong> Component</li>
+                                </ol>
+                            </li>
+                            <li><strong>Gaze Stabilized</strong> GO with <strong>XR Transform Stabilizer</strong> Component</li>
+                            <li><strong>Left/Right Controller</strong> GO
+                                <ol>
+                                    <li><strong>Action Based Controller Manager</strong> Component</li>
+                                    <li><strong>XR Controller (Action Based)</strong> Component
+                                        <ol type="a">
+                                            <li>With <strong>XRI Input Actions</strong></li>
+                                        </ol>
+                                    </li>
+                                    <li><strong>XR Interaction Group</strong> Component (for controlling overrides)</li>
+                                    <li>Interactor Children:
+                                        <ol type="a">
+                                            <li><strong>Poke Interactor</strong> GO
+                                                <ol>
+                                                    <li><strong>XR Poke Interactor</strong> Component</li>
+                                                </ol>
+                                            </li>
+                                            <li><strong>Direct Interactor</strong> GO
+                                                <ol>
+                                                    <li><strong>XR Direct Interactor</strong> Component</li>
+                                                    <li><strong>Sphere Collider</strong> Component, Is Trigger</li>
+                                                </ol>
+                                            </li>
+                                            <li><strong>Ray Interactor</strong> GO
+                                                <ol>
+                                                    <li><strong>XR Ray Interactor</strong> Component</li>
+                                                    <li><strong>Line Renderer</strong> Component</li>
+                                                    <li><strong>XR Interactor Line Visual</strong> Component</li>
+                                                    <li><strong>Sorting Group</strong> Component</li>
+                                                </ol>
+                                            </li>
+                                            <li><strong>Teleport Interactor</strong> GO</li>
+                                        </ol>
+                                    </li>
+                                    <li><strong>Left/Right Controller Stabilized</strong> GO with <strong>XR Transform Stabilizer</strong> Component</li>
+                                </ol>
+                            </li>
+                            <li><strong>Locomotion System</strong> GO and Component with children:
+                                <ol>
+                                    <li><strong>Turn</strong> GO</li>
+                                    <li><strong>Move</strong> GO</li>
+                                    <li><strong>Grab Move</strong> GO</li>
+                                    <li><strong>Teleportation</strong> GO</li>
+                                    <li><strong>Climb</strong> GO</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tutorial%2007%2001%2002%20CW1%20package_files/image002.gif" alt="XR Rig hierarchy screenshot">
+        <p><a href="https://gyazo.com/0b209dc030eb1b25e92eb8ec788bbcf5" target="_blank">https://gyazo.com/0b209dc030eb1b25e92eb8ec788bbcf5</a></p>
+
+        <ol start="6">
+            <li>Play and Test with following controls:
+                <ol>
+                    <li class="highlight">WASD for movement</li>
+                    <li class="highlight">Q, E for up and down</li>
+                    <li class="highlight">LShift for Left Controller rotation</li>
+                    <li class="highlight">Space for Right Controller Rotation</li>
+                    <li class="highlight">Test Selection Gun by picking up with Left Controller when near (Direct Interactor) – Click LMB to fire ray to select object</li>
+                </ol>
+            </li>
+            <li>Test Gaze Interactable via Simple Interactable
+                <ol>
+                    <li>Simple Interactible on 3D Object</li>
+                    <li>Interactible Events/First/Last Hover - drag 3D Object into Runtime Only box</li>
+                    <li>Interactible Events/First/Last Hover - Select an interaction from drop down box: MeshRenderer.material</li>
+                    <li>Drag in materials for enter and exit</li>
+                    <li>Mesh Collider with Is Trigger ticked</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tutorial%2007%2001%2002%20CW1%20package_files/image003.gif" alt="Gaze interactable setup screenshot">
+        <p><a href="https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2" target="_blank">https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2</a></p>
+
+        <ol start="8">
+            <li>Test Grab Interactable with Existing table Objects
+                <ol>
+                    <li>Try adding New Grab Interactables as in Tutorial 04-05</li>
+                </ol>
+            </li>
+        </ol>
+
+        <h3>XR Lab Component Menu System</h3>
+
+        <ol start="9">
+            <li>Test XR Lab Component Menu System
+                <ol>
+                    <li>Open Component Menus and Spawn selected objects as per this video: <a href="https://universityofwestminster-my.sharepoint.com/:v:/g/personal/fergusj_westminster_ac_uk/ETemfsmEWh5Ou5Cl1lyoERIBlM8MZEz0SmH1Vq3H1A0iOA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=sRoZMn" target="_blank">Demo-2024-03-04 16-39-48.mp4</a></li>
+                    <li>LMB will interact with UI Buttons and sliders to select and Spawn objects</li>
+                    <li>Test <strong>Ray Selection Gun</strong> by picking up with Left Controller when near (Direct Interactor) – Click LMB to fire ray to select object</li>
+                    <li><span class="highlight">Once object is selected with the <strong>Ray Selector gun</strong>, you can alter its components</span>
+                        <ol>
+                            <li>Try the UI panels to alter the makeup of the objects.
+                                <ol>
+                                    <li>Material Color</li>
+                                    <li>Offset</li>
+                                    <li>Physics</li>
+                                    <li>View and add components</li>
+                                </ol>
+                            </li>
+                            <li>Add Mecabricks assets
+                                <ol>
+                                    <li>Download from site with normal smoothing and no groups</li>
+                                    <li>Unzip, Rename and drag into models folder in Unity scene</li>
+                                    <li>Select top level of model in project window and adjust size in model tab in Inspector on right to .01, and click apply</li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tutorial%2007%2001%2002%20CW1%20package_files/image004.gif" alt="Component menu system screenshot">
+        <p><a href="https://gyazo.com/7e87a925895fca517804fefceb3fc935" target="_blank">https://gyazo.com/7e87a925895fca517804fefceb3fc935</a></p>
+
+        <ol start="9">
+            <li>
+                <ol start="4">
+                    <li>Create prefab
+                        <ol type="a">
+                            <li>Drag model from Project window to Hierarchy</li>
+                            <li>Add box collider</li>
+                            <li>Add Grab Interactable</li>
+                            <li>Drag from Hierarchy to Project Window/Prefab folder</li>
+                            <li>Select Original Prefab option in popup window.</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tutorial%2007%2001%2002%20CW1%20package_files/image005.gif" alt="Create prefab screenshot">
+        <p><a href="https://gyazo.com/2ca6d229aab17fa3a07c2b33d2dc45b5" target="_blank">https://gyazo.com/2ca6d229aab17fa3a07c2b33d2dc45b5</a></p>
+
+        <ol start="9">
+            <li>
+                <ol start="5">
+                    <li>Add to prefab spawning list:
+                        <ol type="a">
+                            <li>Search for <strong>ObjectSpawnerMenu.prefab</strong> in Project Search</li>
+                            <li>This is placed in the <strong>VR Editor Standalone/InGameEditorSplitMenus</strong> in the scene</li>
+                            <li>View in Inspector, scroll down</li>
+                            <li>Expand <strong>Prefabs to Spawn</strong></li>
+                            <li>Hit <strong>+</strong> to add a box</li>
+                            <li>Drag new prefab into box</li>
+                        </ol>
+                    </li>
+                    <li>Run to test - they should be spawnable as the 3rd item in the menu</li>
+                </ol>
+            </li>
+        </ol>
+
+        <img src="Tutorial%2007%2001%2002%20CW1%20package_files/image006.gif" alt="Prefab spawning list screenshot">
+        <p><a href="https://gyazo.com/a79d79daaa831f7c6249ec754e980b64" target="_blank">https://gyazo.com/a79d79daaa831f7c6249ec754e980b64</a></p>
+
+        <hr>
+
+        <h2>Tutorial 07.02 : XR Lab VR UI Menu Prefabs (Extra)</h2>
+
+        <p><em>Ready for some CW1 extra points???</em></p>
+
+        <p>Build with the XR Lab VR UI Menu Prefabs:</p>
+
+        <img src="Tutorial%2007%2001%2002%20CW1%20package_files/image007.gif" alt="VR UI Menu Prefabs preview">
+        <p><a href="https://gyazo.com/dda4f3cdfd550f1e86bafdc6ac50eeeb" target="_blank">https://gyazo.com/dda4f3cdfd550f1e86bafdc6ac50eeeb</a></p>
+
+        <ol>
+            <li>Create a new scene in your CW1 project</li>
+            <li>Create an XR Rig, make sure it is functional
+                <ol>
+                    <li>In XR Controller component of Left and Right Controllers, click on icon to left of three dots and add XRI Default Left and Right Controller inputs</li>
+                    <li>Search in project and add Left and Right Controller prefabs</li>
+                </ol>
+            </li>
+            <li>Create primitives</li>
+            <li>Take one of the menu prefabs in the XRLab package folder (Assets/XRLab/Prefabs/VREditor Menus)</li>
+            <li>Start with Component menu, then you can select the primitives components and materials if you add the Selection Gun.</li>
+            <li>This is a good sandbox to ensure you understand the architecture.</li>
+        </ol>
+
+    </div>
+</body>
+</html>
