@@ -121,16 +121,38 @@
         .version-warning {
             background-color: #EA9999;
             border-left: 4px solid #CC0000;
-            padding: 12px;
-            margin: 15px 0;
+            padding: 8px 10px;
+            margin: 10px 0;
             border-radius: 4px;
+        }
+        .version-warning h2 {
+            margin: 0 0 6px 0;
+        }
+        .version-warning p {
+            margin: 4px 0;
+        }
+        .version-warning ul {
+            margin: 4px 0 0 20px;
+        }
+        .version-warning li {
+            margin: 4px 0;
         }
         .comparison-box {
             background-color: #f7f7f7;
             border: 1px solid #ddd;
-            padding: 16px;
-            margin: 20px 0;
+            padding: 10px 12px;
+            margin: 12px 0;
             border-radius: 4px;
+        }
+        .comparison-box h3 {
+            margin-top: 0;
+        }
+        .comparison-box table {
+            margin: 8px 0;
+        }
+        .comparison-box th,
+        .comparison-box td {
+            padding: 6px 8px;
         }
         .highlight {
             background-color: #ffff00;
@@ -152,6 +174,46 @@
             margin: 15px 0;
             border-radius: 4px;
         }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
         .step-number {
             display: inline-block;
             min-width: 24px;
@@ -164,13 +226,13 @@
             font-weight: bold;
         }
         .time-badge {
-            display: inline-block;
-            background-color: #0F4761;
-            color: #ffffff;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            margin-left: 8px;
+            background-color: #EA9999;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
         }
         .video-link {
             background-color: #f4f4f4;
@@ -206,7 +268,7 @@
 </head>
 <body>
     <div class="container">
-        
+        <!-- Title --> 
         <h1>Tutorial 04 : XRIT 2.x Rig for Legacy Troubleshooting</h1>
 
         <!-- VERSION COMPATIBILITY HEADER -->
@@ -224,22 +286,14 @@
             <p style="margin-top: 10px;"><strong>📚 Teaching Approach:</strong> This tutorial teaches the modern XRIT 3.0 workflow, with legacy context provided for understanding older projects.</p>
         </div>
 
-        <!-- Title -->
-        <h2>TUTORIAL 04: Legacy XRIT 2 Rig Prefab for Troubleshooting</h2>
-        <p style="text-align: center; font-size: 10pt; color: #666; font-style: italic;">
-            Optimized for Unity 6000.0.58 + XR Interaction Toolkit 2.x
-        </p>
-
-        <p>&nbsp;</p>
-
         <!-- Tutorial Overview -->
         <div class="comparison-box">
             <h3>📋 Tutorial Overview - 60 Minute Learning Path</h3>
             <table>
                 <tr>
-                    <th style="width: 20%;">Time</th>
-                    <th style="width: 35%;">Section</th>
-                    <th style="width: 45%;">What You'll Learn</th>
+                    <th style="width: 15%;">Time</th>
+                    <th style="width: 25%;">Section</th>
+                    <th style="width: 60%;">What You'll Learn</th>
                 </tr>
                 <tr>
                     <td><strong>0-15 min</strong></td>
@@ -264,22 +318,21 @@
             </table>
         </div>
 
-        <p>&nbsp;</p>
-
         <!-- Tutorial Slides -->
         <p>
-            <span class="underline"><strong>Supplemental Tutorial Slides (From slide 16):</strong></span>
-            <a href="https://docs.google.com/presentation/d/1OYKRUc4xQk6-QxhIQs3wG7ThayrVIxu1T-NwEIzzm8g/edit#slide=id.g1089158013f_0_15">
-                https://docs.google.com/presentation/d/1OYKRUc4xQk6-QxhIQs3wG7ThayrVIxu1T-NwEIzzm8g/edit#slide=id.g1089158013f_0_15
+            <span class="underline"><strong>Supplemental Tutorial Slides (view From slide 16):</strong></span>
+            <a href="https://docs.google.com/presentation/d/1OYKRUc4xQk6-QxhIQs3wG7ThayrVIxu1T-NwEIzzm8g/edit?slide=id.g1089158013f_0_15#slide=id.g1089158013f_0_15" target="_blank">
+                Legacy XR Component Overview Slides
             </a>
         </p>
 
-        <p>&nbsp;</p>
-
         <hr>
 
-        <!-- PART 1: QUICK START -->
-        <h2>🚀 PART 1: QUICK START - Working VR in 15 Minutes <span class="time-badge">0-15 MIN</span></h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🚀 PART 1: QUICK START - Working VR in 15 Minutes <span class="time-badge">0-15 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="modern-box">
             <h3>🎯 Goal: Get a fully functional VR rig working immediately</h3>
@@ -554,9 +607,14 @@
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
-        <!-- PART 2: UNDERSTANDING THE RIG -->
-        <h2>🔍 PART 2: UNDERSTANDING THE COMPLETE RIG <span class="time-badge">15-30 MIN</span></h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🔍 PART 2: UNDERSTANDING THE COMPLETE RIG <span class="time-badge">15-30 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="modern-box">
             <h3>🎯 Goal: Understand what Unity gave you in the Complete 3.x Rig prefab</h3>
@@ -796,9 +854,14 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
-        <!-- PART 3: BUILD YOUR OWN RIG -->
-        <h2>🔧 PART 3: BUILD YOUR OWN CUSTOM RIG <span class="time-badge">30-50 MIN</span></h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🔧 PART 3: BUILD YOUR OWN CUSTOM RIG <span class="time-badge">30-50 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="modern-box">
             <h3>🎯 Goal: Create a custom XR rig from scratch using XRIT 2 components</h3>
@@ -955,9 +1018,14 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
-        <!-- PART 4: LEGACY CONTEXT -->
-        <h2>📜 PART 4: LEGACY SYSTEMS & HISTORICAL CONTEXT <span class="time-badge">50-60 MIN</span></h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>📜 PART 4: LEGACY SYSTEMS & HISTORICAL CONTEXT <span class="time-badge">50-60 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="legacy-box">
             <h3>🎯 Goal: Understand older XRIT approaches for working with existing projects</h3>
@@ -1165,9 +1233,14 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
-        <!-- BONUS: UI INTERACTIONS -->
-        <h2>🎨 BONUS: WORKING WITH UNITY UI IN VR</h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎨 PART 5: WORKING WITH UNITY UI IN VR</h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="modern-box">
             <h3>Good News: UI System Unchanged in XRIT 3.0!</h3>
@@ -1263,6 +1336,117 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
+
+        <!-- TUTORIAL SUMMARY -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="comparison-box">
+
+            <h3>What You've Accomplished:</h3>
+            <ul style="margin-left: 20px;">
+                <li><span class="checkmark">✓</span> Understood the legacy XRIT 2.x architecture and component structure</li>
+                <li><span class="checkmark">✓</span> Created a working VR scene from scratch using legacy components</li>
+                <li><span class="checkmark">✓</span> Implemented ActionBasedController for input handling (legacy approach)</li>
+                <li><span class="checkmark">✓</span> Set up separate XR Direct Interactor and XR Ray Interactor</li>
+                <li><span class="checkmark">✓</span> Built world-space UI interactions with Tracked Device support</li>
+                <li><span class="checkmark">✓</span> Learned why XRIT evolved to version 3.0</li>
+            </ul>
+
+            <h3>Key Concepts Mastered:</h3>
+            <table style="margin-top: 15px;">
+                <tr>
+                    <th>Concept</th>
+                    <th>What You Learned</th>
+                </tr>
+                <tr>
+                    <td><strong>Legacy XRIT 2.x Architecture</strong></td>
+                    <td>ActionBasedController, separate Direct/Ray Interactors, manual Input Action setup</td>
+                </tr>
+                <tr>
+                    <td><strong>XR Origin & Rig Setup</strong></td>
+                    <td>How to manually create controller hierarchy in legacy XRIT</td>
+                </tr>
+                <tr>
+                    <td><strong>Dual Interactor Pattern</strong></td>
+                    <td>Why you need TWO interactors per hand (direct for touch, ray for distance)</td>
+                </tr>
+                <tr>
+                    <td><strong>Input Management</strong></td>
+                    <td>ActionBasedController component and manual Input Action references</td>
+                </tr>
+                <tr>
+                    <td><strong>VR UI Implementation</strong></td>
+                    <td>Tracked Device Graphic Raycaster and XR UI Input Module for UI interactions</td>
+                </tr>
+                <tr>
+                    <td><strong>Version Migration Path</strong></td>
+                    <td>How XRIT 3.0 improves upon legacy architecture with unified components</td>
+                </tr>
+            </table>
+
+            <h3>Why XRIT Evolved to 3.0:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Simplified Architecture:</strong> One Near-Far Interactor replaces two separate components, reducing complexity and potential conflicts</li>
+                <li><strong>Built-in Input Readers:</strong> No more manual Input Action copying - Input Readers handle everything automatically</li>
+                <li><strong>Intelligent Mode Switching:</strong> Automatic transition between near (direct) and far (ray) modes based on distance</li>
+                <li><strong>Better Code Organization:</strong> Reduced namespace complexity and more intuitive component relationships</li>
+                <li><strong>Future-Proof Development:</strong> XRIT 3.0 is active development; XRIT 2.x is legacy maintenance only</li>
+            </ol>
+
+            <h3>Recommended Workflow for Your Projects:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>New Projects:</strong> Always use XRIT 3.0 with Complete Rig prefab and Near-Far Interactors</li>
+                <li><strong>Existing XRIT 2.x Projects:</strong> Accept Unity's automatic migration to XRIT 3.0 (it handles most updates)</li>
+                <li><strong>Maintaining Legacy Code:</strong> Understanding XRIT 2.x helps you debug and update older projects</li>
+                <li><strong>Learning Path:</strong> Understanding the legacy approach helps you appreciate the modern architecture</li>
+            </ol>
+
+                <div class="modern-box">
+                    <h4>🔄 Next: Move to XRIT 3.0</h4>
+                    <p>Now that you understand the <strong>legacy foundation</strong>, Tutorial 05 introduces the <strong>modern XRIT 3.0</strong> approach. You'll see how the same goals are achieved with:</p>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>Near-Far Interactor (unified, simpler)</li>
+                        <li>Input Readers (automatic, no manual setup)</li>
+                        <li>Complete Rig prefab (ready to use)</li>
+                        <li>Same functionality, cleaner implementation</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-green">
+                    <h3>🎯 Next Steps:</h3>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Review:</strong> Compare this tutorial's components to the XRIT 3.0 equivalents in Tutorial 05</li>
+                        <li><strong>Experiment:</strong> Create the same scene in both XRIT 2.x and XRIT 3.0 to understand the differences</li>
+                        <li><strong>Migrate:</strong> If you have legacy projects, practice upgrading them to XRIT 3.0</li>
+                        <li><strong>Build:</strong> Use XRIT 3.0 for all new development going forward</li>
+                    </ol>
+                </div>
+
+                <h3>📖 Additional Documentation & Resources</h3>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.5/manual/index.html">XRIT 2.5 Official Documentation (Legacy)</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/upgrade-guide-3.0.html">XRIT 3.0 Upgrade Guide (How to Migrate)</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html">What's New in XRIT 3.0 (Official Unity Docs)</a></li>
+                    <li><a href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">Unity XR Interaction Toolkit Examples (GitHub)</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/XR.html">Unity XR Documentation Hub</a></li>
+                </ul>
+
+                <p>&nbsp;</p>
+                <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
+                    🎉 Congratulations! You've completed Tutorial 04! 🎉
+                </p>
+                <p style="text-align: center; font-style: italic; color: #666;">
+                    You now understand the legacy XRIT 2.x architecture and have the foundation to work with existing projects. Ready to explore the modern XRIT 3.0 in Tutorial 05!
+                </p>
+                <p>&nbsp;</p>
+            </div>
+            </div>
+        </details>
 
     </div>
 </body>

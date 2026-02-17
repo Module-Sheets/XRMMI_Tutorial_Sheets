@@ -142,6 +142,142 @@
             margin: 14px 0 24px 0;
         }
 
+        /* Accordion styling */
+        .accordion {
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            margin: 16px 0;
+            background-color: #f9f9f9;
+        }
+
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 14px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 1.2em;
+            border: none;
+            padding-left: 0;
+            color: var(--accent);
+        }
+
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid var(--accent);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            padding: 16px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Overview table styling */
+        .overview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid var(--accent);
+        }
+
+        .overview-table th {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .overview-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .overview-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .time-badge {
+            background-color: #EA9999;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .comparison-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin: 12px 0;
+        }
+
+        .comparison-box h3 {
+            margin-top: 0;
+        }
+
+        .comparison-box table {
+            margin: 8px 0;
+        }
+
+        .comparison-box th,
+        .comparison-box td {
+            padding: 6px 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th {
+            background-color: #f0f4f7;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: #0F4761;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .checkmark {
+            color: #00AA00;
+            font-weight: bold;
+        }
+
+        .crossmark {
+            color: #CC0000;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
             body {
                 padding: 12px;
@@ -159,7 +295,46 @@
 </head>
 <body>
     <div class="container">
-        <h1>Tutorial 02 Part 1: VR Package Import/Export</h1>
+        <h1>Tutorial 02: VR Package Import/Export and XRIT Setup</h1>
+
+        <div class="comparison-box">
+            <h3>📋 Tutorial Overview - 120-160 Minute Learning Path</h3>
+            <table>
+                <tr>
+                    <th style="width: 15%;">Time</th>
+                    <th style="width: 25%;">Section</th>
+                    <th style="width: 60%;">What You'll Learn</th>
+                </tr>
+                <tr>
+                    <td><strong>20-30 min</strong></td>
+                    <td><strong>Part 1: Export Work</strong></td>
+                    <td>Exporting scenes and prefabs as Unity packages with dependencies, importing packages into new projects, troubleshooting OpenXR settings</td>
+                </tr>
+                <tr>
+                    <td><strong>30-40 min</strong></td>
+                    <td><strong>Part 2: XRIT Install</strong></td>
+                    <td>Installing XR Interaction Toolkit, importing Starter Assets and XR Device Simulator, configuring project settings</td>
+                </tr>
+                <tr>
+                    <td><strong>40-60 min</strong></td>
+                    <td><strong>Part 2a: Legacy XRIT</strong></td>
+                    <td>Using legacy XRIT 2.x components, Tracked Pose Driver (New Input System), input bindings, testing with XR Device Simulator</td>
+                </tr>
+                <tr>
+                    <td><strong>40-60 min</strong></td>
+                    <td><strong>Part 2b: Modern XRIT</strong></td>
+                    <td>Building modern XRIT rigs from scratch, XR Ray Interactors, manual configuration, understanding the evolution of XRIT components</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- PART 1 -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>📦 PART 1: EXPORT YOUR TUTORIAL 01 WORK <span class="time-badge">20-30 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
+
         <p><strong>2: XRIT and Samples Install</strong><br>
            1a: Export and Import XRRig Packages<br>
            2: Import XR Interaction Toolkit</p>
@@ -233,7 +408,7 @@
             <a href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=151503a5-fa42-4c02-8fda-b27600b68c79">https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=151503a5-fa42-4c02-8fda-b27600b68c79</a>
         </p>
 
-        <h2>Part 1: Export Your Tutorial 01 Work</h2>
+        <h3>Export Steps</h3>
         <ol>
             <li>Export your Tutorial 01 work as a package either via Scene or Prefab:
                 <ol type="a">
@@ -388,9 +563,16 @@
             <li>You should now be used to importing and exporting working XR packages.</li>
         </ol>
 
-        <p><strong>Done Part 1!</strong></p>
+            </div>
+        </details>
 
-        <h1>Tutorial 02 Part 2: XR Interaction Toolkit XR Rig</h1>
+        <!-- PART 2 -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🛠️ PART 2: XRIT AND SAMPLES INSTALL <span class="time-badge">30-40 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
+
         <p><strong>2: XRIT and Samples Install</strong><br>
            2a: Basic XRRig Legacy (2025)<br>
            2b: Standard XRRig New (2026)</p>
@@ -401,7 +583,7 @@
             <a href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=89e2f096-2552-4528-acbf-b1110086b18f">https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=89e2f096-2552-4528-acbf-b1110086b18f</a>
         </p>
 
-        <h2>Part 2: XRIT and Samples Install</h2>
+        <h3>Install Steps</h3>
         <ol start="14">
             <li>Lets now look at Unity’s <strong>XR Interaction Toolkit</strong>, which does some of the further heavy lifting for us and gives more options.</li>
             <li>In Package Window, add <strong>XR Interaction Toolkit</strong>, then click <strong>Samples</strong>, and add <strong>Starter Assets</strong>, <strong>XR Device Simulator</strong>, and <strong>Legacy XR Input Readers</strong>.</li>
@@ -413,7 +595,16 @@
         <img src="https://gyazo.com/f4fc61187523636c2057215249804f58.png" alt="XRIT samples list">
         <p style="text-align: center;"><a href="https://gyazo.com/f4fc61187523636c2057215249804f58">https://gyazo.com/f4fc61187523636c2057215249804f58</a></p>
 
-        <h2>Part 2a: Basic XRIT XRRig Legacy (2025)</h2>
+            </div>
+        </details>
+
+        <!-- PART 2A -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🔧 PART 2A: BASIC XRIT XRRIG LEGACY (2025) <span class="time-badge">40-60 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
+
         <ol>
             <li>Lets now look at Unity’s <strong>XR Interaction Toolkit</strong>, which does some of the further heavy lifting for us and gives more options.</li>
             <li>For a Basic <strong>XRIT Rig</strong> – lets look at the 2025 (2.6.3) version:</li>
@@ -508,7 +699,16 @@
         <img src="https://gyazo.com/301086d3ee4ba368fd0ba46695c5ef75.png" alt="XR Device Simulator controls">
         <p style="text-align: center;"><a href="https://gyazo.com/301086d3ee4ba368fd0ba46695c5ef75">https://gyazo.com/301086d3ee4ba368fd0ba46695c5ef75</a></p>
 
-        <h2>Part 2b: Standard XRIT XRRig (2026)</h2>
+            </div>
+        </details>
+
+        <!-- PART 2B -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>⚙️ PART 2B: STANDARD XRIT XRRIG (2026) <span class="time-badge">40-60 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
+
         <ol start="10">
             <li>Add an <strong>XR Origin (VR)</strong> (not the XR Origin (XR Rig)) by right clicking on hierarchy and creating a <strong>XR/XR Origin (VR)</strong>.</li>
         </ol>
@@ -622,7 +822,103 @@
         <img src="https://gyazo.com/183da9d7a01e92f8b10d211e9896764e.png" alt="Controller samples">
         <p style="text-align: center;"><a href="https://gyazo.com/183da9d7a01e92f8b10d211e9896764e">https://gyazo.com/183da9d7a01e92f8b10d211e9896764e</a></p>
 
-        <p><strong>Done Week 2!</strong></p>
+            </div>
+        </details>
+
+        <!-- TUTORIAL SUMMARY -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="comparison-box">
+
+            <h3>What You've Accomplished:</h3>
+            <ul style="margin-left: 20px;">
+                <li><span class="checkmark">✓</span> Exported your Tutorial 01 work as reusable Unity packages (scenes and prefabs)</li>
+                <li><span class="checkmark">✓</span> Imported XR packages into new projects and resolved OpenXR issues</li>
+                <li><span class="checkmark">✓</span> Installed and configured XR Interaction Toolkit with samples</li>
+                <li><span class="checkmark">✓</span> Built a basic XRIT XRRig using legacy 2.x components (Tracked Pose Driver with New Input System)</li>
+                <li><span class="checkmark">✓</span> Set up input bindings for controllers (Position and Rotation inputs)</li>
+                <li><span class="checkmark">✓</span> Created a modern XRIT XRRig from scratch with XR Ray Interactors</li>
+                <li><span class="checkmark">✓</span> Tested both rigs using XR Device Simulator with full controller support</li>
+            </ul>
+
+            <h3>Key Concepts Mastered:</h3>
+            <table style="margin-top: 15px;">
+                <tr>
+                    <th>Concept</th>
+                    <th>What You Learned</th>
+                </tr>
+                <tr>
+                    <td><strong>Package Management</strong></td>
+                    <td>Exporting scenes/prefabs with dependencies, importing into new projects, avoiding common mistakes</td>
+                </tr>
+                <tr>
+                    <td><strong>OpenXR Configuration</strong></td>
+                    <td>Project validation, fixing warnings, setting up controller profiles, Mock Runtime configuration</td>
+                </tr>
+                <tr>
+                    <td><strong>Tracked Pose Driver (New)</strong></td>
+                    <td>Modern input system alternative to legacy ActionBasedController, input binding patterns</td>
+                </tr>
+                <tr>
+                    <td><strong>Legacy vs Modern XRIT</strong></td>
+                    <td>XRIT 2.x components (separate Direct/Ray Interactors) vs XRIT 3.0 unified approach</td>
+                </tr>
+                <tr>
+                    <td><strong>XR Device Simulator</strong></td>
+                    <td>Desktop testing of VR applications, controller simulation, project settings configuration</td>
+                </tr>
+                <tr>
+                    <td><strong>Manual Rig Construction</strong></td>
+                    <td>Building XR rigs from scratch, understanding hierarchy and component relationships</td>
+                </tr>
+            </table>
+
+            <h3>The Evolution Path:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Tutorial 01:</strong> Basic XR rig with legacy Tracked Pose Driver and mock controllers</li>
+                <li><strong>Tutorial 02:</strong> Reusable packaging, XRIT installation, modern Tracked Pose Driver setup</li>
+                <li><strong>Tutorial 03:</strong> Lighting and visual polish for your VR scenes</li>
+                <li><strong>Tutorial 04:</strong> Legacy XRIT 2.x architecture (understanding the foundation)</li>
+                <li><strong>Tutorial 05:</strong> Modern XRIT 3.0 with unified Near-Far Interactors and CW1 package</li>
+            </ol>
+
+            <h3>Best Practices for Packaging Your Work:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Always include dependencies:</strong> Ensures packages work when imported elsewhere</li>
+                <li><strong>Use prefabs for reusable components:</strong> Cleaner than exporting entire scenes</li>
+                <li><strong>Test imports immediately:</strong> Catch issues early rather than discovering them later</li>
+                <li><strong>Run "Fix All" on OpenXR validation:</strong> Prevents runtime crashes and controller issues</li>
+                <li><strong>Document your setup:</strong> Leave notes about what each package contains</li>
+            </ol>
+
+                <div class="note">
+                    <h4>💡 Next Steps:</h4>
+                    <p>Tutorial 03 focuses on making your VR scenes visually appealing with proper lighting. Then Tutorial 04 and 05 add interaction, making your static scenes interactive and engaging.</p>
+                </div>
+
+                <h3>📖 Additional Documentation & Resources</h3>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Manual/upm-ui.html">Unity Package Manager Documentation</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.openxr@1.5/manual/index.html">OpenXR Plugin Documentation</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.0/manual/device-simulator-using.html">XR Device Simulator Guide (XRIT 2.x)</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/xr-input-management.html">XR Input Management in Unity</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/index.html">New Input System Documentation</a></li>
+                </ul>
+
+                <p>&nbsp;</p>
+                <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
+                    🎉 Congratulations! You've completed Tutorial 02! 🎉
+                </p>
+                <p style="text-align: center; font-style: italic; color: #666;">
+                    You now know how to package, import, and set up VR projects with both legacy and modern XRIT components. Ready for visual enhancement in Tutorial 03!
+                </p>
+                <p>&nbsp;</p>
+            </div>
+            </div>
+        </details>
     </div>
 </body>
 </html>

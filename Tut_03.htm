@@ -101,13 +101,151 @@
             border-left: 4px solid #467886;
             margin: 15px 0;
         }
+        /* Accordion styling */
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        /* Overview table styling */
+        .overview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #0F4761;
+        }
+        .overview-table th {
+            background-color: #0F4761;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .overview-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .overview-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        .time-badge {
+            background-color: #EA9999;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .comparison-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin: 12px 0;
+        }
+        .comparison-box h3 {
+            margin-top: 0;
+        }
+        .comparison-box table {
+            margin: 8px 0;
+        }
+        .comparison-box th,
+        .comparison-box td {
+            padding: 6px 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background-color: #f0f4f7;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: #0F4761;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .checkmark {
+            color: #00AA00;
+            font-weight: bold;
+        }
+        .crossmark {
+            color: #CC0000;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Tutorial 03: Lighting Setup</h1>
 
-        <h2>Part 1: Non-URP (Standard) Lighting</h2>
+        <div class="comparison-box">
+            <h3>📋 Tutorial Overview - 105-150 Minute Learning Path</h3>
+            <table>
+                <tr>
+                    <th style="width: 15%;">Time</th>
+                    <th style="width: 25%;">Section</th>
+                    <th style="width: 60%;">What You'll Learn</th>
+                </tr>
+                <tr>
+                    <td><strong>45-60 min</strong></td>
+                    <td><strong>Part 1: Standard Lighting</strong></td>
+                    <td>Standard lighting pipeline setup, materials with emission/metallic properties, baked indirect lighting, post-processing effects (Bloom, AO), shadows and fog</td>
+                </tr>
+                <tr>
+                    <td><strong>60-90 min</strong></td>
+                    <td><strong>Part 2: URP Lighting</strong></td>
+                    <td>URP lighting architecture, converting projects to URP, material conversion, global volumes, post-processing overrides, dynamic lighting vs baked</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- PART 1: NON-URP LIGHTING -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>💡 PART 1: NON-URP (STANDARD) LIGHTING <span class="time-badge">45-60 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <p><strong>Reference:</strong> <a href="https://universityofwestminster-my.sharepoint.com/:w:/g/personal/fergusj_westminster_ac_uk/Eaw0Vbuk-wdCgO3ItNzLWZ8BShfIFen7qDlaJEdHRllgdg?e=bEHSPK">Non URP Lighting.docx</a></p>
 
@@ -333,7 +471,15 @@
         <img src="https://gyazo.com/53b56eae57b18e70a33945970d081742.png" alt="Static Objects">
         <p style="text-align: center;"><a href="https://gyazo.com/53b56eae57b18e70a33945970d081742">https://gyazo.com/53b56eae57b18e70a33945970d081742</a></p>
 
-        <h2>Part 2: URP (Universal Render Pipeline)</h2>
+            </div>
+        </details>
+
+        <!-- PART 2: URP LIGHTING -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎨 PART 2: URP (UNIVERSAL RENDER PIPELINE) <span class="time-badge">60-90 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <p><strong>Reference:</strong> <a href="https://universityofwestminster-my.sharepoint.com/:w:/g/personal/fergusj_westminster_ac_uk/ERkCcC26fWhJsLzo7nhtb6gBTsoLcsfCKKRyNmeYpSep3w?e=6E0GYo">Tutorial Sheet 12 non URP Basic 2024 011.docx</a></p>
 
@@ -493,7 +639,103 @@
             <li><strong>Mecabricks and Pivots</strong></li>
         </ul>
 
-        <h2 style="margin-top: 40px; font-size: 24px; text-align: center;">Done Week 3!</h2>
+            </div>
+        </details>
+
+        <!-- TUTORIAL SUMMARY -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="comparison-box">
+
+            <h3>What You've Accomplished:</h3>
+            <ul style="margin-left: 20px;">
+                <li><span class="checkmark">✓</span> Set up lighting in standard (built-in) rendering pipeline</li>
+                <li><span class="checkmark">✓</span> Created materials with emission, metallic, and textured properties</li>
+                <li><span class="checkmark">✓</span> Implemented baked indirect lighting for realistic global illumination</li>
+                <li><span class="checkmark">✓</span> Applied post-processing effects (Bloom, Ambient Occlusion)</li>
+                <li><span class="checkmark">✓</span> Configured fog and skybox for atmosphere</li>
+                <li><span class="checkmark">✓</span> Converted a standard project to URP (Universal Render Pipeline)</li>
+                <li><span class="checkmark">✓</span> Learned URP's unified post-processing system with Global Volumes</li>
+            </ul>
+
+            <h3>Key Concepts Mastered:</h3>
+            <table style="margin-top: 15px;">
+                <tr>
+                    <th>Concept</th>
+                    <th>What You Learned</th>
+                </tr>
+                <tr>
+                    <td><strong>Rendering Pipelines</strong></td>
+                    <td>Built-in (Standard) vs URP - different approaches, same goal of realistic rendering</td>
+                </tr>
+                <tr>
+                    <td><strong>Lighting Modes</strong></td>
+                    <td>Realtime, Baked, and Mixed lighting - when to use each for optimal performance</td>
+                </tr>
+                <tr>
+                    <td><strong>Material Properties</strong></td>
+                    <td>Albedo, Normal Maps, Emission, Metallic/Smoothness for PBR (Physically Based Rendering)</td>
+                </tr>
+                <tr>
+                    <td><strong>Baking & Global Illumination</strong></td>
+                    <td>Lightmaps, indirect lighting, and how to optimize bake time</td>
+                </tr>
+                <tr>
+                    <td><strong>Post-Processing</strong></td>
+                    <td>Bloom, AO, DoF, Motion Blur, and tone mapping for final visual polish</td>
+                </tr>
+                <tr>
+                    <td><strong>Pipeline Conversion</strong></td>
+                    <td>How to migrate existing projects from Standard to URP</td>
+                </tr>
+            </table>
+
+            <h3>Standard vs URP: Key Differences</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Material Conversion:</strong> Standard materials convert to URP equivalents, but may need tweaking</li>
+                <li><strong>Post-Processing:</strong> Standard uses Post Processing Volume, URP uses Global Volume with Overrides</li>
+                <li><strong>Lighting:</strong> Both support baked and realtime, but URP is more GPU efficient</li>
+                <li><strong>Performance:</strong> URP is optimized for mobile and VR, Standard is more flexible but heavier</li>
+                <li><strong>Future-Proof:</strong> URP is the recommended pipeline for new projects; Standard is legacy</li>
+            </ol>
+
+            <h3>Best Practices Going Forward:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>For New VR Projects:</strong> Use URP - it's optimized for headsets and provides better performance</li>
+                <li><strong>For Desktop/Console:</strong> Either pipeline works; choose based on visual quality needs</li>
+                <li><strong>For Mobile VR:</strong> Always use URP with baked lighting for best battery life</li>
+                <li><strong>Lighting Strategy:</strong> Mix static baked lighting with selective realtime lights for dynamic objects</li>
+                <li><strong>Post-Processing:</strong> Use judiciously - simpler is often better for VR (motion sickness considerations)</li>
+            </ol>
+
+                <div class="note">
+                    <h4>💡 Next Steps:</h4>
+                    <p>By now, you have the visual foundation for VR scenes. Tutorial 04 and 05 focus on interaction and scripting, but you'll apply these lighting concepts to make your interactive scenes visually appealing and performant.</p>
+                </div>
+
+                <h3>📖 Additional Documentation & Resources</h3>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Manual/LightingWindow.html">Unity Lighting Window Documentation</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/universalrp-introduction.html">URP Introduction and Best Practices</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/PostProcessingOverview.html">Post-Processing in URP</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/LightProbes.html">Light Probes for Dynamic Objects</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/GIIntro.html">Global Illumination Fundamentals</a></li>
+                </ul>
+
+                <p>&nbsp;</p>
+                <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
+                    🎉 Congratulations! You've completed Tutorial 03! 🎉
+                </p>
+                <p style="text-align: center; font-style: italic; color: #666;">
+                    You now understand both standard and URP lighting pipelines. Use these skills to create visually stunning VR environments!
+                </p>
+                <p>&nbsp;</p>
+            </div>
+            </div>
+        </details>
     </div>
 </body>
 </html>

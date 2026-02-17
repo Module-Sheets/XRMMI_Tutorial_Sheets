@@ -101,13 +101,156 @@
             border-left: 4px solid #467886;
             margin: 15px 0;
         }
+        /* Accordion styling */
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        /* Overview table styling */
+        .overview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #0F4761;
+        }
+        .overview-table th {
+            background-color: #0F4761;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .overview-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .overview-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        .time-badge {
+            background-color: #EA9999;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .comparison-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin: 12px 0;
+        }
+        .comparison-box h3 {
+            margin-top: 0;
+        }
+        .comparison-box table {
+            margin: 8px 0;
+        }
+        .comparison-box th,
+        .comparison-box td {
+            padding: 6px 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background-color: #f0f4f7;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: #0F4761;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .checkmark {
+            color: #00AA00;
+            font-weight: bold;
+        }
+        .crossmark {
+            color: #CC0000;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Tutorial 01: XR Setup with OpenXR</h1>
 
-        <h2>Tutorial Video</h2>
+        <div class="comparison-box">
+            <h3>📋 Tutorial Overview - 70-80 Minute Learning Path</h3>
+            <table>
+                <tr>
+                    <th style="width: 15%;">Time</th>
+                    <th style="width: 25%;">Section</th>
+                    <th style="width: 60%;">What You'll Learn</th>
+                </tr>
+                <tr>
+                    <td><strong>20-30 min</strong></td>
+                    <td><strong>Part 1: Camera Setup</strong></td>
+                    <td>Installing OpenXR plugin, XR Project Management configuration, converting main camera to XR rig, basic scene setup</td>
+                </tr>
+                <tr>
+                    <td><strong>20-30 min</strong></td>
+                    <td><strong>Part 2: Hand Tracking</strong></td>
+                    <td>Adding hand pivot objects, Tracked Pose Driver component, Generic XR Controller setup, Input Actions system basics</td>
+                </tr>
+                <tr>
+                    <td><strong>30-40 min</strong></td>
+                    <td><strong>Part 3: Mock HMD</strong></td>
+                    <td>Mock Runtime configuration, Input Actions asset creation, Control schemes, scripting MockController behavior</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- PART 1: CAMERA SETUP -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>📷 PART 1: CAMERA SETUP <span class="time-badge">20-30 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
         <div class="video-container">
             <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=91d2d57a-6f2b-4fc5-a2d4-b27501559479&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" 
                     frameborder="0" 
@@ -215,7 +358,15 @@
             <li>That should be the Camera working. Now We will set up Hand Tracking.</li>
         </ol>
 
-        <h2>Section 2: Hand Tracking with Unity New Input System and InputActions</h2>
+            </div>
+        </details>
+
+        <!-- PART 2: HAND TRACKING -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🖐️ PART 2: HAND TRACKING WITH INPUT SYSTEM <span class="time-badge">20-30 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <ol start="22">
             <li>Add two empty Game Objects to use as Pivots:
@@ -262,7 +413,15 @@
         <img src="https://gyazo.com/d0cc11b1e7582b296ceb33655531ed54.png" alt="Pivot Positioning">
         <p style="text-align: center;"><a href="https://gyazo.com/d0cc11b1e7582b296ceb33655531ed54">https://gyazo.com/d0cc11b1e7582b296ceb33655531ed54</a></p>
 
-        <h2>Section 3: Mock HMD and Controls</h2>
+            </div>
+        </details>
+
+        <!-- PART 3: MOCK HMD AND CONTROLS -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎮 PART 3: MOCK HMD AND CONTROLS <span class="time-badge">30-40 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <ol start="30">
             <li>Go back to <strong>Edit/Project Settings</strong> and <strong>XR Plug In Management</strong></li>
@@ -428,12 +587,12 @@
             </li>
         </ol>
 
-        <h2>Section 4: Troubleshooting</h2>
+        <h3 style="margin-top: 30px;">Troubleshooting Common Issues:</h3>
 
         <ol start="44">
             <li>Troubleshooting - XRRig at 000,
                 <ol type="a">
-                    <li class="error-warning"><strong>Camera Offset Position 0,1.36144,0, This is locked in now, so best to fix this to 0 at the start and move XRRig up as needed to 1.36144. If has Y value when parented, during play this goes to XR Rig location, so be aware</strong></li>
+                    <li class="error-warning"><strong>Camera Offset Position 0,1.36144,0:</strong> This is locked in now, so best to fix this to 0 at the start and move XRRig up as needed to 1.36144. If has Y value when parented, during play this goes to XR Rig location, so be aware</li>
                     <li>Mock Input ticked on camera script, pivots in, tweak rot up down value</li>
                     <li>Look at the XR folder in Assets to see the OpenXR settings saved.</li>
                 </ol>
@@ -442,7 +601,104 @@
             <li><strong>This XR Project built from Scratch in OpenXR works!</strong></li>
         </ol>
 
-        <h2 style="margin-top: 40px; font-size: 24px; text-align: center;">DONE WEEK 1 !!!</h2>
+            </div>
+        </details>
+
+        <!-- TUTORIAL SUMMARY -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="comparison-box">
+
+            <h3>What You've Accomplished:</h3>
+            <ul style="margin-left: 20px;">
+                <li><span class="checkmark">✓</span> Installed and configured OpenXR plugin in Unity</li>
+                <li><span class="checkmark">✓</span> Created an XRRig from scratch with Camera Offset and XR Origin</li>
+                <li><span class="checkmark">✓</span> Set up a main camera with proper rendering and tracking</li>
+                <li><span class="checkmark">✓</span> Created Input Actions asset with MouseX, MouseY, and scroll wheel bindings</li>
+                <li><span class="checkmark">✓</span> Configured control schemes for Virtual Mouse input</li>
+                <li><span class="checkmark">✓</span> Implemented MockController script for simulated hand tracking</li>
+                <li><span class="checkmark">✓</span> Set up mock HMD runtime for desktop testing</li>
+                <li><span class="checkmark">✓</span> Tested full XR system with keyboard and mouse controls</li>
+            </ul>
+
+            <h3>Key Concepts Mastered:</h3>
+            <table style="margin-top: 15px;">
+                <tr>
+                    <th>Concept</th>
+                    <th>What You Learned</th>
+                </tr>
+                <tr>
+                    <td><strong>XRRig Architecture</strong></td>
+                    <td>Understanding XR Origin, Camera Offset, and proper hierarchy for VR projects</td>
+                </tr>
+                <tr>
+                    <td><strong>OpenXR Configuration</strong></td>
+                    <td>Project setup, XR Plugin Management, Mock Runtime for desktop development</td>
+                </tr>
+                <tr>
+                    <td><strong>Input Actions System</strong></td>
+                    <td>Creating control schemes, binding inputs, generating C# classes from InputActions assets</td>
+                </tr>
+                <tr>
+                    <td><strong>Mock Input Control</strong></td>
+                    <td>Using keyboard and mouse to simulate hand controllers and HMD movement in editor</td>
+                </tr>
+                <tr>
+                    <td><strong>Script Integration</strong></td>
+                    <td>Connecting InputActions to MonoBehaviour scripts for real-time controller input handling</td>
+                </tr>
+                <tr>
+                    <td><strong>Pivot Objects</strong></td>
+                    <td>Using separate pivot transforms to represent left and right controller positions in VR space</td>
+                </tr>
+            </table>
+
+            <h3>The Learning Path Ahead:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Tutorial 01 (Current):</strong> Foundation - OpenXR setup, XRRig creation, mock input system</li>
+                <li><strong>Tutorial 02:</strong> Packaging and reuse - Asset bundles, exporting/importing VR packages</li>
+                <li><strong>Tutorial 03:</strong> Visual enhancement - Lighting, materials, and scene composition</li>
+                <li><strong>Tutorial 04:</strong> Legacy interactors - XRIT 2.x architecture with ActionBasedController</li>
+                <li><strong>Tutorial 05:</strong> Modern implementation - XRIT 3.0 and unified interactor approach</li>
+            </ol>
+
+            <h3>Best Practices for XR Development:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Always test with Mock Runtime:</strong> Desktop iteration is faster than on-device testing</li>
+                <li><strong>Use Input Actions for flexibility:</strong> Makes it easy to rebind controls later</li>
+                <li><strong>Keep XRRig hierarchy clean:</strong> Proper parent-child relationships prevent tracking issues</li>
+                <li><strong>Document your control scheme:</strong> Note what Q/E/Mouse do for reference during development</li>
+                <li><strong>Camera Offset position management:</strong> Lock Camera Offset at 0,1.36144,0 (eye height) and move XRRig for scene composition</li>
+            </ol>
+
+                <div class="note">
+                    <h4>💡 Next Steps:</h4>
+                    <p>Tutorial 02 will show you how to save this work as reusable packages and import XR Interaction Toolkit. You'll learn professional packaging techniques and set up interaction capabilities for your VR scene.</p>
+                </div>
+
+                <h3>📖 Additional Documentation & Resources</h3>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.openxr@1.5/manual/index.html">OpenXR Plugin Documentation</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/xr-input-management.html">XR Input Management in Unity</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/index.html">New Input System Documentation</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/configuring-project-for-xr.html">Configuring a Project for XR</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.openxr@1.5/manual/index.html">OpenXR Input Mapping</a></li>
+                </ul>
+
+                <p>&nbsp;</p>
+                <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
+                    🎉 Congratulations! You've completed Tutorial 01! 🎉
+                </p>
+                <p style="text-align: center; font-style: italic; color: #666;">
+                    You now have a fully functional XR development environment with mock input controls. Ready to package this work in Tutorial 02!
+                </p>
+                <p>&nbsp;</p>
+            </div>
+            </div>
+        </details>
     </div>
 </body>
 </html>

@@ -104,6 +104,46 @@
             margin: 15px 0;
             border-radius: 4px;
         }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
         .step-number {
             display: inline-block;
             min-width: 24px;
@@ -125,9 +165,21 @@
         .version-warning {
             background-color: #EA9999;
             border-left: 4px solid #CC0000;
-            padding: 12px;
-            margin: 15px 0;
+            padding: 8px 10px;
+            margin: 10px 0;
             border-radius: 4px;
+        }
+        .version-warning h2 {
+            margin: 0 0 6px 0;
+        }
+        .version-warning p {
+            margin: 4px 0;
+        }
+        .version-warning ul {
+            margin: 4px 0 0 20px;
+        }
+        .version-warning li {
+            margin: 4px 0;
         }
         .image-container {
             margin: 10px 0 20px 0;
@@ -148,9 +200,19 @@
         .comparison-box {
             background-color: #f7f7f7;
             border: 1px solid #ddd;
-            padding: 16px;
-            margin: 20px 0;
+            padding: 10px 12px;
+            margin: 12px 0;
             border-radius: 4px;
+        }
+        .comparison-box h3 {
+            margin-top: 0;
+        }
+        .comparison-box table {
+            margin: 8px 0;
+        }
+        .comparison-box th,
+        .comparison-box td {
+            padding: 6px 8px;
         }
         .checkmark {
             color: #00AA00;
@@ -170,10 +232,20 @@
             background-color: #f0f4f7;
             color: #0F4761;
         }
+        .time-badge {
+            background-color: #EA9999;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Title -->
         <h1>Tutorial 05 : XRIT 3.0.10 Rig with CW1 Package</h1>
 
                 <!-- VERSION COMPATIBILITY HEADER -->
@@ -190,24 +262,15 @@
             </ul>
             <p style="margin-top: 10px;"><strong>📚 Teaching Approach:</strong> This tutorial teaches the modern XRIT 3.0 workflow, with legacy context provided for understanding older projects.</p>
         </div>
-        
-        <!-- TUTORIAL 05 SECTION -->
-       <!-- Title -->
-        <h2>TUTORIAL 05: New XRIT 3.0.10 Rig Prefab and CW1 Interaction Package</h2>
-        <p style="text-align: center; font-size: 10pt; color: #666; font-style: italic;">
-            Optimized for Unity 6000.0.58 + XR Interaction Toolkit 3.0.10
-        </p>
-
-        <p>&nbsp;</p>
 
         <!-- Tutorial Overview -->
         <div class="comparison-box">
             <h3>📋 Tutorial Overview - 60 Minute Learning Path</h3>
             <table>
                 <tr>
-                    <th style="width: 20%;">Time</th>
-                    <th style="width: 35%;">Section</th>
-                    <th style="width: 45%;">What You'll Learn</th>
+                    <th style="width: 15%;">Time</th>
+                    <th style="width: 25%;">Section</th>
+                    <th style="width: 60%;">What You'll Learn</th>
                 </tr>
                 <tr>
                     <td><strong>0-15 min</strong></td>
@@ -245,7 +308,11 @@
         <hr>
 
         <!-- PART 1: QUICK START -->
-        <h2>🚀 PART 1: QUICK START - Working VR in 15 Minutes <span class="time-badge">0-15 MIN</span></h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🚀 PART 1: QUICK START - Working VR in 15 Minutes <span class="time-badge">0-15 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="modern-box">
             <h3>🎯 Goal: Get a fully functional VR rig working immediately</h3>
@@ -457,9 +524,15 @@
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
         <!-- PART 2: UNDERSTANDING THE RIG -->
-        <h2>🔍 PART 2: UNDERSTANDING THE COMPLETE RIG <span class="time-badge">15-30 MIN</span></h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🔍 PART 2: UNDERSTANDING THE COMPLETE RIG <span class="time-badge">15-30 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="modern-box">
             <h3>🎯 Goal: Understand what Unity gave you in the Complete Rig prefab</h3>
@@ -685,9 +758,15 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
         <!-- PART 3: BUILD YOUR OWN RIG -->
-        <h2>🔧 PART 3: BUILD YOUR OWN CUSTOM RIG <span class="time-badge">30-50 MIN</span></h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🔧 PART 3: BUILD YOUR OWN CUSTOM RIG <span class="time-badge">30-50 MIN</span></h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="modern-box">
             <h3>🎯 Goal: Create a custom XR rig from scratch using XRIT 3.0 components</h3>
@@ -844,9 +923,15 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
         <!-- PART 4: CW1 PACKAGE -->
-        <h2>📦 PART 4: IMPORT CW1 PACKAGE FOR INTERACTION EXAMPLES</h2>
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>📦 PART 4: IMPORT CW1 PACKAGE FOR INTERACTION EXAMPLES</h2>
+            </summary>
+            <div class="accordion-content">
 
         <div class="info-box">
             <p><strong>What is the CW1 Prototype Package?</strong> A pre-built XR project demonstrating advanced interactions, locomotion, and UI systems. This is your reference for coursework implementation.</p>
@@ -972,11 +1057,17 @@ XR Origin (XR Rig)<br>
 
         <p>&nbsp;</p>
         <hr>
+            </div>
+        </details>
 
-        <!-- WEEK 05 EXTRAS -->
-        <h2>🔗 WEEK 05 EXTRAS & RESOURCES</h2>
+        <!-- PART 5: EXTRAS AND RESOURCES -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🔗 PART 5: EXTRAS AND RESOURCES</h2>
+            </summary>
+            <div class="accordion-content">
 
-        <h3>Additional Tutorials & Examples</h3>
+        <!--         <h3>Additional Tutorials & Examples</h3>
 
         <ol>
             <li><strong>Grabbable Recap Videos:</strong>
@@ -987,7 +1078,7 @@ XR Origin (XR Rig)<br>
             </li>
             <li><strong>Compare Week 5 package to XRIT official samples</strong> (scene is in XRLab/Scenes)</li>
             <li><strong>Try importing Mecabricks assets</strong> to interact with 3D models</li>
-        </ol>
+        </ol> -->
 
         <h3>XRIT 3.0 Official Examples</h3>
 
@@ -1007,9 +1098,9 @@ XR Origin (XR Rig)<br>
             <p>Look for the <strong>"main"</strong> or <strong>"3.0"</strong> branch in the repository.</p>
         </div>
 
-        <div class="video-link">
+<!--         <div class="video-link">
             <strong>Adding XR Device Simulator:</strong> <a href="https://youtu.be/d4bTpkvBwrs">How To Add The XR Device Simulator To Speed Up Development | Unity XR Interaction Toolkit</a>
-        </div>
+        </div> -->
 
         <h3>Level Design Tools</h3>
 
@@ -1034,9 +1125,16 @@ XR Origin (XR Rig)<br>
         <p>&nbsp;</p>
         <hr>
 
-        <!-- SUMMARY SECTION -->
-        <div class="comparison-box">
-            <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+            </div>
+        </details>
+
+        <!-- TUTORIAL SUMMARY -->
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="comparison-box">
 
             <h3>What You've Accomplished:</h3>
             <ul style="margin-left: 20px;">
@@ -1085,34 +1183,33 @@ XR Origin (XR Rig)<br>
             </ol>
         </div>
 
-        <div class="highlight-green">
-            <h3>🎯 Next Steps:</h3>
-            <ol style="margin-left: 20px; margin-top: 10px;">
-                <li><strong>Experiment:</strong> Customize the Complete Rig prefab for your needs</li>
-                <li><strong>Explore:</strong> Check out Unity's official XRIT examples on GitHub</li>
-                <li><strong>Build:</strong> Start implementing your coursework using these foundations</li>
-                <li><strong>Advanced Topics:</strong> Locomotion systems, custom interactables, advanced UI (coming in later tutorials)</li>
-            </ol>
-        </div>
+                <div class="highlight-green">
+                    <h3>🎯 Next Steps:</h3>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Experiment:</strong> Customize the Complete Rig prefab for your needs</li>
+                        <li><strong>Explore:</strong> Check out Unity's official XRIT examples on GitHub</li>
+                        <li><strong>Build:</strong> Start implementing your coursework using these foundations</li>
+                        <li><strong>Advanced Topics:</strong> Locomotion systems, custom interactables, advanced UI (coming in later tutorials)</li>
+                    </ol>
+                </div>
 
-        <h3>📖 Additional Documentation & Resources</h3>
-        <ul>
-            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html">What's New in XRIT 3.0 (Official Unity Docs)</a></li>
-            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/upgrade-guide-3.0.html">XRIT 3.0 Upgrade Guide</a></li>
-            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/changelog/CHANGELOG.html">XRIT 3.0.10 Complete Changelog</a></li>
-            <li><a href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">Unity XR Interaction Toolkit Examples (GitHub)</a></li>
-            <li><a href="https://docs.unity3d.com/Manual/XR.html">Unity XR Documentation Hub</a></li>
-        </ul>
+                <h3>📖 Additional Documentation & Resources</h3>
+                <ul>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/whats-new-3.0.html">What's New in XRIT 3.0 (Official Unity Docs)</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/upgrade-guide-3.0.html">XRIT 3.0 Upgrade Guide</a></li>
+                    <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/changelog/CHANGELOG.html">XRIT 3.0.10 Complete Changelog</a></li>
+                    <li><a href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">Unity XR Interaction Toolkit Examples (GitHub)</a></li>
+                    <li><a href="https://docs.unity3d.com/Manual/XR.html">Unity XR Documentation Hub</a></li>
+                </ul>
 
-        <p>&nbsp;</p>
-        <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
-            🎉 Congratulations! You've completed Tutorial 05! 🎉
-        </p>
-        <p style="text-align: center; font-style: italic; color: #666;">
-            You now understand the complete XRIT 3.0 architecture and can work with the CW1 Prototype Package for advanced XR development.
-        </p>
-        <p>&nbsp;</p>
-
-    </div>
-</body>
-</html>
+                <p>&nbsp;</p>
+                <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
+                    🎉 Congratulations! You've completed Tutorial 05! 🎉
+                </p>
+                <p style="text-align: center; font-style: italic; color: #666;">
+                    You now understand the complete XRIT 3.0 architecture and can work with the CW1 Prototype Package for advanced XR development.
+                </p>
+                <p>&nbsp;</p>
+            </div>
+            </div>
+        </details>
