@@ -284,8 +284,8 @@
                 </tr>
                 <tr>
                     <td><strong>30-50 min</strong></td>
-                    <td><strong>Part 3: Build Your Own</strong></td>
-                    <td>Manipulate a custom rig using XRIT New components</td>
+                    <td><strong>Part 3: TEst Near-Far</strong></td>
+                    <td>Manipulate the rig using New XRIT components</td>
                 </tr>
                 <tr>
                     <td><strong>50-60 min</strong></td>
@@ -450,7 +450,7 @@
                 <li>In <strong>Project window</strong>, navigate to:<br>
                     <code>Assets/Samples/XR Interaction Toolkit/3.0.10/Starter Assets/Prefabs/</code>
                 </li>
-                <li>Find the prefab named <strong>"XR Origin (XR Rig)"</strong> or <strong>"Complete XR Origin Setup"</strong></li>
+                <li>Find the prefab named <strong>"XR Interaction Setup"</strong></li>
                 <li><strong>Drag it into your Hierarchy</strong></li>
                 <li>Position at (0, 0, 0) if not already</li>
             </ol>
@@ -492,15 +492,14 @@
             <p><span class="step-number">9</span> <strong>Run and Test</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
                 <li>Click the <strong>Play</strong> button</li>
-                <li>Use these controls to test:</li>
+                <li>Use these controls to do a basic test:</li>
             </ol>
             <ul style="margin-left: 70px; margin-top: 10px;">
                 <li><strong>Camera View:</strong> Right Mouse Button (hold) + Move Mouse</li>
                 <li><strong>Camera Rotate:</strong> RMB (hold) + Left Control + Move Mouse</li>
                 <li><strong>Left Hand:</strong> Left Shift (hold) + Move Mouse</li>
                 <li><strong>Right Hand:</strong> Space (hold) + Move Mouse</li>
-                <li><strong>Grab Object:</strong> Move hand near cube + Press <strong>G</strong></li>
-                <li><strong>Ray Pointer:</strong> Press <strong>Q</strong> (left) or <strong>E</strong> (right)</li>
+                <li><strong>Grab Object:</strong> Point ray a cube + Press G to select<strong>G</strong></li>
             </ul>
         </div>
 
@@ -515,7 +514,7 @@
             <ul style="margin-left: 20px; margin-top: 5px;">
                 <li><span class="checkmark">✓</span> See controller models in the scene</li>
                 <li><span class="checkmark">✓</span> Move the camera view around</li>
-                <li><span class="checkmark">✓</span> Control left and right hands</li>
+                <li><span class="checkmark">✓</span> Control left and right controllers</li>
                 <li><span class="checkmark">✓</span> Grab and move the cube</li>
                 <li><span class="checkmark">✓</span> See ray pointers when pressing Q or E</li>
             </ul>
@@ -542,7 +541,7 @@
         <h3>Inspect the Hierarchy</h3>
         <div class="step-box">
             <p><span class="step-number">1</span> <strong>Expand the XR Origin in Hierarchy</strong></p>
-            <p style="margin-left: 50px;">Click the arrow next to "XR Origin (XR Rig)" to see the structure:</p>
+            <p style="margin-left: 50px;">Click the arrow next to "XR Origin (XR Rig)" under XR Interaction Setup to see the structure:</p>
         </div>
 
         <div class="code" style="background-color: #f5f5f5; padding: 15px; margin: 15px 0; font-family: 'Courier New', monospace;">
@@ -609,7 +608,7 @@ XR Origin (XR Rig)<br>
                 <li><span class="crossmark">✗</span> XR Ray Interactor (for distance pointing)</li>
                 <li><span class="crossmark">✗</span> ActionBasedController (for input - now deprecated)</li>
             </ul>
-            <p style="margin-top: 10px;"><strong>XRIT 3.0 Solution:</strong> <strong>Near-Far Interactor</strong> - ONE component that does both!</p>
+            <p style="margin-top: 10px;"><strong>XRIT 3.0 Solution:</strong> <strong>Near-Far Interactor</strong> - ONE component that does both! <i>(Not in Rig yet, must drag prefab in to use)</i></p>
             <ul style="margin-left: 20px; margin-top: 5px;">
                 <li><span class="checkmark">✓</span> Automatically grabs nearby objects (direct mode)</li>
                 <li><span class="checkmark">✓</span> Automatically points at distant objects (ray mode)</li>
@@ -761,20 +760,20 @@ XR Origin (XR Rig)<br>
             </div>
         </details>
 
-        <!-- PART 3: BUILD YOUR OWN RIG -->
+        <!-- PART 3: Add Near-Far Interactors -->
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>🔧 PART 3: BUILD YOUR OWN CUSTOM RIG <span class="time-badge">30-50 MIN</span></h2>
+                <h2>🔧 PART 3: ADD NEAR-FAR INTERACTORS TO VIEW AND TEST <span class="time-badge">30-50 MIN</span></h2>
             </summary>
             <div class="accordion-content">
 
         <div class="modern-box">
-            <h3>🎯 Goal: Create a custom XR rig from scratch using XRIT 3.0 components</h3>
-            <p><strong>Why build manually?</strong> Understanding the manual process gives you full control for custom projects and helps troubleshooting.</p>
+            <h3>🎯 Goal: Use the 3.x Prefab XR rig and add Near-far Components to Test</h3>
+            <p>Testing the Near-Far Interactor components helps understanding of their use if replacing Ray and Direct Interactors.</p>
         </div>
 
-        <h3>Method 1: Minimal XR Origin + Near-Far Interactors (RECOMMENDED)</h3>
-
+        <h3>Method 1: 3.x Prefab XR rig + Near-Far Interactors (TESTING))</h3>
+<!-- 
         <div class="step-box">
             <p><span class="step-number">1</span> <strong>Create a New Scene</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
@@ -794,20 +793,20 @@ XR Origin (XR Rig)<br>
 
         <div class="modern-box">
             <p><strong>⚠️ XRIT 3.0 Note:</strong> This creates a MINIMAL rig - just the XR Origin, Camera Offset, and Main Camera. <strong>NO controllers are included!</strong> We'll add them manually.</p>
-        </div>
+        </div> -->
 
         <div class="step-box">
             <p><span class="step-number">3</span> <strong>Add Near-Far Interactors for Hands</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
-                <li>In Hierarchy, expand <strong>XR Origin</strong></li>
-                <li>Right-click on <strong>Camera Offset</strong></li>
-                <li>Select <strong>XR</strong> → <strong>Interaction</strong> → <strong>Near-Far Interactor</strong></li>
-                <li>Rename to <strong>"LeftHand Near-Far"</strong></li>
-                <li>Repeat steps 2-4 to create <strong>"RightHand Near-Far"</strong></li>
+                <li>In Project Window, search for <strong>Left/Right_NearFarInteractor</strong></li>
+                <li>Drag the prefabs under <strong>Left and Right Controllers</strong></li>
+                <li>Turn off the Poke, Direct and Ray Interactors</li>
+                <li>Test the scene and see if you can select the cubes</strong></li>
+                <li>Teleport may not work at this point</strong></li>
             </ol>
         </div>
 
-        <div class="step-box">
+<!--         <div class="step-box"
             <p><span class="step-number">4</span> <strong>Configure Each Hand</strong></p>
             <p style="margin-left: 50px;">For <strong>LeftHand Near-Far</strong>:</p>
             <ol style="margin-left: 50px; margin-top: 10px;">
@@ -821,12 +820,12 @@ XR Origin (XR Rig)<br>
                 <li>Set <strong>Controller Node</strong> to <strong>"Right Hand"</strong></li>
             </ol>
         </div>
-
+ -->
         <div class="highlight-green">
             <p><strong>🎉 That's it!</strong> Your custom rig is functionally complete. The Near-Far Interactors have built-in Input Readers, so no manual Input Action setup is required!</p>
         </div>
 
-        <div class="step-box">
+<!--         <div class="step-box">
             <p><span class="step-number">5</span> <strong>Add Visual Feedback (Optional but Recommended)</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
                 <li>Right-click <strong>LeftHand Near-Far</strong> in Hierarchy</li>
@@ -840,10 +839,10 @@ XR Origin (XR Rig)<br>
                 </li>
                 <li>Repeat for <strong>RightHand Near-Far</strong></li>
             </ol>
-        </div>
+        </div> -->
 
         <div class="step-box">
-            <p><span class="step-number">6</span> <strong>Add Test Environment</strong></p>
+            <p><span class="step-number">6</span> <strong>Add Test Environment (If not already present)</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
                 <li>Create a Plane (floor) at (0, 0, 0)</li>
                 <li>Create a Cube at (0, 1, 2)</li>
@@ -852,7 +851,7 @@ XR Origin (XR Rig)<br>
         </div>
 
         <div class="step-box">
-            <p><span class="step-number">7</span> <strong>Test Your Custom Rig</strong></p>
+            <p><span class="step-number">7</span> <strong>Test Your Near-Far Rig</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
                 <li>Press Play</li>
                 <li>Use XR Device Simulator controls (RMB for camera, Shift/Space for hands)</li>
@@ -921,8 +920,8 @@ XR Origin (XR Rig)<br>
             </ul>
         </div> -->
 
-        <p>&nbsp;</p>
-        <hr>
+<!--         <p>&nbsp;</p>
+        <hr> -->
             </div>
         </details>
 
@@ -997,36 +996,60 @@ XR Origin (XR Rig)<br>
                 <th style="width: 70%;">Controls (XR Device Simulator)</th>
             </tr>
             <tr>
-                <td><strong>Camera Pan</strong></td>
+                <td><strong>Camera Look</strong></td>
                 <td>RMB Hold + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Camera Move Front, Left, Back, Right</strong></td>
+                <td>W,A,S,D</td>
+            </tr>
+            <tr>
+                <td><strong>Camera Move Up, Down</strong></td>
+                <td>Q,E</td>
             </tr>
             <tr>
                 <td><strong>Camera Rotate (POV)</strong></td>
                 <td>RMB Hold + Left Control + Mouse Move</td>
             </tr>
             <tr>
-                <td><strong>Camera Rotate (YAW)</strong></td>
+                <td><strong>Camera Rotate In Z</strong></td>
+                <td>RMB Hold + Scroll</td>
+            </tr>
+            <tr>
+                <td><strong>Camera Translate in Z</strong></td>
                 <td>RMB Hold + Scroll Wheel Press + Scroll</td>
             </tr>
             <tr>
-                <td><strong>Left Hand Move</strong></td>
+                <td><strong>Left Hand Rotate</strong></td>
                 <td>Left Shift Hold + Mouse Move</td>
             </tr>
             <tr>
-                <td><strong>Right Hand Move</strong></td>
+                <td><strong>Left Hand Rotate with Look</strong></td>
+                <td>Left Shift Hold + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Right Hand Rotate</strong></td>
                 <td>Space Hold + Mouse Move</td>
             </tr>
             <tr>
-                <td><strong>Hand Rotate</strong></td>
-                <td>Shift/Space Hold + Control + Mouse Move</td>
+                <td><strong>Right Hand Rotate with Look</strong></td>
+                <td>Space Hold + RMB + Mouse Move</td>
             </tr>
             <tr>
-                <td><strong>Cast Ray (Left)</strong></td>
-                <td>Q Hold</td>
+                <td><strong>Switch between HMD, LController, RController</strong></td>
+                <td>Tab (Check status on GUI)</td>
             </tr>
             <tr>
-                <td><strong>Cast Ray (Right)</strong></td>
-                <td>E Hold</td>
+                <td><strong>Snap Turn L or R - When in L or R Controller (See Tab Above)</strong></td>
+                <td>Q, E (Check status on GUI)</td>
+            </tr>
+            <tr>
+                <td><strong>Forward, Snap Turn L, Snap Turn R, 180 snap - When in L or R Controller (See Tab Above)</strong></td>
+                <td>I, J,L, K (Check status on GUI)</td>
+            </tr>
+            <tr>
+                <td><strong>Teleport</strong></td>
+                <td>Space Bar + W (release when ray is green to teleport)</td>
             </tr>
             <tr>
                 <td><strong>Grab Object</strong></td>
@@ -1036,10 +1059,7 @@ XR Origin (XR Rig)<br>
                 <td><strong>Rotate Menu</strong></td>
                 <td>Grab menu + Left/Right Arrow Keys</td>
             </tr>
-            <tr>
-                <td><strong>Teleport</strong></td>
-                <td>Space Bar + W (release when ray is green)</td>
-            </tr>
+
         </table>
 
         <div class="note">
@@ -1054,6 +1074,295 @@ XR Origin (XR Rig)<br>
             <li><strong>UI Integration:</strong> See how world-space UI menus are configured</li>
             <li><strong>Custom Interactables:</strong> Try importing Mecabricks assets as interactables (see Week 05 extras)</li>
         </ol>
+
+        <h3>Deep Dive: Understanding the Complete XR Interaction Setup Prefab</h3>
+
+        <div class="modern-box">
+            <h4>🎯 What is the XR Interaction Setup Prefab?</h4>
+            <p>The CW1 package includes a comprehensive <strong>XR Interaction Setup</strong> prefab that contains everything needed for a production-ready VR project. This is a more advanced rig than what we built in Parts 1-3, featuring additional systems for locomotion, UI interaction, and gaze-based controls.</p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">1</span> <strong>Verify Prerequisites</strong></p>
+            <p style="margin-left: 50px;">Before importing the CW1 package, ensure these are installed:</p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li><strong>XR Interaction Toolkit 3.0.10+</strong> with samples:
+                    <ul style="margin-top: 5px;">
+                        <li>XR Device Simulator</li>
+                        <li>Starter Assets</li>
+                    </ul>
+                </li>
+                <li><strong>XR Plugin Manager</strong> with OpenXR configured:
+                    <ul style="margin-top: 5px;">
+                        <li>Add <strong>Khronos Simple Controller profile</strong> in OpenXR settings</li>
+                        <li><strong>Unity Mock HMD</strong> - Not needed</li>
+                        <li><strong>Mock Runtime</strong> - Not needed</li>
+                    </ul>
+                </li>
+                <li><strong>Enable XR Device Simulator:</strong> Edit → Project Settings → XR Plug-in Management → XR Interaction Toolkit → Tick <strong>Use XR Device Simulator in Scenes</strong></li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="https://gyazo.com/2bb78e5b2a7cc70e50e471355c95c961.png" alt="XR Device Simulator setup">
+            <p style="text-align: center;"><a href="https://gyazo.com/2bb78e5b2a7cc70e50e471355c95c961">https://gyazo.com/2bb78e5b2a7cc70e50e471355c95c961</a></p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">2</span> <strong>Import the CW1 Package</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Download <strong>CW1Project.unitypackage</strong> from Blackboard Week 07</li>
+                <li>In Unity: <strong>Assets</strong> → <strong>Import Package</strong> → <strong>Custom Package</strong></li>
+                <li>Select the downloaded package file</li>
+                <li>Click <strong>Import All</strong></li>
+                <li>Wait for import to complete</li>
+            </ol>
+        </div>
+
+        <h3>XR Interaction Setup Prefab - Complete Architecture</h3>
+
+        <div class="modern-box">
+            <p><strong>The XR Interaction Setup prefab contains five main systems:</strong></p>
+            <ol style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Input Action Manager</strong> - Centralized input configuration</li>
+                <li><strong>XR Interaction Manager</strong> - Interaction event coordination</li>
+                <li><strong>Event System</strong> - UI interaction support</li>
+                <li><strong>XR Origin (XR Rig)</strong> - Complete player rig with controllers</li>
+                <li><strong>Locomotion System</strong> - Movement, turning, climbing, teleportation</li>
+            </ol>
+        </div>
+
+        <h4>System 1: Input Action Manager</h4>
+        <div class="info-box">
+            <p><strong>GameObject:</strong> Input Action Manager</p>
+            <p><strong>Component:</strong> Input Action Manager</p>
+            <p><strong>Purpose:</strong> Manages the XRI Input Actions asset, enabling/disabling action maps globally. This is the central hub for all VR input in the scene.</p>
+        </div>
+
+        <h4>System 2: XR Interaction Manager</h4>
+        <div class="info-box">
+            <p><strong>GameObject:</strong> XR Interaction Manager</p>
+            <p><strong>Component:</strong> XR Interaction Manager</p>
+            <p><strong>Purpose:</strong> Coordinates all interaction events between Interactors (controllers, gaze) and Interactables (grabbable objects, UI). Processes Input Reader data in XRIT 3.0.</p>
+        </div>
+
+        <h4>System 3: Event System with XR UI Input Module</h4>
+        <div class="info-box">
+            <p><strong>GameObject:</strong> Event System</p>
+            <p><strong>Components:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Event System</strong> - Unity's standard UI event system</li>
+                <li><strong>XR UI Input Module</strong> - Extends Event System for XR ray interactions with UI</li>
+            </ul>
+            <p><strong>Purpose:</strong> Enables VR controllers to interact with Unity UI (buttons, sliders, etc.) using ray interactors.</p>
+        </div>
+
+        <h4>System 4: XR Origin (XR Rig) - The Complete Player</h4>
+
+        <div class="info-box">
+            <p><strong>GameObject:</strong> XR Origin (XR Rig)</p>
+            <p><strong>Components on Root:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>XR Origin</strong> - Defines VR world origin point</li>
+                <li><strong>Character Controller</strong> - Allows physics-based collision and movement</li>
+                <li><strong>Character Controller Driver</strong> - Syncs VR tracking with Character Controller</li>
+                <li><strong>XR Input Modality Manager</strong> - Switches between controller and hand tracking</li>
+                <li><strong>XR Gaze Assistance</strong> - Improves gaze interactor precision</li>
+            </ul>
+        </div>
+
+        <h4>Camera Offset and Main Camera (as covered in Part 2)</h4>
+        <div class="info-box">
+            <p><strong>Child of XR Origin:</strong> Camera Offset</p>
+            <p><strong>Children of Camera Offset:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Main Camera</strong> with Tracked Pose Driver (headset tracking)</li>
+                <li><strong>Gaze Interactor</strong> (new addition in CW1 package) - see below</li>
+                <li><strong>Left/Right Controller</strong> (enhanced versions) - see below</li>
+            </ul>
+        </div>
+
+        <h4>New Addition: Gaze Interactor System</h4>
+
+        <div class="modern-box">
+            <h4>👁️ What is Gaze Interaction?</h4>
+            <p>Allows interaction by looking at objects - useful for accessibility, UI selection without controllers, and fallback interaction when hands are busy.</p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>GameObject:</strong> Gaze Interactor (child of Camera Offset)</p>
+            <p><strong>Components:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>XR Gaze Interactor</strong> - Detects objects in center of view</li>
+                <li><strong>XR Controller</strong> - Pre-populated with XRI Input Actions</li>
+                <li><strong>Gaze Input Manager</strong> - Manages gaze-specific input (dwell time, etc.)</li>
+            </ul>
+            <p><strong>Sibling GameObject:</strong> Gaze Stabilized (with XR Transform Stabilizer) - Smooths gaze jitter</p>
+        </div>
+
+        <h4>Enhanced Controller Setup: Full Interactor Suite</h4>
+
+        <div class="modern-box">
+            <p><strong>CW1 Controllers vs. Basic Near-Far Setup:</strong></p>
+            <p>Instead of a single Near-Far Interactor, CW1 uses a complete suite of specialized interactors managed by an <strong>XR Interaction Group</strong>:</p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>GameObject:</strong> Left/Right Controller (children of Camera Offset)</p>
+            <p><strong>Components on Controller Root:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Action Based Controller Manager</strong> - Switches between controller schemes</li>
+                <li><strong>XR Controller (Action Based)</strong> - Input actions reference (XRI Input Actions asset)</li>
+                <li><strong>XR Interaction Group</strong> - Manages interaction priority between child interactors</li>
+            </ul>
+            <p><strong>Child Interactors (priority order):</strong></p>
+            <ol style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Poke Interactor</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>XR Poke Interactor component</li>
+                        <li>Purpose: Touch-based UI interaction (poking buttons with fingertip)</li>
+                    </ul>
+                </li>
+                <li><strong>Direct Interactor</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>XR Direct Interactor component</li>
+                        <li>Sphere Collider (Is Trigger enabled)</li>
+                        <li>Purpose: Grab objects within reach using sphere collision detection</li>
+                    </ul>
+                </li>
+                <li><strong>Ray Interactor</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>XR Ray Interactor component</li>
+                        <li>Line Renderer (visual ray line)</li>
+                        <li>XR Interactor Line Visual (customizes ray appearance)</li>
+                        <li>Sorting Group (UI rendering order)</li>
+                        <li>Purpose: Point at and select distant objects and UI</li>
+                    </ul>
+                </li>
+                <li><strong>Teleport Interactor</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>XR Ray Interactor (configured for teleportation)</li>
+                        <li>Purpose: Target teleportation anchors and areas</li>
+                    </ul>
+                </li>
+            </ol>
+            <p style="margin-top: 10px;"><strong>Sibling GameObject:</strong> Left/Right Controller Stabilized (with XR Transform Stabilizer) - Smooths hand tracking jitter</p>
+        </div>
+
+        <div class="image-container">
+            <img src="https://gyazo.com/0b209dc030eb1b25e92eb8ec788bbcf5.png" alt="Complete XR Rig hierarchy">
+            <p style="text-align: center;"><a href="https://gyazo.com/0b209dc030eb1b25e92eb8ec788bbcf5">https://gyazo.com/0b209dc030eb1b25e92eb8ec788bbcf5</a></p>
+        </div>
+
+        <h4>System 5: Locomotion System</h4>
+
+        <div class="info-box">
+            <p><strong>GameObject:</strong> Locomotion System (child of Camera Offset)</p>
+            <p><strong>Component:</strong> Locomotion System</p>
+            <p><strong>Purpose:</strong> Centralized management of all player movement modes</p>
+            <p><strong>Child GameObjects (each represents a movement mode):</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><strong>Turn</strong> - Snap turn or smooth rotation</li>
+                <li><strong>Move</strong> - Continuous movement (WASD analog)</li>
+                <li><strong>Grab Move</strong> - Pull yourself by grabbing world geometry</li>
+                <li><strong>Teleportation</strong> - Instant movement to target location</li>
+                <li><strong>Climb</strong> - Grabbing climbable surfaces to move vertically</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">3</span> <strong>Test the Complete XR Interaction Setup</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Open the tutorial-05 scene from XRLab/Scenes/</li>
+                <li>Press Play to enter Play mode</li>
+                <li>Test the following controls:</li>
+            </ol>
+        </div>
+
+        <h4>Extended Controls Reference (CW1 Package)</h4>
+
+        <table>
+            <tr>
+                <th style="width: 35%;">Action</th>
+                <th style="width: 65%;">Controls (Keyboard + Mouse)</th>
+            </tr>
+            <tr>
+                <td><strong>Movement (Walk)</strong></td>
+                <td>WASD keys</td>
+            </tr>
+            <tr>
+                <td><strong>Vertical Movement</strong></td>
+                <td>Q (up) / E (down)</td>
+            </tr>
+            <tr>
+                <td><strong>Left Hand Rotate</strong></td>
+                <td>Left Shift + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Right Hand Rotate</strong></td>
+                <td>Space + Mouse Move</td>
+            </tr>
+            <tr>
+                <td><strong>Grab Object (Direct)</strong></td>
+                <td>Move hand near object + Left Mouse Button</td>
+            </tr>
+            <tr>
+                <td><strong>Select with Ray</strong></td>
+                <td>Point at distant object + Left Mouse Button</td>
+            </tr>
+            <tr>
+                <td><strong>Fire Selection Gun</strong></td>
+                <td>Grab Selection Gun + Left Mouse Button</td>
+            </tr>
+        </table>
+
+        <div class="step-box">
+            <p><span class="step-number">4</span> <strong>Test Gaze Interactable</strong></p>
+            <p style="margin-left: 50px;">Create a simple gaze-activated object:</p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Create a 3D Cube in the scene</li>
+                <li>Add component: <strong>XR Simple Interactable</strong></li>
+                <li>In Inspector, scroll to <strong>Interactable Events</strong> section</li>
+                <li>Find <strong>First Hover Entered</strong> and <strong>Last Hover Exited</strong></li>
+                <li>Click "+" to add a new event to each</li>
+                <li>Drag the Cube GameObject into the <strong>Runtime Only</strong> slot</li>
+                <li>From dropdown, select: <strong>MeshRenderer → material</strong></li>
+                <li>Create two materials (one for hover, one for default)</li>
+                <li>Assign "hover material" to First Hover Entered</li>
+                <li>Assign "default material" to Last Hover Exited</li>
+                <li>Add <strong>Mesh Collider</strong> component to Cube</li>
+                <li>Enable <strong>Is Trigger</strong> on the Mesh Collider</li>
+                <li>Play and look at the cube - it should change material when gazed at!</li>
+            </ol>
+        </div>
+
+        <div class="image-container">
+            <img src="https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2.png" alt="Gaze interactable event setup">
+            <p style="text-align: center;"><a href="https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2">https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2</a></p>
+        </div>
+
+        <div class="step-box">
+            <p><span class="step-number">5</span> <strong>Test Grab Interactables</strong></p>
+            <ol style="margin-left: 50px; margin-top: 10px;">
+                <li>Explore the existing table objects in the scene</li>
+                <li>Try adding new <strong>XR Grab Interactable</strong> components to objects as covered in earlier tutorials</li>
+                <li>Experiment with different Movement Types (Instantaneous, Kinematic, Velocity Tracking)</li>
+                <li>Enable <strong>Throw on Detach</strong> to allow throwing objects</li>
+            </ol>
+        </div>
+
+        <div class="highlight-green">
+            <h4>✅ CW1 PACKAGE CHECKPOINT</h4>
+            <p><strong>You should now understand:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 5px;">
+                <li><span class="checkmark">✓</span> The five main systems in XR Interaction Setup prefab</li>
+                <li><span class="checkmark">✓</span> How XR Interaction Group manages multiple interactors per hand</li>
+                <li><span class="checkmark">✓</span> The purpose of Poke, Direct, Ray, and Teleport interactors</li>
+                <li><span class="checkmark">✓</span> How to set up gaze-based interactions with XR Simple Interactable</li>
+                <li><span class="checkmark">✓</span> The role of Locomotion System in managing movement modes</li>
+                <li><span class="checkmark">✓</span> How to test and explore the CW1 package for coursework reference</li>
+            </ul>
+        </div>
 
         <p>&nbsp;</p>
         <hr>
