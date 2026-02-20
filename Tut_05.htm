@@ -963,7 +963,7 @@ XR Origin (XR Rig)<br>
         </div>
 
         <div class="step-box">
-            <p><span class="step-number">2</span> <strong>Import CW1 Prototype Package</strong></p>
+            <p><span class="step-number">2</span> <strong>Import week 05 Prototype Package</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
                 <li>Download the package from Blackboard (Week 5 or Week 7)</li>
                 <li>In Unity: <strong>Assets</strong> → <strong>Import Package</strong> → <strong>Custom Package</strong></li>
@@ -981,9 +981,10 @@ XR Origin (XR Rig)<br>
         <div class="step-box">
             <p><span class="step-number">3</span> <strong>Open and Test the Demo Scene</strong></p>
             <ol style="margin-left: 50px; margin-top: 10px;">
-                <li>In Project window, navigate to <strong>XRLab/Scenes/</strong></li>
-                <li>Open <strong>tutorial-05</strong> scene</li>
-                <li>Ensure XR Device Simulator prefab is active in Hierarchy</li>
+                <li>In Project window, navigate to <strong>XRLab/Prefabs/</strong></li>
+                <li>Drag in <strong>Demo Environment</strong> scene</li>
+                <li>In Project window, navigate to <strong>XR Interaction Toolkit/3.0.10/Prefabs/</strong></li>
+                <li>Drag in <strong>XR Origin (XR Rig)</strong> prefab</li>
                 <li>Press Play to test</li>
             </ol>
         </div>
@@ -1084,7 +1085,7 @@ XR Origin (XR Rig)<br>
 
         <div class="step-box">
             <p><span class="step-number">1</span> <strong>Verify Prerequisites</strong></p>
-            <p style="margin-left: 50px;">Before importing the CW1 package, ensure these are installed:</p>
+            <p style="margin-left: 50px;">Before importing the week 05 package, ensure these are installed:</p>
             <ol style="margin-left: 50px; margin-top: 10px;">
                 <li><strong>XR Interaction Toolkit 3.0.10+</strong> with samples:
                     <ul style="margin-top: 5px;">
@@ -1125,23 +1126,24 @@ XR Origin (XR Rig)<br>
             <p><strong>The XR Interaction Setup prefab contains five main systems:</strong></p>
             <ol style="margin-left: 20px; margin-top: 5px;">
                 <li><strong>Input Action Manager</strong> - Centralized input configuration</li>
-                <li><strong>XR Interaction Manager</strong> - Interaction event coordination</li>
-                <li><strong>Event System</strong> - UI interaction support</li>
+                <li><strong>XR Input Modality Manager</strong> - Interaction event coordination</li>
+                <li><strong>Character Controller</strong> - Movement and Collision handling</li>
                 <li><strong>XR Origin (XR Rig)</strong> - Complete player rig with controllers</li>
+                <li><strong>Gaze System</strong> - Gaze-based interaction support</li>
                 <li><strong>Locomotion System</strong> - Movement, turning, climbing, teleportation</li>
             </ol>
         </div>
 
         <h4>System 1: Input Action Manager</h4>
         <div class="info-box">
-            <p><strong>GameObject:</strong> Input Action Manager</p>
+            <!-- <p><strong>GameObject:</strong> Input Action Manager</p> -->
             <p><strong>Component:</strong> Input Action Manager</p>
             <p><strong>Purpose:</strong> Manages the XRI Input Actions asset, enabling/disabling action maps globally. This is the central hub for all VR input in the scene.</p>
         </div>
 
-        <h4>System 2: XR Interaction Manager</h4>
+        <h4>System 2: XR Input Modality Manager</h4>
         <div class="info-box">
-            <p><strong>GameObject:</strong> XR Interaction Manager</p>
+            <!-- <p><strong>GameObject:</strong> XR Interaction Manager</p> -->
             <p><strong>Component:</strong> XR Interaction Manager</p>
             <p><strong>Purpose:</strong> Coordinates all interaction events between Interactors (controllers, gaze) and Interactables (grabbable objects, UI). Processes Input Reader data in XRIT 3.0.</p>
         </div>
