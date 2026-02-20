@@ -104,6 +104,12 @@
             color: white;
         }
 
+        .tab.active {
+            background-color: #0F4761;
+            color: white;
+            box-shadow: inset 0 -3px 0 #667eea;
+        }
+
         .dropdown {
             display: none;
             position: absolute;
@@ -256,10 +262,10 @@
 
         <div class="tabs">
             <div class="tab-wrapper">
-                <a href="#" onclick="loadHome(); return false;" class="tab">Home</a>
+                <a href="#" onclick="loadHome(); return false;" class="tab" data-tab="home">Home</a>
             </div>
             <div class="tab-wrapper">
-                <a href="#" onclick="loadTutorial('Tut_01.htm'); return false;" class="tab">Tutorial 1</a>
+                <a href="#" onclick="loadTutorial('Tut_01.htm'); return false;" class="tab" data-tab="Tut_01.htm">Tutorial 1</a>
                 <div class="dropdown">
                     <h3>Getting Started</h3>
                     <p>Begin your journey into XR multimodal interaction. This tutorial covers the basic concepts and setup required for a hand made XR Rig.</p>
@@ -267,7 +273,7 @@
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="#" onclick="loadTutorial('Tut_02.htm'); return false;" class="tab">Tutorial 2</a>
+                <a href="#" onclick="loadTutorial('Tut_02.htm'); return false;" class="tab" data-tab="Tut_02.htm">Tutorial 2</a>
                 <div class="dropdown">
                     <h3>Core Concepts</h3>
                     <p>In order to understand basic XR concepts, in this tutorial we continue to build own own XR Rig.</p>
@@ -275,7 +281,7 @@
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="#" onclick="loadTutorial('Tut_03.htm'); return false;" class="tab">Tutorial 3</a>
+                <a href="#" onclick="loadTutorial('Tut_03.htm'); return false;" class="tab" data-tab="Tut_03.htm">Tutorial 3</a>
                 <div class="dropdown">
                     <h3>Advanced Techniques</h3>
                     <p>Unity Lighting is explored this week. You do not need to create a project with SRP (Standard Render Pipeline), but it will help you understand and work with SRP assets in the URP (Universal Render Pipeline)</p>
@@ -283,7 +289,7 @@
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="#" onclick="loadTutorial('Tut_04.htm'); return false;" class="tab">Tutorial 4</a>
+                <a href="#" onclick="loadTutorial('Tut_04.htm'); return false;" class="tab" data-tab="Tut_04.htm">Tutorial 4</a>
                 <div class="dropdown">
                     <h3>Practical Applications</h3>
                     <p>Build a rig with XRIT components.</p>
@@ -291,7 +297,7 @@
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="#" onclick="loadTutorial('Tut_05.htm'); return false;" class="tab">Tutorial 5</a>
+                <a href="#" onclick="loadTutorial('Tut_05.htm'); return false;" class="tab" data-tab="Tut_05.htm">Tutorial 5</a>
                 <div class="dropdown">
                     <h3>Project Development</h3>
                     <p>Build Demo Envorinment with the XRIT 3.x rig.</p>
@@ -299,7 +305,7 @@
                 </div>
             </div>
             <div class="tab-wrapper">
-                <a href="#" onclick="loadTutorial('Tut_07.htm'); return false;" class="tab">Tutorial 7</a>
+                <a href="#" onclick="loadTutorial('Tut_07.htm'); return false;" class="tab" data-tab="Tut_07.htm">Tutorial 7</a>
                 <div class="dropdown">
                     <h3>Advanced Development</h3>
                     <p>Continue building and refining XR experiences with advanced workflows and resources.</p>
@@ -384,17 +390,33 @@
     </div>
 
     <script>
+        function setActiveTab(tabKey) {
+            var tabs = document.querySelectorAll('.tab');
+            tabs.forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+
+            var activeTab = document.querySelector('.tab[data-tab="' + tabKey + '"]');
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+        }
+
         function loadTutorial(filename) {
             document.getElementById('home-content').style.display = 'none';
             var iframe = document.getElementById('content-frame');
             iframe.style.display = 'block';
             iframe.src = filename;
+            setActiveTab(filename);
         }
 
         function loadHome() {
             document.getElementById('content-frame').style.display = 'none';
             document.getElementById('home-content').style.display = 'block';
+            setActiveTab('home');
         }
+
+        setActiveTab('home');
     </script>
 </body>
 </html>
