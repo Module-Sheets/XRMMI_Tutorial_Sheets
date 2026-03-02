@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 07 : UI Overview (Unity Animation and UI Buttons)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 0;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        p, li {
+            color: #1f1f1f;
+        }
+        a {
+            color: #467886;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ol, ul {
+            margin-left: 22px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 12px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .step-number {
+            display: inline-block;
+            min-width: 24px;
+            padding: 2px 6px;
+            margin-right: 6px;
+            border-radius: 12px;
+            background-color: #0F4761;
+            color: #ffffff;
+            text-align: center;
+            font-weight: bold;
+        }
+        .highlight {
+            background-color: #ffff99;
+            padding: 1px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 07 : UI Overview (Unity Animation and UI Buttons)</h1>
+
+        <div class="note">
+            <p><strong>Focus:</strong> This page cleans and restructures the original Week 07 DOCX export into the same tutorial style as the other XRMMI pages.</p>
+            <p><strong>Core principles used:</strong></p>
+            <ul>
+                <li>Unity scripting from extra Lectures 01 and 02</li>
+                <li>Unity animation from Lecture 04 and Tutorial 03</li>
+                <li>Unity UI from Lecture 05</li>
+            </ul>
+        </div>
+
+        <details class="accordion" open>
+            <summary class="accordion-summary">
+                <h2>7.1 Text Readouts</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="step-box">
+                    <ol>
+                        <li>Create 3 cubes and arrange them in a row.</li>
+                        <li>In Hierarchy, create a UI Panel on a Canvas set to <strong>Screen Space - Overlay</strong>.</li>
+                        <li>Inside the panel, create 3 <span class="highlight">Legacy Text</span> objects.</li>
+                        <li>Adjust Rect Transform scale and positions to match the examples.</li>
+                    </ol>
+                </div>
+
+                <img src="Tut 07 UI Overview_files/image001.png" alt="Panel and text layout example 1">
+                <p><a href="https://gyazo.com/52f5a1fc541cab0cc0be3af5d90a8fbd" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image002.png" alt="Panel and text layout example 2">
+                <p><a href="https://gyazo.com/1110c51828ed31e3d7b33070d701aa3d" target="_blank">Reference image</a></p>
+
+                <div class="step-box">
+                    <ol start="5">
+                        <li>Create a script for each cube.</li>
+                        <li>Change each cube rotation vector so each rotates on a different axis (X, Y, Z).</li>
+                        <li>The public text string should display live rotation values in <code>F2</code> format (position can stay commented out).</li>
+                        <li>Extra: use keyboard input to spawn cubes with a boolean guard so they spawn once.</li>
+                        <li>Extra: test spawning with <code>Instantiate</code>.
+                            <a href="https://docs.unity3d.com/ScriptReference/Object.Instantiate.html" target="_blank">Unity Instantiate docs</a>
+                        </li>
+                    </ol>
+                </div>
+
+                <img src="Tut 07 UI Overview_files/image003.png" alt="Cube script example">
+                <p><a href="https://gyazo.com/2b71f83e2c290b0fa2e3b269221bb756" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image004.png" alt="Keyboard and spawn logic">
+                <p><a href="https://gyazo.com/2f4d8c43bdc54de592012d6504d80c63" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image005.png" alt="Instantiate example">
+                <p><a href="https://gyazo.com/88fa8d7082e026e2018331152ac1ce85" target="_blank">Reference image</a></p>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>7.2 Text Readout Score (Extra)</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="step-box">
+                    <ol>
+                        <li>Create a UI Text object and name it <strong>Score Counter</strong>.</li>
+                        <li>Add a script component.</li>
+                        <li>Create variables:
+                            <ul>
+                                <li><code>private Text uiText;</code></li>
+                                <li><code>private long score = 0;</code></li>
+                            </ul>
+                        </li>
+                        <li>In <code>Start()</code>, cache <code>uiText</code> and call <code>updateScoreCounter()</code>.</li>
+                        <li>Create <code>addPoints(int points)</code> to increment score and refresh the text.</li>
+                        <li>Implement <code>updateScoreCounter()</code> outside <code>Update()</code>.</li>
+                    </ol>
+                </div>
+                <p><strong>Example output format:</strong> <code>&lt;color=blue&gt;Score&lt;/color&gt;: 0</code></p>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>7.3 Animate UI Button (Legacy, Basic - Extra)</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="step-box">
+                    <ol>
+                        <li>Create a button from <strong>UI &gt; Legacy &gt; Button</strong>.</li>
+                        <li>Keep Canvas set to <strong>Screen Space - Overlay</strong>.</li>
+                        <li>Set button Transition to <strong>Animation</strong>.</li>
+                        <li>Create and assign an Animator Controller.</li>
+                        <li>Create additional clips: Highlighted, Pressed, Selected.</li>
+                        <li>Set up Animator transitions and trigger parameters.</li>
+                        <li>In Animation window, add properties such as RectTransform scale/rotation and Image color.</li>
+                        <li>Test edits by scrubbing timeline, adding keys, and toggling record mode.</li>
+                    </ol>
+                </div>
+
+                <img src="Tut 07 UI Overview_files/image006.png" alt="Create legacy button">
+                <p><a href="https://gyazo.com/3d5183b60c46d898345f76d664f9e3f1" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image007.png" alt="Set transition to animation">
+                <p><a href="https://gyazo.com/70687da2be7f9d27cd8ea533f79c637f" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image008.jpg" alt="Create animator controller">
+                <img src="Tut 07 UI Overview_files/image009.png" alt="Assign animator controller">
+                <p><a href="https://gyazo.com/4ef2c7db38ffbc862fe79e157afec400" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image010.png" alt="Create additional clips">
+                <p><a href="https://gyazo.com/6f209177ab6cd42f11f966e624250916" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image011.png" alt="Create transitions in animator">
+                <p><a href="https://gyazo.com/73af099baf3054e84473f7a9dc2d4c55" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image012.jpg" alt="Animator trigger parameters">
+                <img src="Tut 07 UI Overview_files/image013.png" alt="Transition conditions">
+                <p><a href="https://gyazo.com/fc307e44e8f394e6ff89ca72ae55d14e" target="_blank">Reference image</a></p>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>7.4 Animate UI Button with TextMeshPro (TMP - Extra)</h2>
+            </summary>
+            <div class="accordion-content">
+                <p><a href="https://www.youtube.com/watch?v=afgt9EnHba0" target="_blank">Video reference</a></p>
+
+                <div class="step-box">
+                    <ol>
+                        <li>Create a button from <strong>UI &gt; Button - TextMeshPro</strong>.</li>
+                        <li>Observe TMP button structure on Canvas (button + nested TMP text).</li>
+                        <li>Compare legacy vs TMP button workflows.</li>
+                        <li>Install TMP essentials when prompted (first-time TMP setup).</li>
+                        <li>Import examples/extras and fonts from Blackboard resources.</li>
+                        <li>Use <strong>Window &gt; TextMeshPro &gt; Font Asset Creator</strong>:
+                            <ul>
+                                <li>Drag font into Source Font File</li>
+                                <li>Generate Font Atlas</li>
+                                <li>Save font asset (ideally in a dedicated font folder)</li>
+                            </ul>
+                        </li>
+                        <li>Assign font asset to button text and adjust size/color.</li>
+                        <li>Adjust button size, position, color, sprite and borders as needed.</li>
+                        <li>Switch transition from Color Tint to Animation and auto-generate animation setup.</li>
+                        <li>For clip tuning, disable Loop Time where useful and test behavior.</li>
+                        <li>Advanced: animate button/text properties, including scale, color, slight pressed rotation, and sprite variations.</li>
+                    </ol>
+                </div>
+
+                <img src="Tut 07 UI Overview_files/image014.png" alt="TMP button creation">
+                <p><a href="https://gyazo.com/fe5775b76a0636b07cbc32ccc96c8f5f" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image015.png" alt="Legacy and TMP button comparison">
+                <p><a href="https://gyazo.com/f6646630734f66bbebdc6cbd3bd02df4" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image016.png" alt="TMP essentials prompt">
+                <p><a href="https://gyazo.com/fc37ec28d15c5c68b901189dc7a31773g" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image017.png" alt="Import TMP examples and extras">
+                <p><a href="https://gyazo.com/2eb3b15798ede689dd8babe811a1eea9" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image018.png" alt="Font asset creator example 1">
+                <p><a href="https://gyazo.com/bfd25238350ba91e23e068b6de24af1f" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image019.png" alt="Font asset creator example 2">
+                <p><a href="https://gyazo.com/120a7600cc4b5f2570447cd08abb87a2" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image020.png" alt="Generated font asset assignment">
+                <p><a href="https://gyazo.com/55d20d6eb77680d593ee2a30d35a167e" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image021.png" alt="TMP font assignment on button">
+                <p><a href="https://gyazo.com/a9cdfa734d5716d41ab450cef9d1cea7" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image022.png" alt="Button visual adjustments">
+                <p><a href="https://gyazo.com/772316ad6dc9ccfeae2b2b3fbcd161fb" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image023.png" alt="Transition switched to animation">
+                <p><a href="https://gyazo.com/dc491b9db7829eb8c04280427c293f8d" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image024.png" alt="Animator and animation windows">
+                <p><a href="https://gyazo.com/0e80677075e9291ed53d6f289361f086" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image025.png" alt="Loop time and clip options">
+                <p><a href="https://gyazo.com/ca54bf000f83adf329f6a4a1118b1535" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image026.png" alt="Add animated properties">
+                <p><a href="https://gyazo.com/6e966c775324c9220c7e7c598922ead6" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image027.png" alt="Animated sprite variation 1">
+                <p><a href="https://gyazo.com/f1a9477587a6d9df893b021cbae9e05b" target="_blank">Reference image</a></p>
+
+                <img src="Tut 07 UI Overview_files/image028.png" alt="Animated sprite variation 2">
+                <p><a href="https://gyazo.com/31efbb8a5f1266954113046e605ac578" target="_blank">Reference image</a></p>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Tutorial Summary</h2>
+            </summary>
+            <div class="accordion-content">
+                <ul>
+                    <li><span class="step-number">1</span>Built live text readouts from rotating objects.</li>
+                    <li><span class="step-number">2</span>Created a score UI workflow with scripted updates.</li>
+                    <li><span class="step-number">3</span>Animated legacy UI buttons with Animator triggers and transitions.</li>
+                    <li><span class="step-number">4</span>Implemented TMP button setup, fonts, and richer animation options.</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</body>
+</html>
