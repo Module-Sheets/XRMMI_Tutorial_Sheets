@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,6 +33,8 @@
             color: white;
             padding: 12px 20px;
             text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
             position: fixed;
             top: 0;
             left: 0;
@@ -42,16 +44,18 @@
         }
 
         .header h1 {
-            font-size: 1.5em;
+            font-size: clamp(1rem, 2.1vw, 1.5em);
             margin: 0;
             display: inline;
+            white-space: nowrap;
         }
 
         .header p {
-            font-size: 1.5em;
+            font-size: clamp(0.95rem, 2vw, 1.5em);
             opacity: 0.9;
             display: inline;
             margin-left: 15px;
+            white-space: nowrap;
         }
 
         .header p:before {
@@ -252,6 +256,8 @@
             flex-wrap: wrap;
         }
     </style>
+    <link rel="stylesheet" href="mobile-adapt.css">
+    <script src="mobile-adapt.js"></script>
 </head>
 <body>
     <div class="container">

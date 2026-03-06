@@ -1,0 +1,173 @@
+html.is-mobile-browser body {
+    max-width: none !important;
+    padding: 12px !important;
+    line-height: 1.55;
+}
+
+html.is-mobile-browser .container {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 16px !important;
+    border-radius: 6px !important;
+}
+
+html.is-mobile-browser h1 {
+    font-size: 1.45rem !important;
+    line-height: 1.3;
+}
+
+html.is-mobile-browser h2 {
+    font-size: 1.2rem !important;
+    line-height: 1.35;
+}
+
+html.is-mobile-browser h3 {
+    font-size: 1.05rem !important;
+}
+
+html.is-mobile-browser h4 {
+    font-size: 0.98rem !important;
+}
+
+html.is-mobile-browser ol,
+html.is-mobile-browser ul {
+    margin-left: 0 !important;
+    padding-left: 22px !important;
+}
+
+html.is-mobile-browser p,
+html.is-mobile-browser li,
+html.is-mobile-browser td,
+html.is-mobile-browser th,
+html.is-mobile-browser code {
+    overflow-wrap: anywhere;
+}
+
+html.is-mobile-browser table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+html.is-mobile-browser iframe,
+html.is-mobile-browser video,
+html.is-mobile-browser img {
+    max-width: 100% !important;
+    height: auto;
+}
+
+html.is-mobile-browser .WordSection1 {
+    max-width: 100% !important;
+    overflow-x: auto;
+}
+
+html.is-mobile-browser .header {
+    position: fixed;
+    padding: 10px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+html.is-mobile-browser .header h1,
+html.is-mobile-browser .header p {
+    display: inline;
+    margin: 0;
+    white-space: nowrap;
+}
+
+html.is-mobile-browser .header h1 {
+    font-size: clamp(0.88rem, 3vw, 1.1rem) !important;
+}
+
+html.is-mobile-browser .header p {
+    font-size: clamp(0.8rem, 2.8vw, 0.95rem) !important;
+    margin-left: 8px;
+}
+
+html.is-mobile-browser .header p:before {
+    display: none;
+}
+
+html.is-mobile-browser .tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+html.is-mobile-browser .tab-wrapper {
+    min-width: 110px;
+    flex: 0 0 auto;
+}
+
+html.is-mobile-browser .tab {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+html.is-mobile-browser .tab-wrapper:hover .dropdown,
+html.is-mobile-browser .tab:hover + .dropdown,
+html.is-mobile-browser .dropdown:hover {
+    display: none;
+}
+
+html.is-mobile-browser .tab-wrapper.mobile-open .dropdown {
+    display: block;
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    top: auto;
+    min-width: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-top: 2px solid #0F4761;
+}
+
+html.is-mobile-browser .welcome-content {
+    padding: 14px !important;
+}
+
+html.is-mobile-browser .tutorial-list li {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+html.is-mobile-browser .download-group {
+    width: 100%;
+}
+
+html.is-mobile-browser .download-btn {
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 16px;
+    }
+}
+
+.mobile-debug-badge {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 99999;
+    background: rgba(15, 71, 97, 0.92);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    font: 600 12px/1.3 Consolas, 'Courier New', monospace;
+    padding: 8px 10px;
+    max-width: calc(100vw - 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
