@@ -129,6 +129,12 @@ html.is-mobile-browser .welcome-content {
     padding: 14px !important;
 }
 
+html.is-mobile-browser #home-content {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+}
+
 html.is-mobile-browser .tutorial-list li {
     flex-direction: column;
     align-items: stretch;
