@@ -1,0 +1,213 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:#467886;
+	text-decoration:underline;}
+.MsoChpDefault
+	{font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB link="#467886" vlink="#96607D" style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>Setup  Hands</p>
+
+<p class=MsoNormal><a
+href="https://medium.com/@eveciana21/setting-up-hands-for-the-player-in-xr-1ca8d80a20d4">https://medium.com/@eveciana21/setting-up-hands-for-the-player-in-xr-1ca8d80a20d4</a></p>
+
+<p class=MsoNormal>Animating hands</p>
+
+<p class=MsoNormal><a
+href="https://medium.com/@eveciana21/animating-our-hands-in-xr-ede7a76d51ac">https://medium.com/@eveciana21/animating-our-hands-in-xr-ede7a76d51ac</a></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>VR Animated Hands&nbsp;</p>
+
+<p class=MsoNormal>Initial setup&nbsp;</p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Import package</li>
+ <li class=MsoNormal>Drag in the hand mesh&nbsp;as a child of Left/Right
+     Controller</li>
+</ol>
+
+<ol style='margin-top:0cm' start=2 type=1>
+ <li class=MsoNormal>Click on the hand mesh&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=3 type=1>
+ <li class=MsoNormal>Add a reference to the “HandAnimController” animation into
+     the “Controller” field of the Animator&nbsp;component&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <li class=MsoNormal>Add the “HandAnimator” script&nbsp;to the hand&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=5 type=1>
+ <li class=MsoNormal>Add an&nbsp;XRRig&nbsp;if there is not one in the scene
+     already&nbsp;</li>
+</ol>
+
+<p class=MsoNormal>Setting Per-Hand Input&nbsp;</p>
+
+<p class=MsoNormal>Right&nbsp;Hand&nbsp;</p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Select the hand model and rotate it –90 degrees on the Z
+     axis</li>
+</ol>
+
+<p class=MsoNormal style='margin-left:36.0pt'><img border=0 width=540
+height=94 src="Tutorial%2008%2003%20Hands%20Deprecated_files/image001.png">&nbsp;</p>
+
+<ol style='margin-top:0cm' start=2 type=1>
+ <li class=MsoNormal>Set the hand on the “Hand Animator” component to Right</li>
+</ol>
+
+<p class=MsoNormal style='margin-left:36.0pt'><img border=0 width=576
+height=231 id="Picture 7"
+src="Tutorial%2008%2003%20Hands%20Deprecated_files/image002.png"></p>
+
+<ol style='margin-top:0cm' start=3 type=1>
+ <li class=MsoNormal>Click the + on “Grip Action”&nbsp;and “Point
+     Action”&nbsp;and select “Add Binding”&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <li class=MsoNormal>Double&nbsp;click&nbsp;the&nbsp;grip&nbsp;binding and
+     select “XR Controller &gt; XR Controller (RightHand)&nbsp;&gt; Optional
+     Controls &gt; Grip”&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=5 type=1>
+ <li class=MsoNormal>Double&nbsp;click&nbsp;the point binding and select “XR
+     Controller &gt; XR Controller (RightHand) &gt; Optional Controls &gt;
+     Trigger”&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=6 type=1>
+ <li class=MsoNormal>Save the hand as a&nbsp;prefab&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=7 type=1>
+ <li class=MsoNormal>Drag it into The Right Controller as a child</li>
+ <li class=MsoNormal>Settings should look as below: </li>
+</ol>
+
+<p class=MsoNormal style='margin-left:36.0pt'><img border=0 width=871
+height=709 id="Picture 4"
+src="Tutorial%2008%2003%20Hands%20Deprecated_files/image003.png"><br>
+<a href="https://gyazo.com/bd87671fe4a24990578a3c429719c2b8" target="_blank">https://gyazo.com/bd87671fe4a24990578a3c429719c2b8</a></p>
+
+<p class=MsoNormal style='margin-left:36.0pt'>&nbsp;</p>
+
+<p class=MsoNormal>Left&nbsp;Hand&nbsp;</p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Select the hand model and rotate it -90 on the Z
+     axis&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=2 type=1>
+ <li class=MsoNormal>Change the scale of the hand model to –1 on the Y axis&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=3 type=1>
+ <li class=MsoNormal>Set the Left/Right hand on the “Hand
+     Animator”&nbsp;component&nbsp;as needed&nbsp;</li>
+</ol>
+
+<p class=MsoNormal style='margin-left:36.0pt'><img border=0 width=576
+height=231 id="Picture 5"
+src="Tutorial%2008%2003%20Hands%20Deprecated_files/image004.png"></p>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <li class=MsoNormal>Click the + on “Grip Action” and “Point Action” and select
+     “Add Binding”&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=5 type=1>
+ <li class=MsoNormal>Double&nbsp;click&nbsp;the grip binding and select “XR
+     Controller &gt; XR Controller (LeftHand) &gt; Optional Controls &gt;
+     Grip”&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=6 type=1>
+ <li class=MsoNormal>Double&nbsp;click&nbsp;the point binding and select “XR
+     Controller &gt; XR Controller (LeftHand) &gt; Optional Controls &gt;
+     Trigger”&nbsp;</li>
+</ol>
+
+<ol style='margin-top:0cm' start=7 type=1>
+ <li class=MsoNormal>Save the hand as another prefab&nbsp;</li>
+ <li class=MsoNormal>Drag it into The Right Controller as a child</li>
+ <li class=MsoNormal>Settings should look as below: </li>
+</ol>
+
+<p class=MsoNormal style='margin-left:36.0pt'><img border=0 width=872
+height=705 id="Picture 6"
+src="Tutorial%2008%2003%20Hands%20Deprecated_files/image005.png"><br>
+<a href="https://gyazo.com/0959ff84fbbe9dde5ddf398bb21cac9d" target="_blank">https://gyazo.com/0959ff84fbbe9dde5ddf398bb21cac9d</a></p>
+
+<p class=MsoNormal>&nbsp;Test and select G to animate pinch:</p>
+
+<p class=MsoNormal><img border=0 width=1907 height=760 id="Picture 8"
+src="Tutorial%2008%2003%20Hands%20Deprecated_files/image006.png"><br>
+<a href="https://gyazo.com/7e456f83df8770544e4ec6a9343f0a84" target="_blank">https://gyazo.com/7e456f83df8770544e4ec6a9343f0a84</a></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

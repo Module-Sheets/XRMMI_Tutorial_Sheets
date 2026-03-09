@@ -811,188 +811,80 @@
                 <h2>Part 3: Hands</h2>
             </summary>
             <div class="accordion-content">
-                <h3>XR Interaction Toolkit 3.x: Add Hands as Controller Visuals (No Hand Tracking)</h3>
-
-                <div class="modern">
-                    <p><strong>What this tutorial is:</strong> adding <em>visual hand models</em> to the rig so they follow left/right controllers.</p>
-                    <p><strong>What this tutorial is NOT:</strong> true hand tracking (skeletal hands, pinch gestures). For that, use XR Hands + the Hands Interaction Demo.</p>
+                <div class="warn">
+                    <strong>Legacy workflow notice:</strong> This section is adapted from <em>Tutorial 08 03 Hands Deprecated</em>. It is useful for understanding hand setup and animation wiring, but some steps may differ from current XRIT defaults.
                 </div>
 
-                <h3>Prerequisites</h3>
-                <ol>
-                    <li>Unity project with <strong>OpenXR</strong> + <strong>XR Interaction Toolkit (XRIT) 3.x</strong> installed.</li>
-                    <li><strong>Starter Assets</strong> sample imported (recommended, because it provides a complete rig prefab).</li>
-                    <li>A basic scene you can press Play on (XR Device Simulator is fine).</li>
-                </ol>
-
-                <div class="note">
-                    <strong>Tip:</strong> The easiest workflow in XRIT 3.x is to start from the Starter Assets rig prefab and swap the model.
-                </div>
-
-                <hr class="section-divider">
-
-                <h3>Part 1 - Add a complete XR rig (recommended starting point)</h3>
-                <ol>
-                    <li>In the Project window, locate the Starter Assets rig prefab:
-                        <ul>
-                            <li><code>Assets/Samples/XR Interaction Toolkit/3.x.x/Starter Assets/Prefabs/</code></li>
-                            <li>Prefab is typically named <code>XR Origin (XR Rig)</code> (name can vary slightly by version).</li>
-                        </ul>
-                    </li>
-                    <li>Delete the scene's default <strong>Main Camera</strong> (if present).</li>
-                    <li>Drag the <strong>XR Origin (XR Rig)</strong> prefab into the scene.</li>
-                </ol>
-
-                <div class="modern">
-                    <p><strong>Checkpoint:</strong> Press Play and confirm you can see controller visuals and move them (hardware or XR Device Simulator).</p>
-                </div>
-
-                <hr class="section-divider">
-
-                <h3>Part 2 - Identify where controller visuals live in the rig</h3>
-                <ol>
-                    <li>In the Hierarchy, expand your rig:
-                        <ul>
-                            <li><code>XR Origin (XR Rig)</code> -> <code>Camera Offset</code> -> left/right controller GameObjects</li>
-                        </ul>
-                    </li>
-                    <li>Click <strong>LeftHand Controller</strong> (or similar name) and look for:
-                        <ul>
-                            <li>A child object named something like <code>Model</code>, <code>Controller Model</code>, <code>Visual</code>, or <code>Left Controller</code>.</li>
-                            <li>Or a component related to model display (for example, controller model/visuals).</li>
-                        </ul>
-                    </li>
-                </ol>
-
-                <div class="note">
-                    <p><strong>Reality:</strong> XRIT rigs vary slightly by sample/version. The pattern is consistent:</p>
-                    <ul>
-                        <li>The controller GameObject is the tracker.</li>
-                        <li>A child GameObject holds the mesh/renderer (the visual).</li>
-                    </ul>
-                </div>
-
-                <hr class="section-divider">
-
-                <h3>Part 3 - Replace the controller model with a hand model (simple + robust)</h3>
-
-                <h3>Step 1: Import or create your hand model</h3>
-                <ol>
-                    <li>Bring in a hand mesh/model:
-                        <ul>
-                            <li>FBX/GLB hand model you already have, or</li>
-                            <li>A simple placeholder (for example, a capsule + sphere) if you are testing.</li>
-                        </ul>
-                    </li>
-                    <li>Make sure the hand has a <strong>Mesh Renderer</strong> (or <strong>Skinned Mesh Renderer</strong> if rigged).</li>
-                </ol>
-
-                <h3>Step 2: Disable or remove the old controller visual</h3>
-                <ol>
-                    <li>Under <strong>LeftHand Controller</strong>, find the existing model child (old controller mesh).</li>
-                    <li>Either:
-                        <ul>
-                            <li><strong>Disable</strong> the Mesh Renderer (quickly reversible), or</li>
-                            <li>Deactivate the model GameObject, or</li>
-                            <li>Delete it (not recommended until you are sure).</li>
-                        </ul>
-                    </li>
-                </ol>
-
-                <h3>Step 3: Add the hand model as a child of the controller</h3>
-                <ol>
-                    <li>Drag your hand model into the Hierarchy so it becomes a child of <strong>LeftHand Controller</strong>.</li>
-                    <li>Reset its local transform:
-                        <ul>
-                            <li>Local Position = <code>(0, 0, 0)</code></li>
-                            <li>Local Rotation = <code>(0, 0, 0)</code></li>
-                            <li>Local Scale = <code>(1, 1, 1)</code> (or adjust if your model imports huge/small)</li>
-                        </ul>
-                    </li>
-                    <li>Rename it to something clear like <code>LeftHandModel</code>.</li>
-                </ol>
-
-                <h3>Step 4: Align the hand to match the grip pose</h3>
-                <ol>
-                    <li>In Scene view (not Play mode), rotate/offset the hand model so it sits naturally where the controller grip is.</li>
-                    <li>Common alignment work:
-                        <ul>
-                            <li>Rotate around Y by +/-90 or 180 degrees (model import axis differences)</li>
-                            <li>Offset slightly forward on Z</li>
-                            <li>Offset slightly down on Y</li>
-                        </ul>
-                    </li>
-                    <li>Repeat the same process for the <strong>RightHand Controller</strong>.</li>
-                </ol>
-
-                <div class="modern">
-                    <p><strong>Checkpoint:</strong> Press Play and confirm the hands move exactly with the controllers.</p>
-                </div>
-
-                <hr class="section-divider">
-
-                <h3>Part 4 - Recommended: Use a dedicated Attach transform for grabbing pose</h3>
-
-                <div class="note">
-                    <p>
-                        Your hand model is only visuals. The grab point is usually controlled by an <strong>Attach Transform</strong>
-                        on the interactor (hand) and/or on the interactable (object).
-                    </p>
-                </div>
-
-                <ol>
-                    <li>Under each hand/controller, create an empty child:
-                        <ul>
-                            <li>Name: <code>GrabAttach</code></li>
-                            <li>Position it where objects should snap when grabbed (usually center of palm)</li>
-                            <li>Rotate it so forward points out of the palm (project convention dependent)</li>
-                        </ul>
-                    </li>
-                    <li>On your Near-Far Interactor (or Direct Interactor), set the <strong>Attach Transform</strong> to <code>GrabAttach</code> (if available on your rig/interactor setup).</li>
-                    <li>Test: grab a cube. Does it snap naturally into the palm?</li>
-                </ol>
-
-                <hr class="section-divider">
-
-                <h3>Part 5 - Optional polish (student-friendly)</h3>
+                <h3>Reference Tutorials</h3>
                 <ul>
-                    <li><strong>Different materials:</strong> assign distinct materials to left vs right hand for easier debugging.</li>
-                    <li><strong>Hide hands during UI:</strong> optionally reduce hand visibility when ray is active (advanced/project-specific).</li>
-                    <li><strong>Animation:</strong> without true hand tracking, you can still animate open/close states using grip/trigger input via script or Animator.</li>
+                    <li>Setup hands: <a href="https://medium.com/@eveciana21/setting-up-hands-for-the-player-in-xr-1ca8d80a20d4" target="_blank">https://medium.com/@eveciana21/setting-up-hands-for-the-player-in-xr-1ca8d80a20d4</a></li>
+                    <li>Animate hands: <a href="https://medium.com/@eveciana21/animating-our-hands-in-xr-ede7a76d51ac" target="_blank">https://medium.com/@eveciana21/animating-our-hands-in-xr-ede7a76d51ac</a></li>
                 </ul>
 
-                <div class="warn">
-                    <p><strong>Common issues:</strong></p>
-                    <ul>
-                        <li><strong>Hands rotated wrong:</strong> model import axes differ; fix with local rotation on the model GameObject.</li>
-                        <li><strong>Wrong scale:</strong> adjust local scale or import settings.</li>
-                        <li><strong>Hands do not move:</strong> make sure the hand model is a child of the tracked controller object.</li>
-                        <li><strong>Grab snap feels off:</strong> configure an Attach Transform (Part 4).</li>
-                    </ul>
+                <h3>VR Animated Hands: Initial Setup</h3>
+                <div class="step-box">
+                    <ol>
+                        <li>Import the hands package/resources into your project.</li>
+                        <li>Drag the hand mesh under each controller (Left and Right).</li>
+                        <li>Select the hand mesh and assign <code>HandAnimController</code> to the Animator <strong>Controller</strong> field.</li>
+                        <li>Add the <code>HandAnimator</code> script to the hand object.</li>
+                        <li>Ensure an XR Rig / XR Origin is present in the scene.</li>
+                    </ol>
                 </div>
 
-                <hr class="section-divider">
+                <h3>Right Hand Input Setup</h3>
+                <div class="task">
+                    <ol>
+                        <li>Rotate the right hand model by <strong>- 90</strong> on the Z axis.</li>
+                        <li>In the <code>Hand Animator</code> component, set hand side to <strong>Right</strong>.</li>
+                        <li>Add bindings for <strong>Grip Action</strong> and <strong>Point Action</strong>.</li>
+                        <li>Map Grip to <code>XR Controller (RightHand) &gt; Optional Controls &gt; Grip</code>.</li>
+                        <li>Map Point to <code>XR Controller (RightHand) &gt; Optional Controls &gt; Trigger</code>.</li>
+                        <li>Save as prefab by dragging it into the Project window and drag it back and place it under the Right Controller.</li>
+                    </ol>
+                </div>
 
-                <h3>Deliverables (quick student checklist)</h3>
-                <ol>
-                    <li>Left and right controllers show hand models (not default controller models).</li>
-                    <li>Hands move correctly in simulator mode.</li>
-                    <li>At least one object snaps naturally into the palm when grabbed (Attach Transform configured).</li>
-                    <li>Screenshot in Play mode showing a grabbed object held correctly.</li>
-                </ol>
+                <p><img src="Tutorial%2008%2003%20Hands%20Deprecated_files/image001.png" alt="Right hand rotation setup" style="max-width: 100%; height: auto; display: block; margin: 10px auto;"></p>
+                <p><img src="Tutorial%2008%2003%20Hands%20Deprecated_files/image002.png" alt="Right hand animator settings" style="max-width: 100%; height: auto; display: block; margin: 10px auto;"></p>
+                <p><img src="Tutorial%2008%2003%20Hands%20Deprecated_files/image003.png" alt="Right hand full inspector setup" style="max-width: 100%; height: auto; display: block; margin: 10px auto;"></p>
+                <p>Reference: <a href="https://gyazo.com/bd87671fe4a24990578a3c429719c2b8" target="_blank">https://gyazo.com/bd87671fe4a24990578a3c429719c2b8</a></p>
+
+                <h3>Left Hand Input Setup</h3>
+                <div class="task">
+                    <ol>
+                        <li>Set left-hand scale/mirroring as needed for correct orientation. Scale in -1 Y</li>
+                        <li>Set hand side to <strong>Left</strong> in <code>Hand Animator</code>.</li>
+                        <li>Add Grip and Point bindings for left hand input.</li>
+                        <li>Map Grip to <code>XR Controller (LeftHand) &gt; Optional Controls &gt; Grip</code>.</li>
+                        <li>Map Point to <code>XR Controller (LeftHand) &gt; Optional Controls &gt; Trigger</code>.</li>
+                        <li>Save as a separate left-hand prefab by dragging it into the Project window and drag it back and place it under the Left Controller.</li>
+                    </ol>
+                </div>
+
+                <p><img src="Tutorial%2008%2003%20Hands%20Deprecated_files/image004.png" alt="Left hand animator settings" style="max-width: 100%; height: auto; display: block; margin: 10px auto;"></p>
+                <p><img src="Tutorial%2008%2003%20Hands%20Deprecated_files/image005.png" alt="Left hand full inspector setup" style="max-width: 100%; height: auto; display: block; margin: 10px auto;"></p>
+                <p>Reference: <a href="https://gyazo.com/0959ff84fbbe9dde5ddf398bb21cac9d" target="_blank">https://gyazo.com/0959ff84fbbe9dde5ddf398bb21cac9d</a></p>
+
+                <h3>Test Animation</h3>
+                <div class="reflect">
+                    <p>Enter Play mode and test hand animation states. In simulator workflows, use the mapped input (for example, <strong>G</strong>) to trigger pinch/pose transitions.</p>
+                </div>
+
+                <p><img src="Tutorial%2008%2003%20Hands%20Deprecated_files/image006.png" alt="Pinch animation test" style="max-width: 100%; height: auto; display: block; margin: 10px auto;"></p>
+                <p>Reference: <a href="https://gyazo.com/7e456f83df8770544e4ec6a9343f0a84" target="_blank">https://gyazo.com/7e456f83df8770544e4ec6a9343f0a84</a></p>
             </div>
         </details>
 
+<!--
         <details class="accordion">
             <summary class="accordion-summary">
                 <h2>Part 4: Hands Menu</h2>
             </summary>
             <div class="accordion-content">
-                <div class="step-box">
-                    <p>Add Part 4 content here.</p>
-                </div>
+                Part 4 content commented out by request.
             </div>
         </details>
+-->
     </div>
 </body>
 </html>
