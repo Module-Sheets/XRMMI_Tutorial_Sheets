@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 08: XR Interactors and Hands</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 0;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        p, li {
+            color: #1f1f1f;
+        }
+        ol, ul {
+            margin-left: 22px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            vertical-align: top;
+        }
+        th {
+            background: #f3f3f3;
+            text-align: left;
+        }
+        .comparison-table {
+            font-size: 14px;
+            line-height: 1.35;
+            table-layout: fixed;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 7px 8px;
+            vertical-align: top;
+        }
+        .comparison-table ul {
+            margin: 4px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .comparison-table li {
+            margin: 4px 0;
+        }
+        .comparison-table li::before {
+            content: "- ";
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .setup,
+        .task,
+        .reflect,
+        .tip {
+            border-left: 4px solid;
+            padding: 10px 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+        .setup {
+            background: #e3f2fd;
+            border-left-color: #1976d2;
+        }
+        .task {
+            background: #e8f5e9;
+            border-left-color: #2e7d32;
+        }
+        .reflect {
+            background: #fff8e1;
+            border-left-color: #f57f17;
+        }
+        .tip {
+            background: #f3e5f5;
+            border-left-color: #6a1b9a;
+        }
+        .section-divider {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 18px 0;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .legacy {
+            background: #fff9c4;
+            border-left: 4px solid #f57f17;
+            padding: 10px;
+            margin: 12px 0;
+        }
+        .modern {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 10px;
+            margin: 12px 0;
+        }
+        .warn {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 10px 12px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-adapt.css">
+    <script src="mobile-adapt.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 08: XR Interactors and Hands</h1>
+
+<!--         <div class="note">
+            <p><strong>Structure update:</strong> This page now follows the same expandable section style used in the other tutorial sheets.</p>
+            <p><strong>Note:</strong> The original page content has been moved into <strong>Part 2</strong>.</p>
+        </div> -->
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Start</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="step-box">
+                    <ol>
+                        <li>Create a new project (<strong>3D URP</strong>).</li>
+                        <li>Install <strong>OpenXR</strong> and <strong>XR Interaction Toolkit (XRIT)</strong>. In Project Settings, apply the previously used optimal settings and add both a <strong>Khronos Simple Controller Profile</strong> and a hardware <strong>HMD profile</strong>.</li>
+                        <li>Add a ground plane and <strong>6-10 cubes</strong> in various locations. Add <strong>XR Grab Interactable</strong> components to these, as previously learned.</li>
+                    </ol>
+                </div>
+                <p>
+                    <img src="https://i.gyazo.com/4b1289de31742cfdf2297cc4ba6026b9.png" alt="Start section additional reference screenshot" style="max-width: 100%; height: auto; display: block; margin: 12px auto; border: 1px solid #ddd; border-radius: 4px;">
+                </p>
+                <p>
+                    Original source: <a href="https://gyazo.com/4b1289de31742cfdf2297cc4ba6026b9" target="_blank">https://gyazo.com/4b1289de31742cfdf2297cc4ba6026b9</a>
+                </p>
+                <p>
+                    <img src="https://i.gyazo.com/d02bd7bb1cdd284660314c709cace554.png" alt="Start section reference screenshot" style="max-width: 100%; height: auto; display: block; margin: 12px auto; border: 1px solid #ddd; border-radius: 4px;">
+                </p>
+                <p>
+                    Original source: <a href="https://gyazo.com/d02bd7bb1cdd284660314c709cace554" target="_blank">https://gyazo.com/d02bd7bb1cdd284660314c709cace554</a>
+                </p>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 1: Grab Interactibles Expanded</h2>
+            </summary>
+            <div class="accordion-content">
+                <h3>Grab Interactable Expanded</h3>
+                <p>
+                    For XRIT (XR Interaction Toolkit), <strong>XR Grab Interactable</strong> is a component that allows
+                    an object to be picked up by a player using an <strong>XR Direct Interactor</strong>,
+                    <strong>XR Ray Interactor</strong>, or <strong>Near-Far Interactor</strong>.
+                </p>
+
+                <h3>Adding the Component</h3>
+                <p>The XR Grab Interactable can be added to any object, but it needs the following components:</p>
+                <ul>
+                    <li><strong>Rigidbody</strong>: added automatically if missing.</li>
+                    <li><strong>Collider</strong>: not added automatically; can be Box, Sphere, Mesh, etc.</li>
+                    <li><strong>XR Interaction Manager</strong>: can exist anywhere in the scene and is assigned automatically.</li>
+                </ul>
+
+                <h3>Useful Parameters</h3>
+
+                <h3>Colliders</h3>
+                <p>
+                    The <strong>Colliders</strong> parameter is an array that can contain multiple collider types.
+                    You can change count using the plus/minus controls or by changing the array size directly.
+                </p>
+                <p>
+                    <img src="Tutorial%2008%2001%20Grab%20Interactable%20Expanded_files/image001.png" alt="Grab Interactable collider array settings">
+                    Using multiple colliders is useful when users should only grab specific parts (for example, handles)
+                    instead of grabbing anywhere on the object.
+                </p>
+
+                <h3>Movement Type</h3>
+                <p>
+                    Movement Type controls how motion from the interactor is transferred to the held object.
+                    There are three modes:
+                </p>
+                <p>
+                    <img src="Tutorial%2008%2001%20Grab%20Interactable%20Expanded_files/image002.png" alt="Movement type options in XR Grab Interactable">
+                </p>
+
+                <h3>Velocity Tracking</h3>
+                <p>
+                    Usually the slowest and most realistic mode. It applies velocity and angular velocity from the interactor.
+                    The object can appear to lag slightly behind the hand, and very fast movement can behave unexpectedly.
+                    Best for smaller items that should collide naturally with surfaces.
+                </p>
+
+                <h3>Kinematic Tracking</h3>
+                <p>
+                    Similar to velocity tracking and still physics-like, but can intersect with other rigidbodies more easily.
+                    Interactor velocity and angular velocity are applied to a kinematic rigidbody.
+                </p>
+
+                <h3>Instantaneous Tracking</h3>
+                <p>
+                    The most responsive mode. Object position/rotation is set directly to match the interactor, so there is
+                    almost no lag. It is less realistic and can pass through other objects more easily.
+                </p>
+
+                <h3>Throwing Modifiers</h3>
+                <p>
+                    XR Grab Interactable includes physics-related parameters for controlling release and throwing behavior.
+                </p>
+                <p>
+                    <img src="Tutorial%2008%2001%20Grab%20Interactable%20Expanded_files/image003.png" alt="Throwing modifier settings in XR Grab Interactable">
+                </p>
+
+                <h3>Throw On Detach</h3>
+                <p>
+                    If enabled, the object inherits interactor velocity when released.
+                    If disabled, or if the rigidbody is kinematic, other throw parameters are not used.
+                </p>
+
+                <h3>Throw Smoothing Duration</h3>
+                <p>
+                    While held, velocity and angular velocity are recorded. This value defines how much recent time is used
+                    for throw calculation. Longer durations can improve consistency but may have performance cost.
+                </p>
+
+                <h3>Throw Smoothing Curve</h3>
+                <p>
+                    Controls weighting over the recorded velocities. This smooths the release transition and can improve
+                    throw feel, at the cost of some responsiveness.
+                </p>
+
+                <h3>Throw Velocity Scale</h3>
+                <p>
+                    Multiplier applied to linear throw velocity. Values above 1 increase force and travel distance;
+                    values below 1 reduce both.
+                </p>
+
+                <h3>Throw Angular Velocity Scale</h3>
+                <p>
+                    Multiplier applied to rotational throw velocity. Higher values increase spin, lower values reduce it.
+                </p>
+
+                <h3>Attach Transforms</h3>
+                <p>
+                    Attach transforms define where the object anchors when grabbed. They can be moved to specific model parts
+                    (for example, handles) to improve grip alignment. XR Grab Interactable supports a primary and secondary
+                    attach transform. The second is used when two interactors select the same object and select mode is
+                    set to <strong>Multiple</strong>.
+                </p>
+
+                <h3>Gaze Configuration</h3>
+                <p>
+                    Gaze configuration enables interaction via <strong>XR Gaze Interactor</strong> (typically on XR Origin).
+                    Gaze behaves similarly to ray interaction but can run continuously without visuals.
+                </p>
+                <p>
+                    With eye tracking, gaze raycasts where the user looks. Without eye tracking, it follows the headset forward vector.
+                    In simulator workflows, field-of-view overlap can also drive interaction.
+                </p>
+                <p>
+                    <img src="Tutorial%2008%2001%20Grab%20Interactable%20Expanded_files/image004.png" alt="XR Gaze Interactor setup example">
+                </p>
+                <p>
+                    Reference: <a href="https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2" target="_blank">https://gyazo.com/b4e13b8e7251b3f372dc327b63c494e2</a>
+                </p>
+
+                <h3>Distance Calculation Mode</h3>
+                <p>
+                    This dropdown changes how interaction distance is calculated when selecting/activating the interactable.
+                </p>
+                <p>
+                    <img src="Tutorial%2008%2001%20Grab%20Interactable%20Expanded_files/image005.png" alt="Distance calculation mode options">
+                </p>
+                <p>
+                    This is useful in advanced cases, such as multi-collider objects where you want to understand
+                    which collider was used during interaction.
+                </p>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 2.1: Near-Far Interactor Overview (Replacing Direct and Ray Interactors)</h2>
+            </summary>
+            <div class="accordion-content">
+<!--                  <h3>Near-Far Interactor</h3>
+                <p>
+                    The Near-Far Interactor combines direct and ray interaction in one component,
+                    changing behavior based on the distance between the root transform and the interactable.
+                </p>
+
+                <p>
+                    <img src="Tutorial%2008%2001%20Near%20Far%20Stefan_files/image002.jpg" alt="Near-Far Interactor overview diagram" style="max-width: 100%; height: auto; display: block; margin: 12px auto; border: 1px solid #ddd; border-radius: 4px;">
+                </p>
+
+                <div class="step-box">
+                    <h3>Setup</h3>
+                    <p><strong>Hierarchy Setup</strong></p>
+                    <ul>
+                        <li>Use an <strong>XR Origin</strong> with a Camera Offset and hand/controller objects.</li>
+                        <li>The hand should use a <strong>Tracked Pose Driver</strong> for controller tracking.</li>
+                        <li>Use separate empty transforms for different interactor points when needed.</li>
+                        <li>Add an <strong>XR Interaction Group</strong> on the hand to avoid interactor priority/order conflicts.</li>
+                    </ul>
+                </div>
+
+                <p>
+                    <img src="Tutorial%2008%2001%20Near%20Far%20Stefan_files/image003.jpg" alt="Near-Far hierarchy and component setup" style="max-width: 100%; height: auto; display: block; margin: 12px auto; border: 1px solid #ddd; border-radius: 4px;">
+                </p>
+
+                <div class="note">
+                    <strong>UI setup note:</strong> For world-space UI with Near-Far, use an <strong>XR UI Input Module</strong>.
+                    Add it by creating <code>XR &gt; EventSystem</code> from the Hierarchy context menu.
+                    The standard <code>UI &gt; EventSystem</code> is different and needs manual module changes to work correctly.
+                </div>
+
+                <p>
+                    <strong>Additional Reading:</strong>
+                    <a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.4/manual/near-far-interactor.html" target="_blank">
+                        Unity XRIT Near-Far Interactor Documentation
+                    </a>
+                </p> -->
+
+                <hr class="section-divider">
+                <p>
+                    This comparison focuses on <strong>basic functionality</strong> in XRIT (including XRIT 3.x where the
+                    <strong>Near-Far Interactor</strong> was introduced). "Interactor" = the thing doing the interacting (hands/controllers);
+                    "Interactable" = the object being interacted with (e.g., <code>XR Grab Interactable</code>, UI, etc.).
+                </p>
+
+                <div class="note">
+                    <strong>Important context:</strong> In XRIT 3.x, Near-Far Interactor is designed to reduce the need to manage
+                    separate near (direct) and far (ray) interaction components and to simplify input wiring.
+                </div>
+
+                <h3>Quick definitions (what each is for)</h3>
+                <ul>
+                    <li><strong>XR Direct Interactor</strong>: Near-field interaction (touch/reach). Typical use: grab something within arm's reach.</li>
+                    <li><strong>XR Ray Interactor</strong>: Far-field interaction (ray/laser pointer). Typical use: point/select/grab at a distance and UI pointing.</li>
+                    <li><strong>Near-Far Interactor</strong> (XRIT 3.x): A unified interactor that supports both near and far interaction modes with smoother transitions and fewer components.</li>
+                </ul>
+
+                <h3>Comparison table (basic functionality)</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 22%;">Feature / Concern</th>
+                            <th style="width: 26%;">XR Direct Interactor</th>
+                            <th style="width: 26%;">XR Ray Interactor</th>
+                            <th style="width: 26%;">Near-Far Interactor (XRIT 3.x)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Primary interaction distance</strong></td>
+                            <td>Near only (within collider/reach)</td>
+                            <td>Far only (raycast distance)</td>
+                            <td>Near + Far (unified)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Typical basic use</strong></td>
+                            <td>
+                                <ul>
+                                    <li>Grab objects near the hand</li>
+                                    <li>Simple "hand within object" selection</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Point/select objects at a distance</li>
+                                    <li>UI pointing (world-space canvases)</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li>Grab near objects like Direct</li>
+                                    <li>Point/select far objects like Ray</li>
+                                    <li>Switches mode based on context/distance</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>How it detects targets</strong></td>
+                            <td>
+                                Uses near-field overlap / trigger volumes (colliders).<br>
+                                Commonly a sphere/capsule collider at hand.
+                            </td>
+                            <td>
+                                Uses raycast(s) from an origin transform.<br>
+                                Often coupled with line visuals.
+                            </td>
+                            <td>
+                                Combines near overlap detection + far raycasting under one interactor,
+                                aiming to manage the transition between the two.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Works with XR Grab Interactable</strong></td>
+                            <td>Yes (classic near grab)</td>
+                            <td>Yes (distance grab / select)</td>
+                            <td>Yes (supports both near and far workflows)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Works with Unity UI (world-space canvas)</strong></td>
+                            <td>
+                                Not the usual tool for UI (unless using poke-style UI patterns).<br>
+                                Typically you use a ray for UI.
+                            </td>
+                            <td>
+                                Yes, common approach for UI. Requires the UI side setup:
+                                <code>Tracked Device Graphic Raycaster</code> on Canvas and <code>XR UI Input Module</code> in EventSystem.
+                            </td>
+                            <td>
+                                Yes, typically supports UI similarly to ray mode (still requires the same UI module + raycaster setup on the UI side).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Visual feedback</strong></td>
+                            <td>
+                                Usually none by default; you add hand models / gizmos yourself.
+                            </td>
+                            <td>
+                                Commonly uses line visuals (Line Renderer / XR Interactor Line Visual).
+                            </td>
+                            <td>
+                                Can provide ray visuals when in far mode; near mode can remain "hand only."
+                                Fewer separate visuals to manage than maintaining two interactors.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Setup complexity (basic)</strong></td>
+                            <td>
+                                Medium: add interactor + collider + attach transform conventions.
+                            </td>
+                            <td>
+                                Medium: add interactor + ray origin + line visual + UI module setup (if doing UI).
+                            </td>
+                            <td>
+                                Lower overall for "I want both": one component instead of two, fewer conflicts to manage.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conflict management</strong><br>(near + far both present)</td>
+                            <td colspan="2">
+                                <div class="legacy">
+                                    <strong>Common issue:</strong> If you put Direct and Ray on the same hand, you often need to manage
+                                    which one selects first, hover behavior, interaction layers, and when rays should be active.
+                                    This is doable but adds teaching/maintenance overhead.
+                                </div>
+                            </td>
+                            <td>
+                                <div class="modern">
+                                    Designed to reduce this: a single interactor can decide near vs far behavior and avoid "two interactors fighting".
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best for teaching fundamentals</strong></td>
+                            <td>
+                                Great for understanding "touch/overlap -> select -> attach".
+                            </td>
+                            <td>
+                                Great for understanding "raycast -> hover -> select/activate" and UI.
+                            </td>
+                            <td>
+                                Great for teaching modern workflow, but it can hide some underlying mechanics unless you explicitly unpack it.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best for production (new projects)</strong></td>
+                            <td>Good if you only need near interactions (e.g., hands-only, room-scale grabbing).</td>
+                            <td>Good if you only need far interactions (e.g., pointer-driven UX, UI-heavy).</td>
+                            <td>Strong default if you want both near + far in one system with fewer moving parts.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Reasons to use either (practical guidance)</h3>
+
+                <h3>Use <strong>XR Direct Interactor</strong> when...</h3>
+                <ul>
+                    <li>You want <strong>hands-on, close-range grabbing</strong> only (simple room-scale interactions).</li>
+                    <li>You want students to clearly learn the "physical reach" interaction pattern.</li>
+                    <li>You want minimal ray/pointer UI style interactions (or UI is handled differently).</li>
+                </ul>
+
+                <h3>Use <strong>XR Ray Interactor</strong> when...</h3>
+                <ul>
+                    <li>You need <strong>distance selection</strong> (pointing at objects across the room).</li>
+                    <li>You need a <strong>laser pointer UI</strong> workflow for world-space canvases.</li>
+                    <li>You're building a UI-heavy XR experience (menus, panels, long-range selection).</li>
+                </ul>
+
+                <h3>Use <strong>Near-Far Interactor (XRIT 3.x)</strong> when...</h3>
+                <ul>
+                    <li>You want <strong>both</strong> near grabbing and far pointing without maintaining two separate interactors per hand.</li>
+                    <li>You want a <strong>cleaner teaching path for modern XRIT</strong>: start with a working rig and then deconstruct it.</li>
+                    <li>You want fewer conflicts and less configuration overhead for basic rigs.</li>
+                </ul>
+
+<!--                 <div class="note">
+                    <strong>Teaching recommendation:</strong><br>
+                    If your goal is to teach legacy concepts in XRIT 3.x, you can still teach Direct + Ray as separate concepts (near vs far),
+                    but it's usually most efficient to <em>demonstrate them conceptually</em> and then show Near-Far as the modern unified tool
+                    that replaces the need to manage both simultaneously.
+                </div> -->
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 2.2: Near-Far Interactor Activities</h2>
+            </summary>
+            <div class="accordion-content">
+
+                <h3>XRIT Near-Far Interactor: Student Tutorial Activities</h3>
+
+                <div class="setup">
+                    <h3>Baseline Setup (Do Once)</h3>
+                    <ol>
+                        <li>If not created in the Start section above, create a simple scene with a floor plane and 6-10 cubes/spheres scattered around.</li>
+                        <li>Add <code>XR Grab Interactable</code> to at least 5 objects.</li>
+                        <li>Ensure you have a working XR Rig (Starter Assets Prefab rig or your custom XR Origin with Near-Far Interactors).</li>
+                        <li>Testing without hardware: enable XR Device Simulator and confirm you can move hands/controllers.</li>
+                    </ol>
+                    <p><strong>Goal:</strong> students should be able to (a) grab near objects, and (b) point/select far objects.</p>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>1) Interaction Attach Controller - activities</h3>
+                <p>
+                    <strong>Interaction Attach Controller</strong> controls <em>how a grabbed object snaps into the hand</em>: offset,
+                    rotation alignment, and the feel of grabbing (for example, fixed grip pose vs contact pose).
+                </p>
+
+                <div class="task">
+                    <h3>Activity 1A - Grip Pose vs Natural Grab (offset and rotation)</h3>
+                    <ol>
+                        <li>Create 2 objects:
+                            <ul>
+                                <li><strong>Tool A:</strong> a long cube scaled like a flashlight (for example, 0.05, 0.05, 0.25)</li>
+                                <li><strong>Tool B:</strong> a hammer shape (simple: cube handle + cube head)</li>
+                            </ul>
+                        </li>
+                        <li>Add <code>XR Grab Interactable</code> to both.</li>
+                        <li>For each object, create an empty child transform called <code>AttachPoint</code> where you want the hand to grip.</li>
+                        <li>Assign that <code>AttachPoint</code> as the object's <strong>Attach Transform</strong> (on XR Grab Interactable).</li>
+                        <li>Test grabbing:
+                            <ul>
+                                <li>Does it align like a tool in-hand?</li>
+                                <li>Does rotation feel correct?</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> screenshot of each tool held correctly (tool points forward, not sideways/up).</p>
+                </div>
+
+                <div class="task">
+                    <h3>Activity 1B - Fixed Orientation Challenge (rotation constraints)</h3>
+                    <ol>
+                        <li>Create a keycard object (thin flat cube).</li>
+                        <li>Set an Attach Transform so the keycard always faces the camera when grabbed.</li>
+                        <li>Test: rotate your hand/controller. Does the keycard remain readable?</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> short notes: what changed when using a fixed attach transform vs no attach transform?</p>
+                </div>
+
+                <div class="reflect">
+                    <h3>Reflection questions</h3>
+                    <ul>
+                        <li>When is a <strong>fixed grip pose</strong> better (tools, weapons, handles)?</li>
+                        <li>When is a <strong>natural grab point</strong> better (soft objects, physics toys)?</li>
+                        <li>How does attach rotation affect user comfort and realism?</li>
+                    </ul>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>2) Sphere Interaction Caster - activities</h3>
+                <p>
+                    <strong>Sphere Interaction Caster</strong> detects nearby interactables by casting a sphere volume.
+                    This is your near interaction detector (like a hand proximity bubble).
+                </p>
+
+                <div class="task">
+                    <h3>Activity 2A - Tuning Reach (sphere radius)</h3>
+                    <ol>
+                        <li>Place 3 small cubes close together (a cluster) on a table or in mid-air.</li>
+                        <li>Open the Near-Far Interactor settings for the hand and locate <strong>Sphere Interaction Caster</strong> values (radius/distance/layers).</li>
+                        <li>Run tests with three radius settings:
+                            <ul>
+                                <li><strong>Small</strong> (hard to grab unless you are precise)</li>
+                                <li><strong>Medium</strong> (comfortable)</li>
+                                <li><strong>Large</strong> (too easy / grabs the wrong thing)</li>
+                            </ul>
+                        </li>
+                        <li>Record what happens when objects are close together.</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> choose a best radius and write 2-3 sentences explaining why.</p>
+                </div>
+
+                <div class="task">
+                    <h3>Activity 2B - Precision vs Accessibility (small targets)</h3>
+                    <ol>
+                        <li>Create two targets:
+                            <ul>
+                                <li><strong>Small target:</strong> tiny cube (for example, scale 0.02)</li>
+                                <li><strong>Large target:</strong> normal cube (scale 0.2)</li>
+                            </ul>
+                        </li>
+                        <li>Try to grab each target with the same sphere caster settings.</li>
+                        <li>Adjust caster radius until the small target is reliably grabbable without making the large target too magnetic.</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> recommended settings for accessibility mode vs precision mode.</p>
+                </div>
+
+                <div class="tip">
+                    <h3>Tip: Interaction Layer Mask mini-task</h3>
+                    <p>
+                        Put decorative objects on a separate layer and exclude that layer from the Sphere Interaction Caster interaction mask.
+                        This helps prevent accidental grabbing of scenery.
+                    </p>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>3) Curve Interaction Caster - activities</h3>
+                <p>
+                    <strong>Curve Interaction Caster</strong> projects a <em>curved</em> ray for far interactions,
+                    often similar to teleport arcs or adjusted aiming over obstacles.
+                </p>
+
+                <div class="task">
+                    <h3>Activity 3A - Straight vs Curved Aiming (user experience)</h3>
+                    <ol>
+                        <li>Set up two far-interaction modes (or two hands):
+                            <ul>
+                                <li><strong>Mode 1:</strong> straight ray (if available in your rig configuration)</li>
+                                <li><strong>Mode 2:</strong> Curve Interaction Caster enabled</li>
+                            </ul>
+                        </li>
+                        <li>Place targets at different heights:
+                            <ul>
+                                <li>One on the floor</li>
+                                <li>One on a shelf (above head height)</li>
+                                <li>One behind a low obstacle (for example, a short wall)</li>
+                            </ul>
+                        </li>
+                        <li>Test selecting/grabbing each target in both modes.</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> short comparison: when does curved aiming feel better or worse?</p>
+                </div>
+
+                <div class="task">
+                    <h3>Activity 3B - Arc Tuning Challenge (curve parameters)</h3>
+                    <ol>
+                        <li>Create a target hoop (ring made of cubes) 4-6 meters away.</li>
+                        <li>Adjust curve settings so the arc lands naturally on the target without excessive overshoot.</li>
+                        <li>Try at least three configurations:
+                            <ul>
+                                <li>Short arc (drops quickly)</li>
+                                <li>Long arc (travels far)</li>
+                                <li>Balanced arc (usable in most cases)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> best curve settings plus a screenshot of the arc landing on the hoop.</p>
+                </div>
+
+                <div class="task">
+                    <h3>Activity 3C - Far Interaction Rules (what can be selected?)</h3>
+                    <ol>
+                        <li>Create three objects:
+                            <ul>
+                                <li><strong>Interactable:</strong> has <code>XR Grab Interactable</code></li>
+                                <li><strong>UI:</strong> world-space canvas button</li>
+                                <li><strong>Non-interactable:</strong> plain cube (no XR components)</li>
+                            </ul>
+                        </li>
+                        <li>Test curved ray:
+                            <ul>
+                                <li>Which objects highlight?</li>
+                                <li>Which can you select/grab?</li>
+                            </ul>
+                        </li>
+                        <li>Change interaction layer masks so only intended targets respond.</li>
+                    </ol>
+                    <p><strong>Deliverable:</strong> rules list: Our far ray should interact with ___ but ignore ___.</p>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>Wrap-up: What students should understand</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Student takeaway</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Interaction Attach Controller</strong></td>
+                            <td>How should the object sit in the hand? (offset, rotation, consistent grip poses vs natural grabs)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sphere Interaction Caster</strong></td>
+                            <td>How close do I need to be? How do we prevent grabbing the wrong thing? (radius + layers)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Curve Interaction Caster</strong></td>
+                            <td>How does far selection feel? How does ray shape affect usability? (straight vs arc; tuning reach/arc)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="note">
+                    <strong>Submit to Padlet:</strong> (1) one screenshot of a correctly gripped tool,
+                    (2) your chosen sphere radius justification, and (3) your best curve settings with a screenshot of a successful far selection.
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 3: Hands</h2>
+            </summary>
+            <div class="accordion-content">
+                <h3>XR Interaction Toolkit 3.x: Add Hands as Controller Visuals (No Hand Tracking)</h3>
+
+                <div class="modern">
+                    <p><strong>What this tutorial is:</strong> adding <em>visual hand models</em> to the rig so they follow left/right controllers.</p>
+                    <p><strong>What this tutorial is NOT:</strong> true hand tracking (skeletal hands, pinch gestures). For that, use XR Hands + the Hands Interaction Demo.</p>
+                </div>
+
+                <h3>Prerequisites</h3>
+                <ol>
+                    <li>Unity project with <strong>OpenXR</strong> + <strong>XR Interaction Toolkit (XRIT) 3.x</strong> installed.</li>
+                    <li><strong>Starter Assets</strong> sample imported (recommended, because it provides a complete rig prefab).</li>
+                    <li>A basic scene you can press Play on (XR Device Simulator is fine).</li>
+                </ol>
+
+                <div class="note">
+                    <strong>Tip:</strong> The easiest workflow in XRIT 3.x is to start from the Starter Assets rig prefab and swap the model.
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>Part 1 - Add a complete XR rig (recommended starting point)</h3>
+                <ol>
+                    <li>In the Project window, locate the Starter Assets rig prefab:
+                        <ul>
+                            <li><code>Assets/Samples/XR Interaction Toolkit/3.x.x/Starter Assets/Prefabs/</code></li>
+                            <li>Prefab is typically named <code>XR Origin (XR Rig)</code> (name can vary slightly by version).</li>
+                        </ul>
+                    </li>
+                    <li>Delete the scene's default <strong>Main Camera</strong> (if present).</li>
+                    <li>Drag the <strong>XR Origin (XR Rig)</strong> prefab into the scene.</li>
+                </ol>
+
+                <div class="modern">
+                    <p><strong>Checkpoint:</strong> Press Play and confirm you can see controller visuals and move them (hardware or XR Device Simulator).</p>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>Part 2 - Identify where controller visuals live in the rig</h3>
+                <ol>
+                    <li>In the Hierarchy, expand your rig:
+                        <ul>
+                            <li><code>XR Origin (XR Rig)</code> -> <code>Camera Offset</code> -> left/right controller GameObjects</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>LeftHand Controller</strong> (or similar name) and look for:
+                        <ul>
+                            <li>A child object named something like <code>Model</code>, <code>Controller Model</code>, <code>Visual</code>, or <code>Left Controller</code>.</li>
+                            <li>Or a component related to model display (for example, controller model/visuals).</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="note">
+                    <p><strong>Reality:</strong> XRIT rigs vary slightly by sample/version. The pattern is consistent:</p>
+                    <ul>
+                        <li>The controller GameObject is the tracker.</li>
+                        <li>A child GameObject holds the mesh/renderer (the visual).</li>
+                    </ul>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>Part 3 - Replace the controller model with a hand model (simple + robust)</h3>
+
+                <h3>Step 1: Import or create your hand model</h3>
+                <ol>
+                    <li>Bring in a hand mesh/model:
+                        <ul>
+                            <li>FBX/GLB hand model you already have, or</li>
+                            <li>A simple placeholder (for example, a capsule + sphere) if you are testing.</li>
+                        </ul>
+                    </li>
+                    <li>Make sure the hand has a <strong>Mesh Renderer</strong> (or <strong>Skinned Mesh Renderer</strong> if rigged).</li>
+                </ol>
+
+                <h3>Step 2: Disable or remove the old controller visual</h3>
+                <ol>
+                    <li>Under <strong>LeftHand Controller</strong>, find the existing model child (old controller mesh).</li>
+                    <li>Either:
+                        <ul>
+                            <li><strong>Disable</strong> the Mesh Renderer (quickly reversible), or</li>
+                            <li>Deactivate the model GameObject, or</li>
+                            <li>Delete it (not recommended until you are sure).</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <h3>Step 3: Add the hand model as a child of the controller</h3>
+                <ol>
+                    <li>Drag your hand model into the Hierarchy so it becomes a child of <strong>LeftHand Controller</strong>.</li>
+                    <li>Reset its local transform:
+                        <ul>
+                            <li>Local Position = <code>(0, 0, 0)</code></li>
+                            <li>Local Rotation = <code>(0, 0, 0)</code></li>
+                            <li>Local Scale = <code>(1, 1, 1)</code> (or adjust if your model imports huge/small)</li>
+                        </ul>
+                    </li>
+                    <li>Rename it to something clear like <code>LeftHandModel</code>.</li>
+                </ol>
+
+                <h3>Step 4: Align the hand to match the grip pose</h3>
+                <ol>
+                    <li>In Scene view (not Play mode), rotate/offset the hand model so it sits naturally where the controller grip is.</li>
+                    <li>Common alignment work:
+                        <ul>
+                            <li>Rotate around Y by +/-90 or 180 degrees (model import axis differences)</li>
+                            <li>Offset slightly forward on Z</li>
+                            <li>Offset slightly down on Y</li>
+                        </ul>
+                    </li>
+                    <li>Repeat the same process for the <strong>RightHand Controller</strong>.</li>
+                </ol>
+
+                <div class="modern">
+                    <p><strong>Checkpoint:</strong> Press Play and confirm the hands move exactly with the controllers.</p>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>Part 4 - Recommended: Use a dedicated Attach transform for grabbing pose</h3>
+
+                <div class="note">
+                    <p>
+                        Your hand model is only visuals. The grab point is usually controlled by an <strong>Attach Transform</strong>
+                        on the interactor (hand) and/or on the interactable (object).
+                    </p>
+                </div>
+
+                <ol>
+                    <li>Under each hand/controller, create an empty child:
+                        <ul>
+                            <li>Name: <code>GrabAttach</code></li>
+                            <li>Position it where objects should snap when grabbed (usually center of palm)</li>
+                            <li>Rotate it so forward points out of the palm (project convention dependent)</li>
+                        </ul>
+                    </li>
+                    <li>On your Near-Far Interactor (or Direct Interactor), set the <strong>Attach Transform</strong> to <code>GrabAttach</code> (if available on your rig/interactor setup).</li>
+                    <li>Test: grab a cube. Does it snap naturally into the palm?</li>
+                </ol>
+
+                <hr class="section-divider">
+
+                <h3>Part 5 - Optional polish (student-friendly)</h3>
+                <ul>
+                    <li><strong>Different materials:</strong> assign distinct materials to left vs right hand for easier debugging.</li>
+                    <li><strong>Hide hands during UI:</strong> optionally reduce hand visibility when ray is active (advanced/project-specific).</li>
+                    <li><strong>Animation:</strong> without true hand tracking, you can still animate open/close states using grip/trigger input via script or Animator.</li>
+                </ul>
+
+                <div class="warn">
+                    <p><strong>Common issues:</strong></p>
+                    <ul>
+                        <li><strong>Hands rotated wrong:</strong> model import axes differ; fix with local rotation on the model GameObject.</li>
+                        <li><strong>Wrong scale:</strong> adjust local scale or import settings.</li>
+                        <li><strong>Hands do not move:</strong> make sure the hand model is a child of the tracked controller object.</li>
+                        <li><strong>Grab snap feels off:</strong> configure an Attach Transform (Part 4).</li>
+                    </ul>
+                </div>
+
+                <hr class="section-divider">
+
+                <h3>Deliverables (quick student checklist)</h3>
+                <ol>
+                    <li>Left and right controllers show hand models (not default controller models).</li>
+                    <li>Hands move correctly in simulator mode.</li>
+                    <li>At least one object snaps naturally into the palm when grabbed (Attach Transform configured).</li>
+                    <li>Screenshot in Play mode showing a grabbed object held correctly.</li>
+                </ol>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 4: Hands Menu</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="step-box">
+                    <p>Add Part 4 content here.</p>
+                </div>
+            </div>
+        </details>
+    </div>
+</body>
+</html>

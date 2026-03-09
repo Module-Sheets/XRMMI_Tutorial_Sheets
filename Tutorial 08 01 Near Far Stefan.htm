@@ -1,0 +1,174 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>Unity XRIT (VR)</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Arial Narrow";
+	panose-1:2 11 6 6 2 2 2 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	text-autospace:none;
+	font-size:11.0pt;
+	font-family:"Arial Narrow",sans-serif;}
+h1
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:17.5pt;
+	text-autospace:none;
+	font-size:11.5pt;
+	font-family:"Arial Narrow",sans-serif;
+	font-weight:normal;}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:17.5pt;
+	text-autospace:none;
+	font-size:8.0pt;
+	font-family:"Arial Narrow",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{text-autospace:none;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:37.0pt 90.0pt 22.0pt 36.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB link=blue vlink=purple style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-top:3.45pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:16.5pt;margin-bottom:.0001pt'><span lang=EN-US
+style='font-size:14.5pt;font-family:"Calibri",sans-serif'>Near-Far Interactor</span></p>
+
+<p class=MsoBodyText style='margin-left:0cm'><span lang=EN-US style='font-size:
+6.5pt;font-family:"Calibri",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoBodyText style='margin-top:6.3pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt'><span lang=EN-US style='font-size:
+6.5pt;font-family:"Calibri",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoBodyText style='margin-top:6.3pt'><span lang=EN-US
+style='font-size:11.5pt;font-family:"Calibri",sans-serif;color:#1E4D79;
+letter-spacing:1.1pt'>Introduction  </span></p>
+
+<p class=MsoBodyText><span lang=EN-US>The near far interactor is a component
+that combines the direct interactor and the ray interactor together by changing
+the action based on the distance between the root transform and the
+interactable object.</span></p>
+
+<p class=MsoBodyText style='margin-top:.15pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt'><span lang=EN-US style='font-size:
+11.5pt;font-family:"Calibri",sans-serif;color:#1E4D79;letter-spacing:1.1pt'>. </span>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=50 height=0></td>
+  <td width=9></td>
+  <td width=15></td>
+  <td width=591></td>
+ </tr>
+ <tr>
+  <td height=8></td>
+  <td align=left valign=top><img width=9 height=8
+  src="Tutorial%2008%2001%20Near%20Far%20Stefan_files/image001.jpg"></td>
+  <td></td>
+  <td rowspan=2 align=left valign=top><img width=591 height=268
+  src="Tutorial%2008%2001%20Near%20Far%20Stefan_files/image002.jpg"></td>
+ </tr>
+ <tr>
+  <td height=260></td>
+ </tr>
+</table>
+
+<br clear=ALL>
+</p>
+
+<h1 style='margin-top:4.0pt'><span lang=ES style='font-family:"Calibri",sans-serif;
+color:#1E4D79;letter-spacing:.55pt'>Setu</span><span lang=ES style='font-family:
+"Calibri",sans-serif;color:#1E4D79;letter-spacing:.45pt'> </span><span lang=ES
+style='font-family:"Calibri",sans-serif;color:#1E4D79;letter-spacing:-.6pt'>p</span></h1>
+
+<p class=MsoNormal style='margin-left:17.5pt'><span lang=EN-US
+style='font-size:10.0pt;font-family:"Calibri",sans-serif;color:#2D74B4'>Hierarchy
+Setup&nbsp;<br>
+</span><span lang=EN-US style='font-size:8.0pt;font-family:"Calibri",sans-serif'>The
+standard approach to adding interactors is to have an XR Origin with a camera
+offset and a hand. </span></p>
+
+<p class=MsoNormal style='margin-left:17.5pt'><span lang=EN-US
+style='font-size:8.0pt;font-family:"Calibri",sans-serif'>The hand has the
+Tracked Pose Driver for tracking the controller position and different empty
+transforms are used for each interactor type.&nbsp;&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:17.5pt'><span lang=EN-US
+style='font-size:8.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:17.5pt'><span lang=EN-US
+style='font-size:8.0pt;font-family:"Calibri",sans-serif'>Using a XR Interaction
+Group component on the hand object is ideal as it avoids edge cases caused by
+hierarchy order wherein 2 interactors cancel each other out.&nbsp;&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:17.5pt'><span lang=EN-US
+style='font-size:10.0pt;font-family:"Calibri",sans-serif'><img width=659
+height=556 id="Image 9"
+src="Tutorial%2008%2001%20Near%20Far%20Stefan_files/image003.jpg"></span></p>
+
+<p class=MsoBodyText style='margin-top:3.4pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt'><span lang=EN-US style='font-size:
+7.0pt;font-family:"Calibri",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoBodyText><span lang=EN-US style='font-family:"Calibri",sans-serif'>An
+XR UI Input Module component is needed to&nbsp;allow the near far interactor to
+work with world space UI. <br>
+This must be added by right clicking the hierarchy and navigating to &quot;XR
+&gt;&nbsp;EventSystem&quot;.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Note: There is a second type of&nbsp;eventsystem&nbsp;under &quot;UI
+&gt;&nbsp;EventSystem&quot;. This has different components and will not work on
+its own. <br>
+To use this you will need to manually add the &quot;XR UI Input Module&quot;
+component and remove the &quot;Input System UI Input Module&quot; as they
+override each other.&nbsp;&nbsp;</span></p>
+
+<h1 style='margin-top:1.05pt'><span lang=EN-US style='font-family:"Calibri",sans-serif;
+color:#1E4D79;letter-spacing:.7pt'>Additional Reading&nbsp;&nbsp;</span></h1>
+
+<h1 style='margin-top:1.05pt'><span lang=EN-US><a
+href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.4/manual/near-far-interactor.html"
+target="_blank"><span style='font-size:10.0pt;font-family:"Calibri",sans-serif;
+letter-spacing:.7pt'>https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.4/manual/near-far-interactor.html</span></a></span><span
+lang=EN-US style='font-size:10.0pt;font-family:"Calibri",sans-serif;color:#1E4D79;
+letter-spacing:.7pt'>&nbsp;&nbsp;</span></h1>
+
+<h1 style='margin-top:1.05pt'><span lang=EN-US>&nbsp;</span></h1>
+
+</div>
+
+</body>
+
+</html>
