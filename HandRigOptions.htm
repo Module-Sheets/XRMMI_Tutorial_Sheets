@@ -1,0 +1,298 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:#467886;
+	text-decoration:underline;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB link="#467886" vlink="#96607D" style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal><b>Hand Rig Options:</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal><b>Controller Hands</b></li>
+</ol>
+
+<p class=MsoNormal>Use when:&nbsp;your target devices have tracked controllers
+(Simulated, Quest controllers, Index, Vive, etc.).</p>
+
+<p class=MsoNormal>What it looks like in the rig</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Left/Right controller transforms under the XR Origin.</li>
+ <li class=MsoNormal>Interactors commonly attached to each controller:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>XR Ray Interactor&nbsp;(far UI / pointing / teleport)</li>
+  <li class=MsoNormal>XR Direct Interactor&nbsp;(near grabbing)</li>
+  <li class=MsoNormal>XR Near-Far Interactor (if overriding above)</li>
+  <li class=MsoNormal>Optional: poke/touch via additional interactors depending
+      on your setup</li>
+ </ul>
+</ul>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>XR Lab Hand Prefabs with Animator Controllers and
+     Animation</li>
+ <li class=MsoNormal>XR Lab Hand Animator Script</li>
+</ul>
+
+<p class=MsoNormal>Hand visuals</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Controller model, or a “hand model” animated from
+     controller input.</li>
+ <li class=MsoNormal>Usually driven by input actions (grip/trigger) rather than
+     skeletal tracking.</li>
+ <li class=MsoNormal>Input actions are picked up by HandAnimator Script and
+     trigger Hand Animations.</li>
+</ul>
+
+<p class=MsoNormal>Pros</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Most broadly supported in VR.</li>
+ <li class=MsoNormal>Stable interaction patterns.</li>
+</ul>
+
+<p class=MsoNormal>Cons</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Not “true” hand tracking; no per-joint fidelity.</li>
+</ul>
+
+<p class=MsoNormal><img width=480 height=222 id="Picture 6"
+src="HandRigOptions_files/image001.png"></p>
+
+<p class=MsoNormal><a href="https://gyazo.com/bdacad6556151a7a5d97422b8595c817">https://gyazo.com/bdacad6556151a7a5d97422b8595c817</a>
+</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Adjustments</p>
+
+<p class=MsoNormal>Test to add/Adjust input actions and results</p>
+
+<p class=MsoNormal>Adjust hand location and rotation to taste</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<ol style='margin-top:0cm' start=2 type=1>
+ <li class=MsoNormal><b>Tracked Hands </b>(In HandsDemoScene)</li>
+</ol>
+
+<p class=MsoNormal>Use when:&nbsp;your platform provides hand tracking and you
+want articulated hands (joints/bones).</p>
+
+<p class=MsoNormal>What it looks like in the rig</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Left/Right “hand tracking” GameObjects under the XR Origin
+     (instead of or in addition to controllers).</li>
+ <li class=MsoNormal>Hand visuals commonly come from the&nbsp;XR
+     Hands&nbsp;package “hand visualizer / hand skeleton” style components.</li>
+ <li class=MsoNormal>Interactors are enabled/disabled depending on
+     gesture/state.</li>
+</ul>
+
+<p class=MsoNormal>Interaction styles typically enabled</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Direct interaction&nbsp;(pinch/grab-like near
+     interactions)</li>
+ <li class=MsoNormal>Poke interaction&nbsp;(index-finger poke for
+     UI/pressables)</li>
+ <li class=MsoNormal>Gesture-driven enabling/disabling of interactors and
+     visuals (so you don’t accidentally ray/poke when making certain system
+     gestures)</li>
+</ul>
+
+<p class=MsoNormal>Unity’s&nbsp;Hands Interaction Demo&nbsp;sample is the
+canonical reference for how this is wired, including the overall hierarchy and
+gesture detectors that toggle interactors/visuals. (<a
+href="https://docs.unity.cn/Packages/com.unity.xr.interaction.toolkit%403.0/manual/samples-hands-interaction-demo.html?utm_source=openai">docs.unity.cn</a>)</p>
+
+<p class=MsoNormal>Pros</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Natural interaction, articulated hands, better presence.</li>
+</ul>
+
+<p class=MsoNormal>Cons</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Requires additional packages/features and more device
+     variability than controllers.</li>
+</ul>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<ol style='margin-top:0cm' start=3 type=1>
+ <li class=MsoNormal><b>Dual Mode</b> (In HandsDemoScene)</li>
+</ol>
+
+<p class=MsoNormal>Use when:&nbsp;you want one build that supports both
+controllers and hands, and switches based on what the user is currently using.</p>
+
+<p class=MsoNormal>Key component</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>XR Input Modality Manager&nbsp;(on the XR Origin/running
+     rig)</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>Manages switching between input “modalities” (e.g.,
+      controller mode vs hands mode)</li>
+  <li class=MsoNormal>In Unity’s demo/sample, the “XR Origin Hands (XR Rig)” is
+      a variant/prefab configured specifically for this dual-mode approach. (<a
+      href="https://docs.unity.cn/Packages/com.unity.xr.interaction.toolkit%403.0/manual/samples-hands-interaction-demo.html?utm_source=openai">docs.unity.cn</a>)</li>
+ </ul>
+</ul>
+
+<p class=MsoNormal>What changes in practice</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>You typically keep both controller objects and
+     hand-tracking objects in the rig.</li>
+ <li class=MsoNormal>The modality manager activates/deactivates:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>Hand visual GameObjects</li>
+  <li class=MsoNormal>Controller visual GameObjects</li>
+  <li class=MsoNormal>Interactors (ray/direct/poke) that should only be active
+      for the current modality</li>
+ </ul>
+</ul>
+
+<p class=MsoNormal>Pros</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Best user experience across devices.</li>
+ <li class=MsoNormal>You don’t have to maintain separate scenes/prefabs.</li>
+</ul>
+
+<p class=MsoNormal>Cons</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>More moving parts; you need to be careful about duplicate
+     interactors competing.</li>
+</ul>
+
+<p class=MsoNormal><i>&nbsp;</i></p>
+
+<p class=MsoNormal><img border=0 width=480 height=207 id="Picture 5"
+src="HandRigOptions_files/image002.png"></p>
+
+<p class=MsoNormal><a href="https://gyazo.com/dd1921b1c802f51da60a8838c7085634">https://gyazo.com/dd1921b1c802f51da60a8838c7085634</a>
+</p>
+
+<p class=MsoNormal><i>&nbsp;</i></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <li class=MsoNormal><b>Install Full Dual Mode Hands Rig</b></li>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <li class=MsoNormal>Packages/Samples to Install:</li>
+ </ol>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <ol style='margin-top:0cm' start=1 type=1>
+  <ol style='margin-top:0cm' start=1 type=a>
+   <li class=MsoNormal>XR Hands</li>
+   <li class=MsoNormal>XR Hands Samples: HandVisualizer</li>
+   <li class=MsoNormal>XRIT Samples: Hands Interaction Demo</li>
+  </ol>
+ </ol>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <ol style='margin-top:0cm' start=2 type=1>
+  <li class=MsoNormal>Access Demo Scene</li>
+ </ol>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <ol style='margin-top:0cm' start=2 type=1>
+  <ol style='margin-top:0cm' start=1 type=a>
+   <li class=MsoNormal>Assets/Samples/XR Interaction Toolkit/3.0.10/Hands
+       Interaction Demo/HandsDemoScene</li>
+  </ol>
+ </ol>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <ol style='margin-top:0cm' start=3 type=1>
+  <li class=MsoNormal>Access Hands Rig</li>
+ </ol>
+</ol>
+
+<ol style='margin-top:0cm' start=4 type=1>
+ <ol style='margin-top:0cm' start=3 type=1>
+  <ol style='margin-top:0cm' start=1 type=a>
+   <li class=MsoNormal>Assets/Samples/XR Interaction Toolkit/3.0.10/Hands
+       Interaction Demo/Prefabs/XR Origin Hands (XR Rig)</li>
+  </ol>
+ </ol>
+</ol>
+
+<p class=MsoNormal><img border=0 width=479 height=175 id="Picture 4"
+src="HandRigOptions_files/image003.png"></p>
+
+<p class=MsoNormal><a href="https://gyazo.com/9d2585b3590c50c160b61e1c0d0835ca">https://gyazo.com/9d2585b3590c50c160b61e1c0d0835ca</a>
+</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

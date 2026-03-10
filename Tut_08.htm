@@ -808,11 +808,12 @@
 
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>Part 3: Hands</h2>
+                <h2>Part 3: Controller Hands</h2>
             </summary>
             <div class="accordion-content">
                 <div class="warn">
-                    <strong>Legacy workflow notice:</strong> This section is adapted from <em>Tutorial 08 03 Hands Deprecated</em>. It is useful for understanding hand setup and animation wiring, but some steps may differ from current XRIT defaults.
+                    <li>This section is adapted from previous hand controller setups. It is useful for understanding hand setup and animation wiring, but some steps may differ from current XRIT defaults.</li>
+                    <li>For the most up-to-date hand setup, please refer to the official XRIT documentation and the reference in Part 4 below.</li>
                 </div>
 
                 <h3>Reference Tutorials</h3>
@@ -824,8 +825,8 @@
                 <h3>VR Animated Hands: Initial Setup</h3>
                 <div class="step-box">
                     <ol>
-                        <li>Import the hands package/resources into your project.</li>
-                        <li>Drag the hand mesh under each controller (Left and Right).</li>
+                        <li>Import the XR Lab hands package/resources into your project.</li>
+                        <li>Drag the hand mesh under each controller (Left and Right). Zero out </li>
                         <li>Select the hand mesh and assign <code>HandAnimController</code> to the Animator <strong>Controller</strong> field.</li>
                         <li>Add the <code>HandAnimator</code> script to the hand object.</li>
                         <li>Ensure an XR Rig / XR Origin is present in the scene.</li>
@@ -868,6 +869,7 @@
                 <h3>Test Animation</h3>
                 <div class="reflect">
                     <p>Enter Play mode and test hand animation states. In simulator workflows, use the mapped input (for example, <strong>G</strong>) to trigger pinch/pose transitions.</p>
+                    <p>Adjust Hand Rotation to taste.</p>
                 </div>
 
                 <p><img src="Tutorial%2008%2003%20Hands%20Deprecated_files/image006.png" alt="Pinch animation test" style="max-width: 100%; height: auto; display: block; margin: 10px auto;"></p>
@@ -875,10 +877,173 @@
             </div>
         </details>
 
-<!--
+
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>Part 4: Hands Menu</h2>
+                <h2>Part 4: Hands Rig Options</h2>
+            </summary>
+            <div class="accordion-content">
+                <h3>Hand Rig Options Overview</h3>
+                <p>
+                    Choose the hand rig approach based on your target devices and interaction goals.
+                    The four common approaches are <strong>Controller Hands</strong>, <strong>Tracked Hands</strong>,
+                    <strong>Dual Mode</strong>, and installing the full <strong>Dual Mode Hands Rig</strong> sample setup.
+                </p>
+
+                <div class="step-box">
+                    <h3>1) Controller Hands (As in Part 3 Above)</h3>
+                    <p><strong>Use when:</strong> your target devices have tracked controllers (Quest controllers, Index, Vive, simulator workflows).</p>
+
+                    <h3>What it looks like in the rig</h3>
+                    <ul>
+                        <li>Left and right controller transforms under the XR Origin.</li>
+                        <li>Common interactors on each controller:
+                            <ul>
+                                <li><code>XR Ray Interactor</code> for far UI/pointing/teleport</li>
+                                <li><code>XR Direct Interactor</code> for near grabbing</li>
+                                <li><code>XR Near-Far Interactor</code> as a modern combined option</li>
+                                <li>Optional poke/touch interactors depending on your rig</li>
+                            </ul>
+                        </li>
+                        <li>XR Lab hand prefabs with Animator Controllers and animation setup.</li>
+                        <li><code>HandAnimator</code> script drives finger pose animation from input actions.</li>
+                    </ul>
+
+                    <h3>Hand visuals</h3>
+                    <ul>
+                        <li>Controller model, or a hand model animated from controller grip/trigger input.</li>
+                        <li>Usually driven by input actions rather than per-joint skeletal tracking.</li>
+                    </ul>
+
+                    <h3>Pros</h3>
+                    <ul>
+                        <li>Broad device support in VR.</li>
+                        <li>Stable and predictable interaction patterns.</li>
+                    </ul>
+
+                    <h3>Cons</h3>
+                    <ul>
+                        <li>Not true hand tracking; no per-joint hand fidelity.</li>
+                    </ul>
+
+                    <p>
+                        <img src="https://i.gyazo.com/bdacad6556151a7a5d97422b8595c817.png" alt="Controller hands rig overview" style="width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid #ddd; border-radius: 4px;">
+                    </p>
+                    <p>Reference: <a href="https://gyazo.com/bdacad6556151a7a5d97422b8595c817" target="_blank">https://gyazo.com/bdacad6556151a7a5d97422b8595c817</a></p>
+
+                    <h3>Adjustment checklist</h3>
+                    <ul>
+                        <li>Adjust and test input action bindings.</li>
+                        <li>Adjust hand position/rotation offsets for comfort and grip alignment.</li>
+                    </ul>
+                </div>
+
+                <div class="task">
+                    <h3>2) Tracked Hands (HandsDemoScene)</h3>
+                    <p><strong>Use when:</strong> your platform provides hand tracking and you want articulated hands (joints/bones).</p>
+
+                    <h3>What it looks like in the rig</h3>
+                    <ul>
+                        <li>Left and right hand-tracking GameObjects under XR Origin (instead of, or in addition to, controllers).</li>
+                        <li>Hand visuals from XR Hands package components (hand visualizer / skeleton style).</li>
+                        <li>Interactors enabled/disabled based on current gesture or hand state.</li>
+                    </ul>
+
+                    <h3>Interaction styles typically enabled</h3>
+                    <ul>
+                        <li>Direct interaction (pinch/grab-style near interactions).</li>
+                        <li>Poke interaction (index finger poke for UI/pressables).</li>
+                        <li>Gesture-driven enabling/disabling of interactors and visuals.</li>
+                    </ul>
+
+                    <h3>Pros</h3>
+                    <ul>
+                        <li>Natural interaction with better presence and immersion.</li>
+                    </ul>
+
+                    <h3>Cons</h3>
+                    <ul>
+                        <li>Requires extra packages/features and has higher device variability than controllers.</li>
+                    </ul>
+
+                    <p>
+                        Unity reference: <a href="https://docs.unity.cn/Packages/com.unity.xr.interaction.toolkit%403.0/manual/samples-hands-interaction-demo.html" target="_blank">XRIT Hands Interaction Demo</a>
+                    </p>
+                </div>
+
+                <div class="task">
+                    <h3>3) Dual Mode (HandsDemoScene)</h3>
+                    <p><strong>Use when:</strong> you want one build that supports both controllers and hands, switching automatically based on active input modality.</p>
+
+                    <h3>Key component</h3>
+                    <ul>
+                        <li><strong>XR Input Modality Manager</strong> on the XR Origin/running rig.</li>
+                        <li>Switches between controller mode and hand-tracking mode.</li>
+                    </ul>
+
+                    <h3>What changes in practice</h3>
+                    <ul>
+                        <li>Keep both controller objects and hand-tracking objects in the rig.</li>
+                        <li>Modality manager activates/deactivates:
+                            <ul>
+                                <li>Hand visual GameObjects</li>
+                                <li>Controller visual GameObjects</li>
+                                <li>Interactors (ray/direct/poke) that should only run in the current mode</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>Pros</h3>
+                    <ul>
+                        <li>Best cross-device user experience.</li>
+                        <li>No need to maintain separate scenes/prefabs for hands vs controllers.</li>
+                    </ul>
+
+                    <h3>Cons</h3>
+                    <ul>
+                        <li>More moving parts; avoid duplicate interactors competing at the same time.</li>
+                    </ul>
+
+                    <p>
+                        <img src="https://i.gyazo.com/dd1921b1c802f51da60a8838c7085634.png" alt="Dual mode hand and controller rig setup" style="width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid #ddd; border-radius: 4px;">
+                    </p>
+                    <p>Reference: <a href="https://gyazo.com/dd1921b1c802f51da60a8838c7085634" target="_blank">https://gyazo.com/dd1921b1c802f51da60a8838c7085634</a></p>
+                </div>
+
+                <div class="note">
+                    <h3>4) Install Full Dual Mode Hands Rig</h3>
+                    <ol>
+                        <li>Install required packages and samples:
+                            <ol type="a">
+                                <li><strong>XR Hands</strong></li>
+                                <li><strong>XR Hands Samples</strong>: HandVisualizer</li>
+                                <li><strong>XR Interaction Toolkit Samples</strong>: Hands Interaction Demo</li>
+                            </ol>
+                        </li>
+                        <li>Open the demo scene:
+                            <ol type="a">
+                                <li><code>Assets/Samples/XR Interaction Toolkit/3.0.10/Hands Interaction Demo/HandsDemoScene</code></li>
+                            </ol>
+                        </li>
+                        <li>Locate the hands rig prefab:
+                            <ol type="a">
+                                <li><code>Assets/Samples/XR Interaction Toolkit/3.0.10/Hands Interaction Demo/Prefabs/XR Origin Hands (XR Rig)</code></li>
+                            </ol>
+                        </li>
+                    </ol>
+
+                    <p>
+                        <img src="https://i.gyazo.com/9d2585b3590c50c160b61e1c0d0835ca.png" alt="XR Origin Hands rig prefab location" style="width: 100%; max-width: 100%; height: auto; display: block; margin: 12px 0; border: 1px solid #ddd; border-radius: 4px;">
+                    </p>
+                    <p>Reference: <a href="https://gyazo.com/9d2585b3590c50c160b61e1c0d0835ca" target="_blank">https://gyazo.com/9d2585b3590c50c160b61e1c0d0835ca</a></p>
+                </div>
+            </div>
+        </details>
+
+        <!--
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 5: Hands Menu</h2>
             </summary>
             <div class="accordion-content">
                 Part 4 content commented out by request.
