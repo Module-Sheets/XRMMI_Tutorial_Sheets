@@ -228,6 +228,90 @@
             padding: 15px;
             border-top: 1px solid #ddd;
         }
+        /* Video Reference subsection inside Part 1 */
+        .video-ref-section {
+            margin: 20px 0 16px 0;
+            border: 1px solid #0F4761;
+            border-radius: 6px;
+            background-color: #f4f8ff;
+            overflow: hidden;
+        }
+        .video-ref-title {
+            margin: 0;
+            padding: 10px 14px;
+            background-color: #0F4761;
+            color: #fff;
+            font-size: 1.0em;
+            letter-spacing: 0.02em;
+        }
+        .video-ref-accordion {
+            border-top: 1px solid #c5d8e8;
+        }
+        .video-ref-accordion:first-of-type {
+            border-top: none;
+        }
+        .video-ref-summary {
+            cursor: pointer;
+            padding: 9px 14px;
+            font-weight: 600;
+            color: #0F4761;
+            background-color: #eaf2f8;
+            list-style: none;
+            user-select: none;
+        }
+        .video-ref-summary:hover {
+            background-color: #d9ecf5;
+        }
+        .video-ref-summary::marker,
+        .video-ref-summary::-webkit-details-marker { display: none; }
+        .video-ref-summary::before {
+            content: '▶ ';
+            font-size: 0.7em;
+            color: #467886;
+        }
+        details[open] > .video-ref-summary::before {
+            content: '▼ ';
+        }
+        .video-ref-content {
+            padding: 10px 14px 14px;
+        }
+        .video-ref-subheading {
+            margin: 14px 0 6px 0;
+            color: #467886;
+            font-size: 0.95em;
+        }
+        .video-ref-sub-accordion {
+            border: 1px solid #c5d8e8;
+            border-radius: 4px;
+            margin: 8px 0;
+            background-color: #fff;
+        }
+        .video-ref-sub-summary {
+            cursor: pointer;
+            padding: 7px 12px;
+            font-weight: 600;
+            color: #467886;
+            background-color: #f0f7fb;
+            list-style: none;
+            user-select: none;
+            border-radius: 4px;
+        }
+        .video-ref-sub-summary:hover {
+            background-color: #e0f0f8;
+        }
+        .video-ref-sub-summary::marker,
+        .video-ref-sub-summary::-webkit-details-marker { display: none; }
+        .video-ref-sub-summary::before {
+            content: '▶ ';
+            font-size: 0.7em;
+            color: #467886;
+        }
+        details[open] > .video-ref-sub-summary::before {
+            content: '▼ ';
+        }
+        .video-ref-sub-content {
+            padding: 8px 12px 10px;
+        }
     </style>
     <link rel="stylesheet" href="mobile-adapt.css">
     <script src="mobile-adapt.js"></script>
@@ -236,8 +320,8 @@
     <div class="container">
         <h1>Tutorial 09: Animation and Interactables</h1>
 
-        <p class="note"><em>This page groups the Week 09 materials into the same expandable structure used across the tutorial sheets, while preserving the original source content and media.</em></p>
-        <p class="note"><strong>Version baseline:</strong> Unity 6000.0.58f2, OpenXR, and XR Interaction Toolkit 3.0.10 (including Starter Assets and XR Device Simulator).</p>
+ <!--        <p class="note"><em>This page groups the Week 09 materials into the same expandable structure used across the tutorial sheets, while preserving the original source content and media.</em></p>
+        <p class="note"><strong>Version baseline:</strong> Unity 6000.0.58f2, OpenXR, and XR Interaction Toolkit 3.0.10 (including Starter Assets and XR Device Simulator).</p> -->
 
         <details class="accordion">
             <summary class="accordion-summary">
@@ -246,9 +330,10 @@
                     <a class="summary-download-btn" href="https://github.com/Module-Sheets/XRMMI_Tutorial_Sheets/blob/main/Packages/Tut_09_01_Models.zip" target="_blank" rel="noopener" onclick="event.stopPropagation();">Download Part 1</a>
                 </span>
             </summary>
-            <div class="accordion-content"><div class="resource-box"><p><strong>Implementation video:</strong> <a href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c" target="_blank" rel="noopener">Animation 03 Lego Minifig Animation and Unity Implementation</a></p><p><strong>Finished Unity project example:</strong> <a href="https://universityofwestminster-my.sharepoint.com/:u:/g/personal/fergusj_westminster_ac_uk/ESsgZD0OZ3pNmBx12oz6TPIBV3V7L8GjWemuJyw8KXocyA?e=8QpenJ" target="_blank" rel="noopener">Animation 04 Unity Project</a></p><p><strong>Alternate scripted version:</strong> <a href="https://www.youtube.com/watch?v=H9Ptme4fYR0" target="_blank" rel="noopener">YouTube walkthrough</a></p></div><div class="video-container"><iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Animation implementation concepts video"></iframe></div><div class="video-container"><iframe src="https://www.youtube.com/embed/H9Ptme4fYR0" title="Alternate scripted version" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="imported-content part1-tight"><div class=WordSection1>
+            <div class="accordion-content"><div class="imported-content"><div class=WordSection1>
+            <!-- <div class="accordion-content"><div class="resource-box"><p><strong>Implementation video:</strong> <a href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c" target="_blank" rel="noopener">Animation 03 Lego Minifig Animation and Unity Implementation</a></p><p><strong>Finished Unity project example:</strong> <a href="https://universityofwestminster-my.sharepoint.com/:u:/g/personal/fergusj_westminster_ac_uk/ESsgZD0OZ3pNmBx12oz6TPIBV3V7L8GjWemuJyw8KXocyA?e=8QpenJ" target="_blank" rel="noopener">Animation 04 Unity Project</a></p><p><strong>Alternate scripted version:</strong> <a href="https://www.youtube.com/watch?v=H9Ptme4fYR0" target="_blank" rel="noopener">YouTube walkthrough</a></p></div><div class="video-container"><iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Animation implementation concepts video"></iframe></div><div class="video-container"><iframe src="https://www.youtube.com/embed/H9Ptme4fYR0" title="Alternate scripted version" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="imported-content part1-tight"><div class=WordSection1> -->
 
-<p class=MsoNormal style='margin-bottom:12.0pt;background:white'><b><span
+<!-- <p class=MsoNormal style='margin-bottom:12.0pt;background:white'><b><span
 style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
 color:#262626'>Video with Implementation Concepts:</span></b></p>
 
@@ -267,7 +352,67 @@ color:#262626'>Finished Unity Minifig Project Example:</span></b></p>
 style='color:black'><a
 href="https://universityofwestminster-my.sharepoint.com/:u:/g/personal/fergusj_westminster_ac_uk/ESsgZD0OZ3pNmBx12oz6TPIBV3V7L8GjWemuJyw8KXocyA?e=8QpenJ"><span
 style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
-color:#2073A1'>Animation 04: Unity Project - Animation Simple Interactor</span></a></span></p>
+color:#2073A1'>Animation 04: Unity Project - Animation Simple Interactor</span></a></span></p> -->
+
+<!-- VIDEO REFERENCE SUBSECTION -->
+<div class="video-ref-section">
+    <h3 class="video-ref-title">Video Reference for Pivots and Animation</h3>
+
+    <details class="video-ref-accordion">
+        <summary class="video-ref-summary">Export Lego Walk to Unity – Basic Offsets Overview (Scaling and Translation)</summary>
+        <div class="video-ref-content">
+            <div class="video-container">
+                <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=ecb8f85c-7a27-4e90-bc33-af850099b746&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Export Lego Walk to Unity - Basic Offsets Overview"></iframe>
+            </div>
+        </div>
+    </details>
+
+    <details class="video-ref-accordion">
+        <summary class="video-ref-summary">Pivots and Hierarchy Process for Basic Figures and Objects in Unity</summary>
+        <div class="video-ref-content">
+
+            <details class="video-ref-sub-accordion">
+                <summary class="video-ref-sub-summary">Max to Unity</summary>
+                <div class="video-ref-sub-content">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/O2ouFvbN-f8" title="Max to Unity – Pivots and Hierarchy 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/1l_FqvRNr1g" title="Max to Unity – Pivots and Hierarchy 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/L18swmWMrTI" title="Max to Unity – Pivots and Hierarchy 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </details>
+
+            <details class="video-ref-sub-accordion">
+                <summary class="video-ref-sub-summary">Blender to Unity</summary>
+                <div class="video-ref-sub-content">
+                    <div class="video-container">
+                        <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=f69bed37-f0dd-4eec-b10e-b3aa00b4bd2f&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Blender to Unity – Pivots 1"></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=cab3279e-b031-40ef-9da0-b3aa00b6c16c&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Blender to Unity – Pivots 2"></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=7f8a771b-3f14-4981-b163-b3aa00bc615c&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Blender to Unity – Pivots 3"></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=8e82bc21-ff81-4634-bfec-b3aa00bf4a45&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Blender to Unity – Pivots 4"></iframe>
+                    </div>
+                    <div class="video-container">
+                        <iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=b0fc94a1-7f08-48ff-8f51-b3aa011d4bb6&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Blender to Unity – Pivots 5"></iframe>
+                    </div>
+                </div>
+            </details>
+
+            <h4 class="video-ref-subheading">Padlet</h4>
+            <p><a href="https://padlet.com/university_of_westminster/3dimd-modelling-q7fnmx04ci0we6zk" target="_blank" rel="noopener">3D IMD Modelling Padlet</a></p>
+
+        </div>
+    </details>
+</div>
 
 <p class=MsoNormal>&nbsp;</p>
 
