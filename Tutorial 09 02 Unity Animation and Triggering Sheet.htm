@@ -1,0 +1,828 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Open Sans";}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:36.0pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:36.0pt;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB link=blue vlink="#954F72" style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-bottom:12.0pt;background:white'><b><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#262626'>Video with Implementation Concepts:</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt;background:white'><span
+style='color:black'><a
+href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c"><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#2073A1'>Animation 03 Lego Minifig Animation and Unity Implementation
+Video Link</span></a></span></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt;background:white'><b><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#262626'>Finished Unity Minifig Project Example:</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;background:white'><span
+style='color:black'><a
+href="https://universityofwestminster-my.sharepoint.com/:u:/g/personal/fergusj_westminster_ac_uk/ESsgZD0OZ3pNmBx12oz6TPIBV3V7L8GjWemuJyw8KXocyA?e=8QpenJ"><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#2073A1'>Aniimation 04: Unity Project - Animation Simple Interactor</span></a></span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><b>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span
+dir=LTR></span><b>Unity Animation of Lego Brick </b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>a.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Import Lego Brick and add narrative animation</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>i.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Create Plane, place at 0,0,0, and scale to 10,1,5</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Import a single lego brick and duplicate it twice,
+rename to brick 01, 02, 03</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>iii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Duplicate and replace materials to be R,G,B</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>iv.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Position with snapping (hold CTRL) <a
+href="https://learn.unity.com/tutorial/unity-tips#5c7f8528edbc2a002053b473">https://learn.unity.com/tutorial/unity-tips#5c7f8528edbc2a002053b473</a></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>v.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Select Brick 01</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>vi.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Open Window, Animation from top menu</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>vii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Create Animator/Animation, name as AnimX.anim</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>viii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Add Property: Transform/Position</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ix.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Turn on record button</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>x.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span> See the start key</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xi.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Drag transport  to 0:30, </p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>With Translate gimbal selected (“w” key), drag
+brick in X axis, See the new key made by recording. Turn off recording mode</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xiii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Start keyframe of position.x at 0:00 – copy</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xiv.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Drag transport  to 1:00, paste position.x key here</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xv.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Drag transport bar back and forth to check
+animation.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xvi.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Open Assets Folder and Inspector to see Animator
+Controller</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xvii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Open Animator Window to see State machine and
+Animation</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xviii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Press play button to view narrative animation
+created in Unity!</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xix.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Repeat for other bricks in Y and Z axes, try
+without recording.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>b.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Program input key to trigger Unity Animations</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>i.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Create New Script for Lego Brick 01 – call Animator
+Trigger</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>With Lego Brick 01 selected:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>iii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Create New Animation in Animation Window – name
+Rest</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>iv.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>This should be at the start position and not move</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>v.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Drag the Rest animation into the Animator window
+for Lego Brick 01</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>vi.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Right click to make default state (Entry)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>vii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Delete transition to AnimX, connect to Any State</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>viii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Make transition to Exit State</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ix.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Use key input code to trigger and play AnimX</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>x.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Add a Box collider and select trigger box</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xi.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Use  mousedown code to trigger and play AnimX </p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>xii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Repeat for other bricks</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><b>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span
+dir=LTR></span><b>3DS Max (fbx) Animation Import – Lego Brick Array</b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>a.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Import brick with multiple animations – array</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>b.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Divide into resting, explode, and implode animations</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>i.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>This is done in by selecting whole array model in
+project window</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>In Inspector window, view Animation tab</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>c.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Setup animator controller and explode, implode off of entry</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>i.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Right click in project to create animator
+controller</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:108.0pt;text-indent:
+-108.0pt'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>In top window menu, open Animator window</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>d.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Create bricks to trigger explode and implode</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>e.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Put script on explode brick to access the explode by public GO
+variable</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>f.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Put script on implode brick to access the implode
+by FindObject.GetComponent.Script</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>g.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>This relies on Animator States to control the exploded, imploded
+states</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt'>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpMiddle><a
+href="https://www.youtube.com/watch?v=H9Ptme4fYR0">Alternate scripted version</a>:
+Have Boolean to check for exploded, imploded state (all is internal on brick
+array script)</p>
+
+<p class=MsoListParagraphCxSpMiddle>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><b>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span
+dir=LTR></span><b>Try the same with the Lego Minifigure</b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>a.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Import Lego Minifigs into Unity or start with the 1<sup>st</sup>
+Unity Project with them imported</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>b.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Create animations for Minifigs with Animation window as above</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>c.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Create Animator for Minifigs with Animator as above</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>d.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Download and study the 2<sup>nd</sup> Unity project </p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>e.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Setup the first project as per the 2<sup>nd</sup> project with
+XRIT, OpenXR, make VR Rig with XR Controller Input Actions and Rays, and Simple
+Interactors on the Cubes and Objects</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>f.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span dir=LTR></span>Use Interactable events Hover and Select to trigger
+the animations</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'>g.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Use Animator.enable for the Cubes</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:72.0pt;text-indent:-18.0pt'>h.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span>Use Animator.Play or Animator.SetTrigger for the Minifigs</p>
+
+<p class=MsoNormal><b><u><span style='text-decoration:none'>&nbsp;</span></u></b></p>
+
+<p class=MsoNormal><b><u>Code:</u></b></p>
+
+<p class=MsoNormal><b><span style='font-size:8.0pt;line-height:107%'>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b><u>Script - Trigger Animations in Animator</u></b></p>
+
+<p class=MsoNormal><b><u>AnimatorTrigger</u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>
+System.Collections.Generic;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>class</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF'>AnimatorTrigger</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> : MonoBehaviour</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>{</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Start is called
+before the first frame update</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Start</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Update is called
+once per frame</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Update</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> (Input.GetKeyDown(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;1&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>))</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>                     </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>this</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;AnimX&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>OnMouseDown</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>this</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;AnimX&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:107%;font-family:
+Consolas;color:black'>}</span></p>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'>Brick Array
+anims controlled by other bricks</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'><span
+ style='text-decoration:none'>&nbsp;</span></span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'>BrickTriggerExplode</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'><span
+ style='text-decoration:none'>&nbsp;</span></span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>
+System.Collections.Generic;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>class</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF'>BrickTriggerExplode</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> : MonoBehaviour</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>{</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> GameObject
+brickArray;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Use this for
+initialization</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Start</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Update is called
+once per frame</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Update</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>OnMouseDown</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              brickArray.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;Explode&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              </span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>}</span></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'>BrickTriggerExplode</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>
+System.Collections.Generic;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>class</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF'>BrickTriggerImplode</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> : MonoBehaviour</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>{</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>private</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> GameObject
+brickArrayT;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Use this for
+initialization</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Start</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              brickArrayT
+= GameObject.FindGameObjectWithTag(</span><span style='font-size:9.5pt;
+font-family:Consolas;color:#A31515'>&quot;BrickArrayTag&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Update is called
+once per frame</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Update</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>OnMouseDown</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              brickArrayT.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;Implode&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>}</span></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><u><span style='font-size:9.0pt;line-height:107%;
+font-family:Consolas'>Lego Minifig Find GO</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;
+background:lightgrey'>using</span><span lang=EN-US style='font-size:9.5pt;
+font-family:Consolas;color:black;background:lightgrey'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;
+background:lightgrey'>using</span><span lang=EN-US style='font-size:9.5pt;
+font-family:Consolas;color:black;background:lightgrey'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;
+background:lightgrey'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;
+background:lightgrey'>public</span><span lang=EN-US style='font-size:9.5pt;
+font-family:Consolas;color:black;background:lightgrey'> </span><span
+lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;background:
+lightgrey'>class</span><span lang=EN-US style='font-size:9.5pt;font-family:
+Consolas;color:black;background:lightgrey'> </span><span lang=EN-US
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF;background:lightgrey'>InteractionScale</span><span
+lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;background:
+lightgrey'> : MonoBehaviour {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;
+background:lightgrey'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;
+background:lightgrey'>    GameObject legoMinifig;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:8.0pt;line-height:107%'>&nbsp;</span></b></p>
+
+</div>
+
+</body>
+
+</html>
