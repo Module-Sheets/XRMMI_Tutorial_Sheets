@@ -1,0 +1,1660 @@
+﻿<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 09: Animation and Interactables</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 0;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        p,
+        li {
+            color: #1f1f1f;
+        }
+        a {
+            color: #467886;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ol,
+        ul {
+            margin-left: 22px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .note {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .resource-box {
+            background-color: #f4f8ff;
+            border-left: 4px solid #0F4761;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .imported-content {
+            margin-top: 14px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            overflow-x: auto;
+        }
+        .imported-content .WordSection1 {
+            max-width: 100%;
+        }
+        .imported-content p,
+        .imported-content li,
+        .imported-content div {
+            line-height: 1.45;
+        }
+        .imported-content img {
+            max-width: 100%;
+            height: auto;
+        }
+        .imported-content table {
+            max-width: 100%;
+            border-collapse: collapse;
+        }
+        .imported-content td,
+        .imported-content th {
+            border: 1px solid #ddd;
+            padding: 6px;
+            vertical-align: top;
+        }
+        .part1-tight p,
+        .part1-tight li,
+        .part1-tight div {
+            line-height: 1.2 !important;
+        }
+        .part1-tight p {
+            margin-top: 0 !important;
+            margin-bottom: 2px !important;
+        }
+        .part1-tight p.MsoListParagraph,
+        .part1-tight p.MsoListParagraphCxSpFirst,
+        .part1-tight p.MsoListParagraphCxSpMiddle,
+        .part1-tight p.MsoListParagraphCxSpLast {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            line-height: 1.15 !important;
+        }
+        .part1-tight p[style*="Consolas"] {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            line-height: 1.1 !important;
+        }
+        .part1-steps {
+            margin: 6px 0 10px 22px;
+        }
+        .part1-steps > li {
+            margin: 8px 0;
+        }
+        .part1-steps ol {
+            margin: 4px 0 8px 24px;
+            list-style-type: lower-alpha;
+        }
+        .part1-steps ol li {
+            margin: 4px 0;
+        }
+        .part1-subroman {
+            list-style-type: lower-roman;
+            margin-left: 24px;
+        }
+        .part1-subalpha {
+            list-style-type: lower-alpha;
+            margin: 4px 0 10px 24px;
+        }
+        .part1-subalpha > li {
+            margin: 4px 0;
+        }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .summary-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .summary-download-btn {
+            background-color: #0F4761;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85em;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        .summary-download-btn:hover {
+            background-color: #1a5f7f;
+            color: white;
+            text-decoration: none;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-adapt.css">
+    <script src="mobile-adapt.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 09: Animation and Interactables</h1>
+
+        <p class="note"><em>This page groups the Week 09 materials into the same expandable structure used across the tutorial sheets, while preserving the original source content and media.</em></p>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 1: Animation</h2>
+                <span class="summary-actions">
+                    <a class="summary-download-btn" href="https://github.com/Module-Sheets/XRMMI_Tutorial_Sheets/blob/main/Packages/Tut_09_01_Models.zip" target="_blank" rel="noopener" onclick="event.stopPropagation();">Download Part 1</a>
+                </span>
+            </summary>
+            <div class="accordion-content"><div class="resource-box"><p><strong>Implementation video:</strong> <a href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c" target="_blank" rel="noopener">Animation 03 Lego Minifig Animation and Unity Implementation</a></p><p><strong>Finished Unity project example:</strong> <a href="https://universityofwestminster-my.sharepoint.com/:u:/g/personal/fergusj_westminster_ac_uk/ESsgZD0OZ3pNmBx12oz6TPIBV3V7L8GjWemuJyw8KXocyA?e=8QpenJ" target="_blank" rel="noopener">Animation 04 Unity Project</a></p><p><strong>Alternate scripted version:</strong> <a href="https://www.youtube.com/watch?v=H9Ptme4fYR0" target="_blank" rel="noopener">YouTube walkthrough</a></p></div><div class="video-container"><iframe src="https://westminster.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c&autoplay=false&offerviewer=true&showtitle=true&showbrand=true&captions=false&interactivity=all" allowfullscreen allow="autoplay" title="Animation implementation concepts video"></iframe></div><div class="video-container"><iframe src="https://www.youtube.com/embed/H9Ptme4fYR0" title="Alternate scripted version" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="imported-content part1-tight"><div class=WordSection1>
+
+<p class=MsoNormal style='margin-bottom:12.0pt;background:white'><b><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#262626'>Video with Implementation Concepts:</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt;background:white'><span
+style='color:black'><a
+href="https://westminster.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33f32428-e511-407b-ac06-af6b00e4e58c"><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#2073A1'>Animation 03 Lego Minifig Animation and Unity Implementation
+Video Link</span></a></span></p>
+
+<p class=MsoNormal style='margin-bottom:12.0pt;background:white'><b><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#262626'>Finished Unity Minifig Project Example:</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;background:white'><span
+style='color:black'><a
+href="https://universityofwestminster-my.sharepoint.com/:u:/g/personal/fergusj_westminster_ac_uk/ESsgZD0OZ3pNmBx12oz6TPIBV3V7L8GjWemuJyw8KXocyA?e=8QpenJ"><span
+style='font-size:10.5pt;line-height:107%;font-family:"Open Sans",sans-serif;
+color:#2073A1'>Animation 04: Unity Project - Animation Simple Interactor</span></a></span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><b>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span dir=LTR></span><b>Unity Animation of Lego Brick</b></p>
+
+<ol class="part1-steps">
+    <li>Import Lego Brick
+        <ol>
+            <li>Create Plane, place at 0,0,0, and scale to 10,1,5</li>
+            <li>Import a single lego brick and duplicate it twice, rename to brick 01, 02, 03</li>
+            <li>Duplicate and replace materials to be R,G,B</li>
+            <li>Position with snapping (hold CTRL)<br><a href="https://learn.unity.com/tutorial/unity-tips#5c7f8528edbc2a002053b473">https://learn.unity.com/tutorial/unity-tips#5c7f8528edbc2a002053b473</a></li>
+        </ol>
+    </li>
+    <li>Add Narrative Animation by Recording
+        <ol>
+            <li>Select Brick 01</li>
+            <li>Open Window, Animation from top menu</li>
+            <li>Create Animator/Animation, name as AnimX.anim</li>
+            <li>Add Property: Transform/Position</li>
+            <li>Turn on record button</li>
+            <li>See the start key</li>
+            <li>Drag transport to 0:30</li>
+            <li>With Translate gimbal selected ("w" key), drag brick in X axis</li>
+            <li>See the new key made by recording.</li>
+            <li>Turn off recording mode</li>
+        </ol>
+    </li>
+    <li>Edit Animation Keys
+        <ol>
+            <li>Start Transport bar at keyframe of position.x at 0:00</li>
+            <li>Select and copy keyframe</li>
+            <li>Drag transport to 1:00, paste position.x key here</li>
+            <li>Drag transport bar back and forth to check animation.</li>
+        </ol>
+    </li>
+    <li>Animator Controller
+        <ol>
+            <li>Open Assets Folder and Inspector to see Animator Controller</li>
+            <li>Open Animator Window to see State machine and Animation</li>
+            <li>Press play button to view narrative animation created in Unity!</li>
+            <li>Repeat for other bricks in Y and Z axes, try without recording.</li>
+        </ol>
+    </li>
+    <li>Program input key to trigger Unity Animations
+        <ol>
+            <li>Create New Script for Lego Brick 01 - call Animator Trigger</li>
+            <li>With Lego Brick 01 selected:</li>
+            <li>Create New Animation in Animation Window - name Rest</li>
+            <li>This should be at the start position and not move</li>
+            <li>Drag the Rest animation into the Animator window for Lego Brick 01</li>
+            <li>Right click to make default state (Entry)</li>
+            <li>Delete transition to AnimX, connect to Any State</li>
+            <li>Make transition to Exit State</li>
+            <li>Use key input code to trigger and play AnimX</li>
+            <li>Add a Box collider and select trigger box</li>
+            <li>Use mousedown code to trigger and play AnimX</li>
+            <li>Repeat for other bricks</li>
+        </ol>
+    </li>
+</ol>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><b>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span dir=LTR></span><b>3DS Max (fbx) Animation Import - Lego Brick Array</b></p>
+<ol class="part1-subalpha">
+    <li>Import brick with multiple animations - array</li>
+    <li>Divide into resting, explode, and implode animations
+        <ol class="part1-subroman">
+            <li>This is done by selecting whole array model in project window</li>
+            <li>In Inspector window, view Animation tab</li>
+        </ol>
+    </li>
+    <li>Setup animator controller and explode, implode off of entry
+        <ol class="part1-subroman">
+            <li>Right click in project to create animator controller</li>
+            <li>In top window menu, open Animator window</li>
+        </ol>
+    </li>
+    <li>Create bricks to trigger explode and implode</li>
+    <li>Put script on explode brick to access the explode by public GO variable</li>
+    <li>Put script on implode brick to access the implode by FindObject.GetComponent.Script</li>
+    <li>This relies on Animator States to control the exploded, imploded states</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=H9Ptme4fYR0">Alternate scripted version</a>: Have Boolean to check for exploded, imploded state (all is internal on brick array script)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><b>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span dir=LTR></span><b>Try the same with the Lego Minifigure</b></p>
+<ol class="part1-subalpha">
+    <li>Import Lego Minifigs into Unity or start with the 1<sup>st</sup> Unity Project with them imported</li>
+    <li>Create animations for Minifigs with Animation window as above</li>
+    <li>Create Animator for Minifigs with Animator as above</li>
+    <li>Download and study the 2<sup>nd</sup> Unity project</li>
+    <li>Setup the first project as per the 2<sup>nd</sup> project with XRIT, OpenXR, make VR Rig with XR Controller Input Actions and Rays, and Simple Interactors on the Cubes and Objects</li>
+    <li>Use Interactable events Hover and Select to trigger the animations</li>
+    <li>Use Animator.enable for the Cubes</li>
+    <li>Use Animator.Play or Animator.SetTrigger for the Minifigs</li>
+</ol>
+
+<p class=MsoNormal><b><u>Code:</u></b></p>
+
+<p class=MsoNormal><b><span style='font-size:8.0pt;line-height:107%'>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b><u>Script - Trigger Animations in Animator</u></b></p>
+
+<p class=MsoNormal><b><u>AnimatorTrigger</u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>
+System.Collections.Generic;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>class</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF'>AnimatorTrigger</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> : MonoBehaviour</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>{</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Start is called
+before the first frame update</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Start</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Update is called
+once per frame</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Update</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>if</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> (Input.GetKeyDown(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;1&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>))</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>                     </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>this</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;AnimX&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>OnMouseDown</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>this</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;AnimX&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:107%;font-family:
+Consolas;color:black'>}</span></p>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:9.5pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'>Brick Array
+anims controlled by other bricks</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'><span
+ style='text-decoration:none'>&nbsp;</span></span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'>BrickTriggerExplode</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'><span
+ style='text-decoration:none'>&nbsp;</span></span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>
+System.Collections.Generic;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>class</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF'>BrickTriggerExplode</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> : MonoBehaviour</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>{</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> GameObject
+brickArray;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Use this for
+initialization</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Start</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Update is called
+once per frame</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Update</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>OnMouseDown</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              brickArray.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;Explode&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              </span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>}</span></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><b><u><span style='font-size:9.0pt;font-family:Consolas'>BrickTriggerExplode</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>
+System.Collections.Generic;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>using</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>class</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF'>BrickTriggerImplode</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> : MonoBehaviour</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>{</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>private</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> GameObject
+brickArrayT;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Use this for
+initialization</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Start</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              brickArrayT
+= GameObject.FindGameObjectWithTag(</span><span style='font-size:9.5pt;
+font-family:Consolas;color:#A31515'>&quot;BrickArrayTag&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:green'>// Update is called
+once per frame</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>Update</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>public</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>void</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'> </span><span
+style='font-size:9.5pt;font-family:Consolas;color:blue'>OnMouseDown</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>()</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>              brickArrayT.GetComponent&lt;Animator&gt;().Play(</span><span
+style='font-size:9.5pt;font-family:Consolas;color:#A31515'>&quot;Implode&quot;</span><span
+style='font-size:9.5pt;font-family:Consolas;color:black'>);</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>       }</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span style='font-size:9.5pt;font-family:Consolas;color:black'>}</span></p>
+
+<p class=MsoNormal><span style='font-size:8.0pt;line-height:107%;font-family:
+Consolas;color:black'>&nbsp;</span></p>
+
+<p class=MsoNormal><b><u><span style='font-size:9.0pt;line-height:107%;
+font-family:Consolas'>Lego Minifig Find GO</span></u></b></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;
+background:lightgrey'>using</span><span lang=EN-US style='font-size:9.5pt;
+font-family:Consolas;color:black;background:lightgrey'> UnityEngine;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;
+background:lightgrey'>using</span><span lang=EN-US style='font-size:9.5pt;
+font-family:Consolas;color:black;background:lightgrey'> System.Collections;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;
+background:lightgrey'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;
+background:lightgrey'>public</span><span lang=EN-US style='font-size:9.5pt;
+font-family:Consolas;color:black;background:lightgrey'> </span><span
+lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:blue;background:
+lightgrey'>class</span><span lang=EN-US style='font-size:9.5pt;font-family:
+Consolas;color:black;background:lightgrey'> </span><span lang=EN-US
+style='font-size:9.5pt;font-family:Consolas;color:#2B91AF;background:lightgrey'>InteractionScale</span><span
+lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;background:
+lightgrey'> : MonoBehaviour {</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;
+background:lightgrey'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:0cm;line-height:normal;text-autospace:
+none'><span lang=EN-US style='font-size:9.5pt;font-family:Consolas;color:black;
+background:lightgrey'>    GameObject legoMinifig;</span></p>
+
+<p class=MsoNormal><b><span style='font-size:8.0pt;line-height:107%'>&nbsp;</span></b></p>
+
+</div></div>
+            </div>
+        </details>
+
+                <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 2: Poke Interactible</h2>
+            </summary>
+            <div class="accordion-content"><div class="imported-content"><div class=WordSection1>
+
+<p class=MsoTitle><span lang=EN-US>Buttons Using Poke Interaction</span></p>
+
+<h1><span lang=EN-US>Introduction</span></h1>
+
+<p class=MsoNormal><span lang=EN-US>The Unity XR Interaction toolkit (and its
+starter assets) provide 3 components which we will combine to create a
+functional button which can be activated by the player pushing it with their
+hand. </span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>XR Simple Interactable –
+Handles events and callbacks</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>XR Poke Filter – Detects
+collisions from specific directions and passes activation events to an interactable</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>XR Poke Follow Affordance –
+This is a script from the XRIT Starter Assets which controls visual movement of
+button when the button is pressed</span></p>
+
+<p class=MsoNormal><span lang=EN-US>With these 3 components we will make a
+button that can be activated by a user pressing it with their hand. The button
+will then call a function and will move based on where the users' hand is for
+visual feedback. </span></p>
+
+<p class=MsoNormal><span lang=EN-US>Note: this tutorial assumes you have a
+project with the following packages</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>OpenXR</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>XR Interaction Toolkit</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>Starter Assets</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:72.0pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>XR Device Simulator
+(optional – needed for working without hardware)</span></p>
+
+<span lang=EN-US style='font-size:12.0pt;line-height:116%;font-family:"Aptos",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<h3 style='margin-top:0cm;margin-right:-1.0pt;margin-bottom:4.0pt;margin-left:
+0cm;background:white'><span class=Heading1Char><span lang=EN-US
+style='font-size:20.0pt;line-height:116%'>Tutorial</span></span><span
+lang=EN-US><br>
+</span><span class=Heading2Char><span lang=EN-US style='font-size:16.0pt;
+line-height:116%'>Setting Up the Scene</span></span></h3>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Create a new scene</span></b><span
+lang=EN-US>. Go to “File” &gt; “New Scene”</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='color:#1B1642'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Delete
+the “Main Camera”</span></b><span lang=EN-US style='color:#1B1642'> that is in
+the scene</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add a Teleportation
+Area</span></b><span lang=EN-US style='color:#1B1642'>. </span><span
+lang=EN-US>Right-click in the Hierarchy, select “XR” &gt; “Teleportation Area” </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+width=358 height=217 id="Picture 901743482"
+src="Tutorial%2009%2001%20Poke%20Interactable%20Stefan_files/image001.png"></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Add the XR Device
+Simulator and XR Interaction Setup prefabs</span></b><span lang=EN-US>. Drag
+the &quot;XR Interaction Setup&quot; (Assets/XRLab/Prefabs/ XR Interaction
+Setup.prefab) and &quot;XR Device Simulator&quot; prefabs into your scene</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='color:#1B1642'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Add a GameObject for the
+button base</span></b><span lang=EN-US>. Right-click in the Hierarchy, select
+&quot;3D Object&quot; &gt; &quot;Cube&quot;. This will be the base of our
+button. Rename it to &quot;ButtonBase&quot;.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='color:#1B1642'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Add a GameObject for the
+button cap</span></b><span lang=EN-US>. Right-click on the
+&quot;ButtonBase&quot; GameObject, select &quot;3D Object&quot; &gt;
+&quot;Cube&quot; again. This will be the cap of the button that can be pressed
+down. Rename it to &quot;ButtonCap&quot;.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='color:#1B1642'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:#1B1642'>(Optional)
+Add a different material to the button cap</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:#1B1642'>Your scene should
+look like this and should allow you to teleport around the area when running
+the same </span><span lang=EN-US><br>
+<img width=634 height=263 id="Picture 1889484091"
+src="Tutorial%2009%2001%20Poke%20Interactable%20Stefan_files/image002.png"></span><span
+class=Heading2Char><span lang=EN-US style='font-size:16.0pt;line-height:116%'>Simple
+Interactable Component</span></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-top:0cm;margin-right:-1.0pt;
+margin-bottom:8.0pt;margin-left:18.0pt;text-indent:-18.0pt;background:white'><span
+lang=EN-US style='color:#1B1642'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Select
+the ButtonCap</span></b><span lang=EN-US style='color:#1B1642'> GameObject in
+the Hierarchy.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-top:0cm;margin-right:-1.0pt;
+margin-bottom:8.0pt;margin-left:18.0pt;text-indent:-18.0pt;background:white'><span
+lang=EN-US>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add
+the Simple Interactable Component</span></b><span lang=EN-US style='color:#1B1642'>.
+In the Inspector, click on &quot;Add Component&quot; and search for
+&quot;Simple Interactable&quot;. Select it to add the component to your button.</span><span
+lang=EN-US style='color:black'><br>
+<img width=638 height=159 id="Picture 1988018881"
+src="Tutorial%2009%2001%20Poke%20Interactable%20Stefan_files/image003.png"></span></p>
+
+<h2><span lang=EN-US>Poke Filter and Poke Affordance</span></h2>
+
+<p class=MsoListParagraphCxSpFirst style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add the “Poke Filter”
+component.</span></b><span lang=EN-US style='color:#1B1642'> In the Inspector,
+click on &quot;Add Component&quot; and search for &quot;Poke Filter&quot; and
+add it to your button. The Interactable and Poke Collider fields should
+automatically be assigned the references</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US style='color:#1B1642'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add the “Poke
+Affordance” component. </span></b><span lang=EN-US style='color:#1B1642'>Click
+on &quot;Add Component&quot; again and search for &quot;Poke Affordance&quot;.
+Select it to add the component to your button.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US style='color:#1B1642'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Assign reference to
+the ButtonCap transform to Poke Affordance component.</span></b><span
+lang=EN-US style='color:#1B1642'> Drag the transform component of ButtonCap into
+the “Poke Follow Transform” field.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Set the “Max Distance”
+field of the poke affordance component to 0.045.</span></b><span lang=EN-US
+style='color:#1B1642'> You can change this value if you want to the button to
+move more or less when pressed. </span></p>
+
+<p class=MsoNormal style='margin-right:-1.0pt;background:white'><span
+lang=EN-US style='color:black'><img width=714 height=348 id="Picture 750042461"
+src="Tutorial%2009%2001%20Poke%20Interactable%20Stefan_files/image004.png"></span></p>
+
+<h2><span lang=EN-US>Adding Button Functionality</span></h2>
+
+<h3><span lang=EN-US>Callback Implementation</span></h3>
+
+<p class=MsoListParagraphCxSpFirst style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Create a new script.</span></b><span
+lang=EN-US style='color:#1B1642'> Right-click in the Project window, select
+&quot;Create&quot; &gt; &quot;C# Script&quot;, and give it a name.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US style='color:#1B1642'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Open the script.</span></b><span
+lang=EN-US style='color:#1B1642'> Double-click on the script to open it</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Write
+a function to activate.</span></b><span lang=EN-US style='color:#1B1642'> Inside
+the script, Write a public function and add some code inside. In the following
+example, a print statement is used for testing but this can be any code you
+want to be activated. </span><span lang=EN-US style='color:black'><br>
+<img width=335 height=84 id="Picture 1974744802"
+src="Tutorial%2009%2001%20Poke%20Interactable%20Stefan_files/image005.png"></span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add script component
+to button.</span></b><span lang=EN-US style='color:#1B1642'> Go back to Unity,
+select the &quot;ButtonBase&quot; GameObject, click on &quot;Add
+Component&quot; in the Inspector, and add the script you just made.</span></p>
+
+<h3><span lang=EN-US>Interactable Event</span></h3>
+
+<p class=MsoListParagraphCxSpFirst style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><span lang=EN-US style='color:#1B1642'>Select the ButtonCap
+GameObject in the Hierarchy.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US style='color:#1B1642'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><span lang=EN-US style='color:#1B1642'>In the Inspector, find
+the &quot;Simple Interactable&quot; component.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US style='color:#1B1642'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><span lang=EN-US style='color:#1B1642'>Click on the
+&quot;+&quot; button next to &quot;On Select&quot; to add a new event</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US style='color:#1B1642'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><span lang=EN-US style='color:#1B1642'>Drag in the instance of
+your script from the “ButtonBase”</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><span lang=EN-US style='color:#1B1642'>Select the Test function
+from the dropdown</span></p>
+
+<p class=MsoNormal style='margin-right:-1.0pt;background:white'><span
+lang=EN-US style='color:black'><img width=480 height=426 id="Picture 1143293223"
+src="Tutorial%2009%2001%20Poke%20Interactable%20Stefan_files/image006.png"></span></p>
+
+<h2><span lang=EN-US>Testing The Button</span></h2>
+
+<p class=MsoListParagraphCxSpFirst style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Enter Play Mode</span></b><span
+lang=EN-US style='color:#1B1642'>. Click on the &quot;Play&quot; button in
+Unity.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-right:-1.0pt;text-indent:
+-18.0pt;background:white'><span lang=EN-US style='color:#1B1642'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Press the button</span></b><span
+lang=EN-US style='color:#1B1642'>. Use your mouse to click on the button in the
+scene, or if using VR, move your hand close to the button and poke it.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-right:-1.0pt;text-indent:-18.0pt;
+background:white'><span lang=EN-US style='color:#1B1642'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Check the console</span></b><span
+lang=EN-US style='color:#1B1642'>. If everything is set up correctly and you
+used the function from “Callback Implementation” step 3 you should see &quot;The
+button was pressed&quot; printed in the console when the button is activated.</span></p>
+
+<span lang=EN-US style='font-size:12.0pt;line-height:116%;font-family:"Aptos",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Additional Reading</span></h2>
+
+<p class=MsoNormal><span lang=EN-US>Poke Filter documentation <a
+href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.Filtering.XRPokeFilter.html">https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.Filtering.XRPokeFilter.html</a>
+<br>
+<br>
+</span></p>
+
+<p class=MsoNormal><span lang=FR>Simple Interactable documentation </span><span
+lang=EN-US><a
+href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRSimpleInteractable.html"><span
+lang=FR>https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRSimpleInteractable.html</span></a></span><span
+lang=EN-US> </span></p>
+
+<p class=MsoNormal><span lang=FR>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Poke Interactor documentation <a
+href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRPokeInteractor.html">https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.4/api/UnityEngine.XR.Interaction.Toolkit.XRPokeInteractor.html</a> 
+</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+</div></div>
+            </div>
+        </details>
+<details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 3: Door Grabbable</h2>
+                <span class="summary-actions">
+                    <a class="summary-download-btn" href="https://github.com/Module-Sheets/XRMMI_Tutorial_Sheets/blob/main/Packages/Tut_09_VR_Door_Grabbable_Tutorial_Resources.unitypackage" target="_blank" rel="noopener" onclick="event.stopPropagation();">Download Part 3</a>
+                </span>
+            </summary>
+            <div class="accordion-content"><div class="imported-content"><div class=WordSection1>
+
+<p class=MsoTitle><span lang=EN-US>VR Door Grabbable Tutorial</span></p>
+
+<h1><span lang=EN-US>Introduction</span></h1>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>The Unity XR
+Interaction toolkit has a few components we can combine to create a door we can
+open in VR by grabbing and pulling/pushing the handle. </span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>Hinge
+Joint – Allows an object to rotate around a given point like a door</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>Fixed
+joint – This component allows an object to combine its rigidbody with another </span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>XR Grab
+Interactable – This component lets you hold objects and provides callbacks when
+the hand is near</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='color:black'>Note: this tutorial
+assumes you have a project with the following packages</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>OpenXR</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>XR
+Interaction Toolkit</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol;color:black'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>XR
+Device Simulator (optional – needed for working without hardware)</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:72.0pt;text-indent:-18.0pt'><span
+lang=EN-US style='font-family:Symbol;color:black'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>Starter
+Assets (optional but recommended)</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>XR
+Knob, Door and Transform Joint scripts from </span><span lang=EN-US><a
+href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples">https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples</a></span><span
+lang=EN-US style='color:black'> </span></p>
+
+<h1><span lang=EN-US>Tutorial</span></h1>
+
+<p class=MsoNormal style='margin-top:0cm;margin-right:-1.0pt;margin-bottom:
+4.0pt;margin-left:0cm;page-break-after:avoid;background:white'><span
+class=Heading2Char><span lang=EN-US style='font-size:16.0pt;line-height:116%'>Setting
+Up the Scene</span></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='color:black'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:black'>Create
+a new scene</span></b><span lang=EN-US style='color:black'>. Go to “File” &gt;
+“New Scene”</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='color:#1B1642'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Delete
+the “Main Camera”</span></b><span lang=EN-US style='color:#1B1642'> that is in
+the scene</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='color:black'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add
+a Teleportation Area</span></b><span lang=EN-US style='color:#1B1642'>. </span><span
+lang=EN-US style='color:black'>Right-click in the Hierarchy, select “XR” &gt;
+“Teleportation Area” </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><img
+border=0 width=357 height=217 id="Picture 1597211888"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image001.png"></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+lang=EN-US style='color:black'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:black'>Add
+the XR Device Simulator and XR Interaction Setup prefabs</span></b><span
+lang=EN-US style='color:black'>. Drag the &quot;XR Interaction Setup&quot;
+(Assets/XRLab/Prefabs/ XR Interaction Setup.prefab) and &quot;XR Device
+Simulator&quot; prefabs into your scene</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US
+style='color:black'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US style='color:black'>Enable
+or disable the simulator depending on if you’re using VR or Simulated </span></p>
+
+<h2><span lang=EN-US>Setting up the door (Push open)</span></h2>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US style='color:black'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:black'>Add
+your door model.</span></b><span lang=EN-US style='color:black'> Drag the door
+model into the scene. If you do not have one, flattened cube will also work</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US style='color:black'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:black'>Add
+a Hinge Joint Component to the door. </span></b><span lang=EN-US
+style='color:black'>On the door object, click “Add Component” and add a Hinge
+Joint component from the Physics section of the component list (This will
+automatically add a Rigidbody if there isn’t one)</span><span lang=EN-US><img
+border=0 width=612 height=490 id="Picture 1986764219"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image002.jpg"></span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Add a box collider
+component to the door if there is not one there already</span></b></p>
+
+<span lang=EN-US style='font-size:12.0pt;line-height:116%;font-family:"Aptos",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Adjust anchor and axis
+(optional).  </span></b><span lang=EN-US>The yellow arrow for the hinge should
+be at the edge of the door pointing upwards. You can change the position using
+the “Anchor” and the rotation using the “Axis”. The axis accepts a value
+between –1 and 1 for each axis<img border=0 width=576 height=403
+id="Picture 1041097760"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image003.jpg"></span></p>
+
+<span lang=EN-US style='font-size:12.0pt;line-height:116%;font-family:"Aptos",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Set up Angular Limits.</span></b><span
+lang=EN-US> First set the “Use Limits” checkbox to true and click on “Edit
+Angular Limits”. Then change the angular limits by moving the bounds in the
+“Scene” window. This will stop the door moving outside of this area  <img
+border=0 width=576 height=539 id="Picture 1317877858"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image004.jpg"></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Initial testing
+(optional).</span></b><span lang=EN-US> At this point, the door should open
+when pushed by an object with a collider however, you can’t grab the handle and
+open the door at this stage.</span></p>
+
+<p class=MsoListParagraphCxSpLast><span lang=EN-US>&nbsp;</span></p>
+
+<span lang=EN-US style='font-size:12.0pt;line-height:116%;font-family:"Aptos",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<h2><span lang=EN-US>Door Handle</span></h2>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Add an empty transform
+with a handle as a child on the door.</span></b><span lang=EN-US> On the model
+of the door which will move, add an empty transform and add the mesh that will
+be the handle as a child of that transform</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US><img border=0 width=193 height=83 id="Picture 769265578"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image005.png"></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US style='background:red'>&nbsp;</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><span dir=LTR></span><b><span lang=EN-US>Add a collider to
+the door handle mesh (If there isn’t one already)</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Add a Fixed Joint
+component.</span></b><span lang=EN-US> Add a fixed Joint to the handle object.
+It is in the physics section of the component menu</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Set the “Connected Body”
+parameter of the Fixed Joint to the door itself</span></b><span lang=EN-US><img
+border=0 width=424 height=576 id="Picture 1063868866"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image006.jpg"></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Add a “Door” script to
+the parent transform of the door.</span></b><span lang=EN-US> Add a “Door”
+script to the “DoorFrame” object and drag the door into the “Door Joint”
+parameter of the script. This will fill it with the Hinge Joint</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Create 2 empties called “HandleInteractable”
+and “Puller” as a child of door</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US> </span></b><span lang=EN-US><img border=0 width=243 height=110
+id="Picture 2079215675"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image007.png"></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><span lang=EN-US>Add a “Transform Joint”
+script to the Puller</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><span dir=LTR></span><b><span lang=EN-US>Turn off gravity on
+the rigidbody on Puller</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><span dir=LTR></span><b><span lang=EN-US>Add a sphere
+collider to Puller and make it small enough to fit most of the handle but not
+overlap with the door frame</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>10.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US>Set the collider on puller to a trigger</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>11.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US>On the DoorFrame, Drag the Transform Joint
+from the Puller into the “Door Puller” field of the “Door” script</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>12.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US>Add an “XR Knob” script to the Hand
+Interactable</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>13.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US>Click the ‘+’ on the colliders and drag in
+the door handle collider</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>14.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US>Click the ‘+’ on the “On Value Changed
+(single)” field and drag in the “DoorFrame” from the hierarchy</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>15.<span style='font:7.0pt "Times New Roman"'> </span></span><span
+dir=LTR></span><b><span lang=EN-US>Set the function to “DoorHandleUpdate</span></b><span
+lang=EN-US>”<img border=0 width=576 height=354 id="Picture 1513148855"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image008.jpg"></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>16.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US> Expand the “Interactable Events” dropdown
+at the bottom of the script and find the “Select” section</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>17.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US>Click the ‘+’ on Select Entered and drag in
+the DoorFrame into the object slot</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>18.<span style='font:7.0pt "Times New Roman"'> </span></span><span
+dir=LTR></span><b><span lang=EN-US>Assign the function: Door &gt;
+BeginDoorPulling</span></b><span lang=EN-US> <img border=0 width=576
+height=358 id="Picture 1027515489"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image009.jpg"></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><b><span
+lang=EN-US>19.<span style='font:7.0pt "Times New Roman"'> </span></span></b><span
+dir=LTR></span><b><span lang=EN-US>Click the ‘+’ on Select Exited and drag in
+the DoorFrame into the object slot</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>20.<span style='font:7.0pt "Times New Roman"'> </span></span><span
+dir=LTR></span><b><span lang=EN-US>Assign the function:  Door &gt;
+EndDoorPulling</span></b><span lang=EN-US><img border=0 width=576 height=319
+id="Picture 1246715773"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image010.jpg"></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:54.0pt;text-indent:-18.0pt'><span
+lang=EN-US>21.<span style='font:7.0pt "Times New Roman"'> </span></span><span
+dir=LTR></span><b><span lang=EN-US style='color:black'>Create a new layer and
+set the door to it.</span></b><span lang=EN-US style='color:black'> On the door
+object that opens, create a new layer for doors and assign it to the game
+object. When the popup asks to change child objects, select “No, this object
+only”</span><span lang=EN-US><br>
+<img border=0 width=576 height=180 id="Picture 757989041"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image011.jpg"><br>
+<img border=0 width=576 height=151 id="Picture 292161869"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image012.jpg"></span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US>22.<span
+style='font:7.0pt "Times New Roman"'> </span></span><span dir=LTR></span><b><span
+lang=EN-US>Change the “Pushable” collision matrix to only affect itself.</span></b><span
+lang=EN-US> Window &gt; General &gt; Project to open the project settings and
+in the “Physics” section, find the layer collision matrix and make sure the
+only tick for your layer is the one with the layer name on the top and side of
+the matrix <img border=0 width=576 height=341 id="Picture 989374769"
+src="Week%2009%20VR%20Door%20Grabbable%20Tutorial_files/image013.jpg"></span></p>
+
+<p class=MsoNormal style='margin-left:36.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span class=Heading1Char><span lang=EN-US style='font-size:
+20.0pt;line-height:116%'>Assets used </span></span></p>
+
+<p class=MsoNormal><span lang=EN-US>Door model<br>
+<a href="https://quaternius.com/packs/ultimatefurniture.html">https://quaternius.com/packs/ultimatefurniture.html</a></span></p>
+
+<p class=MsoNormal><span lang=EN-US>TransformJoint.cs </span></p>
+
+<p class=MsoNormal><span lang=EN-US><a
+href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples/blob/fe0bb3a76d5ac4c40114a5a286b43114430a73fb/Assets/XRI_Examples/Global/Scripts/TransformJoint.cs">XR-Interaction-Toolkit-Examples/Assets/XRI_Examples/Global/Scripts/TransformJoint.cs
+at fe0bb3a76d5ac4c40114a5a286b43114430a73fb ·
+Unity-Technologies/XR-Interaction-Toolkit-Examples · GitHub</a></span><span
+lang=EN-US> </span></p>
+
+<p class=MsoNormal><span lang=EN-US>Door.cs </span></p>
+
+<p class=MsoNormal><span lang=EN-US><a
+href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples/blob/fe0bb3a76d5ac4c40114a5a286b43114430a73fb/Assets/XRI_Examples/Physics/Scripts/Door.cs">XR-Interaction-Toolkit-Examples/Assets/XRI_Examples/Physics/Scripts/Door.cs
+at fe0bb3a76d5ac4c40114a5a286b43114430a73fb ·
+Unity-Technologies/XR-Interaction-Toolkit-Examples · GitHub</a></span></p>
+
+<p class=MsoNormal><span lang=EN-US>XRKnob.cs </span></p>
+
+<p class=MsoNormal><span lang=EN-US><a
+href="https://github.com/Unity-Technologies/XR-Interaction-Toolkit-Examples/blob/fe0bb3a76d5ac4c40114a5a286b43114430a73fb/Assets/XRI_Examples/UI_3D/Scripts/XRKnob.cs">XR-Interaction-Toolkit-Examples/Assets/XRI_Examples/UI_3D/Scripts/XRKnob.cs
+at fe0bb3a76d5ac4c40114a5a286b43114430a73fb ·
+Unity-Technologies/XR-Interaction-Toolkit-Examples · GitHub</a></span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+</div></div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 4: Tint and Two-Handed Grabbable</h2>
+            </summary>
+            <div class="accordion-content"><div class="imported-content"><div class=WordSection1>
+
+<p class=MsoTitle>2 Handed Grabbable and Tint Visual</p>
+
+<h1>Introduction</h1>
+
+<p class=MsoNormal>The XR Grab interactable has some additional features that
+allow for grabbing objects with 2 hands in both fixed and dynamic positions. This
+tutorial details the steps needed to grab an object with 2 hands and will also
+showcase the simplest way to highlight an object to show the player they can
+interact with it. </p>
+
+<h1><span lang=EN-US>Tutorial</span></h1>
+
+<p class=MsoNormal style='margin-top:0cm;margin-right:-1.0pt;margin-bottom:
+4.0pt;margin-left:0cm;page-break-after:avoid;background:white'><span
+class=Heading2Char><span lang=EN-US style='font-size:16.0pt;line-height:116%'>Setting
+Up the Scene</span></span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+style='color:black'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:black'>Create
+a new scene</span></b><span lang=EN-US style='color:black'>. Go to “File” &gt;
+“New Scene”</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+style='color:#1B1642'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Delete
+the “Main Camera”</span></b><span lang=EN-US style='color:#1B1642'> that is in
+the scene</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+style='color:black'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:black'>Add
+the XR Device Simulator and XR Interaction Setup prefabs</span></b><span
+lang=EN-US style='color:black'>. Drag the &quot;XR Interaction Setup&quot;
+(Assets/Samples/XR Interaction Toolkit/2.4.3/Starter Assets/ XR Interaction
+Setup.prefab) and &quot;XR Device Simulator&quot; prefabs into your scene. This
+is the prefab we will primarily be editing.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span
+style='color:black'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add
+a Teleportation Area</span></b><span lang=EN-US style='color:#1B1642'>. </span><span
+lang=EN-US style='color:black'>Right-click in the Hierarchy, select “XR” &gt;
+“Teleportation Area” </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img width=357
+height=216 id="Picture 877500568"
+src="Week%2009%20Socket_Tint__Hinge_Lever_Handle_Joystick_2Handed_Stefan_files/image001.png"></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+style='color:#1B1642'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>(Optional)
+Change the teleportation area material</span></b><span lang=EN-US
+style='color:#1B1642'>. This may help with seeing movement. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='color:#1B1642'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add
+an object you want to grab with 2 hands</span></b><span lang=EN-US
+style='color:#1B1642'>. Drag an asset from the Project browser or create a cube
+by right clicking the hierarchy and selecting “3D Object &gt; Cube”</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US style='color:#1B1642'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US style='color:#1B1642'>Add
+a collider</span></b><span lang=EN-US style='color:#1B1642'> to your object</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=EN-US>8.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b><span lang=EN-US>Add a grab interactable</span></b><span
+lang=EN-US> to your object</span></p>
+
+<h2><span lang=EN-US>Grab Interactable and Tint Visual</span></h2>
+
+<h3><span lang=EN-US>Fixed 2 Hand</span></h3>
+
+<p class=MsoNormal><span lang=EN-US>A fixed 2 handed system forces the user to
+hold an object in a specific position and rotation. This is done by having 2
+transforms that are anchor points which are what the hands will attach to when
+the grab interactable is activated. Fixed 2 handed controls are best used for
+objects such as swords and guns which have an intended holding style. </span></p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><b><span
+lang=EN-US>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></b><span dir=LTR></span><b><span lang=EN-US>Add 2 empty
+transforms as a child of your grabbable object</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>Drag one of the empty transforms into “Attach Transform”</b>.
+This transform will be the default transform the hand attaches to first</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>Drag the other transform into “Secondary Attach Transform”</b>.
+This will be the transform the second hand attaches to</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>Change “Select Mode” to “Multiple”. </b>This allows multiple
+interactors to trigger the interaction at the same time</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+lang=EN-US>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b><span lang=EN-US>Play the game</span></b><span
+lang=EN-US> and test the grabbable object</span></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><span lang=EN-US>(optional)</span><span lang=EN-US> </span><b>Adjust
+the attach transforms</b> if they don’t align with the hand <br>
+<img width=577 height=279 id="Picture 292597256"
+src="Week%2009%20Socket_Tint__Hinge_Lever_Handle_Joystick_2Handed_Stefan_files/image002.jpg"></p>
+
+<span style='font-size:12.0pt;line-height:116%;font-family:"Aptos",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h3>Dynamic </h3>
+
+<p class=MsoNormal>Dynamic attach changes the location of the attach transform
+based on where the interactor was at the time the grab interactable was
+activated. This allows the user to more easily manipulate the object. Dynamic
+attach works best for small and medium props. </p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><b>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span
+dir=LTR></span><b>Set “Distance Calculation Mode” to “Collider Volume” </b></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><b>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></b><span
+dir=LTR></span><b>Set “Use Dynamic Attach” to true</b></p>
+
+<p class=MsoNormal><img width=601 height=266 id="Picture 1715612253"
+src="Week%2009%20Socket_Tint__Hinge_Lever_Handle_Joystick_2Handed_Stefan_files/image003.jpg"></p>
+
+<h3>Tint Visual</h3>
+
+<p class=MsoNormal>The tint visual component can be used with any interactable
+component and is triggered by the interactable component itself. It is a
+simplified version of the Affordance components which are designed to give the
+player hints for what they can and cannot interact with. </p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>Add the tint component</b> from “XR &gt; Visual &gt; XR Tint
+Interactable Visual”</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>Drag in the Gameobject/mesh renderer</b> you want tinted when
+the player hovers over</p>
+
+<p class=MsoNormal><img width=601 height=130 id="Picture 233728856"
+src="Week%2009%20Socket_Tint__Hinge_Lever_Handle_Joystick_2Handed_Stefan_files/image004.jpg"></p>
+
+<span style='font-size:12.0pt;line-height:116%;font-family:"Aptos",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><span class=Heading1Char><span style='font-size:20.0pt;
+line-height:116%'>Additional Reading</span></span></p>
+
+<p class=MsoNormal>Grab Interactable Documentation - <a
+href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/xr-grab-interactable.html">https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/xr-grab-interactable.html</a>
+</p>
+
+<p class=MsoNormal><span lang=FR>Tint Interactable Documentation - </span><a
+href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/xr-tint-interactable-visual.html"><span
+lang=FR>https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/xr-tint-interactable-visual.html</span></a>
+</p>
+
+<p class=MsoNormal>Affordance System - <a
+href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/affordance-system.html">https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/affordance-system.html</a>
+</p>
+
+</div></div>
+            </div>
+        </details>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
