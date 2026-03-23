@@ -433,6 +433,216 @@
                 </div>
             </div>
         </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Practical Parts 1-4: Lab Exercises</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">Practical Part 1: Direct Interactor + animated hand controller</h3></summary>
+                        <div class="section-expandable-content">
+                        <p><strong>What this part teaches</strong></p>
+                        <ul>
+                            <li>The simplest mental model: <strong>your hand "touches" objects</strong> and interacts at close range.</li>
+                            <li>Students learn: <strong>XR hover/select events</strong> vs <strong>physics trigger/collision callbacks</strong>.</li>
+                            <li>This is intentionally "old-school XR" and easiest to understand before Near-Far.</li>
+                        </ul>
+                        
+                        <p><strong>Setup (scene)</strong></p>
+                        <ol>
+                            <li>XR rig with:
+                                <ul>
+                                    <li>Controller + <strong>XR Direct Interactor</strong></li>
+                                    <li>A visible <strong>animated hand model</strong> attached to the controller (animation can be driven by input; can use Tut 09)</li>
+                                </ul>
+                            </li>
+                            <li>Create Prop:
+                                <ul>
+                                    <li>Collider (not trigger)</li>
+                                    <li>Rigidbody (Is Kinematic OFF)</li>
+                                    <li>XR Grab Interactable</li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <p><strong>Add logging (XR events + physics impacts)</strong></p>
+                        <p>Attach <strong>XRInteractableEventLogger</strong> (hover/select) to Prop (from earlier). Attach <strong>ImpactLogger</strong> (OnCollisionEnter) to Prop.</p>
+
+                        <p><strong>Student steps</strong></p>
+                        <ol>
+                            <li>Bring hand close: confirm <strong>Hover</strong> fires.</li>
+                            <li>Select (grab): confirm <strong>Select Enter</strong> fires.</li>
+                            <li>Release and drop on floor: confirm <strong>OnCollisionEnter</strong> logs with impact speed.</li>
+                        </ol>
+
+                        <p><strong>Compare/contrast takeaway</strong></p>
+                        <ul>
+                            <li><strong>Direct Interactor "touching" is not a physics collision</strong>. It's the XR system deciding "you're close enough to hover/select."</li>
+                            <li><strong>Real collisions happen after release</strong>, when the object is a dynamic Rigidbody hitting the world.</li>
+                        </ul>
+
+                        <p style="color: #467886; font-size: 0.95em;"><em><strong>If you are using Tracked Hands:</strong> Use XR Hands Package + Hand Visualizer Sample, Hands Interaction Demo Sample from XRIT Package (HandsDemoScene), XRInputModalityManager, and HandGrabInteractor (Meta).</em></p>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">Practical Part 2: Near interaction with Near-Far Interactor</h3></summary>
+                        <div class="section-expandable-content">
+                        <p>This part transitions students to the XRIT 3.0+ Near-Far Interactor while staying in the "near only" mindset.</p>
+
+                        <p><strong>What changes from Part 1 (key contrast)</strong></p>
+                        <table style="width: 100%; border-collapse: collapse; margin: 12px 0;">
+                            <tr style="background-color: #f0f0f0;">
+                                <td style="border: 1px solid #ddd; padding: 8px;"><strong>Topic</strong></td>
+                                <td style="border: 1px solid #ddd; padding: 8px;"><strong>Part 1: Direct Interactor</strong></td>
+                                <td style="border: 1px solid #ddd; padding: 8px;"><strong>Part 2: Near-Far (Near)</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #ddd; padding: 8px;">How near objects are detected</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">usually collider/proximity rules on Direct Interactor</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;"><strong>Sphere cast</strong> via <strong>Sphere Interaction Caster</strong></td>
+                            </tr>
+                            <tr style="background-color: #f9f9f9;">
+                                <td style="border: 1px solid #ddd; padding: 8px;">What students should watch</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">hover/select events</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">hover/select events + caster radius</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #ddd; padding: 8px;">Why it matters</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">intuitive "hand touches object"</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">near can be "touch-like" without any physical hand collider</td>
+                            </tr>
+                        </table>
+
+                        <p><strong>Setup (scene)</strong></p>
+                        <ol>
+                            <li>Replace (or disable) XR Direct Interactor.</li>
+                            <li>Add <strong>Near-Far Interactor</strong> to the controller.</li>
+                            <li>In its <strong>Sphere Interaction Caster</strong>:
+                                <ul>
+                                    <li>Tune <strong>Cast Radius</strong> (this is the "grab bubble" size)</li>
+                                </ul>
+                            </li>
+                            <li>Keep the same Prop from Part 1.</li>
+                        </ol>
+
+                        <p><strong>Student steps</strong></p>
+                        <ol>
+                            <li>With Near-Far enabled, move hand close to the prop:
+                                <ul>
+                                    <li>confirm <strong>Hover</strong> fires (XR logger)</li>
+                                </ul>
+                            </li>
+                            <li>Adjust the <strong>Cast Radius</strong>:
+                                <ul>
+                                    <li>too small → hard to select</li>
+                                    <li>larger → easier to select</li>
+                                </ul>
+                            </li>
+                            <li>Grab/release and confirm impacts still log collisions.</li>
+                        </ol>
+
+                        <p><strong>Animated hand controller note</strong></p>
+                        <p>The animated hand is mostly <em>visual</em>; Near-Far selection is still driven by the interactor's sphere cast.</p>
+                        <ul>
+                            <li>Students should understand: <strong>animation ≠ interaction</strong> unless you add physical colliders.</li>
+                        </ul>
+
+                        <p><strong>Optional mini-extension: "Trigger zone vs Near-Far near"</strong></p>
+                        <p>Create a Zone cube collider with <strong>Is Trigger ON</strong> + TriggerZoneLogger.</p>
+                        <ul>
+                            <li>Throw the Prop through it → <strong>OnTriggerEnter</strong> fires (physics overlap)</li>
+                            <li>Move your controller through it → may not fire unless the controller has an actual collider/Rigidbody (physics), because Near-Far is a cast, not a collider.</li>
+                        </ul>
+                        <p><strong>This is a crucial "aha":</strong> XR hover/select is separate from Unity physics triggers.</p>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">Practical Part 3: Far interaction with Near-Far Interactor</h3></summary>
+                        <div class="section-expandable-content">
+                        <p><strong>What this part teaches</strong></p>
+                        <ul>
+                            <li>Far interaction is <strong>ray/curve cast</strong> selection.</li>
+                            <li>It produces <strong>XR hover/select events</strong>, not physics triggers/collisions.</li>
+                            <li>Students learn about <strong>Far Attach Mode</strong> (object comes to hand vs stays distant).</li>
+                        </ul>
+
+                        <p><strong>Setup (scene)</strong></p>
+                        <ol>
+                            <li>Keep Near-Far Interactor.</li>
+                            <li>Make a FarTarget:
+                                <ul>
+                                    <li>Add Collider (often NOT trigger to keep things simple)</li>
+                                    <li>Add <strong>XR Simple Interactable</strong> (or <strong>XR Grab Interactable</strong> if you want distance grabbing)</li>
+                                    <li>Add <strong>XRInteractableEventLogger</strong></li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <p><strong>Student steps</strong></p>
+                        <ol>
+                            <li>Stand far away and point at FarTarget:
+                                <ul>
+                                    <li>confirm <strong>Hover</strong> logs</li>
+                                </ul>
+                            </li>
+                            <li>Select:
+                                <ul>
+                                    <li>confirm <strong>Select</strong> logs</li>
+                                </ul>
+                            </li>
+                            <li>Change <strong>Far Attach Mode</strong> (on Near-Far / interactable depending on your setup):
+                                <ul>
+                                    <li><strong>Near</strong>: object moves to hand on selection (like "force pull")</li>
+                                    <li><strong>Far</strong>: object stays at distance (useful for distant switches/handles)</li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <p><strong>Compare/contrast takeaway</strong></p>
+                        <ul>
+                            <li>Near-Far "far" is <strong>not a trigger volume</strong> and not a collision. It's a ray/curve query.</li>
+                            <li>Use <strong>XR events</strong> for gameplay logic at distance.</li>
+                        </ul>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">Practical Part 4: Issues + Debugging Lab</h3></summary>
+                        <div class="section-expandable-content">
+                        <p>This part addresses common failures and fixes. Parts 1–3 teach fundamentals first.</p>
+
+                        <p><strong>Issue A: "I can select through walls"</strong></p>
+                        <p><strong>Cause:</strong> Far casts may find interactables even when something should block them, depending on layer masks and caster blocking configuration.</p>
+                        <p><strong>Fix checklist (students do in order):</strong></p>
+                        <ol>
+                            <li>Put walls/floor on <strong>Environment</strong> layer.</li>
+                            <li>Put interactables on <strong>Interactable</strong> layer.</li>
+                            <li>On the Near-Far Interactor, check <strong>Raycast/Sphere Caster Blocking Configuration</strong>:
+                                <ul>
+                                    <li>Ensure the caster's layer mask <strong>excludes or blocks Environment</strong> appropriately.</li>
+                                </ul>
+                            </li>
+                            <li>Test: Now walls should block far selection.</li>
+                        </ol>
+
+                        <p><strong>Key Takeaway:</strong> Layer masks and blocking configuration align your queries with the intent to prevent "seeing through" walls.</p>
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+        </details>
     </div>
 </body>
 </html>
