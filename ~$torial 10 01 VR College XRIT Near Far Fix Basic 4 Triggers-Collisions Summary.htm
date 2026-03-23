@@ -1,0 +1,415 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal><b><u><span style='font-size:18.0pt;line-height:115%'>One-page
+summary students should memorize</span></u></b></p>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>Core
+concepts (basic, moving to XRIT-correct)</span></u></b></p>
+
+<p class=MsoNormal style='margin-left:18.0pt'><b>Collision vs Trigger (Unity
+physics)</b></p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Physics collisions</b>&nbsp;are for
+dynamic rigidbodies hitting real colliders &#8594;&nbsp;OnCollisionEnter&nbsp;gives
+contact + impact speed.</p>
+
+<p class=MsoNormal style='margin-left:90.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b>Collision</b>&nbsp;(OnCollisionEnter) = “bump” between&nbsp;<b>non-trigger
+colliders</b>, typically involving a&nbsp;<b>non-kinematic Rigidbody</b>.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Physics triggers</b>&nbsp;are for overlap
+volumes &#8594;&nbsp;OnTriggerEnter&nbsp;requires actual colliders moving
+through space.</p>
+
+<p class=MsoNormal style='margin-left:90.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span><b>Trigger</b>&nbsp;(OnTriggerEnter) = “overlap” where at least
+one collider has&nbsp;<b>Is Trigger</b>.</p>
+
+<p class=MsoNormal style='margin-left:18.0pt'><b>XRIT Near-Far Interactor
+is&nbsp;<i>not</i>&nbsp;physics collision detection</b></p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Near-Far Interactor uses casts</b>, so
+near/far “contact” is best tracked via&nbsp;<b>XR hover/select events</b>, not
+physics callbacks.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Near</b>&nbsp;detection is a&nbsp;<b>sphere
+cast</b>&nbsp;(query), not a physical collider pushing things.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Far</b>&nbsp;detection is a&nbsp;<b>ray/curve
+cast</b>&nbsp;(query), not a Rigidbody collision.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span>So: Near/Far “touching” is usually
+communicated via&nbsp;<b>XR Interaction events</b>&nbsp;(hover/select), not
+physics callbacks.</p>
+
+<p class=MsoNormal style='margin-left:18.0pt'><b>Basic Rules translated to XR</b></p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span>If an object is moved by tracking / direct
+setting of pose &#8594; treat it like&nbsp;<b>kinematic</b>&nbsp;behavior;
+use&nbsp;<b>overlap/queries (triggers or casts)</b>&nbsp;rather than expecting
+collision contacts.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span>Use&nbsp;<b>real collisions</b>&nbsp;mainly
+for&nbsp;<b>props</b>&nbsp;that you throw/drop and that should physically
+strike the environment.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span>If triggers “don’t work” with Near-Far,
+check&nbsp;<b>Physics Trigger Interaction / Raycast Trigger Interaction</b>&nbsp;settings
+on the casters.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span>If you can select through walls, it’s
+usually&nbsp;<b>layer masks / blocking configuration</b>.</p>
+
+<p class=MsoNormal style='text-indent:18.0pt'><b>Use this rule set in VR
+prototypes</b></p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Props you throw:</b>&nbsp;Rigidbody
+(dynamic) + non-trigger collider &#8594; collisions are meaningful (OnCollision…).</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Zones/checkpoints:</b>&nbsp;Trigger
+collider volumes &#8594; use&nbsp;OnTriggerEnter&nbsp;(physics overlap).</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Near/Far interaction logic:</b>&nbsp;use
+XR hover/select events (not triggers/collisions).</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Near-Far Near:</b>&nbsp;sphere cast
+radius controls usability.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span dir=LTR></span><b>Near-Far Far:</b>&nbsp;curve/ray cast;
+watch for through-wall selection (layers).</p>
+
+<p class=MsoNormal style='margin-left:54.0pt'>&nbsp;</p>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>1) The
+“3 channel” model in VR (don’t mix them accidentally)</span></u></b></p>
+
+<p class=MsoNormal style='margin-left:18.0pt'>In VR you commonly have three
+different ways to detect interaction:</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>XR Interaction events (recommended for Near-Far):</b><br>
+hoverEntered,&nbsp;selectEntered, etc.</p>
+
+<p class=MsoNormal style='margin-left:90.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span>Best for: grab, poke (XR Poke Interactor), far pointing, UI-like
+actions.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>Physics Triggers (OnTriggerEnter/Exit/Stay):</b><br>
+Overlap volumes with&nbsp;Is Trigger = true.</p>
+
+<p class=MsoNormal style='margin-left:90.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span>Best for: zones, proximity alarms, checkpoint volumes, “hand
+inside region”, tutorial steps.</p>
+
+<p class=MsoNormal style='margin-left:54.0pt;text-indent:-18.0pt'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+dir=LTR></span><b>Physics Collisions (OnCollisionEnter):</b><br>
+Dynamic rigidbodies hitting colliders.</p>
+
+<p class=MsoNormal style='margin-left:90.0pt;text-indent:-18.0pt'><span
+style='font-size:10.0pt;line-height:115%;font-family:"Courier New"'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
+dir=LTR></span>Best for: impact sounds, breakage thresholds, thrown-object
+hits.</p>
+
+<p class=MsoNormal><b><i>Students should choose&nbsp;one channel per mechanic&nbsp;(e.g.,
+grabbing = XR events; zone detection = triggers; impact = collisions).</i></b></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>2)
+“Hand triggers” need an actual physics presence</span></u></b></p>
+
+<p class=MsoNormal>A Near-Far Interactor’s near detection is a&nbsp;<b>sphere
+cast</b>. That does&nbsp;<b>not</b>&nbsp;automatically mean your hand will
+fire&nbsp;OnTriggerEnter&nbsp;on a trigger zone.</p>
+
+<p class=MsoNormal><b>Recommended VR pattern: “HandSensor” collider</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Create a small child object on each controller:&nbsp;HandSensor</li>
+ <li class=MsoNormal>Add:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>SphereCollider&nbsp;(often&nbsp;<b>Is Trigger OFF</b>&nbsp;on
+      the hand sensor itself; it depends on your design)</li>
+  <li class=MsoNormal>Rigidbody&nbsp;<b>Is Kinematic = true</b></li>
+ </ul>
+ <li class=MsoNormal>Use it for trigger zones like:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>“hand in button volume”</li>
+  <li class=MsoNormal>“hand in hazard zone”</li>
+  <li class=MsoNormal>“hand inside snap region”</li>
+ </ul>
+</ul>
+
+<p class=MsoNormal>This gives you&nbsp;<i>reliable physics overlap events</i>&nbsp;even
+though your visual hand is animated/tracked.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>3) Use
+layers aggressively (VR needs it)</span></u></b></p>
+
+<p class=MsoNormal>Triggers can easily become noisy in VR because hands are
+always moving and lots of colliders overlap.</p>
+
+<p class=MsoNormal><b>Add this best practice:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Put trigger zones on a&nbsp;Zones&nbsp;layer</li>
+ <li class=MsoNormal>Put HandSensors on a&nbsp;Hands&nbsp;layer</li>
+ <li class=MsoNormal>Put props on&nbsp;Interactables</li>
+ <li class=MsoNormal>Put level on&nbsp;Environment</li>
+</ul>
+
+<p class=MsoNormal>Then in&nbsp;<b>Project Settings &gt; Physics</b>&nbsp;(Layer
+Collision Matrix):</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Enable&nbsp;Hands&nbsp;&#8596;&nbsp;Zones</li>
+ <li class=MsoNormal>Disable&nbsp;Hands&nbsp;&#8596;&nbsp;Environment&nbsp;(often)
+     to reduce spam/unwanted physics</li>
+ <li class=MsoNormal>Decide whether&nbsp;Interactables&nbsp;&#8596;&nbsp;Zones&nbsp;should
+     count (sometimes yes for “prop entered zone”, sometimes no)</li>
+</ul>
+
+<p class=MsoNormal>This also helps with the “select through walls” problem on
+Near-Far by making your query/casts and physics layers align.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>4)
+Trigger volumes in VR should be “fat” and forgiving</span></u></b></p>
+
+<p class=MsoNormal>Users’ hands jitter, tracking isn’t perfect, and players
+approach from odd angles.</p>
+
+<p class=MsoNormal>Guidelines to add:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Make trigger zones larger than the visible affordance (a
+     “comfort margin”).</li>
+ <li class=MsoNormal>Prefer simple shapes (box/sphere) over mesh triggers.</li>
+ <li class=MsoNormal>If it’s a one-time event, use&nbsp;OnTriggerEnter&nbsp;and
+     then&nbsp;<b>disable</b>&nbsp;the trigger or gate it (avoid repeated
+     firing).</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>5)
+Debounce + state machines (essential in VR)</span></u></b></p>
+
+<p class=MsoNormal>In VR,&nbsp;OnTriggerStay&nbsp;can fire every physics step
+and cause repeated actions.</p>
+
+<p class=MsoNormal>Add a simple pattern:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>On enter: set a boolean&nbsp;isInside = true</li>
+ <li class=MsoNormal>On exit:&nbsp;isInside = false</li>
+ <li class=MsoNormal>Only perform the action when state changes
+     (edge-triggered), or add cooldown timers.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>6)
+Triggers vs interactables: keep responsibilities separate</span></u></b></p>
+
+<p class=MsoNormal>A common anti-pattern is making a grabbable object’s
+collider a trigger “so I can detect overlap” and then wondering why
+grabbing/collisions break.</p>
+
+<p class=MsoNormal>Better pattern:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Grabbable object colliders:</b>&nbsp;non-trigger (for
+     stable grab/throw physics)</li>
+ <li class=MsoNormal><b>Detection volumes:</b>&nbsp;separate trigger colliders
+     (child objects or separate zone objects)</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>7)
+XRIT Near-Far + triggers: two distinct “trigger” meanings</span></u></b></p>
+
+<p class=MsoNormal>Worth adding explicitly (because students confuse this):</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Physics trigger</b>&nbsp;= Unity physics overlap
+     callback (OnTrigger…)</li>
+ <li class=MsoNormal><b>Caster “Trigger Interaction” setting</b>&nbsp;= whether
+     Near-Far sphere/ray casts&nbsp;<i>consider trigger colliders</i>&nbsp;when
+     deciding hover/select</li>
+</ul>
+
+<p class=MsoNormal>So a trigger collider might:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>fire&nbsp;OnTriggerEnter&nbsp;(physics), and/or</li>
+ <li class=MsoNormal>be hoverable/selectable by Near-Far (XR events), depending
+     on configuration.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>8)
+VR-specific trigger use cases to teach (good student exercises)</span></u></b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Comfort boundary:</b>&nbsp;fade vignette when
+     head/hands enter a boundary zone</li>
+ <li class=MsoNormal><b>Tutorial steps:</b>&nbsp;“Place your hand in the
+     highlighted area”</li>
+ <li class=MsoNormal><b>Snap zones:</b>&nbsp;object enters zone &#8594; show
+     ghost preview; on release inside zone &#8594; snap</li>
+ <li class=MsoNormal><b>Safety:</b>&nbsp;trigger-based “do not pass” regions
+     (hand enters hazard &#8594; haptic warning)</li>
+ <li class=MsoNormal><b>Audio:</b>&nbsp;trigger zones for reverb / area
+     ambience</li>
+</ul>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

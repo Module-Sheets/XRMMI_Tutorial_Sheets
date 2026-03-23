@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 10: Triggers and Collisions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 0;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        p,
+        li {
+            color: #1f1f1f;
+        }
+        a {
+            color: #467886;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ol,
+        ul {
+            margin-left: 22px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .note {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .resource-box {
+            background-color: #f4f8ff;
+            border-left: 4px solid #0F4761;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .imported-content {
+            margin-top: 14px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            overflow-x: auto;
+        }
+        .imported-content p,
+        .imported-content li,
+        .imported-content div {
+            line-height: 1.45;
+        }
+        .imported-content img {
+            max-width: 100%;
+            height: auto;
+        }
+        .imported-content table {
+            max-width: 100%;
+            border-collapse: collapse;
+        }
+        .imported-content td,
+        .imported-content th {
+            border: 1px solid #ddd;
+            padding: 6px;
+            vertical-align: top;
+        }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .content-section {
+            margin: 12px 0;
+        }
+        .content-section h3 {
+            margin-top: 14px;
+            margin-bottom: 8px;
+        }
+        .content-section ul,
+        .content-section ol {
+            margin-left: 24px;
+        }
+        .content-section li {
+            margin: 6px 0;
+            line-height: 1.4;
+        }
+        .summary-title {
+            font-weight: 600;
+            color: #0F4761;
+        }
+        .section-divider {
+            border: 0;
+            border-top: 2px solid #0F4761;
+            margin: 16px 0;
+            opacity: 0.5;
+        }
+        .section-expandable {
+            border: none;
+            background-color: transparent;
+            margin: 10px 0;
+        }
+        .section-expandable summary {
+            cursor: pointer;
+            user-select: none;
+            padding: 8px 0;
+            color: #467886;
+            font-weight: 600;
+            margin-top: 14px;
+            margin-bottom: 0;
+            outline: none;
+        }
+        .section-expandable summary:hover {
+            color: #0F4761;
+        }
+        .section-expandable summary::marker {
+            color: #467886;
+        }
+        .section-expandable[open] summary {
+            color: #0F4761;
+            margin-bottom: 8px;
+        }
+        .section-expandable-content {
+            margin-left: 0;
+            padding-left: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-adapt.css">
+    <script src="mobile-adapt.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 10: Triggers and Collisions</h1>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Summary: VR Triggers and Collision Detection</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    
+                    <div class="content-section">
+                        <span class="summary-title">One-page summary students should memorize</span>
+                    </div>
+
+                    <h3>Core concepts (basic, moving to XRIT-correct)</h3>
+
+                    <div class="content-section">
+                        <p><strong>Collision vs Trigger (Unity physics)</strong></p>
+                        <ul>
+                            <li><strong>Physics collisions</strong> are for dynamic rigidbodies hitting real colliders → OnCollisionEnter gives contact + impact speed.
+                                <ul>
+                                    <li><strong>Collision</strong> (OnCollisionEnter) = "bump" between <strong>non-trigger colliders</strong>, typically involving a <strong>non-kinematic Rigidbody</strong>.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Physics triggers</strong> are for overlap volumes → OnTriggerEnter requires actual colliders moving through space.
+                                <ul>
+                                    <li><strong>Trigger</strong> (OnTriggerEnter) = "overlap" where at least one collider has <strong>Is Trigger</strong>.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <p><strong>XRIT Near-Far Interactor is not physics collision detection</strong></p>
+                        <ul>
+                            <li><strong>Near-Far Interactor uses casts</strong>, so near/far "contact" is best tracked via <strong>XR hover/select events</strong>, not physics callbacks.</li>
+                            <li><strong>Near</strong> detection is a <strong>sphere cast</strong> (query), not a physical collider pushing things.</li>
+                            <li><strong>Far</strong> detection is a <strong>ray/curve cast</strong> (query), not a Rigidbody collision.</li>
+                            <li>So: Near/Far "touching" is usually communicated via <strong>XR Interaction events</strong> (hover/select), not physics callbacks.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <p><strong>Basic Rules translated to XR</strong></p>
+                        <ul>
+                            <li>If an object is moved by tracking / direct setting of pose → treat it like <strong>kinematic</strong> behavior; use <strong>overlap/queries (triggers or casts)</strong> rather than expecting collision contacts.</li>
+                            <li>Use <strong>real collisions</strong> mainly for <strong>props</strong> that you throw/drop and that should physically strike the environment.</li>
+                            <li>If triggers "don't work" with Near-Far, check <strong>Physics Trigger Interaction / Raycast Trigger Interaction</strong> settings on the casters.</li>
+                            <li>If you can select through walls, it's usually <strong>layer masks / blocking configuration</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <p><strong>Use this rule set in VR prototypes</strong></p>
+                        <ul>
+                            <li><strong>Props you throw:</strong> Rigidbody (dynamic) + non-trigger collider → collisions are meaningful (OnCollision…).</li>
+                            <li><strong>Zones/checkpoints:</strong> Trigger collider volumes → use OnTriggerEnter (physics overlap).</li>
+                            <li><strong>Near/Far interaction logic:</strong> use XR hover/select events (not triggers/collisions).</li>
+                            <li><strong>Near-Far Near:</strong> sphere cast radius controls usability.</li>
+                            <li><strong>Near-Far Far:</strong> curve/ray cast; watch for through-wall selection (layers).</li>
+                        </ul>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">1) The "3 channel" model in VR (don't mix them accidentally)</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <p>In VR you commonly have three different ways to detect interaction:</p>
+                        <ol>
+                            <li><strong>XR Interaction events (recommended for Near-Far):</strong> hoverEntered, selectEntered, etc.
+                                <ul>
+                                    <li>Best for: grab, poke (XR Poke Interactor), far pointing, UI-like actions.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Physics Triggers (OnTriggerEnter/Exit/Stay):</strong> Overlap volumes with Is Trigger = true.
+                                <ul>
+                                    <li>Best for: zones, proximity alarms, checkpoint volumes, "hand inside region", tutorial steps.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Physics Collisions (OnCollisionEnter):</strong> Dynamic rigidbodies hitting colliders.
+                                <ul>
+                                    <li>Best for: impact sounds, breakage thresholds, thrown-object hits.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <p><em><strong>Students should choose one channel per mechanic</strong> (e.g., grabbing = XR events; zone detection = triggers; impact = collisions).</em></p>
+                    </div>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">2) "Hand triggers" need an actual physics presence</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <p>A Near-Far Interactor's near detection is a <strong>sphere cast</strong>. That does <strong>not</strong> automatically mean your hand will fire OnTriggerEnter on a trigger zone.</p>
+                        <p><strong>Recommended VR pattern: "HandSensor" collider</strong></p>
+                        <ul>
+                            <li>Create a small child object on each controller: HandSensor</li>
+                            <li>Add:
+                                <ul>
+                                    <li>SphereCollider (often <strong>Is Trigger OFF</strong> on the hand sensor itself; it depends on your design)</li>
+                                    <li>Rigidbody <strong>Is Kinematic = true</strong></li>
+                                </ul>
+                            </li>
+                            <li>Use it for trigger zones like:
+                                <ul>
+                                    <li>"hand in button volume"</li>
+                                    <li>"hand in hazard zone"</li>
+                                    <li>"hand inside snap region"</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>This gives you <em>reliable physics overlap events</em> even though your visual hand is animated/tracked.</p>
+                    </div>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">3) Use layers aggressively (VR needs it)</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <p>Triggers can easily become noisy in VR because hands are always moving and lots of colliders overlap.</p>
+                        <p><strong>Add this best practice:</strong></p>
+                        <ul>
+                            <li>Put trigger zones on a <strong>Zones</strong> layer</li>
+                            <li>Put HandSensors on a <strong>Hands</strong> layer</li>
+                            <li>Put props on <strong>Interactables</strong></li>
+                            <li>Put level on <strong>Environment</strong></li>
+                        </ul>
+                        <p>Then in <strong>Project Settings > Physics</strong> (Layer Collision Matrix):</p>
+                        <ul>
+                            <li>Enable <strong>Hands ↔ Zones</strong></li>
+                            <li>Disable <strong>Hands ↔ Environment</strong> (often) to reduce spam/unwanted physics</li>
+                            <li>Decide whether <strong>Interactables ↔ Zones</strong> should count (sometimes yes for "prop entered zone", sometimes no)</li>
+                        </ul>
+                        <p>This also helps with the "select through walls" problem on Near-Far by making your query/casts and physics layers align.</p>
+                    </div>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">4) Trigger volumes in VR should be "fat" and forgiving</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <p>Users' hands jitter, tracking isn't perfect, and players approach from odd angles.</p>
+                        <p><strong>Guidelines to add:</strong></p>
+                        <ul>
+                            <li>Make trigger zones larger than the visible affordance (a "comfort margin").</li>
+                            <li>Prefer simple shapes (box/sphere) over mesh triggers.</li>
+                            <li>If it's a one-time event, use OnTriggerEnter and then <strong>disable</strong> the trigger or gate it (avoid repeated firing).</li>
+                        </ul>
+                    </div>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">5) Debounce + state machines (essential in VR)</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <p>In VR, OnTriggerStay can fire every physics step and cause repeated actions.</p>
+                        <p><strong>Add a simple pattern:</strong></p>
+                        <ul>
+                            <li>On enter: set a boolean isInside = true</li>
+                            <li>On exit: isInside = false</li>
+                            <li>Only perform the action when state changes (edge-triggered), or add cooldown timers.</li>
+                        </ul>
+                    </div>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">6) Triggers vs interactables: keep responsibilities separate</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <p>A common anti-pattern is making a grabbable object's collider a trigger "so I can detect overlap" and then wondering why grabbing/collisions break.</p>
+                        <p><strong>Better pattern:</strong></p>
+                        <ul>
+                            <li><strong>Grabbable object colliders:</strong> non-trigger (for stable grab/throw physics)</li>
+                            <li><strong>Detection volumes:</strong> separate trigger colliders (child objects or separate zone objects)</li>
+                        </ul>
+                    </div>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">7) XRIT Near-Far + triggers: two distinct "trigger" meanings</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <p>Worth adding explicitly (because students confuse this):</p>
+                        <ul>
+                            <li><strong>Physics trigger</strong> = Unity physics overlap callback (OnTrigger…)</li>
+                            <li><strong>Caster "Trigger Interaction" setting</strong> = whether Near-Far sphere/ray casts <em>consider trigger colliders</em> when deciding hover/select</li>
+                        </ul>
+                        <p>So a trigger collider might:</p>
+                        <ul>
+                            <li>fire OnTriggerEnter (physics), and/or</li>
+                            <li>be hoverable/selectable by Near-Far (XR events), depending on configuration.</li>
+                        </ul>
+                    </div>
+                        </div>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">8) VR-specific trigger use cases to teach (good student exercises)</h3></summary>
+                        <div class="section-expandable-content">
+                    <div class="content-section">
+                        <ul>
+                            <li><strong>Comfort boundary:</strong> fade vignette when head/hands enter a boundary zone</li>
+                            <li><strong>Tutorial steps:</strong> "Place your hand in the highlighted area"</li>
+                            <li><strong>Snap zones:</strong> object enters zone → show ghost preview; on release inside zone → snap</li>
+                            <li><strong>Safety:</strong> trigger-based "do not pass" regions (hand enters hazard → haptic warning)</li>
+                            <li><strong>Audio:</strong> trigger zones for reverb / area ambience</li>
+                        </ul>
+                    </div>
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+        </details>
+    </div>
+</body>
+</html>

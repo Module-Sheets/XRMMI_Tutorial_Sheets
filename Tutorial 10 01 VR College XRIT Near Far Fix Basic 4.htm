@@ -1,0 +1,437 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+a:link, span.MsoHyperlink
+	{color:#467886;
+	text-decoration:underline;}
+.MsoChpDefault
+	{font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB link="#467886" vlink="#96607D" style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>Below are&nbsp;<b>three progressive labs</b>&nbsp;(plus a
+Part 4 troubleshooting lab). Each part keeps the same core idea from the
+original Unity physics video:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Collision = bump</b>&nbsp;(real physics contacts;&nbsp;OnCollision…)</li>
+ <li class=MsoNormal><b>Trigger = overlap</b>&nbsp;(OnTrigger…)</li>
+ <li class=MsoNormal>XR interaction systems (Direct / Near-Far) mostly
+     use&nbsp;<b>queries + XR events</b>&nbsp;(hover/select), not physics
+     contact—unless you deliberately add physical hand colliders.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>Part 1 — “Direct Interactor + animated hand controller”
+(baseline near interaction)</b></p>
+
+<p class=MsoNormal><b>What this part teaches</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>The simplest mental model:&nbsp;<b>your hand “touches”
+     objects</b>&nbsp;and interacts at close range.</li>
+ <li class=MsoNormal>Students learn:&nbsp;<b>XR hover/select events</b>&nbsp;vs&nbsp;<b>physics
+     trigger/collision callbacks</b>.</li>
+ <li class=MsoNormal>This is intentionally “old-school XR” and easiest to
+     understand before Near-Far.</li>
+</ul>
+
+<p class=MsoNormal><b>Setup (scene)</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>XR rig with:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>Controller +&nbsp;<b>XR Direct Interactor</b></li>
+  <li class=MsoNormal>A visible&nbsp;<b>animated hand model</b>&nbsp;attached
+      to the controller (animation can be driven by input; can use Tut 09)</li>
+ </ul>
+ <li class=MsoNormal>Create&nbsp;Prop:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>Collider (not trigger)</li>
+  <li class=MsoNormal>Rigidbody (Is Kinematic OFF)</li>
+  <li class=MsoNormal>XR Grab Interactable</li>
+ </ul>
+</ol>
+
+<p class=MsoNormal><b>Add logging (XR events + physics impacts)</b></p>
+
+<p class=MsoNormal>Attach&nbsp;<b>XRInteractableEventLogger</b>&nbsp;(hover/select)
+to&nbsp;Prop&nbsp;(from earlier). Attach&nbsp;<b>ImpactLogger</b>&nbsp;(OnCollisionEnter)
+to&nbsp;Prop.</p>
+
+<p class=MsoNormal><b>Student steps</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Bring hand close: confirm&nbsp;<b>Hover</b>&nbsp;fires.</li>
+ <li class=MsoNormal>Select (grab): confirm&nbsp;<b>Select Enter</b>&nbsp;fires.</li>
+ <li class=MsoNormal>Release and drop on floor: confirm&nbsp;<b>OnCollisionEnter</b>&nbsp;logs
+     with impact speed.</li>
+</ol>
+
+<p class=MsoNormal><b>Compare/contrast takeaway</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Direct Interactor “touching” is not a physics collision</b>.
+     It’s the XR system deciding “you’re close enough to hover/select.”</li>
+ <li class=MsoNormal><b>Real collisions happen after release</b>, when the
+     object is a dynamic Rigidbody hitting the world.</li>
+</ul>
+
+<p class=MsoNormal><b>If you are using the new Tracked Hands:</b></p>
+
+<p class=MsoNormal style='margin-left:36.0pt'><b>XR Hands Package + Hand Visualizer
+Sample<br>
+Hands Interaction Demo Sample from XRIT Package (HandsDemoScene: XR Origin
+Hands (XR Rig)) <br>
+(Tut 08)</b> <b><a href="https://www.youtube.com/watch?v=f_jHGNxwN2g">https://www.youtube.com/watch?v=f_jHGNxwN2g</a>
+<br>
+And use XRInputModalityManager, HandGrabInteractor(Meta)</b></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>Part 2 — “Near interaction with Near-Far Interactor”
+(sphere-cast near) + animated hand</b></p>
+
+<p class=MsoNormal>This part transitions students to the XRIT 3.0+ Near-Far
+Interactor while staying in the “near only” mindset.</p>
+
+<p class=MsoNormal><b>What changes from Part 1 (key contrast)</b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='background:white;border-collapse:collapse'>
+ <thead>
+  <tr>
+   <td style='border:solid #D1D9E0 1.0pt;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+   <p class=MsoNormal><b><span style='color:black'>Topic</span></b></p>
+   </td>
+   <td style='border:solid #D1D9E0 1.0pt;border-left:none;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+   <p class=MsoNormal><b><span style='color:black'>Part 1: Direct Interactor</span></b></p>
+   </td>
+   <td style='border:solid #D1D9E0 1.0pt;border-left:none;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+   <p class=MsoNormal><b><span style='color:black'>Part 2: Near-Far (Near)</span></b></p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td style='border:solid #D1D9E0 1.0pt;border-top:none;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>How near objects are detected</span></p>
+  </td>
+  <td style='border-top:none;border-left:none;border-bottom:solid #D1D9E0 1.0pt;
+  border-right:solid #D1D9E0 1.0pt;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>usually collider/proximity rules
+  on Direct Interactor</span></p>
+  </td>
+  <td style='border-top:none;border-left:none;border-bottom:solid #D1D9E0 1.0pt;
+  border-right:solid #D1D9E0 1.0pt;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><b><span style='color:black'>Sphere cast</span></b><span
+  style='color:black'>&nbsp;via&nbsp;<b>Sphere Interaction Caster</b></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid #D1D9E0 1.0pt;border-top:none;background:#F6F8FA;
+  padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>What students should watch</span></p>
+  </td>
+  <td style='border-top:none;border-left:none;border-bottom:solid #D1D9E0 1.0pt;
+  border-right:solid #D1D9E0 1.0pt;background:#F6F8FA;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>hover/select events</span></p>
+  </td>
+  <td style='border-top:none;border-left:none;border-bottom:solid #D1D9E0 1.0pt;
+  border-right:solid #D1D9E0 1.0pt;background:#F6F8FA;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>hover/select events + caster
+  radius</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid #D1D9E0 1.0pt;border-top:none;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>Why it matters</span></p>
+  </td>
+  <td style='border-top:none;border-left:none;border-bottom:solid #D1D9E0 1.0pt;
+  border-right:solid #D1D9E0 1.0pt;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>intuitive “hand touches object”</span></p>
+  </td>
+  <td style='border-top:none;border-left:none;border-bottom:solid #D1D9E0 1.0pt;
+  border-right:solid #D1D9E0 1.0pt;padding:4.5pt 9.75pt 4.5pt 9.75pt'>
+  <p class=MsoNormal><span style='color:black'>near can be “touch-like” without
+  any physical hand collider</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b>Setup (scene)</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Replace (or disable) XR Direct Interactor.</li>
+ <li class=MsoNormal>Add&nbsp;<b>Near-Far Interactor</b>&nbsp;to the
+     controller.</li>
+ <li class=MsoNormal>In its&nbsp;<b>Sphere Interaction Caster</b>:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>Tune&nbsp;<b>Cast Radius</b>&nbsp;(this is the “grab
+      bubble” size)</li>
+ </ul>
+ <li class=MsoNormal>Keep the same&nbsp;Prop&nbsp;from Part 1.</li>
+</ol>
+
+<p class=MsoNormal><b>Student steps</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>With Near-Far enabled, move hand close to the prop:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>confirm&nbsp;<b>Hover</b>&nbsp;fires (XR logger)</li>
+ </ul>
+ <li class=MsoNormal>Adjust the&nbsp;<b>Cast Radius</b>:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>too small &#8594; hard to select</li>
+  <li class=MsoNormal>larger &#8594; easier to select</li>
+ </ul>
+ <li class=MsoNormal>Grab/release and confirm impacts still log collisions.</li>
+</ol>
+
+<p class=MsoNormal><b>Animated hand controller note</b></p>
+
+<p class=MsoNormal>The animated hand is mostly&nbsp;<i>visual</i>; Near-Far
+selection is still driven by the interactor’s sphere cast.</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Students should understand:&nbsp;<b>animation &#8800;
+     interaction</b>&nbsp;unless you add physical colliders.</li>
+</ul>
+
+<p class=MsoNormal><b>Optional mini-extension: “Trigger zone vs Near-Far near”</b></p>
+
+<p class=MsoNormal>Create a&nbsp;Zone&nbsp;cube collider with&nbsp;<b>Is
+Trigger ON</b>&nbsp;+&nbsp;TriggerZoneLogger.</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Throw the&nbsp;Prop&nbsp;through it &#8594;&nbsp;OnTriggerEnter&nbsp;fires
+     (physics overlap)</li>
+ <li class=MsoNormal>Move your controller through it &#8594; may not fire
+     unless the controller has an actual collider/Rigidbody (physics), because
+     Near-Far is a cast, not a collider.</li>
+</ul>
+
+<p class=MsoNormal><b>This is a crucial “aha”:</b>&nbsp;XR hover/select is
+separate from Unity physics triggers.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>Part 3 — “Far interaction with Near-Far Interactor”
+(curve/raycast far)</b></p>
+
+<p class=MsoNormal><b>What this part teaches</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Far interaction is&nbsp;<b>ray/curve cast</b>&nbsp;selection.</li>
+ <li class=MsoNormal>It produces&nbsp;<b>XR hover/select events</b>, not
+     physics triggers/collisions.</li>
+ <li class=MsoNormal>Students learn about&nbsp;<b>Far Attach Mode</b>&nbsp;(object
+     comes to hand vs stays distant).</li>
+</ul>
+
+<p class=MsoNormal><b>Setup (scene)</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Keep Near-Far Interactor.</li>
+ <li class=MsoNormal>Make a&nbsp;FarTarget:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>Add Collider (often NOT trigger to keep things simple)</li>
+  <li class=MsoNormal>Add&nbsp;XR Simple Interactable&nbsp;(or&nbsp;XR Grab
+      Interactable&nbsp;if you want distance grabbing)</li>
+  <li class=MsoNormal>Add&nbsp;<b>XRInteractableEventLogger</b></li>
+ </ul>
+</ol>
+
+<p class=MsoNormal><b>Student steps</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Stand far away and point at&nbsp;FarTarget:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>confirm&nbsp;<b>Hover</b>&nbsp;logs</li>
+ </ul>
+ <li class=MsoNormal>Select:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>confirm&nbsp;<b>Select</b>&nbsp;logs</li>
+ </ul>
+ <li class=MsoNormal>Change&nbsp;<b>Far Attach Mode</b>&nbsp;(on Near-Far /
+     interactable depending on your setup):</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal><b>Near</b>: object moves to hand on selection (like
+      “force pull”)</li>
+  <li class=MsoNormal><b>Far</b>: object stays at distance (useful for distant
+      switches/handles)</li>
+ </ul>
+</ol>
+
+<p class=MsoNormal><b>Compare/contrast takeaway</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Near-Far “far” is&nbsp;<b>not a trigger volume</b>&nbsp;and
+     not a collision. It’s a ray/curve query.</li>
+ <li class=MsoNormal>Use&nbsp;<b>XR events</b>&nbsp;for gameplay logic at
+     distance.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>Part 4 — Issues + debugging lab (common failures and
+fixes)</b></p>
+
+<p class=MsoNormal>This part is deliberately separated so Parts 1–3 stay clean
+and teach the fundamentals first.</p>
+
+<p class=MsoNormal><b>Issue A: “I can select through walls”</b></p>
+
+<p class=MsoNormal><b>Cause:</b>&nbsp;Far casts may find interactables even
+when something should block them, depending on layer masks and caster blocking
+configuration.</p>
+
+<p class=MsoNormal><b>Fix checklist (students do in order):</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Put walls/floor on&nbsp;Environment&nbsp;layer.</li>
+ <li class=MsoNormal>Put interactables on&nbsp;Interactable&nbsp;layer.</li>
+ <li class=MsoNormal>In the&nbsp;<b>Curve Interaction Caster</b>:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>configure the cast to respect blocking layers / include
+      environment in tests as needed</li>
+ </ul>
+ <li class=MsoNormal>Verify: target behind wall no longer hovers/selects.</li>
+</ol>
+
+<p class=MsoNormal><b>Student deliverable:</b>&nbsp;screenshot of layer setup +
+1 sentence describing which setting prevented through-wall selection.</p>
+
+<p class=MsoNormal><b>Issue B: “Triggers don’t get detected”</b></p>
+
+<p class=MsoNormal>Two separate meanings of “detect”:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Physics trigger detection (OnTriggerEnter)</b>&nbsp;requires
+     a collider/Rigidbody entering.</li>
+ <li class=MsoNormal><b>Near-Far cast detection</b>&nbsp;depends on&nbsp;<b>Trigger
+     Interaction settings</b>&nbsp;on casters.</li>
+</ul>
+
+<p class=MsoNormal><b>Fix paths:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>If you want&nbsp;<b>Zone volumes</b>: add a dedicated
+     “hand physics trigger collider” object (SphereCollider + kinematic
+     Rigidbody) and move it with the controller.</li>
+ <li class=MsoNormal>If you want the Near-Far interactor to hover/select
+     trigger colliders: set the caster&nbsp;<b>Trigger Interaction</b>&nbsp;to
+     include triggers.</li>
+</ul>
+
+<p class=MsoNormal><b>Issue C: “Grabbable object is IsTrigger and won’t grab”</b></p>
+
+<p class=MsoNormal><b>Fix:</b>&nbsp;Prefer grabbables to be&nbsp;<b>non-trigger
+colliders</b>, and reserve triggers for zones. (Or explicitly configure caster
+trigger interaction, but that often creates other side effects in student
+projects.)</p>
+
+<p class=MsoNormal><b>Issue D: “Near grab feels inconsistent”</b></p>
+
+<p class=MsoNormal><b>Fixes:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Increase&nbsp;<b>Cast Radius</b></li>
+ <li class=MsoNormal>Increase interactable collider size slightly (for
+     prototypes)</li>
+ <li class=MsoNormal>Confirm Interaction Layer Masks match between interactor
+     and interactable</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b><u><span style='font-size:14.0pt;line-height:115%'>Use
+this rule set in VR prototypes</span></u></b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Props you throw:</b>&nbsp;Rigidbody (dynamic) +
+     non-trigger collider &#8594; collisions are meaningful (OnCollision…).</li>
+ <li class=MsoNormal><b>Zones/checkpoints:</b>&nbsp;Trigger collider volumes
+     &#8594; use&nbsp;OnTriggerEnter&nbsp;(physics overlap).</li>
+ <li class=MsoNormal><b>Near/Far interaction logic:</b>&nbsp;use XR
+     hover/select events (not triggers/collisions).</li>
+ <li class=MsoNormal><b>Near-Far Near:</b>&nbsp;sphere cast radius controls
+     usability.</li>
+ <li class=MsoNormal><b>Near-Far Far:</b>&nbsp;curve/ray cast; watch for
+     through-wall selection (layers).</li>
+</ul>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
