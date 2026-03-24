@@ -1,0 +1,355 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>For a basic Unity XR Interaction Toolkit (XRIT) VR
+prototype, the simplest&nbsp;<i>good</i>&nbsp;way to write game logic is:</p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal><b>Let XRIT handle tracking + grabbing + locomotion</b>&nbsp;(don’t
+     rewrite it)</li>
+ <li class=MsoNormal>Write&nbsp;<i>your</i>&nbsp;logic as small scripts that
+     respond to&nbsp;<b>events</b>&nbsp;(select/activate) or&nbsp;<b>input
+     actions</b></li>
+ <li class=MsoNormal>Keep a clean separation:&nbsp;<b>Input &#8594; Intent
+     &#8594; Gameplay</b></li>
+</ol>
+
+<p class=MsoNormal>Below is a starter-friendly approach you can teach and
+reuse.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>1) Minimal architecture for a VR prototype
+(logic-focused)</b></p>
+
+<p class=MsoNormal><b>A. “XR Rig” (player) scripts</b></p>
+
+<p class=MsoNormal>Attach to XR Origin / rig:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Player&nbsp;(health, score, ammo—your game state)</li>
+ <li class=MsoNormal>PlayerWeapons&nbsp;(what happens when you fire)</li>
+ <li class=MsoNormal>Optional:&nbsp;Haptics&nbsp;helper</li>
+</ul>
+
+<p class=MsoNormal><b>B. Interactable object scripts</b></p>
+
+<p class=MsoNormal>Attach to objects in the world:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>GrabInteractable&nbsp;(usually XRIT’s&nbsp;XRGrabInteractable&nbsp;+
+     a tiny wrapper script)</li>
+ <li class=MsoNormal>Target&nbsp;/&nbsp;Enemy&nbsp;(take damage, die)</li>
+ <li class=MsoNormal>Pickup&nbsp;(ammo/health)</li>
+</ul>
+
+<p class=MsoNormal><b>C. One coordinator (optional)</b></p>
+
+<p class=MsoNormal>If the game has waves/spawning:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Spawner&nbsp;or&nbsp;WaveController&nbsp;(small and
+     data-driven)</li>
+</ul>
+
+<p class=MsoNormal>That’s it. One screen worth of scripts.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>2) Two ways to drive gameplay from XR controls (teach
+both)</b></p>
+
+<p class=MsoNormal><b>Option 1 (best for beginners): Use XRIT interaction
+events</b></p>
+
+<p class=MsoNormal>This avoids deep Input System complexity.</p>
+
+<p class=MsoNormal><b>Example: “Gun” is an interactable, and pulling trigger
+fires</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>You use an&nbsp;XRGrabInteractable&nbsp;on the gun object.</li>
+ <li class=MsoNormal>Add an&nbsp;XRBaseControllerInteractor&nbsp;for hands.</li>
+ <li class=MsoNormal>Use&nbsp;<i>Activate</i>&nbsp;events: when the held object
+     is “activated”, call&nbsp;Fire().</li>
+</ul>
+
+<p class=MsoNormal>Conceptually:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Grab event &#8594; “gun is held”</li>
+ <li class=MsoNormal>Activate event (trigger) &#8594; “fire”</li>
+</ul>
+
+<p class=MsoNormal>This maps nicely to VR mental models.</p>
+
+<p class=MsoNormal><b>Best practice logic rule:</b><br>
+Your gun script shouldn’t care about left/right controller bindings. It just
+implements:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>OnGrabbed(hand)</li>
+ <li class=MsoNormal>OnReleased()</li>
+ <li class=MsoNormal>OnActivatePressed()</li>
+ <li class=MsoNormal>OnActivateReleased()</li>
+</ul>
+
+<p class=MsoNormal>XRIT calls these via UnityEvents or event subscriptions.</p>
+
+<p class=MsoNormal><b>Option 2 (more flexible): Use Input Actions like your
+repo does</b></p>
+
+<p class=MsoNormal>Your repo’s&nbsp;InputManager&nbsp;is an example of this: it
+listens to action&nbsp;started/canceled&nbsp;and calls gameplay methods (FireLaser(true/false),&nbsp;FireCannon(press/release)).</p>
+
+<p class=MsoNormal>This is good when:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>You want one place for all bindings</li>
+ <li class=MsoNormal>You have “player abilities” not tied to a held object
+     (shield, teleport ray, menus)</li>
+</ul>
+
+<p class=MsoNormal><b>Best practice logic rule:</b><br>
+Input should set&nbsp;<i>intent</i>&nbsp;(pressed/held/released), and gameplay
+scripts decide if the action is allowed.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>3) The “Input &#8594; Intent &#8594; Gameplay” pattern
+(easy + robust)</b></p>
+
+<p class=MsoNormal><b>Step A: Input layer (XR controls) only sets intent</b></p>
+
+<p class=MsoNormal>For a prototype, teach a tiny “intent model”:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>FireHeld (bool)</li>
+ <li class=MsoNormal>TeleportHeld (bool)</li>
+ <li class=MsoNormal>MenuHeld (bool)</li>
+</ul>
+
+<p class=MsoNormal>You can store these on a&nbsp;PlayerInputState&nbsp;component.</p>
+
+<p class=MsoNormal><b>Step B: Gameplay reads intent in Update (or fixed tick)</b></p>
+
+<p class=MsoNormal>Example decisions:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>If FireHeld and weapon ready &#8594; shoot</li>
+ <li class=MsoNormal>If TeleportHeld &#8594; show teleport ray (or let XRIT do
+     it)</li>
+</ul>
+
+<p class=MsoNormal>This prevents:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>spaghetti callbacks everywhere</li>
+ <li class=MsoNormal>hard-to-debug timing issues</li>
+</ul>
+
+<p class=MsoNormal>It also makes it trivial to add:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>pause menu disabling inputs</li>
+ <li class=MsoNormal>“game not started yet” gating</li>
+ <li class=MsoNormal>tutorial lockouts</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>4) Basic VR shooting: what to teach as “correct logic”</b></p>
+
+<p class=MsoNormal><b>A. Use “press” vs “release” explicitly</b></p>
+
+<p class=MsoNormal>VR triggers are analog-ish, but for prototypes:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>started&nbsp;= pressed</li>
+ <li class=MsoNormal>canceled&nbsp;= released</li>
+</ul>
+
+<p class=MsoNormal>Your repo does a solid pattern for a charge weapon:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>press starts charging</li>
+ <li class=MsoNormal>release fires (if charged)</li>
+</ul>
+
+<p class=MsoNormal><b>B. Avoid Instantiate per shot (pooling)</b></p>
+
+<p class=MsoNormal>Even for a prototype, teach this early because VR comfort is
+sensitive to stutter:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Pre-create N bullets (10–50)</li>
+ <li class=MsoNormal>Reuse inactive ones</li>
+</ul>
+
+<p class=MsoNormal>You don’t need a complicated pool class at first—just:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>a&nbsp;List&lt;Bullet&gt;</li>
+ <li class=MsoNormal>find inactive</li>
+ <li class=MsoNormal>reset &amp; reuse</li>
+</ul>
+
+<p class=MsoNormal>(Your repo’s&nbsp;SpawnManager&nbsp;already demonstrates
+this approach.)</p>
+
+<p class=MsoNormal><b>C. Keep weapon code independent from input code</b></p>
+
+<p class=MsoNormal>A weapon script should expose:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>BeginFire()</li>
+ <li class=MsoNormal>EndFire()</li>
+ <li class=MsoNormal>TryFireOnce()</li>
+</ul>
+
+<p class=MsoNormal>Then input can call those methods whether the source is:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>trigger action</li>
+ <li class=MsoNormal>UI button</li>
+ <li class=MsoNormal>automated turret</li>
+ <li class=MsoNormal>network replay</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>5) Locomotion: prototype best practice (don’t over-code)</b></p>
+
+<p class=MsoNormal>For student prototypes:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Use XRIT’s built-in&nbsp;<b>Teleportation Provider</b>&nbsp;or&nbsp;<b>Continuous
+     Move Provider</b></li>
+ <li class=MsoNormal>Your code should only:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal>enable/disable locomotion modes (e.g., when in menus)</li>
+  <li class=MsoNormal>display comfort UI (optional)</li>
+ </ul>
+</ul>
+
+<p class=MsoNormal>Do&nbsp;<i>not</i>&nbsp;write your own character controller
+unless the assignment is specifically about locomotion.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>6) A small “wave prototype” state machine
+(beginner-friendly)</b></p>
+
+<p class=MsoNormal>If you want a simple wave loop, teach 3 states:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Idle</b>&nbsp;(waiting for player to start)</li>
+ <li class=MsoNormal><b>Spawning</b>&nbsp;(spawn enemies on a timer until count
+     reached)</li>
+ <li class=MsoNormal><b>Clearing</b>&nbsp;(wait until enemies alive = 0)</li>
+</ul>
+
+<p class=MsoNormal>This is enough for coursework and prevents “boolean soup”.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>7) The 5 rules I’d drill into students for VR prototype
+logic</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal><b>XRIT does interactions; you do game rules.</b></li>
+ <li class=MsoNormal><b>Input is not gameplay</b>&nbsp;(input sets intent;
+     gameplay enforces rules).</li>
+ <li class=MsoNormal><b>Pool frequently spawned objects</b>&nbsp;(bullets,
+     enemies, VFX).</li>
+ <li class=MsoNormal><b>Make states explicit</b>&nbsp;(enum beats multiple
+     booleans).</li>
+ <li class=MsoNormal><b>Keep Update small</b>&nbsp;(VR needs stable frame
+     time).</li>
+</ol>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

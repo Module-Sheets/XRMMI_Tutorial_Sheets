@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CW2 Architecture Diagram</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      color: #1f1f1f;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      padding: 20px;
+    }
+
+    .accordion {
+      border: 1px solid #0F4761;
+      border-radius: 6px;
+      margin: 16px 0;
+      background-color: #f9f9f9;
+      overflow: hidden;
+    }
+
+    .accordion-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 14px 16px;
+      user-select: none;
+      background-color: #f0f0f0;
+      list-style: none;
+    }
+
+    .accordion-summary:hover {
+      background-color: #e5e5e5;
+    }
+
+    .accordion-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .accordion-summary::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 6px solid #0F4761;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .accordion[open] > .accordion-summary::before {
+      transform: rotate(90deg);
+    }
+
+    .accordion-summary h2 {
+      margin: 0;
+      color: #0F4761;
+      font-size: 1.05rem;
+    }
+
+    .accordion-content {
+      padding: 16px;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      color: #0F4761;
+      border-bottom: 3px solid #0F4761;
+      padding-bottom: 10px;
+      font-size: 1.6rem;
+    }
+
+    .note {
+      margin: 0 0 16px 0;
+      background: #E8F4F8;
+      border-left: 4px solid #467886;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .controls button {
+      background: #0F4761;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .controls button:hover {
+      background: #1a5f7f;
+    }
+
+    .diagram-viewport {
+      width: 100%;
+      height: 75vh;
+      min-height: 500px;
+      border: 1px solid #c7dbe2;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f8fcfd;
+      cursor: grab;
+      position: relative;
+      touch-action: none;
+    }
+
+    .diagram-viewport.dragging {
+      cursor: grabbing;
+    }
+
+    .diagram-stage {
+      width: 100%;
+      height: 100%;
+    }
+
+    .diagram-stage svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      text-rendering: geometricPrecision;
+      shape-rendering: geometricPrecision;
+    }
+
+    .status {
+      margin-top: 10px;
+      color: #365c69;
+      font-size: 0.9rem;
+    }
+
+    .embedded-sheet {
+      border: 1px solid #c7dbe2;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fcfd 100%);
+      padding: 24px;
+      color: #24343b;
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .embedded-sheet .WordSection1 {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .embedded-sheet p,
+    .embedded-sheet ul,
+    .embedded-sheet ol,
+    .embedded-sheet div {
+      max-width: 100%;
+    }
+
+    .embedded-sheet p {
+      margin: 0 0 14px;
+    }
+
+    .embedded-sheet ul,
+    .embedded-sheet ol {
+      margin: 0 0 18px 1.5rem;
+      padding-left: 1.2rem;
+    }
+
+    .embedded-sheet ul ul,
+    .embedded-sheet ol ul,
+    .embedded-sheet ul ol,
+    .embedded-sheet ol ol {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .embedded-sheet li {
+      margin-bottom: 8px;
+    }
+
+    .embedded-sheet b {
+      color: #0F4761;
+    }
+
+    .embedded-sheet hr {
+      border: 0;
+      border-top: 2px solid #c7dbe2;
+      margin: 28px 0;
+    }
+
+    .embedded-sheet a {
+      color: #0F4761;
+      word-break: break-word;
+    }
+
+    .subsection-accordion {
+      border: 1px solid #c7dbe2;
+      border-radius: 8px;
+      background: #ffffff;
+      margin: 18px 0;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(15, 71, 97, 0.08);
+    }
+
+    .subsection-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      background: #eef6f9;
+    }
+
+    .subsection-summary:hover {
+      background: #e3f0f5;
+    }
+
+    .subsection-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .subsection-summary::before {
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 6px solid #0F4761;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .subsection-accordion[open] > .subsection-summary::before {
+      transform: rotate(90deg);
+    }
+
+    .subsection-summary h3 {
+      margin: 0;
+      color: #0F4761;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .subsection-content {
+      padding: 18px 18px 8px;
+      border-top: 1px solid #d7e6ec;
+    }
+
+    .embedded-sheet o\:p {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>CW2 Architecture Diagram</h1>
+      <p class="note">This page uses expandable sections. The architecture diagram supports drag-pan and zoom controls.</p>
+
+      <details class="accordion">
+        <summary class="accordion-summary"><h2>Basic Software Architecture</h2></summary>
+        <div class="accordion-content">
+          <div class="embedded-sheet">
+            <div class="WordSection1">
+              <p class="MsoNormal">For a basic Unity XR Interaction Toolkit (XRIT) VR prototype, the simplest&nbsp;<i>good</i>&nbsp;way to write game logic is:</p>
+
+              <ol style="margin-top:0cm" start="1" type="1">
+                <li class="MsoNormal"><b>Let XRIT handle tracking + grabbing + locomotion</b>&nbsp;(do not rewrite it)</li>
+                <li class="MsoNormal">Write&nbsp;<i>your</i>&nbsp;logic as small scripts that respond to&nbsp;<b>events</b>&nbsp;(select/activate) or&nbsp;<b>input actions</b></li>
+                <li class="MsoNormal">Keep a clean separation:&nbsp;<b>Input to Intent to Gameplay</b></li>
+              </ol>
+
+              <p class="MsoNormal">Below is a starter-friendly approach you can teach and reuse.</p>
+
+              <div class="MsoNormal" align="center" style="text-align:center">
+                <hr size="4" width="100%" align="center">
+              </div>
+
+              <details class="subsection-accordion" open>
+                <summary class="subsection-summary"><h3>1) Minimal architecture for a VR prototype (logic-focused)</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><b>A. XR Rig (player) scripts</b></p>
+
+                  <p class="MsoNormal">Attach to XR Origin / rig:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Player&nbsp;(health, score, ammo, your game state)</li>
+                    <li class="MsoNormal">PlayerWeapons&nbsp;(what happens when you fire)</li>
+                    <li class="MsoNormal">Optional:&nbsp;Haptics&nbsp;helper</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>B. Interactable object scripts</b></p>
+
+                  <p class="MsoNormal">Attach to objects in the world:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">GrabInteractable&nbsp;(usually XRIT's&nbsp;XRGrabInteractable&nbsp;+ a tiny wrapper script)</li>
+                    <li class="MsoNormal">Target&nbsp;/&nbsp;Enemy&nbsp;(take damage, die)</li>
+                    <li class="MsoNormal">Pickup&nbsp;(ammo/health)</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>C. One coordinator (optional)</b></p>
+
+                  <p class="MsoNormal">If the game has waves/spawning:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Spawner&nbsp;or&nbsp;WaveController&nbsp;(small and data-driven)</li>
+                  </ul>
+
+                  <p class="MsoNormal">That is it. One screen worth of scripts.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>2) Two ways to drive gameplay from XR controls</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><b>Option 1 (best for beginners): Use XRIT interaction events</b></p>
+
+                  <p class="MsoNormal">This avoids deep Input System complexity.</p>
+
+                  <p class="MsoNormal"><b>Example: Gun is an interactable, and pulling trigger fires</b></p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">You use an&nbsp;XRGrabInteractable&nbsp;on the gun object.</li>
+                    <li class="MsoNormal">Add an&nbsp;XRBaseControllerInteractor&nbsp;for hands.</li>
+                    <li class="MsoNormal">Use&nbsp;<i>Activate</i>&nbsp;events: when the held object is activated, call&nbsp;Fire().</li>
+                  </ul>
+
+                  <p class="MsoNormal">Conceptually:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Grab event to gun is held</li>
+                    <li class="MsoNormal">Activate event (trigger) to fire</li>
+                  </ul>
+
+                  <p class="MsoNormal">This maps nicely to VR mental models.</p>
+
+                  <p class="MsoNormal"><b>Best practice logic rule:</b><br>
+                  Your gun script should not care about left/right controller bindings. It just implements:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">OnGrabbed(hand)</li>
+                    <li class="MsoNormal">OnReleased()</li>
+                    <li class="MsoNormal">OnActivatePressed()</li>
+                    <li class="MsoNormal">OnActivateReleased()</li>
+                  </ul>
+
+                  <p class="MsoNormal">XRIT calls these via UnityEvents or event subscriptions.</p>
+
+                  <p class="MsoNormal"><b>Option 2 (more flexible): Use Input Actions like your repo does</b></p>
+
+                  <p class="MsoNormal">Your repo's&nbsp;InputManager&nbsp;is an example of this: it listens to action&nbsp;started/canceled&nbsp;and calls gameplay methods like FireLaser(true/false) and FireCannon(press/release).</p>
+
+                  <p class="MsoNormal">This is good when:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">You want one place for all bindings</li>
+                    <li class="MsoNormal">You have player abilities not tied to a held object (shield, teleport ray, menus)</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Best practice logic rule:</b><br>
+                  Input should set&nbsp;<i>intent</i>&nbsp;(pressed/held/released), and gameplay scripts decide if the action is allowed.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>3) The Input to Intent to Gameplay pattern</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><b>Step A: Input layer (XR controls) only sets intent</b></p>
+
+                  <p class="MsoNormal">For a prototype, teach a tiny intent model:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">FireHeld (bool)</li>
+                    <li class="MsoNormal">TeleportHeld (bool)</li>
+                    <li class="MsoNormal">MenuHeld (bool)</li>
+                  </ul>
+
+                  <p class="MsoNormal">You can store these on a&nbsp;PlayerInputState&nbsp;component.</p>
+
+                  <p class="MsoNormal"><b>Step B: Gameplay reads intent in Update (or fixed tick)</b></p>
+
+                  <p class="MsoNormal">Example decisions:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">If FireHeld and weapon ready to shoot</li>
+                    <li class="MsoNormal">If TeleportHeld to show teleport ray (or let XRIT do it)</li>
+                  </ul>
+
+                  <p class="MsoNormal">This prevents:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">spaghetti callbacks everywhere</li>
+                    <li class="MsoNormal">hard-to-debug timing issues</li>
+                  </ul>
+
+                  <p class="MsoNormal">It also makes it trivial to add:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">pause menu disabling inputs</li>
+                    <li class="MsoNormal">game not started yet gating</li>
+                    <li class="MsoNormal">tutorial lockouts</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>4) Basic VR shooting: what to teach as correct logic</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><b>A. Use press vs release explicitly</b></p>
+
+                  <p class="MsoNormal">VR triggers are analog-ish, but for prototypes:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">started = pressed</li>
+                    <li class="MsoNormal">canceled = released</li>
+                  </ul>
+
+                  <p class="MsoNormal">Your repo does a solid pattern for a charge weapon:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">press starts charging</li>
+                    <li class="MsoNormal">release fires (if charged)</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>B. Avoid Instantiate per shot (pooling)</b></p>
+
+                  <p class="MsoNormal">Even for a prototype, teach this early because VR comfort is sensitive to stutter:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Pre-create N bullets (10-50)</li>
+                    <li class="MsoNormal">Reuse inactive ones</li>
+                  </ul>
+
+                  <p class="MsoNormal">You do not need a complicated pool class at first, just:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">a&nbsp;List&lt;Bullet&gt;</li>
+                    <li class="MsoNormal">find inactive</li>
+                    <li class="MsoNormal">reset &amp; reuse</li>
+                  </ul>
+
+                  <p class="MsoNormal">(Your repo's&nbsp;SpawnManager&nbsp;already demonstrates this approach.)</p>
+
+                  <p class="MsoNormal"><b>C. Keep weapon code independent from input code</b></p>
+
+                  <p class="MsoNormal">A weapon script should expose:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">BeginFire()</li>
+                    <li class="MsoNormal">EndFire()</li>
+                    <li class="MsoNormal">TryFireOnce()</li>
+                  </ul>
+
+                  <p class="MsoNormal">Then input can call those methods whether the source is:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">trigger action</li>
+                    <li class="MsoNormal">UI button</li>
+                    <li class="MsoNormal">automated turret</li>
+                    <li class="MsoNormal">network replay</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>5) Locomotion: prototype best practice</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">For student prototypes:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Use XRIT's built-in&nbsp;<b>Teleportation Provider</b>&nbsp;or&nbsp;<b>Continuous Move Provider</b></li>
+                    <li class="MsoNormal">Your code should only:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">enable/disable locomotion modes (for example, when in menus)</li>
+                      <li class="MsoNormal">display comfort UI (optional)</li>
+                    </ul>
+                  </ul>
+
+                  <p class="MsoNormal">Do&nbsp;<i>not</i>&nbsp;write your own character controller unless the assignment is specifically about locomotion.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>6) A small wave prototype state machine</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">If you want a simple wave loop, teach 3 states:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><b>Idle</b>&nbsp;(waiting for player to start)</li>
+                    <li class="MsoNormal"><b>Spawning</b>&nbsp;(spawn enemies on a timer until count reached)</li>
+                    <li class="MsoNormal"><b>Clearing</b>&nbsp;(wait until enemies alive = 0)</li>
+                  </ul>
+
+                  <p class="MsoNormal">This is enough for coursework and prevents boolean soup.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>7) Five rules to drill into students for VR prototype logic</h3></summary>
+                <div class="subsection-content">
+                  <ol style="margin-top:0cm" start="1" type="1">
+                    <li class="MsoNormal"><b>XRIT does interactions; you do game rules.</b></li>
+                    <li class="MsoNormal"><b>Input is not gameplay</b>&nbsp;(input sets intent; gameplay enforces rules).</li>
+                    <li class="MsoNormal"><b>Pool frequently spawned objects</b>&nbsp;(bullets, enemies, VFX).</li>
+                    <li class="MsoNormal"><b>Make states explicit</b>&nbsp;(enum beats multiple booleans).</li>
+                    <li class="MsoNormal"><b>Keep Update small</b>&nbsp;(VR needs stable frame time).</li>
+                  </ol>
+                </div>
+              </details>
+
+              <p class="MsoNormal">&nbsp;</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary class="accordion-summary"><h2>Escape Room Architecture</h2></summary>
+        <div class="accordion-content">
+          <div class="embedded-sheet">
+            <div class="WordSection1">
+              <p class="MsoNormal">For an&nbsp;<b>escape-room VR prototype</b>&nbsp;in Unity XR Interaction Toolkit (XRIT), the cleanest starter game-logic approach is to treat the whole game as:</p>
+
+              <ul style="margin-top:0cm" type="disc">
+                <li class="MsoNormal"><b>Interactables</b>&nbsp;(things you can grab/press/turn)</li>
+                <li class="MsoNormal"><b>Receivers</b>&nbsp;(locks, doors, drawers, keypads)</li>
+                <li class="MsoNormal"><b>Puzzle logic</b>&nbsp;(a small amount of state: solved/unsolved, code entered, key inserted)</li>
+              </ul>
+
+              <p class="MsoNormal">You do&nbsp;<i>not</i>&nbsp;need a big manager architecture. You need&nbsp;<b>small scripts with clear responsibilities</b>, mostly event-driven.</p>
+
+              <details class="subsection-accordion" open>
+                <summary class="subsection-summary"><h3>1) Minimal set of scripts (student-friendly)</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><b>A. Interaction wrappers (per object)</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">GrabItem&nbsp;(optional wrapper around&nbsp;XRGrabInteractable)</li>
+                    <li class="MsoNormal">PressButton&nbsp;(uses&nbsp;XRBaseInteractable.activated)</li>
+                    <li class="MsoNormal">SocketKey&nbsp;(uses&nbsp;XRSocketInteractor&nbsp;events)</li>
+                    <li class="MsoNormal">TurnDial&nbsp;(uses rotation to produce a value)</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>B. Puzzle logic (per puzzle)</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">DoorLock&nbsp;(listens for key/socket or code solved; opens door)</li>
+                    <li class="MsoNormal">CombinationLock&nbsp;(checks dial values; raises Solved event)</li>
+                    <li class="MsoNormal">Keypad&nbsp;(collect digits; validates code; raises Solved event)</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>C. Feedback helpers (optional but good)</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">HapticsOnEvent</li>
+                    <li class="MsoNormal">PlaySoundOnEvent</li>
+                    <li class="MsoNormal">HighlightOnHover&nbsp;(simple hover glow)</li>
+                  </ul>
+
+                  <p class="MsoNormal">That is enough for a whole prototype.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>2) Best-practice logic: Interactable sends event, puzzle decides</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">Teach students this rule:</p>
+                  <p class="MsoNormal">Interactable scripts should report&nbsp;<i>what happened</i>&nbsp;(Pressed, Inserted, Turned-to-value). Puzzle scripts decide&nbsp;<i>what it means</i>&nbsp;(correct code, unlock door, reveal clue).</p>
+                  <p class="MsoNormal">This prevents hard-coding puzzle rules into buttons/dials and makes puzzles reusable.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>3) Use XRIT events instead of direct InputActions</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">For escape rooms, most actions are object-centric (grab, press, insert), so XRIT events are perfect:</p>
+                  <p class="MsoNormal"><b>Common XRIT events to use</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><b>Hover</b>: player is pointing at it (for highlight)</li>
+                    <li class="MsoNormal"><b>Select</b>: grabbed or selected</li>
+                    <li class="MsoNormal"><b>Activate</b>: use action while held (trigger squeeze typically)</li>
+                    <li class="MsoNormal"><b>Socket select</b>: object inserted into a socket</li>
+                  </ul>
+                  <p class="MsoNormal">This avoids writing a central&nbsp;InputManager&nbsp;for the prototype.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>4) Concrete patterns to teach</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><b>Pattern A: Pressable button (event-driven)</b></p>
+                  <p class="MsoNormal"><b>Student goal:</b>&nbsp;Press a physical button to toggle something or send a signal.</p>
+                  <p class="MsoNormal"><b>How:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Put an&nbsp;XRBaseInteractable&nbsp;(or&nbsp;XRSimpleInteractable) on the button object.</li>
+                    <li class="MsoNormal">Subscribe to&nbsp;activated&nbsp;(or use the inspector UnityEvent).</li>
+                    <li class="MsoNormal">Button script raises&nbsp;OnPressed.</li>
+                  </ul>
+                  <p class="MsoNormal">Puzzle scripts listen to&nbsp;OnPressed.</p>
+                  <p class="MsoNormal"><b>Best practices:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Debounce (ignore presses within 0.2s).</li>
+                    <li class="MsoNormal">Keep the button script generic (I was pressed), not open door.</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Pattern B: Key + lock using XRSocketInteractor</b></p>
+                  <p class="MsoNormal"><b>Student goal:</b>&nbsp;Put a key in a keyhole; door unlocks.</p>
+                  <p class="MsoNormal"><b>How:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Door has an&nbsp;XRSocketInteractor&nbsp;at the keyhole.</li>
+                    <li class="MsoNormal">Key is an&nbsp;XRGrabInteractable.</li>
+                    <li class="MsoNormal">When socket selects the key, mark the lock satisfied.</li>
+                  </ul>
+                  <p class="MsoNormal"><b>Best-practice logic detail:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Identify key by ID (string or ScriptableObject), not by object name.</li>
+                    <li class="MsoNormal">Lock checks ID, then unlocks.</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Pattern C: Dial combination based on rotation</b></p>
+                  <p class="MsoNormal"><b>Student goal:</b>&nbsp;Turn 3 dials to the right numbers.</p>
+                  <p class="MsoNormal"><b>How:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Each dial exposes a&nbsp;CurrentValue&nbsp;(0-9) derived from rotation.</li>
+                    <li class="MsoNormal">CombinationLock&nbsp;reads all dials and compares to solution.</li>
+                  </ul>
+                  <p class="MsoNormal"><b>Best practices:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Quantize rotation into steps (snap to 36 degrees for 10 digits).</li>
+                    <li class="MsoNormal">Emit&nbsp;OnValueChanged(int)&nbsp;only when the snapped value changes.</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Pattern D: Keypad / code entry</b></p>
+                  <p class="MsoNormal"><b>Student goal:</b>&nbsp;press digit buttons; validate code.</p>
+                  <p class="MsoNormal"><b>How:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Each digit button emits&nbsp;OnDigitPressed(int).</li>
+                    <li class="MsoNormal">Keypad accumulates digits, updates display, validates.</li>
+                  </ul>
+                  <p class="MsoNormal"><b>Best practices:</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Separate UI display from validation logic.</li>
+                    <li class="MsoNormal">Keep code in a config object (ScriptableObject) so designers can change it.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>5) How to structure puzzle state (simple state machines)</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">Teach explicit state but keep it tiny:</p>
+                  <p class="MsoNormal"><b>Example: Door</b></p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Locked</li>
+                    <li class="MsoNormal">Unlocked</li>
+                    <li class="MsoNormal">Open</li>
+                  </ul>
+                  <p class="MsoNormal">Door transitions:</p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Locked to Unlocked when prerequisites satisfied</li>
+                    <li class="MsoNormal">Unlocked to Open when handle pressed, door grabbed, or automatic open trigger</li>
+                  </ul>
+                  <p class="MsoNormal">This makes bugs easier to reason about than scattered booleans.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>6) Pooling and performance (what matters, what does not)</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">Escape rooms typically do not spawn 100 bullets, so pooling is less central than in wave shooters.</p>
+                  <p class="MsoNormal">Still worth teaching:</p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Avoid frequent Instantiate/Destroy for UI popups or sparkle VFX</li>
+                    <li class="MsoNormal">Prefer enabling/disabling objects</li>
+                    <li class="MsoNormal">Use one-shot audio sources carefully (or a tiny audio helper)</li>
+                  </ul>
+                  <p class="MsoNormal">Do not over-engineer pools for a beginner escape room.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>7) Recommended first puzzle sequence for teaching</h3></summary>
+                <div class="subsection-content">
+                  <ol style="margin-top:0cm" start="1" type="1">
+                    <li class="MsoNormal">Button turns on a light (press event + feedback)</li>
+                    <li class="MsoNormal">Key socket unlocks a drawer (socket event + lock)</li>
+                    <li class="MsoNormal">Drawer contains a dial clue (simple progression)</li>
+                    <li class="MsoNormal">3-dial combination unlocks final door (state machine + quantized rotation)</li>
+                  </ol>
+                  <p class="MsoNormal">This covers all key VR interactions without heavy systems.</p>
+                  <p class="MsoNormal">If you want, describe&nbsp;<b>one puzzle</b>&nbsp;you want in the room and I can map it to:</p>
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">which XRIT components to add to which objects</li>
+                    <li class="MsoNormal">what scripts you need (names + responsibilities)</li>
+                    <li class="MsoNormal">the event wiring (who listens to whom) in the simplest teachable form</li>
+                  </ul>
+                </div>
+              </details>
+
+              <p class="MsoNormal">&nbsp;</p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion" open>
+        <summary class="accordion-summary"><h2>CW2 Architecture Diagram</h2></summary>
+        <div class="accordion-content">
+          <div class="controls" aria-label="Diagram controls">
+            <button type="button" id="zoomIn">Zoom In +</button>
+            <button type="button" id="zoomOut">Zoom Out -</button>
+            <button type="button" id="resetView">Reset View</button>
+            <button type="button" id="panLeft">Pan Left</button>
+            <button type="button" id="panRight">Pan Right</button>
+            <button type="button" id="panUp">Pan Up</button>
+            <button type="button" id="panDown">Pan Down</button>
+          </div>
+
+          <div id="diagramViewport" class="diagram-viewport">
+            <div id="diagramStage" class="diagram-stage"></div>
+          </div>
+
+          <p id="statusText" class="status">Loading diagram...</p>
+        </div>
+      </details>
+
+      <details class="accordion">
+        <summary class="accordion-summary"><h2>Software Architecture</h2></summary>
+        <div class="accordion-content">
+          <div class="embedded-sheet">
+            <div class="WordSection1">
+              <p class="MsoNormal">This is a&nbsp;<b>Unity (C#) XR game project</b>&nbsp;organised around a&nbsp;<b>central manager architecture</b>&nbsp;(a&nbsp;<span class="SpellE">GameManager</span>&nbsp;that wires together multiple subsystem managers), plus scene entities (player, enemies, projectiles) and wave/spawn gameplay logic.</p>
+
+              <p class="MsoNormal"><b>High-level structure (Unity project layout)</b></p>
+
+              <p class="MsoNormal">At the repo root you have the standard Unity folders:&nbsp;Assets/,&nbsp;Packages/, and&nbsp;<span class="SpellE">ProjectSettings</span>/, indicating this is a Unity project rather than a multi-project .NET solution. The primary architecture documentation is in&nbsp;README.md, which contains a Mermaid class diagram of the core runtime components.</p>
+
+              <p class="MsoNormal"><b>Core runtime architecture: Manager-centric orchestration</b></p>
+
+              <details class="subsection-accordion" open>
+                <summary class="subsection-summary"><h3>1) <span class="SpellE">GameManager</span> as the composition root / service locator</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><span class="SpellE">GameManager</span>&nbsp;(a&nbsp;<span class="SpellE">MonoBehaviour</span>) owns static references to the major subsystems and key game state:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Static subsystem references:&nbsp;ControllerManager,&nbsp;SpawnManager,&nbsp;GUIManager,&nbsp;AudioManager,&nbsp;VisualEffectManager,&nbsp;PerkManager,&nbsp;SpecialManager</li>
+                    <li class="MsoNormal">Key game state:&nbsp;<span class="SpellE">mainLoadout</span>,&nbsp;<span class="SpellE">gameInProgress</span></li>
+                    <li class="MsoNormal">Also finds/links:&nbsp;<span class="SpellE">WaveManager</span>&nbsp;(via&nbsp;<span class="SpellE">FindObjectOfType</span>) and&nbsp;<span class="SpellE">PlayerEntity</span>&nbsp;(by locating the XR Origin)</li>
+                  </ul>
+
+                  <p class="MsoNormal">In practice, this is a&nbsp;<b>central orchestration + global-access pattern</b>&nbsp;(static fields), where&nbsp;<span class="SpellE">GameManager</span>&nbsp;initialises and exposes other managers for broad use.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>2) Input layer: <span class="SpellE">InputManager</span> to gameplay controllers/entities</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><span class="SpellE">InputManager</span>&nbsp;is responsible for XR input setup using&nbsp;<span class="SpellE">XRIDefaultInputActions</span>, and then forwarding actions to:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">ControllerManager</span>&nbsp;(hand/controller functionality, toggles like plasma cannon referenced in the diagram)</li>
+                    <li class="MsoNormal"><span class="SpellE">PlayerEntity</span>&nbsp;(player-centric actions)</li>
+                  </ul>
+
+                  <p class="MsoNormal">So the flow is effectively:&nbsp;<b>XRI Input Actions to <span class="SpellE">InputManager</span> to (<span class="SpellE">ControllerManager</span> / <span class="SpellE">PlayerEntity</span>)</b>.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>3) Encounter loop: <span class="SpellE">WaveManager</span> drives progression, <span class="SpellE">SpawnManager</span> materialises entities</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">The gameplay loop is split into:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE"><b>WaveManager</b></span>: owns wave state (waveIndex,&nbsp;spawnIndex,&nbsp;playerScore,&nbsp;hostilesDefeated,&nbsp;missionFails) and the&nbsp;<span class="SpellE">waveArray</span>&nbsp;configuration (<span class="SpellE">WaveDetails</span>[]). It:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">starts encounters (<span class="SpellE">BeginEncounter</span>)</li>
+                      <li class="MsoNormal">reacts to kills (<span class="SpellE">EnemyDefeated</span>(type))</li>
+                      <li class="MsoNormal">updates timing/state (Update,&nbsp;<span class="SpellE">DelaySpawn</span>,&nbsp;<span class="SpellE">ResetRecentEnemyDefeats</span>)</li>
+                      <li class="MsoNormal">ends the run (<span class="SpellE">EndGame</span>)</li>
+                      <li class="MsoNormal">triggers UI/audio/special-menu hooks via&nbsp;<span class="SpellE">GUIManager</span>,&nbsp;<span class="SpellE">AudioManager</span>,&nbsp;<span class="SpellE">SpecialManager</span>, etc.</li>
+                    </ul>
+                    <li class="MsoNormal"><span class="SpellE"><b>SpawnManager</b></span>: handles where/how objects appear:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">spawn locations (Transform[] <span class="SpellE">spawnArray</span>)</li>
+                      <li class="MsoNormal">environment hooks (Animator[] <span class="SpellE">doorAnimators</span>)</li>
+                      <li class="MsoNormal">tracks active enemies (static int <span class="SpellE">activeHostiles</span>, plus&nbsp;List&lt;<span class="SpellE">EnemyEntity</span>&gt; <span class="SpellE">enemyList</span>)</li>
+                      <li class="MsoNormal">spawns enemies and multiple projectile types (player, turret, seeker)</li>
+                    </ul>
+                  </ul>
+
+                  <p class="MsoNormal">This is a fairly classic separation:&nbsp;<span class="SpellE"><b>WaveManager</b></span><b> decides&nbsp;<i>when/what</i>, <span class="SpellE">SpawnManager</span> performs the&nbsp;<i>instantiation/pooling/spawn mechanics</i>.</b></p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>4) Data/config: serializable wave definitions</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">Two serializable structs model content:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">WaveDetails</span>: contains&nbsp;<span class="SpellE">SpawnSettings</span>[],&nbsp;<span class="SpellE">maxEnemyCount</span>,&nbsp;<span class="SpellE">waveTrigger</span></li>
+                    <li class="MsoNormal"><span class="SpellE">SpawnSettings</span>: contains&nbsp;<span class="SpellE">enemyTypeToSpawn</span>,&nbsp;<span class="SpellE">spawnLocationIndex</span>,&nbsp;<span class="SpellE">spawnCooldown</span></li>
+                  </ul>
+
+                  <p class="MsoNormal">So waves are&nbsp;<b>data-driven</b>&nbsp;via arrays of settings, likely authored in the Unity Inspector.</p>
+                </div>
+              </details>
+
+              <p class="MsoNormal"><b>Key entities (domain objects)</b></p>
+
+              <p class="MsoNormal">The diagram calls out these main entity types:</p>
+
+              <ul style="margin-top:0cm" type="disc">
+                <li class="MsoNormal"><span class="SpellE">PlayerEntity</span></li>
+                <li class="MsoNormal"><span class="SpellE">EnemyEntity</span></li>
+                <li class="MsoNormal"><span class="SpellE">ProjectileController</span>&nbsp;and&nbsp;<span class="SpellE">PlayerProjectileController</span></li>
+              </ul>
+
+              <p class="MsoNormal">These are the runtime objects the managers create/control.</p>
+
+              <p class="MsoNormal"><b>Scene composition (<span class="SpellE">GameObjects</span> and components)</b></p>
+
+              <p class="MsoNormal">The README diagram suggests two key <span class="SpellE">GameObjects</span>:</p>
+
+              <ul style="margin-top:0cm" type="disc">
+                <li class="MsoNormal"><span class="SpellE">GO_GameManager_Object</span>: holds&nbsp;<span class="SpellE">GameManager</span>&nbsp;and the various subsystem managers as components</li>
+                <li class="MsoNormal"><span class="SpellE">GO_XR_Origin</span>: holds the&nbsp;<span class="SpellE">PlayerEntity</span>&nbsp;component</li>
+              </ul>
+
+              <p class="MsoNormal">That implies a scene setup where manager singletons live together on one object, while the XR rig/origin owns the player logic.</p>
+
+              <p class="MsoNormal">If you want, I can also extract a more concrete architecture summary by inspecting the&nbsp;Assets/&nbsp;scripts (for example, identify exact folders like&nbsp;Assets/Scripts/..., how enemies/projectiles are implemented, whether there is pooling, event buses, <span class="SpellE">ScriptableObjects</span>, etc.).</p>
+
+              <p class="MsoNormal"><b>You said: please present this in detail as if</b></p>
+
+              <p class="MsoNormal">please present this in detail as if teaching university students best practice logic coding for a VR application built in Unity3D</p>
+
+              <p class="MsoNormal">Copilot finished thinking</p>
+
+              <p class="MsoNormal"><b>Copilot said: A good way to teach this repo's</b></p>
+
+              <p class="MsoNormal">A good way to teach this repo's architecture to university students is to frame it as&nbsp;<b>Unity XR gameplay as a set of cooperating runtime systems</b>, each system has a single responsibility, communicates through clear contracts, and is driven by Unity's update loop&nbsp;<b>without turning everything into one giant script</b>.</p>
+
+              <p class="MsoNormal">This project is a&nbsp;<b>Unity3D XR application</b>&nbsp;(standard Unity layout:&nbsp;Assets/,&nbsp;Packages/,&nbsp;<span class="SpellE">ProjectSettings</span>/). Within&nbsp;Assets/&nbsp;there is an explicit code organisation under&nbsp;Assets/Scripts/&nbsp;with folders like&nbsp;Managers/,&nbsp;Player/,&nbsp;<span class="SpellE">EntityScripts</span>/,&nbsp;Interaction/, and&nbsp;<span class="SpellE">ScriptableObjects</span>/, which is exactly what you would want students to do:&nbsp;<b>separate concerns by domain</b>&nbsp;rather than dumping everything into one folder.</p>
+
+              <p class="MsoNormal">Below I will explain the architecture in a best-practice teaching style, while also being honest about what the repo&nbsp;<i>currently</i>&nbsp;does (based on its README class diagram).</p>
+
+              <div class="MsoNormal" align="center" style="text-align:center">
+                <hr size="4" width="100%" align="center">
+              </div>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>1) The architectural style: Runtime systems + entities in Unity XR</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal"><b>Two kinds of code you almost always have in a VR Unity game</b></p>
+
+                  <ol style="margin-top:0cm" start="1" type="1">
+                    <li class="MsoNormal"><b>Systems (Managers)</b><br>
+                        These coordinate&nbsp;<i>rules and flow</i>&nbsp;(spawning, waves, UI updates, audio triggers, effects, input routing).<br>
+                        They often live for the whole scene (or whole app).</li>
+                    <li class="MsoNormal"><b>Entities (Player/Enemy/Projectiles/<span class="SpellE">Interactables</span>)</b><br>
+                        These represent&nbsp;<i>objects in the world</i>&nbsp;that have behaviours and state.</li>
+                  </ol>
+
+                  <p class="MsoNormal">This repo follows that pattern clearly:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Managers:&nbsp;GameManager,&nbsp;SpawnManager,&nbsp;WaveManager,&nbsp;GUIManager,&nbsp;AudioManager,&nbsp;VisualEffectManager,&nbsp;PerkManager,&nbsp;SpecialManager,&nbsp;ControllerManager,&nbsp;InputManager</li>
+                    <li class="MsoNormal">Entities:&nbsp;<span class="SpellE">PlayerEntity</span>,&nbsp;<span class="SpellE">EnemyEntity</span>, projectiles like&nbsp;<span class="SpellE">ProjectileController</span>&nbsp;/&nbsp;<span class="SpellE">PlayerProjectileController</span></li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>2) Scene composition: how Unity objects are wired</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">The README diagram describes two important <span class="SpellE">GameObjects</span>:</p>
+
+                  <p class="MsoNormal"><span class="SpellE"><b>GO_GameManager_Object</b></span></p>
+
+                  <p class="MsoNormal">A composition root <span class="SpellE">GameObject</span> holding multiple manager components:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">GameManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">SpawnManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">InputManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">ControllerManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">GUIManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">AudioManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">VisualEffectManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">PerkManager</span></li>
+                    <li class="MsoNormal"><span class="SpellE">SpecialManager</span></li>
+                  </ul>
+
+                  <p class="MsoNormal">Teaching point: this is a&nbsp;<b>common pattern in Unity</b>, group global systems on one object so they are easy to find, configure, and keep alive.</p>
+
+                  <p class="MsoNormal"><span class="SpellE"><b>GO_XR_Origin</b></span></p>
+
+                  <p class="MsoNormal">The XR rig/origin object that contains the&nbsp;<span class="SpellE">PlayerEntity</span>&nbsp;component.</p>
+
+                  <p class="MsoNormal">Teaching point: in XR, the XR Origin is effectively the player body + tracking space. Keeping player logic attached here is good practice (movement, health, ability usage, etc.).</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>3) The <span class="SpellE">GameManager</span> as composition root pattern (and why it matters)</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">In the diagram,&nbsp;<span class="SpellE">GameManager</span>:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">is a&nbsp;<span class="SpellE">MonoBehaviour</span></li>
+                    <li class="MsoNormal">stores&nbsp;static&nbsp;references to other managers/entities:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">ControllerManager,&nbsp;SpawnManager,&nbsp;PlayerEntity,&nbsp;GUIManager,&nbsp;GameSettings,&nbsp;WaveManager,&nbsp;AudioManager,&nbsp;VisualEffectManager,&nbsp;PerkManager,&nbsp;SpecialManager</li>
+                    </ul>
+                    <li class="MsoNormal">performs setup in&nbsp;Awake()&nbsp;and&nbsp;<span class="SpellE">InitialiseManager</span>()</li>
+                    <li class="MsoNormal">provides high-level app commands:&nbsp;<span class="SpellE">ReturnMainMenu</span>(),&nbsp;<span class="SpellE">RestartGame</span>()</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Teaching point: Composition root vs. God object</b></p>
+
+                  <p class="MsoNormal"><b>Good intention:</b>&nbsp;central place where references are collected and setup happens.<br>
+                  <b>Risk:</b>&nbsp;if&nbsp;<span class="SpellE">GameManager</span>&nbsp;becomes the place where&nbsp;<i>all gameplay logic</i>&nbsp;lives, it becomes a God object.</p>
+
+                  <p class="MsoNormal">In this repo, it is not just wiring: it also holds global state (<span class="SpellE">gameInProgress</span>,&nbsp;<span class="SpellE">mainLoadout</span>). That is okay, but students should learn the rule:</p>
+
+                  <p class="MsoNormal">Let&nbsp;<span class="SpellE">GameManager</span>&nbsp;coordinate systems, not replace them.</p>
+
+                  <p class="MsoNormal"><b>Best practice logic coding advice</b></p>
+
+                  <p class="MsoNormal">If you teach from this codebase, recommend:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">GameManager</span>&nbsp;should set up references and own high-level state transitions (menu to gameplay to results).</li>
+                    <li class="MsoNormal">Wave logic stays in&nbsp;<span class="SpellE">WaveManager</span>.</li>
+                    <li class="MsoNormal">Spawn logic stays in&nbsp;<span class="SpellE">SpawnManager</span>.</li>
+                    <li class="MsoNormal">UI update logic stays in&nbsp;<span class="SpellE">GUIManager</span>.</li>
+                    <li class="MsoNormal">Do not let&nbsp;<span class="SpellE">GameManager.Update</span>()&nbsp;become the whole game.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>4) Input architecture in XR: <span class="SpellE">InputManager</span> as an input boundary</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">The diagram shows:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">InputManager</span>&nbsp;owns&nbsp;<span class="SpellE">XRIDefaultInputActions</span> <span class="SpellE">customInput</span></li>
+                    <li class="MsoNormal">lifecycle:&nbsp;Awake(),&nbsp;<span class="SpellE">InitialiseInput</span>(),&nbsp;<span class="SpellE">OnEnable</span>(),&nbsp;<span class="SpellE">OnDisable</span>()</li>
+                    <li class="MsoNormal">it calls into&nbsp;<span class="SpellE">ControllerManager</span>&nbsp;and&nbsp;<span class="SpellE">PlayerEntity</span></li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Teaching point: Separate input reading from game actions</b></p>
+
+                  <p class="MsoNormal">In VR, input complexity is high (multiple controllers, gestures, interactions, locomotion modes). Best practice is:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><b>Input layer (<span class="SpellE">InputManager</span>)</b>: reads hardware/controller state via the Input System / XRI actions.</li>
+                    <li class="MsoNormal"><b>Gameplay layer (<span class="SpellE">PlayerEntity</span> / <span class="SpellE">ControllerManager</span>)</b>: exposes intent-based methods like&nbsp;<span class="SpellE">TryFire</span>(),&nbsp;<span class="SpellE">ToggleTool</span>(),&nbsp;Grab(),&nbsp;Teleport(), etc.</li>
+                  </ul>
+
+                  <p class="MsoNormal">That way, you can:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">remap input without rewriting gameplay logic,</li>
+                    <li class="MsoNormal">simulate input for testing,</li>
+                    <li class="MsoNormal">support multiple control schemes.</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>XR-specific best practices to teach</b></p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Avoid doing heavy logic in input callbacks; instead set intent flags or call small methods.</li>
+                    <li class="MsoNormal">Debounce actions (for example, trigger press vs. hold).</li>
+                    <li class="MsoNormal">Prefer action-based input (XRI default input actions) over polling controller state manually.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>5) Encounter loop design: <span class="SpellE">WaveManager</span> + <span class="SpellE">SpawnManager</span></h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">This is the heart of the gameplay.</p>
+
+                  <p class="MsoNormal"><span class="SpellE"><b>WaveManager</b></span><b>&nbsp;= gameplay progression + scoring + pacing</b></p>
+
+                  <p class="MsoNormal">It owns:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">waveIndex</span>,&nbsp;<span class="SpellE">spawnIndex</span></li>
+                    <li class="MsoNormal"><span class="SpellE">playerScore</span>,&nbsp;<span class="SpellE">hostilesDefeated</span></li>
+                    <li class="MsoNormal">static int <span class="SpellE">missionFails</span></li>
+                    <li class="MsoNormal">configuration:&nbsp;<span class="SpellE">WaveDetails</span>[] <span class="SpellE">waveArray</span></li>
+                  </ul>
+
+                  <p class="MsoNormal">And key behaviours:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">BeginEncounter</span>()</li>
+                    <li class="MsoNormal"><span class="SpellE">EnemyDefeated</span>(type)</li>
+                    <li class="MsoNormal">internal update loop:&nbsp;Update()</li>
+                    <li class="MsoNormal">coroutines:&nbsp;<span class="SpellE">DelaySpawn</span>(),&nbsp;<span class="SpellE">ResetRecentEnemyDefeats</span>()</li>
+                    <li class="MsoNormal"><span class="SpellE">EndGame</span>()</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Teaching point:</b>&nbsp;This is a classic&nbsp;<i>game loop controller</i>:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Maintains the state machine of the encounter.</li>
+                    <li class="MsoNormal">Emits/requests actions from other systems (spawn next enemy, update UI, play audio).</li>
+                  </ul>
+
+                  <p class="MsoNormal"><span class="SpellE"><b>SpawnManager</b></span><b>&nbsp;= instantiate/pool &amp; place objects</b></p>
+
+                  <p class="MsoNormal">It owns:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Transform[] <span class="SpellE">spawnArray</span>&nbsp;(spawn points)</li>
+                    <li class="MsoNormal">Animator[] <span class="SpellE">doorAnimators</span>&nbsp;(environmental feedback tied to spawns)</li>
+                    <li class="MsoNormal">List&lt;<span class="SpellE">EnemyEntity</span>&gt; <span class="SpellE">enemyList</span>&nbsp;(tracking/pooling)</li>
+                    <li class="MsoNormal">static int <span class="SpellE">activeHostiles</span>&nbsp;(global count)</li>
+                  </ul>
+
+                  <p class="MsoNormal">And spawns:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">SpawnEnemy</span>(<span class="SpellE">spawnSettings</span>)</li>
+                    <li class="MsoNormal">multiple projectile spawn methods: player/turret/seeker projectiles</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Teaching point:</b>&nbsp;separate decide what spawns from how it spawns:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">WaveManager</span>&nbsp;should decide&nbsp;<i>what</i>&nbsp;and&nbsp;<i>when</i>.</li>
+                    <li class="MsoNormal"><span class="SpellE">SpawnManager</span>&nbsp;should decide&nbsp;<i>where</i>&nbsp;and&nbsp;<i>how</i>&nbsp;(including pooling, effects, door animations, etc.).</li>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Why this matters in VR best-practice coding</b></p>
+
+                  <p class="MsoNormal">VR performance is unforgiving. Spawning objects can cause:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">GC allocations to stutter</li>
+                    <li class="MsoNormal">CPU spikes to missed frames to discomfort</li>
+                  </ul>
+
+                  <p class="MsoNormal">So students should be taught to implement:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">pooling for enemies/projectiles/VFX,</li>
+                    <li class="MsoNormal">simple, data-driven spawn rules,</li>
+                    <li class="MsoNormal">careful use of coroutines/timers over heavy per-frame logic.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>6) Data-driven design: <span class="SpellE">WaveDetails</span> / <span class="SpellE">SpawnSettings</span> (Serializable structs)</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">The diagram shows:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">WaveDetails</span>&nbsp;is a&nbsp;Serializable struct&nbsp;containing:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal"><span class="SpellE">SpawnSettings</span>[] <span class="SpellE">spawnSettingsArray</span></li>
+                      <li class="MsoNormal">int <span class="SpellE">maxEnemyCount</span></li>
+                      <li class="MsoNormal"><span class="SpellE">WaveTrigger</span> <span class="SpellE">waveTrigger</span></li>
+                    </ul>
+                    <li class="MsoNormal"><span class="SpellE">SpawnSettings</span>&nbsp;is a&nbsp;Serializable struct&nbsp;containing:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal"><span class="SpellE">EnemyType</span> <span class="SpellE">enemyTypeToSpawn</span></li>
+                      <li class="MsoNormal">int <span class="SpellE">spawnLocationIndex</span></li>
+                      <li class="MsoNormal">float <span class="SpellE">spawnCooldown</span></li>
+                    </ul>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Teaching point: Data-driven beats hard-coded</b></p>
+
+                  <p class="MsoNormal">This is excellent to teach: your content (waves) should be editable without rewriting code.</p>
+
+                  <p class="MsoNormal">Best practice suggestions for students:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Prefer&nbsp;<span class="SpellE">ScriptableObject</span>&nbsp;assets for more complex wave definitions (<span class="SpellE">versionable</span>, reusable, can include references).</li>
+                    <li class="MsoNormal">Keep the runtime logic generic: read a definition, execute it.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>7) Cross-cutting systems: UI, audio, VFX, perks, specials</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">The diagram indicates these interactions:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal"><span class="SpellE">WaveManager</span>&nbsp;triggers:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal"><span class="SpellE">GUIManager</span>&nbsp;for UI updates</li>
+                      <li class="MsoNormal"><span class="SpellE">AudioManager</span>&nbsp;for sound/music</li>
+                      <li class="MsoNormal"><span class="SpellE">SpecialManager</span>&nbsp;for a special menu</li>
+                      <li class="MsoNormal"><span class="SpellE">ControllerManager</span>&nbsp;for toggles (plasma cannon)</li>
+                      <li class="MsoNormal"><span class="SpellE">GameSettings</span>&nbsp;for score persistence</li>
+                    </ul>
+                  </ul>
+
+                  <p class="MsoNormal"><b>Teaching point: avoid direct spaghetti calls as projects grow</b></p>
+
+                  <p class="MsoNormal">Right now, the architecture appears to be direct references (and many are static). That works for coursework scale, but for best practices, teach:</p>
+
+                  <ul style="margin-top:0cm" type="disc">
+                    <li class="MsoNormal">Use events/messages for state changed notifications:</li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal"><span class="SpellE">OnWaveStarted</span>(<span class="SpellE">waveIndex</span>)</li>
+                      <li class="MsoNormal"><span class="SpellE">OnEnemyDefeated</span>(<span class="SpellE">enemyType</span>)</li>
+                      <li class="MsoNormal"><span class="SpellE">OnScoreChanged</span>(<span class="SpellE">newScore</span>)</li>
+                    </ul>
+                    <li class="MsoNormal">UI/audio/VFX subscribe to events rather than being called from everywhere.</li>
+                  </ul>
+
+                  <p class="MsoNormal">This reduces coupling and makes systems independently testable.</p>
+                </div>
+              </details>
+
+              <details class="subsection-accordion">
+                <summary class="subsection-summary"><h3>8) A best-practice mental model students can follow (practical checklist)</h3></summary>
+                <div class="subsection-content">
+                  <p class="MsoNormal">When writing logic code for Unity XR, teach students to ask:</p>
+
+                  <ol style="margin-top:0cm" start="1" type="1">
+                    <li class="MsoNormal"><b>Is this code a System or an Entity?</b></li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">If it coordinates gameplay flow: System (Manager).</li>
+                      <li class="MsoNormal">If it lives on a world object: Entity behaviour.</li>
+                    </ul>
+                    <li class="MsoNormal"><b>What owns the state?</b></li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">Wave state belongs in&nbsp;<span class="SpellE">WaveManager</span>.</li>
+                      <li class="MsoNormal">Spawn state belongs in&nbsp;<span class="SpellE">SpawnManager</span>.</li>
+                      <li class="MsoNormal">Player combat state belongs in&nbsp;<span class="SpellE">PlayerEntity</span>&nbsp;/ weapon controllers.</li>
+                    </ul>
+                    <li class="MsoNormal"><b>Where does input end and gameplay begin?</b></li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal"><span class="SpellE">InputManager</span>&nbsp;reads input.</li>
+                      <li class="MsoNormal"><span class="SpellE">PlayerEntity</span>&nbsp;executes game actions.</li>
+                    </ul>
+                    <li class="MsoNormal"><b>What happens per-frame vs. event-driven?</b></li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">Prefer event-driven.</li>
+                      <li class="MsoNormal">Keep&nbsp;Update()&nbsp;short and predictable.</li>
+                    </ul>
+                    <li class="MsoNormal"><b>Will this allocate memory at runtime? (VR performance)</b></li>
+                    <ul style="margin-top:0cm" type="circle">
+                      <li class="MsoNormal">Avoid&nbsp;new&nbsp;allocations in&nbsp;Update().</li>
+                      <li class="MsoNormal">Pool frequently spawned objects.</li>
+                    </ul>
+                  </ol>
+                </div>
+              </details>
+
+              <div class="MsoNormal" align="center" style="text-align:center">
+                <hr size="4" width="100%" align="center">
+              </div>
+
+              <p class="MsoNormal"><b>Important note about completeness</b></p>
+
+              <p class="MsoNormal">I can see the repo's&nbsp;<b>folder structure</b>&nbsp;under&nbsp;Assets/&nbsp;(including&nbsp;Assets/Scripts/Managers,&nbsp;Assets/Scripts/Player, etc.), but the GitHub API listing I pulled is limited and may not show&nbsp;<i>all</i>&nbsp;assets in one response. To browse the full asset list in the GitHub UI, open the&nbsp;Assets&nbsp;directory here:</p>
+
+              <ul style="margin-top:0cm" type="disc">
+                <li class="MsoNormal"><a href="https://github.com/Module-Code/XRMMI_CW2_OG_Forefront_2025/tree/main/Assets">https://github.com/Module-Code/XRMMI_CW2_OG_Forefront_2025/tree/main/Assets</a></li>
+              </ul>
+
+              <p class="MsoNormal">&nbsp;</p>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    const definition = String.raw`classDiagram
+ direction LR
+
+ class GameManager {
+   <<MonoBehaviour>>
+   +static ControllerManager controllerManager
+   +static SpawnManager spawnManager
+   +static PlayerEntity playerEntity
+   +static GUIManager guiManager
+   +static GameSettings gameSettings
+   +static WaveManager waveManager
+   +static AudioManager audioManager
+   +static VisualEffectManager visualEffectManager
+   +static PerkManager perkManager
+   +static SpecialManager specialManager
+   +static Loadout mainLoadout
+   +static bool gameInProgress
+
+   -Awake()
+   -InitialiseManager()
+   +ReturnMainMenu()
+   +RestartGame()
+ }
+
+ class InputManager {
+   <<MonoBehaviour>>
+   -XRIDefaultInputActions customInput
+   -Awake()
+   -InitialiseInput()
+   -OnEnable()
+   -OnDisable()
+ }
+
+ class SpawnManager {
+   <<MonoBehaviour>>
+   +static int activeHostiles
+   +Transform[] spawnArray
+   +Animator[] doorAnimators
+   +List~EnemyEntity~ enemyList
+
+   -Start()
+   +SpawnWaveManager()
+   +SpawnPlayerProjectile(prefab, position, rotation) PlayerProjectileController
+   +SpawnProjectile(prefab, position, rotation)
+   +SpawnTurretProjectile(prefab, position, rotation)
+   +SpawnSeekerProjectile(prefab, position, rotation) ProjectileController
+   +SpawnEnemy(spawnSettings)
+ }
+
+ class WaveManager {
+   <<MonoBehaviour>>
+   +static int missionFails
+   +int waveIndex
+   +int spawnIndex
+   +int playerScore
+   +int hostilesDefeated
+   +WaveDetails[] waveArray
+
+   +BeginEncounter()
+   +EnemyDefeated(type)
+   -Update()
+   -EndGame()
+   -DelaySpawn() IEnumerator
+   -ResetRecentEnemyDefeats() IEnumerator
+ }
+
+ class WaveDetails {
+   <<Serializable struct>>
+   -SpawnSettings[] spawnSettingsArray
+   -int maxEnemyCount
+   -WaveTrigger waveTrigger
+ }
+
+ class SpawnSettings {
+   <<Serializable struct>>
+   -EnemyType enemyTypeToSpawn
+   -int spawnLocationIndex
+   -float spawnCooldown
+ }
+
+ class PlayerEntity
+ class EnemyEntity
+ class ProjectileController
+ class PlayerProjectileController
+ class GameSettings
+ class Loadout
+ class ControllerManager
+ class GUIManager
+ class AudioManager
+ class VisualEffectManager
+ class PerkManager
+ class SpecialManager
+ class EnemyType
+ class WaveTrigger
+ class XRIDefaultInputActions
+
+ GameManager *-- ControllerManager : GetComponent()
+ GameManager *-- SpawnManager : GetComponent()
+ GameManager *-- GUIManager : GetComponent()
+ GameManager *-- AudioManager : GetComponent()
+ GameManager *-- VisualEffectManager : GetComponent()
+ GameManager *-- PerkManager : GetComponent()
+ GameManager *-- SpecialManager : GetComponent()
+ GameManager ..> WaveManager : FindObjectOfType()
+ GameManager ..> PlayerEntity : Find XR Origin
+
+ InputManager ..> XRIDefaultInputActions : creates/enables
+ InputManager ..> ControllerManager : calls
+ InputManager ..> PlayerEntity : calls
+
+ WaveManager ..> SpawnManager : uses activeHostiles
+ WaveManager ..> SpawnManager : SpawnEnemy()
+ WaveManager ..> GUIManager : UI updates
+ WaveManager ..> AudioManager : sound/music
+ WaveManager ..> SpecialManager : special menu
+ WaveManager ..> ControllerManager : plasma cannon toggle
+ WaveManager ..> GameSettings : score persistence
+ WaveManager o-- WaveDetails : waveArray
+ WaveDetails o-- SpawnSettings : SpawnSettingsArray
+
+ SpawnManager ..> WaveManager : Instantiate from SpawnPrefab
+ SpawnManager o-- EnemyEntity : pool list
+ SpawnManager ..> PlayerProjectileController : pool/spawn
+ SpawnManager ..> ProjectileController : pool/spawn
+
+ class GO_XR_Origin
+ GO_XR_Origin o-- PlayerEntity : component
+
+ class GO_GameManager_Object
+ GO_GameManager_Object o-- GameManager : component
+ GO_GameManager_Object o-- SpawnManager : component
+ GO_GameManager_Object o-- InputManager : component
+ GO_GameManager_Object o-- ControllerManager : component
+ GO_GameManager_Object o-- GUIManager : component
+ GO_GameManager_Object o-- AudioManager : component
+ GO_GameManager_Object o-- VisualEffectManager : component
+ GO_GameManager_Object o-- PerkManager : component
+ GO_GameManager_Object o-- SpecialManager : component`;
+
+    const viewport = document.getElementById("diagramViewport");
+    const stage = document.getElementById("diagramStage");
+    const statusText = document.getElementById("statusText");
+
+    const state = {
+      baseViewBox: null,
+      viewBox: null,
+      minScale: 0.3,
+      maxScale: 8,
+      dragging: false,
+      lastX: 0,
+      lastY: 0,
+      svg: null
+    };
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function updateStatus() {
+      if (!state.viewBox || !state.baseViewBox) {
+        statusText.textContent = "Loading diagram...";
+        return;
+      }
+      const zoom = state.baseViewBox.w / state.viewBox.w;
+      statusText.textContent = `Scale: ${zoom.toFixed(2)}x | X: ${Math.round(state.viewBox.x)} | Y: ${Math.round(state.viewBox.y)}`;
+    }
+
+    function applyViewBox() {
+      if (!state.svg || !state.viewBox) {
+        return;
+      }
+      state.svg.setAttribute(
+        "viewBox",
+        `${state.viewBox.x} ${state.viewBox.y} ${state.viewBox.w} ${state.viewBox.h}`
+      );
+      updateStatus();
+    }
+
+    function zoomAt(clientX, clientY, factor) {
+      if (!state.viewBox || !state.baseViewBox) {
+        return;
+      }
+
+      const rect = viewport.getBoundingClientRect();
+      const px = clientX - rect.left;
+      const py = clientY - rect.top;
+
+      const old = state.viewBox;
+      const currentScale = state.baseViewBox.w / old.w;
+      const nextScale = clamp(currentScale * factor, state.minScale, state.maxScale);
+      if (nextScale === currentScale) {
+        return;
+      }
+
+      const newW = state.baseViewBox.w / nextScale;
+      const newH = state.baseViewBox.h / nextScale;
+
+      const anchorX = old.x + (px / rect.width) * old.w;
+      const anchorY = old.y + (py / rect.height) * old.h;
+
+      const ratioW = newW / old.w;
+      const ratioH = newH / old.h;
+
+      state.viewBox = {
+        x: anchorX - (anchorX - old.x) * ratioW,
+        y: anchorY - (anchorY - old.y) * ratioH,
+        w: newW,
+        h: newH
+      };
+      applyViewBox();
+    }
+
+    function panByPixels(dx, dy) {
+      if (!state.viewBox) {
+        return;
+      }
+      const rect = viewport.getBoundingClientRect();
+      state.viewBox.x -= (dx / rect.width) * state.viewBox.w;
+      state.viewBox.y -= (dy / rect.height) * state.viewBox.h;
+      applyViewBox();
+    }
+
+    function panByViewBox(dx, dy) {
+      if (!state.viewBox) {
+        return;
+      }
+      state.viewBox.x += dx;
+      state.viewBox.y += dy;
+      applyViewBox();
+    }
+
+    function resetView() {
+      if (!state.baseViewBox) {
+        return;
+      }
+      state.viewBox = { ...state.baseViewBox };
+      applyViewBox();
+    }
+
+    viewport.addEventListener("mousedown", function (event) {
+      state.dragging = true;
+      state.lastX = event.clientX;
+      state.lastY = event.clientY;
+      viewport.classList.add("dragging");
+    });
+
+    window.addEventListener("mouseup", function () {
+      state.dragging = false;
+      viewport.classList.remove("dragging");
+    });
+
+    window.addEventListener("mousemove", function (event) {
+      if (!state.dragging) {
+        return;
+      }
+      const dx = event.clientX - state.lastX;
+      const dy = event.clientY - state.lastY;
+      state.lastX = event.clientX;
+      state.lastY = event.clientY;
+      panByPixels(dx, dy);
+    });
+
+    viewport.addEventListener("wheel", function (event) {
+      event.preventDefault();
+      const factor = event.deltaY < 0 ? 1.12 : 0.88;
+      zoomAt(event.clientX, event.clientY, factor);
+    }, { passive: false });
+
+    document.getElementById("zoomIn").addEventListener("click", function () {
+      const rect = viewport.getBoundingClientRect();
+      zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 1.12);
+    });
+
+    document.getElementById("zoomOut").addEventListener("click", function () {
+      const rect = viewport.getBoundingClientRect();
+      zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 0.88);
+    });
+
+    document.getElementById("resetView").addEventListener("click", resetView);
+    document.getElementById("panLeft").addEventListener("click", function () {
+      if (!state.viewBox) {
+        return;
+      }
+      panByViewBox(-0.08 * state.viewBox.w, 0);
+    });
+    document.getElementById("panRight").addEventListener("click", function () {
+      if (!state.viewBox) {
+        return;
+      }
+      panByViewBox(0.08 * state.viewBox.w, 0);
+    });
+    document.getElementById("panUp").addEventListener("click", function () {
+      if (!state.viewBox) {
+        return;
+      }
+      panByViewBox(0, -0.08 * state.viewBox.h);
+    });
+    document.getElementById("panDown").addEventListener("click", function () {
+      if (!state.viewBox) {
+        return;
+      }
+      panByViewBox(0, 0.08 * state.viewBox.h);
+    });
+
+    async function renderDiagram() {
+      try {
+        mermaid.initialize({ startOnLoad: false, securityLevel: "loose", theme: "default" });
+        const rendered = await mermaid.render("cw2-architecture-diagram", definition);
+        stage.innerHTML = rendered.svg;
+
+        state.svg = stage.querySelector("svg");
+        if (!state.svg) {
+          throw new Error("Mermaid did not return an SVG element.");
+        }
+
+        state.svg.setAttribute("preserveAspectRatio", "xMinYMin meet");
+        const bbox = state.svg.getBBox();
+        const padding = 24;
+        state.baseViewBox = {
+          x: bbox.x - padding,
+          y: bbox.y - padding,
+          w: bbox.width + padding * 2,
+          h: bbox.height + padding * 2
+        };
+        resetView();
+      } catch (error) {
+        statusText.textContent = "Failed to render Mermaid diagram. Check syntax and reload.";
+        stage.innerHTML = "";
+        console.error(error);
+      }
+    }
+
+    renderDiagram();
+  </script>
+</body>
+</html>

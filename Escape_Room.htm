@@ -1,0 +1,362 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-GB style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>For an&nbsp;<b>escape-room VR prototype</b>&nbsp;in Unity XR
+Interaction Toolkit (XRIT), the cleanest “starter” game-logic approach is to
+treat the whole game as:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Interactables</b>&nbsp;(things you can grab/press/turn)</li>
+ <li class=MsoNormal><b>Receivers</b>&nbsp;(locks, doors, drawers, keypads)</li>
+ <li class=MsoNormal><b>Puzzle logic</b>&nbsp;(a small amount of state:
+     solved/unsolved, code entered, key inserted)</li>
+</ul>
+
+<p class=MsoNormal>You do&nbsp;<i>not</i>&nbsp;need a big manager architecture.
+You need&nbsp;<b>small scripts with clear responsibilities</b>, mostly
+event-driven.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>1) Minimal set of scripts (student-friendly)</b></p>
+
+<p class=MsoNormal><b>A. Interaction wrappers (per object)</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>GrabItem&nbsp;(optional wrapper around&nbsp;XRGrabInteractable)</li>
+ <li class=MsoNormal>PressButton&nbsp;(uses&nbsp;XRBaseInteractable.activated)</li>
+ <li class=MsoNormal>SocketKey&nbsp;(uses&nbsp;XRSocketInteractor&nbsp;events)</li>
+ <li class=MsoNormal>TurnDial&nbsp;(uses rotation to produce a value)</li>
+</ul>
+
+<p class=MsoNormal><b>B. Puzzle logic (per puzzle)</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>DoorLock&nbsp;(listens for key/socket or code solved;
+     opens door)</li>
+ <li class=MsoNormal>CombinationLock&nbsp;(checks dial values; raises “Solved”
+     event)</li>
+ <li class=MsoNormal>Keypad&nbsp;(collect digits; validates code; raises
+     “Solved” event)</li>
+</ul>
+
+<p class=MsoNormal><b>C. Feedback helpers (optional but good)</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>HapticsOnEvent</li>
+ <li class=MsoNormal>PlaySoundOnEvent</li>
+ <li class=MsoNormal>HighlightOnHover&nbsp;(simple “hover glow”)</li>
+</ul>
+
+<p class=MsoNormal>That’s enough for a whole prototype.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>2) Best-practice logic: “Interactable sends event, puzzle
+decides”</b></p>
+
+<p class=MsoNormal>Teach students this rule:</p>
+
+<p class=MsoNormal>Interactable scripts should report&nbsp;<i>what happened</i>&nbsp;(Pressed,
+Inserted, Turned-to-value).<br>
+Puzzle scripts decide&nbsp;<i>what it means</i>&nbsp;(correct code, unlock
+door, reveal clue).</p>
+
+<p class=MsoNormal>This prevents hard-coding puzzle rules into buttons/dials
+and makes puzzles reusable.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>3) Use XRIT events instead of direct InputActions
+(simpler for escape rooms)</b></p>
+
+<p class=MsoNormal>For escape rooms, most actions are object-centric (grab,
+press, insert), so XRIT events are perfect:</p>
+
+<p class=MsoNormal><b>Common XRIT events to use</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal><b>Hover</b>: player is pointing at it (for highlight)</li>
+ <li class=MsoNormal><b>Select</b>: grabbed or selected</li>
+ <li class=MsoNormal><b>Activate</b>: “use” action while held (trigger squeeze
+     typically)</li>
+ <li class=MsoNormal><b>Socket select</b>: object inserted into a socket</li>
+</ul>
+
+<p class=MsoNormal>This avoids writing a central&nbsp;InputManager&nbsp;for the
+prototype.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>4) Concrete patterns to teach</b></p>
+
+<p class=MsoNormal><b>Pattern A: “Pressable button” (event-driven)</b></p>
+
+<p class=MsoNormal><b>Student goal:</b>&nbsp;Press a physical button to toggle
+something or send a signal.</p>
+
+<p class=MsoNormal><b>How:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Put an&nbsp;XRBaseInteractable&nbsp;(or&nbsp;XRSimpleInteractable)
+     on the button object.</li>
+ <li class=MsoNormal>Subscribe to&nbsp;activated&nbsp;(or use the UnityEvent in
+     the inspector).</li>
+ <li class=MsoNormal>Button script raises&nbsp;OnPressed.</li>
+</ul>
+
+<p class=MsoNormal>Puzzle scripts listen to&nbsp;OnPressed.</p>
+
+<p class=MsoNormal><b>Best practices:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Debounce (ignore presses within 0.2s).</li>
+ <li class=MsoNormal>Keep the button script generic (“I was pressed”), not
+     “open door”.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>Pattern B: “Key + lock” using&nbsp;XRSocketInteractor</b></p>
+
+<p class=MsoNormal><b>Student goal:</b>&nbsp;Put a key in a keyhole; door
+unlocks.</p>
+
+<p class=MsoNormal><b>How:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Door has an&nbsp;XRSocketInteractor&nbsp;at the keyhole.</li>
+ <li class=MsoNormal>Key is an&nbsp;XRGrabInteractable.</li>
+ <li class=MsoNormal>When socket selects the key, you mark the lock satisfied.</li>
+</ul>
+
+<p class=MsoNormal><b>Best-practice logic detail:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Identify key by ID (string or ScriptableObject), not by
+     object name.</li>
+ <li class=MsoNormal>Lock checks ID, then unlocks.</li>
+</ul>
+
+<p class=MsoNormal>This is a great early lesson in avoiding fragile
+comparisons.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>Pattern C: “Dial combination” based on rotation</b></p>
+
+<p class=MsoNormal><b>Student goal:</b>&nbsp;Turn 3 dials to the right numbers.</p>
+
+<p class=MsoNormal><b>How:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Each dial exposes a&nbsp;CurrentValue&nbsp;(0–9) derived
+     from rotation.</li>
+ <li class=MsoNormal>CombinationLock&nbsp;reads all dials and compares to
+     solution.</li>
+</ul>
+
+<p class=MsoNormal><b>Best practices:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Quantize rotation into steps (snap to 36° for 10 digits).</li>
+ <li class=MsoNormal>Emit&nbsp;OnValueChanged(int)&nbsp;only when the snapped
+     value changes.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>Pattern D: “Keypad / code entry”</b></p>
+
+<p class=MsoNormal><b>Student goal:</b>&nbsp;press digit buttons; validate
+code.</p>
+
+<p class=MsoNormal><b>How:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Each digit button emits&nbsp;OnDigitPressed(int).</li>
+ <li class=MsoNormal>Keypad accumulates digits, updates display, validates.</li>
+</ul>
+
+<p class=MsoNormal><b>Best practices:</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Separate UI display from validation logic.</li>
+ <li class=MsoNormal>Keep code in a config object (ScriptableObject) so
+     designers can change it.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>5) How to structure puzzle state (very simple state
+machines)</b></p>
+
+<p class=MsoNormal>Teach students “explicit state” but keep it tiny:</p>
+
+<p class=MsoNormal><b>Example: Door</b></p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Locked</li>
+ <li class=MsoNormal>Unlocked</li>
+ <li class=MsoNormal>Open</li>
+</ul>
+
+<p class=MsoNormal>Door transitions:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Locked &#8594; Unlocked when prerequisites satisfied</li>
+ <li class=MsoNormal>Unlocked &#8594; Open when handle pressed / door grabbed /
+     automatic open trigger</li>
+</ul>
+
+<p class=MsoNormal>This makes bugs easier to reason about than scattered
+booleans.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>6) Pooling &amp; performance (escape rooms: what matters,
+what doesn’t)</b></p>
+
+<p class=MsoNormal>Escape rooms typically don’t spawn 100 bullets, so pooling
+is less central than in wave shooters.</p>
+
+<p class=MsoNormal>Still worth teaching:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>Avoid frequent Instantiate/Destroy for “UI popups” or
+     “sparkle VFX”</li>
+ <li class=MsoNormal>Prefer enabling/disabling objects</li>
+ <li class=MsoNormal>Use one-shot audio sources carefully (or a tiny audio
+     helper)</li>
+</ul>
+
+<p class=MsoNormal>But don’t over-engineer pools for a beginner escape room.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal><b>7) A recommended “first puzzle” sequence for teaching</b></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal>Button turns on a light (press event + feedback)</li>
+ <li class=MsoNormal>Key socket unlocks a drawer (socket event + lock)</li>
+ <li class=MsoNormal>Drawer contains a dial clue (simple progression)</li>
+ <li class=MsoNormal>3-dial combination unlocks final door (state machine +
+     quantized rotation)</li>
+</ol>
+
+<p class=MsoNormal>This covers all key VR interactions without heavy systems.</p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=4 width="100%" align=center>
+
+</div>
+
+<p class=MsoNormal>If you want, describe&nbsp;<b>one puzzle</b>&nbsp;you want
+in the room (e.g., “find keycard &#8594; unlock panel &#8594; enter 4-digit
+code &#8594; open exit”), and I’ll map it to:</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal>which XRIT components to add to which objects</li>
+ <li class=MsoNormal>what scripts you need (names + responsibilities)</li>
+ <li class=MsoNormal>the event wiring (who listens to whom) in the simplest
+     teachable form.</li>
+</ul>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
