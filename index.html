@@ -97,6 +97,7 @@
             transition: all 0.3s ease;
             display: block;
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .tab-wrapper:last-child .tab {
@@ -355,6 +356,22 @@
                     <a href="#" onclick="loadTutorial('Tut_10.htm'); return false;" class="btn">Start Tutorial</a>
                 </div>
             </div>
+            <div class="tab-wrapper">
+                <a href="#" onclick="loadTutorial('CW2_Basic_architecture.htm'); return false;" class="tab" data-tab="CW2_Basic_architecture.htm">CW2 Basic</a>
+                <div class="dropdown">
+                    <h3>CW2 Basic Architecture</h3>
+                    <p>Basic software architecture overview and escape room architecture sections for CW2.</p>
+                    <a href="#" onclick="loadTutorial('CW2_Basic_architecture.htm'); return false;" class="btn">Open</a>
+                </div>
+            </div>
+            <div class="tab-wrapper">
+                <a href="#" onclick="loadTutorial('CW2_Advanced_Architecture.htm'); return false;" class="tab" data-tab="CW2_Advanced_Architecture.htm">CW2 Advanced</a>
+                <div class="dropdown">
+                    <h3>CW2 Advanced Architecture</h3>
+                    <p>Architecture diagram, software architecture walkthrough, and video presentation for CW2.</p>
+                    <a href="#" onclick="loadTutorial('CW2_Advanced_Architecture.htm'); return false;" class="btn">Open</a>
+                </div>
+            </div>
         </div>
 
         <iframe id="content-frame" class="content-frame" style="display: none;"></iframe>
@@ -462,6 +479,20 @@
                             </p>
                         </a>
                         <a class="download-btn" href="https://github.com/Module-Sheets/XRMMI_Tutorial_Sheets/blob/main/Packages/Tut_10_Unity_Matrix_2026_noLibrary.zip" target="_blank" rel="noopener">Download Week 10 Package</a>
+                    </li>
+                    <li>
+                        <a class="tutorial-link" href="#" onclick="loadTutorial('CW2_Basic_architecture.htm'); return false;">CW2 Basic Architecture
+                            <p>
+                                <i>Core starter architecture covering basic XRIT and escape-room logic patterns.</i>
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="tutorial-link" href="#" onclick="loadTutorial('CW2_Advanced_Architecture.htm'); return false;">CW2 Advanced Architecture
+                            <p>
+                                <i>Advanced diagram and software architecture walkthrough for CW2 implementation.</i>
+                            </p>
+                        </a>
                     </li>
                 </ul>
             </div>
