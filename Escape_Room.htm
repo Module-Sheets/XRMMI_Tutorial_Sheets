@@ -29,6 +29,9 @@
 	line-height:115%;
 	font-size:12.0pt;
 	font-family:"Aptos",sans-serif;}
+.MsoChpDefault
+	{font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
 .MsoPapDefault
 	{margin-bottom:8.0pt;
 	line-height:115%;}
@@ -77,7 +80,8 @@ event-driven.</p>
 <p class=MsoNormal><b>A. Interaction wrappers (per object)</b></p>
 
 <ul style='margin-top:0cm' type=disc>
- <li class=MsoNormal>GrabItem&nbsp;(optional wrapper around&nbsp;XRGrabInteractable)</li>
+ <li class=MsoNormal>GrabItem&nbsp;(optional wrapper
+     around&nbsp;XRGrabInteractable)</li>
  <li class=MsoNormal>PressButton&nbsp;(uses&nbsp;XRBaseInteractable.activated)</li>
  <li class=MsoNormal>SocketKey&nbsp;(uses&nbsp;XRSocketInteractor&nbsp;events)</li>
  <li class=MsoNormal>TurnDial&nbsp;(uses rotation to produce a value)</li>
@@ -164,8 +168,9 @@ something or send a signal.</p>
 <p class=MsoNormal><b>How:</b></p>
 
 <ul style='margin-top:0cm' type=disc>
- <li class=MsoNormal>Put an&nbsp;XRBaseInteractable&nbsp;(or&nbsp;XRSimpleInteractable)
-     on the button object.</li>
+ <li class=MsoNormal>Put
+     an&nbsp;XRBaseInteractable&nbsp;(or&nbsp;XRSimpleInteractable) on the
+     button object.</li>
  <li class=MsoNormal>Subscribe to&nbsp;activated&nbsp;(or use the UnityEvent in
      the inspector).</li>
  <li class=MsoNormal>Button script raises&nbsp;OnPressed.</li>
