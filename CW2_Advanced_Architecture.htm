@@ -508,7 +508,7 @@
                     <li class="MsoNormal"><span class="SpellE">SpecialManager</span></li>
                   </ul>
 
-                  <p class="MsoNormal">Teaching point: this is a&nbsp;<b>common pattern in Unity</b>, group global systems on one object so they are easy to find, configure, and keep alive.</p>
+                  <p class="MsoNormal">Reflection point: this is a&nbsp;<b>common pattern in Unity</b>, group global systems on one object so they are easy to find, configure, and keep alive.</p>
 
                   <p class="MsoNormal"><span class="SpellE"><b>GO_XR_Origin</b></span></p>
 
@@ -533,7 +533,7 @@
                     <li class="MsoNormal">provides high-level app commands:&nbsp;<span class="SpellE">ReturnMainMenu</span>(),&nbsp;<span class="SpellE">RestartGame</span>()</li>
                   </ul>
 
-                  <p class="MsoNormal"><b>Teaching point: Composition root vs. God object</b></p>
+                  <p class="MsoNormal"><b>Reflection point: Composition root vs. God object</b></p>
 
                   <p class="MsoNormal"><b>Good intention:</b>&nbsp;central place where references are collected and setup happens.<br>
                   <b>Risk:</b>&nbsp;if&nbsp;<span class="SpellE">GameManager</span>&nbsp;becomes the place where&nbsp;<i>all gameplay logic</i>&nbsp;lives, it becomes a God object.</p>
@@ -645,7 +645,7 @@
                     <li class="MsoNormal">multiple projectile spawn methods: player/turret/seeker projectiles</li>
                   </ul>
 
-                  <p class="MsoNormal"><b>Teaching point:</b>&nbsp;separate decide what spawns from how it spawns:</p>
+                  <p class="MsoNormal"><b>Reflection point:</b>&nbsp;separate decide what spawns from how it spawns:</p>
 
                   <ul style="margin-top:0cm" type="disc">
                     <li class="MsoNormal"><span class="SpellE">WaveManager</span>&nbsp;should decide&nbsp;<i>what</i>&nbsp;and&nbsp;<i>when</i>.</li>
@@ -693,7 +693,7 @@
 
                   <p class="MsoNormal"><b>Data-driven beats hard-coded</b></p>
 
-                  <p class="MsoNormal">This is excellent to teach: your content (waves) should be editable without rewriting code.</p>
+                  <p class="MsoNormal">This is excellent to try: your content (waves) should be editable without rewriting code.</p>
 
                   <p class="MsoNormal">Best practice suggestions for students:</p>
 
@@ -720,9 +720,9 @@
                     </ul>
                   </ul>
 
-                  <p class="MsoNormal"><b>Teaching point: avoid direct spaghetti calls as projects grow</b></p>
+                  <p class="MsoNormal"><b>Reflection point: avoid direct spaghetti calls as projects grow</b></p>
 
-                  <p class="MsoNormal">Right now, the architecture appears to be direct references (and many are static). That works for coursework scale, but for best practices, teach:</p>
+                  <p class="MsoNormal">Right now, the architecture appears to be direct references (and many are static). That works for coursework scale, but for best practices, try:</p>
 
                   <ul style="margin-top:0cm" type="disc">
                     <li class="MsoNormal">Use events/messages for state changed notifications:</li>
@@ -741,7 +741,7 @@
               <details class="subsection-accordion">
                 <summary class="subsection-summary"><h3>8) A best-practice mental model students can follow (practical checklist)</h3></summary>
                 <div class="subsection-content">
-                  <p class="MsoNormal">When writing logic code for Unity XR, teach students to ask:</p>
+                  <p class="MsoNormal">When writing logic code for Unity XR, you should ask:</p>
 
                   <ol style="margin-top:0cm" start="1" type="1">
                     <li class="MsoNormal"><b>Is this code a System or an Entity?</b></li>
