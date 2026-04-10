@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 11: Locomotion</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 0;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        p,
+        li {
+            color: #1f1f1f;
+        }
+        a {
+            color: #467886;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ol,
+        ul {
+            margin-left: 22px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .note {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .resource-box {
+            background-color: #f4f8ff;
+            border-left: 4px solid #0F4761;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .imported-content {
+            margin-top: 14px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            overflow-x: auto;
+        }
+        .imported-content p,
+        .imported-content li,
+        .imported-content div {
+            line-height: 1.45;
+        }
+        .imported-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .imported-content table {
+            max-width: 100%;
+            border-collapse: collapse;
+        }
+        .imported-content td,
+        .imported-content th {
+            border: 1px solid #ddd;
+            padding: 6px;
+            vertical-align: top;
+        }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .section-divider {
+            border: 0;
+            border-top: 2px solid #0F4761;
+            margin: 16px 0;
+            opacity: 0.5;
+        }
+        .section-expandable {
+            border: none;
+            background-color: transparent;
+            margin: 10px 0;
+        }
+        .section-expandable summary {
+            cursor: pointer;
+            user-select: none;
+            padding: 8px 0;
+            color: #467886;
+            font-weight: 600;
+            margin-top: 14px;
+            margin-bottom: 0;
+            outline: none;
+        }
+        .section-expandable summary:hover {
+            color: #0F4761;
+        }
+        .section-expandable summary::marker {
+            color: #467886;
+        }
+        .section-expandable[open] summary {
+            color: #0F4761;
+            margin-bottom: 8px;
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-adapt.css">
+    <script src="mobile-adapt.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Tutorial 11: Locomotion</h1>
+
+        <div class="note">
+            <strong>Target versions:</strong> Unity 6000.0.58f2, URP, XR Interaction Toolkit (XRIT) 3.0.10, OpenXR, and XR Device Simulator.
+        </div>
+
+        <details class="accordion" open>
+            <summary class="accordion-summary">
+                <h2>Overview</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <p>This tutorial has two practical parts:</p>
+                    <ol>
+                        <li><strong>Customizing XR Locomotion</strong> (disable locomotion systems and rebind controls)</li>
+                        <li><strong>Lazy Navigation UI</strong> (World Space UI that follows the player using Lazy Follow)</li>
+                    </ol>
+
+                    <p><strong>Reference hierarchy:</strong> XR Interaction Setup > XR Origin (XR Rig) > Locomotion</p>
+
+                    <div style="text-align: center; margin-top: 14px;">
+                        <img src="https://i.gyazo.com/23f5005aaeb3a5eed8d13ca7481e677b.png" alt="XR Interaction Setup hierarchy showing XR Origin and Locomotion providers">
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 1: Customizing XR Locomotion</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <h3>Introduction</h3>
+                    <p>The XR Interaction Toolkit Starter Assets include multiple locomotion methods by default. In this part, you will disable unneeded methods and rebind inputs.</p>
+
+                    <h3>Prerequisites</h3>
+                    <ul>
+                        <li>OpenXR package installed.</li>
+                        <li>XR Interaction Toolkit 3.0.10 installed.</li>
+                        <li>Starter Assets sample imported.</li>
+                        <li>XR Device Simulator (optional, but recommended for keyboard and mouse testing).</li>
+                    </ul>
+
+                    <h3>Scene setup</h3>
+                    <div class="step-box">
+                        <ol>
+                            <li>Create a new scene (File > New Scene).</li>
+                            <li>Delete the default Main Camera.</li>
+                            <li>Add XR Interaction Setup to the Hierarchy.</li>
+                            <li>Add XR Device Simulator if needed.</li>
+                            <li>Add a teleport surface: right-click Hierarchy > XR > Teleportation Area.</li>
+                        </ol>
+                    </div>
+
+                    <h3>Disable a locomotion provider</h3>
+                    <div class="step-box">
+                        <ol>
+                            <li>Expand XR Interaction Setup > XR Origin (XR Rig) > Locomotion.</li>
+                            <li>Locate provider objects such as Move, Turn, Teleportation, Climb, and Grab Move.</li>
+                            <li>Disable any provider GameObject you do not want.</li>
+                            <li>Press Play and verify that locomotion behavior is removed.</li>
+                        </ol>
+                    </div>
+
+                    <div class="note">
+                        <strong>Troubleshooting:</strong> If disabled locomotion still works, check for duplicate rigs or duplicate locomotion providers in the scene.
+                    </div>
+
+                    <h3>Hierarchy search helper (t:)</h3>
+                    <p>Use Hierarchy search with component type filters to find locomotion-related providers:</p>
+                    <div class="step-box">
+                        <p>t:SnapTurnProvider</p>
+                        <p>t:ContinuousTurnProvider</p>
+                        <p>t:DynamicMoveProvider</p>
+                        <p>t:TeleportationProvider</p>
+                        <p>t:GrabMoveProvider</p>
+                        <p>t:TwoHandedGrabMoveProvider</p>
+                        <p>t:ClimbProvider</p>
+                    </div>
+
+                    <h3>Rebind locomotion controls</h3>
+                    <div class="step-box">
+                        <ol>
+                            <li>Open the Input Actions asset used by XR Interaction Setup.</li>
+                            <li>Find locomotion action maps for left and right controller input.</li>
+                            <li>Edit actions such as Move, Turn, Teleport Mode Activate, and Teleport Mode Cancel.</li>
+                            <li>Configure bindings for controller input and simulator keyboard input.</li>
+                            <li>Save the Input Actions asset and test in Play Mode.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Part 2: Lazy Navigation UI (World Space)</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <h3>Introduction</h3>
+                    <p>In VR, avoid Screen Space - Overlay interfaces. Use a World Space canvas and make it follow the headset with smooth, delayed movement using Lazy Follow.</p>
+
+                    <details class="section-expandable" open>
+                        <summary><h3 style="display: inline;">A) Canvas setup (World Space)</h3></summary>
+                        <ol>
+                            <li>Create Canvas (Hierarchy > Create > UI > Canvas).</li>
+                            <li>Add UI elements (Text, Buttons, Images) as needed.</li>
+                            <li>Create a dedicated UI layer (for example: VR_UI).</li>
+                            <li>Assign the Canvas and children to VR_UI layer.</li>
+                            <li>Set Canvas Render Mode to World Space.</li>
+                        </ol>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">B) Lazy Follow setup</h3></summary>
+                        <ol>
+                            <li>Add Lazy Follow component to the Canvas object.</li>
+                            <li>Set Target to the XR camera under XR Origin.</li>
+                            <li>Set Target Offset to (0, 0, 2).</li>
+                            <li>Set Position mode to Follow.</li>
+                            <li>Set Rotation mode to Look At.</li>
+                            <li>Tune movement and smoothing values for comfort.</li>
+                        </ol>
+                    </details>
+
+                    <hr class="section-divider">
+
+                    <details class="section-expandable">
+                        <summary><h3 style="display: inline;">C) URP camera stacking for UI overlay</h3></summary>
+                        <ol>
+                            <li>On XR Main Camera (Base), disable VR_UI in Culling Mask.</li>
+                            <li>Create a UI Camera and set Render Type to Overlay.</li>
+                            <li>Set UI Camera Culling Mask to only VR_UI.</li>
+                            <li>Add UI Camera to Base camera Camera Stack.</li>
+                            <li>Press Play and confirm UI visibility and smooth following.</li>
+                        </ol>
+                        <div class="note">
+                            <strong>If Camera Stack is missing:</strong> verify your URP renderer configuration supports camera stacking.
+                        </div>
+                    </details>
+
+                    <div class="resource-box">
+                        <p><strong>Further reading</strong></p>
+                        <ul>
+                            <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/lazy-follow.html" target="_blank" rel="noopener noreferrer">Lazy Follow (XRIT)</a></li>
+                            <li><a href="https://docs.unity3d.com/6000.0/Documentation/Manual/use-layers.html" target="_blank" rel="noopener noreferrer">Unity Layers (Unity 6)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Locomotion (Unity 6000.0.58f2 + XR Interaction Toolkit 3.0.10)</title>
+  <style>
+    :root {
+      --max: 980px;
+      --fg: #111;
+      --muted: #555;
+      --bg: #fff;
+      --code: #f6f8fa;
+      --border: #ddd;
+      --accent: #0b63ce;
+    }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    header, main, footer { max-width: var(--max); margin: 0 auto; padding: 24px; }
+    header { padding-bottom: 8px; }
+    h1 { font-size: 1.9rem; margin: 0 0 6px; }
+    h2 { font-size: 1.4rem; margin-top: 28px; border-top: 1px solid var(--border); padding-top: 18px; }
+    h3 { font-size: 1.15rem; margin-top: 18px; }
+    p, li { line-height: 1.45; }
+    .muted { color: var(--muted); }
+    .callout {
+      border: 1px solid var(--border);
+      background: #fcfcfc;
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin: 12px 0;
+    }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    pre { background: var(--code); padding: 12px 14px; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border); }
+    a { color: var(--accent); }
+    .steps ol { margin-top: 8px; }
+    figure { margin: 14px 0; }
+    img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 10px; }
+    figcaption { margin-top: 8px; font-size: 0.95rem; color: var(--muted); }
+    .kbd {
+      display: inline-block;
+      padding: 0px 6px;
+      border: 1px solid var(--border);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      background: #fff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Locomotion</h1>
+    <p class="muted">
+      Target versions: <strong>Unity 6000.0.58f2</strong>, <strong>URP</strong>,
+      <strong>XR Interaction Toolkit (XRIT) 3.0.10</strong>, <strong>OpenXR</strong>, and
+      <strong>XR Device Simulator</strong>.
+    </p>
+
+    <div class="callout">
+      <strong>Starter Assets folder note:</strong>
+      In XRIT 3.0.10, the sample content is versioned. You should expect paths like:
+      <code>Assets/Samples/XR Interaction Toolkit/3.0.10/Starter Assets/</code>.
+      If your project uses a different XRIT version, use the folder matching the installed version.
+    </div>
+  </header>
+
+  <main>
+    <section id="overall">
+      <h2>Overview</h2>
+      <p>
+        This document contains two short, student-friendly tutorials under a single “Locomotion” topic:
+      </p>
+      <ol>
+        <li><strong>Customizing XR Locomotion</strong> (disable locomotion systems and rebind controls)</li>
+        <li><strong>Lazy Navigation UI</strong> (world-space UI that follows the player with a subtle lag using Lazy Follow)</li>
+      </ol>
+
+      <figure>
+        <img
+          src="https://i.gyazo.com/23f5005aaeb3a5eed8d13ca7481e677b.png"
+          alt="XR Interaction Setup hierarchy showing XR Origin (XR Rig), Locomotion, and locomotion providers"
+        />
+        <figcaption>
+          Reference hierarchy (XRIT Starter Assets). You’ll be working mainly inside
+          <strong>XR Interaction Setup &gt; XR Origin (XR Rig) &gt; Locomotion</strong>.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="customizing-xr-locomotion">
+      <h2>1) Customizing XR Locomotion</h2>
+
+      <h3>Introduction</h3>
+      <p>
+        The XR Interaction Toolkit Starter Assets provide a prefab that already includes multiple locomotion methods.
+        This section shows how to:
+      </p>
+      <ul>
+        <li>Disable locomotion methods you don’t want (for example, remove teleport or snap turn).</li>
+        <li>Rebind locomotion inputs (useful when teaching with the XR Device Simulator).</li>
+      </ul>
+
+      <h3>Prerequisites</h3>
+      <ul>
+        <li>Packages: <strong>OpenXR</strong>, <strong>XR Interaction Toolkit</strong> (3.0.10), and the <strong>Starter Assets</strong> sample imported.</li>
+        <li>(Optional) <strong>XR Device Simulator</strong> for keyboard/mouse testing without a headset.</li>
+      </ul>
+
+      <h3>Setting up the scene</h3>
+      <div class="steps">
+        <ol>
+          <li>Create a new scene (<strong>File &gt; New Scene</strong>).</li>
+          <li>Delete the default <strong>Main Camera</strong> (the XR Origin will provide the camera).</li>
+          <li>
+            Drag these prefabs into your scene (from Starter Assets / samples):
+            <ul>
+              <li><strong>XR Interaction Setup</strong></li>
+              <li><strong>XR Device Simulator</strong> (optional)</li>
+            </ul>
+          </li>
+          <li>
+            Add a teleport surface: <strong>Right-click Hierarchy &gt; XR &gt; Teleportation Area</strong>.
+          </li>
+          <li class="muted">
+            Optional: assign a brighter material to the teleportation area so it’s easier to see during labs.
+          </li>
+        </ol>
+      </div>
+
+      <h3>Disabling an entire locomotion system (XRIT 3.0.10 Starter Assets)</h3>
+      <p>
+        In XRIT 3.x Starter Assets, locomotion providers are grouped under:
+        <strong>XR Interaction Setup &gt; XR Origin (XR Rig) &gt; Locomotion</strong>.
+      </p>
+
+      <div class="steps">
+        <ol>
+          <li>
+            In the Hierarchy, expand:
+            <strong>XR Interaction Setup &gt; XR Origin (XR Rig) &gt; Locomotion</strong>.
+          </li>
+          <li>
+            Under <strong>Locomotion</strong>, pick the locomotion provider you want to disable. In your prefab (see screenshot),
+            examples include:
+            <ul>
+              <li><strong>Move</strong></li>
+              <li><strong>Turn</strong></li>
+              <li><strong>Teleportation</strong></li>
+              <li><strong>Climb</strong></li>
+              <li><strong>Grab Move</strong></li>
+            </ul>
+          </li>
+          <li>
+            Disable that provider’s GameObject by unchecking its <strong>Active</strong> checkbox at the top of the Inspector.
+          </li>
+          <li>Press Play and verify the locomotion method no longer works for either hand.</li>
+        </ol>
+      </div>
+
+      <div class="callout">
+        <strong>Troubleshooting:</strong> If locomotion still works after disabling a provider, you likely have a duplicate rig/prefab
+        in the scene or another provider still enabled. Use Hierarchy search to locate duplicates.
+      </div>
+
+      <h3>Finding duplicates using Hierarchy search (<code>t:</code>)</h3>
+      <p>
+        In the Hierarchy search bar, type <code>t:</code> followed by a component type to find all objects with that component.
+        Common examples:
+      </p>
+      <pre>
+t:SnapTurnProvider
+t:ContinuousTurnProvider
+t:DynamicMoveProvider
+t:TeleportationProvider
+t:GrabMoveProvider
+t:TwoHandedGrabMoveProvider
+t:ClimbProvider
+      </pre>
+
+      <h3>Rebinding controls (recommended with XR Device Simulator)</h3>
+      <p>
+        Rebinding is done through the <strong>Input System</strong> action assets used by the Starter Assets rig.
+        This is the cleanest way to move actions (Move/Turn/Teleport/etc.) to different buttons or keys.
+      </p>
+
+      <div class="steps">
+        <ol>
+          <li>Locate the Input Actions asset used by your XR Interaction Setup rig (Starter Assets / XRI input actions).</li>
+          <li>Open the asset in the <strong>Input Actions</strong> editor.</li>
+          <li>Find the locomotion-related action map(s) (commonly left/right locomotion maps).</li>
+          <li>
+            Select an action you want to change (examples: <em>Move</em>, <em>Turn</em>, <em>Teleport Mode Activate</em>, <em>Teleport Mode Cancel</em>).
+          </li>
+          <li>
+            Add or edit bindings for:
+            <ul>
+              <li>XR controller inputs (OpenXR)</li>
+              <li>XR Device Simulator bindings (keyboard/mouse)</li>
+            </ul>
+          </li>
+          <li>Save the Input Actions asset.</li>
+          <li>
+            Press Play and test the new binding with the simulator (for example, try moving teleport to a new keyboard key).
+          </li>
+        </ol>
+      </div>
+
+      <p class="muted">
+        Practical teaching tip: if you want students to focus on one locomotion method, disable the others at the provider level
+        (Move/Turn/Teleportation/Climb/Grab Move) so there’s no “accidental” mode switching mid-lab.
+      </p>
+    </section>
+
+    <section id="lazy-navigation-ui">
+      <h2>2) Lazy Navigation UI (Overlay-style UI in VR)</h2>
+
+      <h3>Introduction</h3>
+      <p>
+        In XR, you generally avoid <em>Screen Space - Overlay</em> UI. Instead, use a <strong>World Space</strong> Canvas and have it
+        follow the player. This tutorial also uses <strong>Lazy Follow</strong> so the UI feels stable and slightly damped
+        rather than rigidly locked to the headset.
+      </p>
+
+      <h3>UI canvas setup (World Space)</h3>
+      <div class="steps">
+        <ol>
+          <li>Create a <strong>Canvas</strong> (Hierarchy &gt; Create &gt; UI &gt; Canvas).</li>
+          <li>Add any UI elements under the Canvas (Text, Images, Buttons, etc.).</li>
+          <li>Create a dedicated layer for UI (example: <code>VR_UI</code>) and assign the Canvas to that layer (apply to children if prompted).</li>
+          <li>On the Canvas component, set <strong>Render Mode</strong> to <strong>World Space</strong>.</li>
+        </ol>
+      </div>
+
+      <h3>Lazy Follow setup</h3>
+      <div class="steps">
+        <ol>
+          <li>Add the <strong>Lazy Follow</strong> component to the Canvas GameObject.</li>
+          <li>Set <strong>Target</strong> to the XR camera on your rig (the camera driven by the XR Device Simulator).</li>
+          <li>Set <strong>Target Offset</strong> to <code>(0, 0, 2)</code> (2 meters in front is a solid default).</li>
+          <li>Set Position follow mode to <strong>Follow</strong>.</li>
+          <li>Set Rotation mode to <strong>Look At</strong>.</li>
+          <li>Adjust movement speed/smoothing to taste.</li>
+        </ol>
+      </div>
+
+      <h3>URP overlay rendering (camera stacking)</h3>
+      <p>
+        If you want the UI to render “on top” reliably in URP, prefer a dedicated UI camera and URP camera stacking:
+      </p>
+      <div class="steps">
+        <ol>
+          <li>
+            Select the XR Origin’s <strong>Main Camera</strong>:
+            <ul>
+              <li>Ensure it is a URP <strong>Base</strong> camera (Render Type = Base).</li>
+              <li>In <strong>Culling Mask</strong>, <strong>disable</strong> the <code>VR_UI</code> layer.</li>
+            </ul>
+          </li>
+          <li>
+            Create a new camera GameObject named <strong>UI Camera</strong>:
+            <ul>
+              <li>Set Render Type = <strong>Overlay</strong>.</li>
+              <li>Set Culling Mask to <em>only</em> <code>VR_UI</code>.</li>
+            </ul>
+          </li>
+          <li>
+            On the Base camera, add the UI Camera to the <strong>Camera Stack</strong>.
+          </li>
+          <li>Press Play and verify the UI draws correctly and follows with the Lazy Follow delay.</li>
+        </ol>
+      </div>
+
+      <div class="callout">
+        <strong>If you can’t find Render Type / Camera Stack:</strong>
+        check that your project is using a URP renderer configuration that supports camera stacking.
+      </div>
+
+      <h3>Further reading</h3>
+      <ul>
+        <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/lazy-follow.html">Lazy Follow (XRIT)</a></li>
+        <li><a href="https://docs.unity3d.com/6000.0/Documentation/Manual/use-layers.html">Unity Layers (Unity 6)</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="muted">
+    <hr />
+    <p>
+      Last reviewed for Unity 6000.0.58f2 and XR Interaction Toolkit 3.0.10 (URP + XR Device Simulator).
+    </p>
+  </footer>
+</body>
+</html>

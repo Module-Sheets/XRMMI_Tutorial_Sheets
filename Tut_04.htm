@@ -225,16 +225,7 @@
             text-align: center;
             font-weight: bold;
         }
-        .time-badge {
-            background-color: #EA9999;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        .video-link {
+.video-link {
             background-color: #f4f4f4;
             padding: 12px;
             margin: 15px 0;
@@ -275,7 +266,7 @@
 
         <!-- VERSION COMPATIBILITY HEADER -->
         <div class="version-warning">
-            <h2>⚠️ UPDATED FOR UNITY 6000.0.58 + XR INTERACTION TOOLKIT 2.x (2025)</h2>
+            <h2> UPDATED FOR UNITY 6000.0.58 + XR INTERACTION TOOLKIT 2.x (2025)</h2>
             <p><strong>This tutorial has been organized for XRIT 2.x's legacy architecture.</strong></p>
             <p><strong>Major Changes from XRIT 2.x to 3.x:</strong></p>
             <ul style="margin-left: 20px; margin-top: 10px;">
@@ -285,35 +276,30 @@
                 <li><strong>Near-Far Interactor:</strong> New unified component replaces separate Direct + Ray interactors</li>
                 <li><strong>Input Readers:</strong> Built into interactors - no manual Input Action copying needed</li>
             </ul>
-            <p style="margin-top: 10px;"><strong>📚 Teaching Approach:</strong> This tutorial teaches the modern XRIT 3.0 workflow, with legacy context provided for understanding older projects.</p>
+            <p style="margin-top: 10px;"><strong> Teaching Approach:</strong> This tutorial teaches the modern XRIT 3.0 workflow, with legacy context provided for understanding older projects.</p>
         </div>
 
         <!-- Tutorial Overview -->
         <div class="comparison-box">
-            <h3>📋 Tutorial Overview - 60 Minute Learning Path</h3>
+            <h3> Tutorial Overview</h3>
             <table>
                 <tr>
-                    <th style="width: 15%;">Time</th>
-                    <th style="width: 25%;">Section</th>
-                    <th style="width: 60%;">What You'll Learn</th>
+                    <th style="width: 35%;">Section</th>
+                    <th style="width: 65%;">What You'll Learn</th>
                 </tr>
                 <tr>
-                    <td><strong>0-15 min</strong></td>
                     <td><strong>Part 1: Quick Start</strong></td>
                     <td>Get a working VR rig immediately using the Legacy Rig prefab</td>
                 </tr>
                 <tr>
-                    <td><strong>15-30 min</strong></td>
                     <td><strong>Part 2: Understanding</strong></td>
                     <td>Inspect and understand components of the Legacy Rig</td>
                 </tr>
                 <tr>
-                    <td><strong>30-50 min</strong></td>
                     <td><strong>Part 3: Build Your Own</strong></td>
                     <td>Manipulate a custom rig using XRIT Legacy components</td>
                 </tr>
                 <tr>
-                    <td><strong>50-60 min</strong></td>
                     <td><strong>Part 4: Legacy Context</strong></td>
                     <td>Understand historical approaches and work with older projects</td>
                 </tr>
@@ -332,12 +318,12 @@
 
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>🚀 PART 1: QUICK START - Working VR in 15 Minutes <span class="time-badge">0-15 MIN</span></h2>
+                <h2> PART 1: QUICK START - Working VR </h2>
             </summary>
             <div class="accordion-content">
 
         <div class="modern-box">
-            <h3>🎯 Goal: Get a fully functional VR rig working immediately</h3>
+            <h3> Goal: Get a fully functional VR rig working immediately</h3>
             <p><strong>Why start here?</strong> You'll see the end result first, then learn how it works. This "success-first" approach keeps motivation high!</p>
         </div>
 
@@ -410,7 +396,7 @@
         </div>
 
         <div class="modern-box">
-            <p><strong>🔔 Important XRIT 3.0 Change:</strong> You're installing version 3.0.10+, which has a completely different architecture from 2.x. The key difference: <strong>Input Readers</strong> are now built into interactors, eliminating manual Input Action copying.</p>
+            <p><strong> Important XRIT 3.0 Change:</strong> You're installing version 3.0.10+, which has a completely different architecture from 2.x. The key difference: <strong>Input Readers</strong> are now built into interactors, eliminating manual Input Action copying.</p>
         </div>
 
         <div class="step-box">
@@ -435,7 +421,7 @@
         </div>
 
         <div class="info-box">
-            <p><strong>📁 Where did the samples go?</strong> Check your Project window:</p>
+            <p><strong> Where did the samples go?</strong> Check your Project window:</p>
             <ul style="margin-left: 20px; margin-top: 5px;">
                 <li><code>Assets/Samples/XR Interaction Toolkit/3.0.10/Starter Assets/</code></li>
                 <li><code>Assets/Samples/XR Interaction Toolkit/3.0.10/XR Device Simulator/</code></li>
@@ -470,7 +456,7 @@
         <h3>Step 5: Add the Complete XR Rig (THE KEY STEP!)</h3>
 
         <div class="modern-box">
-            <h4>⚠️ CRITICAL XRIT 3.0 CHANGE</h4>
+            <h4> CRITICAL XRIT 3.0 CHANGE</h4>
             <p><strong>In XRIT 2.x:</strong> You used <strong>GameObject → XR → XR Origin (Action Based)</strong> which created a complete rig with controllers.</p>
             <p><strong>In XRIT 3.0:</strong> That menu option creates a <strong>MINIMAL rig</strong> (just camera - NO controllers). Instead, use the <strong>Complete Rig Prefab</strong> from Starter Assets!</p>
         </div>
@@ -522,14 +508,14 @@
         </div>
 
         <div class="highlight-green">
-            <p><strong>🎉 Congratulations!</strong> You now have a complete, fully-functional VR rig with:</p>
+            <p><strong> Congratulations!</strong> You now have a complete, fully-functional VR rig with:</p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="checkmark">✓</span> Head tracking (camera)</li>
-                <li><span class="checkmark">✓</span> Left and right hand controllers</li>
-                <li><span class="checkmark">✓</span> Ray and Direct Interactors (grab and point)</li>
-                <li><span class="checkmark">✓</span> Secondary Ray and Direct Interactors (we will investigate)</li>
-                <li><span class="checkmark">✓</span> Input Readers (automatic input handling)</li>
-                <li><span class="checkmark">✓</span> Controller visuals</li>
+                <li><span class="checkmark"></span> Head tracking (camera)</li>
+                <li><span class="checkmark"></span> Left and right hand controllers</li>
+                <li><span class="checkmark"></span> Ray and Direct Interactors (grab and point)</li>
+                <li><span class="checkmark"></span> Secondary Ray and Direct Interactors (we will investigate)</li>
+                <li><span class="checkmark"></span> Input Readers (automatic input handling)</li>
+                <li><span class="checkmark"></span> Controller visuals</li>
             </ul>
         </div>
 
@@ -595,16 +581,16 @@
 
 
         <div class="highlight-green">
-            <h4>🎊 SUCCESS CHECKPOINT</h4>
+            <h4> SUCCESS CHECKPOINT</h4>
             <p><strong>You should now be able to:</strong></p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="checkmark">✓</span> See controller models in the scene</li>
-                <li><span class="checkmark">✓</span> Move the camera view around</li>
-                <li><span class="checkmark">✓</span> Control left and right hands</li>
-                <li><span class="checkmark">✓</span> Grab and move the cube</li>
-                <li><span class="checkmark">✓</span> See Ray pointers when active and Grab with them</li>
+                <li><span class="checkmark"></span> See controller models in the scene</li>
+                <li><span class="checkmark"></span> Move the camera view around</li>
+                <li><span class="checkmark"></span> Control left and right hands</li>
+                <li><span class="checkmark"></span> Grab and move the cube</li>
+                <li><span class="checkmark"></span> See Ray pointers when active and Grab with them</li>
             </ul>
-            <p style="margin-top: 10px;"><strong>Congratulations! You have a working VR application in under 15 minutes!</strong></p>
+            <p style="margin-top: 10px;"><strong>Congratulations! You have a working VR application in quickly!</strong></p>
         </div>
 
         <p>&nbsp;</p>
@@ -614,12 +600,12 @@
 
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>🔍 PART 2: UNDERSTANDING THE COMPLETE RIG <span class="time-badge">15-30 MIN</span></h2>
+                <h2> PART 2: UNDERSTANDING THE COMPLETE RIG </h2>
             </summary>
             <div class="accordion-content">
 
         <div class="modern-box">
-            <h3>🎯 Goal: Understand what Unity gave you in the Complete 3.x Rig prefab</h3>
+            <h3> Goal: Understand what Unity gave you in the Complete 3.x Rig prefab</h3>
             <p><strong>Why inspect?</strong> Understanding the architecture helps you customize, troubleshoot, and build your own rigs from scratch.</p>
         </div>
 
@@ -645,16 +631,16 @@
 
         <div class="code" style="background-color: #f5f5f5; padding: 15px; margin: 15px 0; font-family: 'Courier New', monospace;">
 XR Origin (XR Rig)<br>
-├── Camera Offset<br>
-│   ├── Main Camera<br>
-│   ├── LeftHand Controller<br>
-│   │   ├── LeftHand Interactor (Near-Far or Direct + Ray)<br>
-│   │   └── Controller Model (visual)<br>
-│   ├── RightHand Controller<br>
-│   │   ├── RightHand Interactor (Near-Far or Direct + Ray)<br>
-│   │   └── Controller Model (visual)<br>
-│   └── Locomotion System (optional)<br>
-└── XR Interaction Manager
+ Camera Offset<br>
+    Main Camera<br>
+    LeftHand Controller<br>
+       LeftHand Interactor (Near-Far or Direct + Ray)<br>
+       Controller Model (visual)<br>
+    RightHand Controller<br>
+       RightHand Interactor (Near-Far or Direct + Ray)<br>
+       Controller Model (visual)<br>
+    Locomotion System (optional)<br>
+ XR Interaction Manager
         </div>
 
         <div class="image-container">
@@ -700,19 +686,19 @@ XR Origin (XR Rig)<br>
         <h4>4. LeftHand / RightHand Controllers</h4>
 
         <div class="modern-box">
-            <h4>🆕 XRIT 3.0 Architecture: Near-Far Interactors</h4>
+            <h4> XRIT 3.0 Architecture: Near-Far Interactors</h4>
             <p><strong>What Changed:</strong> In XRIT 2.x, you needed TWO separate interactors per hand:</p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="crossmark">✗</span> XR Direct Interactor (for touch-based grabbing)</li>
-                <li><span class="crossmark">✗</span> XR Ray Interactor (for distance pointing)</li>
-                <li><span class="crossmark">✗</span> ActionBasedController (for input - now deprecated)</li>
+                <li><span class="crossmark"></span> XR Direct Interactor (for touch-based grabbing)</li>
+                <li><span class="crossmark"></span> XR Ray Interactor (for distance pointing)</li>
+                <li><span class="crossmark"></span> ActionBasedController (for input - now deprecated)</li>
             </ul>
             <p style="margin-top: 10px;"><strong>XRIT 3.0 Solution:</strong> <strong>Near-Far Interactor</strong> - ONE component that does both!</p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="checkmark">✓</span> Automatically grabs nearby objects (direct mode)</li>
-                <li><span class="checkmark">✓</span> Automatically points at distant objects (ray mode)</li>
-                <li><span class="checkmark">✓</span> Has built-in Input Readers (no manual setup!)</li>
-                <li><span class="checkmark">✓</span> Intelligent mode switching based on distance</li>
+                <li><span class="checkmark"></span> Automatically grabs nearby objects (direct mode)</li>
+                <li><span class="checkmark"></span> Automatically points at distant objects (ray mode)</li>
+                <li><span class="checkmark"></span> Has built-in Input Readers (no manual setup!)</li>
+                <li><span class="checkmark"></span> Intelligent mode switching based on distance</li>
             </ul>
         </div>
 
@@ -778,7 +764,7 @@ XR Origin (XR Rig)<br>
         </table>
 
         <div class="info-box">
-            <p><strong>💡 Key Insight:</strong> Notice how you don't see any Input Action references to copy/paste? That's because <strong>Input Readers</strong> handle everything automatically in XRIT 3.0. This is the major architectural improvement!</p>
+            <p><strong> Key Insight:</strong> Notice how you don't see any Input Action references to copy/paste? That's because <strong>Input Readers</strong> handle everything automatically in XRIT 3.0. This is the major architectural improvement!</p>
         </div>
 
         <h4>5. XR Interaction Manager</h4>
@@ -843,14 +829,14 @@ XR Origin (XR Rig)<br>
         </table>
 
         <div class="highlight-green">
-            <h4>✅ UNDERSTANDING CHECKPOINT</h4>
+            <h4> UNDERSTANDING CHECKPOINT</h4>
             <p><strong>You should now understand:</strong></p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="checkmark">✓</span> The XR Origin hierarchy and purpose of each GameObject</li>
-                <li><span class="checkmark">✓</span> How Near-Far Interactor combines direct + ray interactions</li>
-                <li><span class="checkmark">✓</span> What Input Readers are and why they replaced manual Input Action copying</li>
-                <li><span class="checkmark">✓</span> How XR Interaction Manager coordinates everything</li>
-                <li><span class="checkmark">✓</span> How to make objects grabbable with XR Grab Interactable</li>
+                <li><span class="checkmark"></span> The XR Origin hierarchy and purpose of each GameObject</li>
+                <li><span class="checkmark"></span> How Near-Far Interactor combines direct + ray interactions</li>
+                <li><span class="checkmark"></span> What Input Readers are and why they replaced manual Input Action copying</li>
+                <li><span class="checkmark"></span> How XR Interaction Manager coordinates everything</li>
+                <li><span class="checkmark"></span> How to make objects grabbable with XR Grab Interactable</li>
             </ul>
         </div>
 
@@ -861,12 +847,12 @@ XR Origin (XR Rig)<br>
 
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>🔧 PART 3: BUILD YOUR OWN CUSTOM RIG <span class="time-badge">30-50 MIN</span></h2>
+                <h2> PART 3: BUILD YOUR OWN CUSTOM RIG </h2>
             </summary>
             <div class="accordion-content">
 
         <div class="modern-box">
-            <h3>🎯 Goal: Create a custom XR rig from scratch using XRIT 2 components</h3>
+            <h3> Goal: Create a custom XR rig from scratch using XRIT 2 components</h3>
             <p><strong>Why build manually?</strong> Understanding the manual process gives you full control for custom projects and helps troubleshooting.</p>
         </div>
 
@@ -890,7 +876,7 @@ XR Origin (XR Rig)<br>
         </div>
 
         <div class="modern-box">
-            <p><strong>⚠️ XRIT 3.0 Note:</strong> This creates a MINIMAL rig - just the XR Origin, Camera Offset, and Main Camera. <strong>NO controllers are included!</strong> We'll add them manually.</p>
+            <p><strong> XRIT 3.0 Note:</strong> This creates a MINIMAL rig - just the XR Origin, Camera Offset, and Main Camera. <strong>NO controllers are included!</strong> We'll add them manually.</p>
         </div>
 
         <div class="step-box">
@@ -920,7 +906,7 @@ XR Origin (XR Rig)<br>
         </div>
 
         <div class="highlight-green">
-            <p><strong>🎉 That's it!</strong> Your custom rig is functionally complete. The Near-Far Interactors have built-in Input Readers, so no manual Input Action setup is required!</p>
+            <p><strong> That's it!</strong> Your custom rig is functionally complete. The Near-Far Interactors have built-in Input Readers, so no manual Input Action setup is required!</p>
         </div>
 
         <div class="step-box">
@@ -959,7 +945,7 @@ XR Origin (XR Rig)<br>
         </div>
 
         <div class="modern-box">
-            <h4>💡 What You Just Experienced: Intelligent Mode Switching</h4>
+            <h4> What You Just Experienced: Intelligent Mode Switching</h4>
             <p>The Near-Far Interactor automatically:</p>
             <ul style="margin-left: 20px; margin-top: 5px;">
                 <li><strong>Near Mode:</strong> When your hand is close to an object, it uses direct grab (sphere collider)</li>
@@ -972,7 +958,7 @@ XR Origin (XR Rig)<br>
         <h3>Method 2: Advanced - Using XR Direct + Ray Interactors (Legacy Architecture)</h3>
 
         <div class="legacy-box">
-            <h4>🎓 Educational Context: The XRIT 2.x Way</h4>
+            <h4> Educational Context: The XRIT 2.x Way</h4>
             <p><strong>Why show this?</strong> Many existing projects and tutorials use separate Direct and Ray Interactors. Understanding this helps you work with older codebases.</p>
             <p><strong>Note:</strong> This method works in XRIT 3.0 but is considered legacy. Use Near-Far Interactor for new projects.</p>
         </div>
@@ -1007,14 +993,14 @@ XR Origin (XR Rig)<br>
         </div>
 
         <div class="highlight-green">
-            <h4>✅ BUILD YOUR OWN CHECKPOINT</h4>
+            <h4> BUILD YOUR OWN CHECKPOINT</h4>
             <p><strong>You should now be able to:</strong></p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="checkmark">✓</span> Create a minimal XR Origin from the GameObject menu</li>
-                <li><span class="checkmark">✓</span> Add Near-Far Interactors manually</li>
-                <li><span class="checkmark">✓</span> Configure Controller Nodes for left/right hands</li>
-                <li><span class="checkmark">✓</span> Understand why Near-Far is better than separate Direct + Ray</li>
-                <li><span class="checkmark">✓</span> Build a fully functional custom VR rig from scratch</li>
+                <li><span class="checkmark"></span> Create a minimal XR Origin from the GameObject menu</li>
+                <li><span class="checkmark"></span> Add Near-Far Interactors manually</li>
+                <li><span class="checkmark"></span> Configure Controller Nodes for left/right hands</li>
+                <li><span class="checkmark"></span> Understand why Near-Far is better than separate Direct + Ray</li>
+                <li><span class="checkmark"></span> Build a fully functional custom VR rig from scratch</li>
             </ul>
         </div>
 
@@ -1025,19 +1011,19 @@ XR Origin (XR Rig)<br>
 
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>📜 PART 4: LEGACY SYSTEMS & HISTORICAL CONTEXT <span class="time-badge">50-60 MIN</span></h2>
+                <h2> PART 4: LEGACY SYSTEMS & HISTORICAL CONTEXT </h2>
             </summary>
             <div class="accordion-content">
 
         <div class="legacy-box">
-            <h3>🎯 Goal: Understand older XRIT approaches for working with existing projects</h3>
+            <h3> Goal: Understand older XRIT approaches for working with existing projects</h3>
             <p><strong>Why learn this?</strong> Many tutorials, YouTube videos, and existing projects use XRIT 2.x architecture. This section helps you recognize and work with legacy systems.</p>
         </div>
 
         <h3>The Evolution of XR Interaction Toolkit</h3>
 
         <div class="comparison-box">
-            <h3>🔄 How XR Rig Setup Has Changed</h3>
+            <h3> How XR Rig Setup Has Changed</h3>
             
             <h4>XRIT 1.x - 2.x (2020-2023): The "Manual" Era</h4>
             <table style="margin-top: 10px;">
@@ -1053,7 +1039,7 @@ XR Origin (XR Rig)<br>
                         • Created complete rig with controllers<br>
                         • Everything included in menu option
                     </td>
-                    <td><span style="color: orange;">⚠️ Medium</span></td>
+                    <td><span style="color: orange;"> Medium</span></td>
                 </tr>
                 <tr>
                     <td><strong>Input Handling</strong></td>
@@ -1063,7 +1049,7 @@ XR Origin (XR Rig)<br>
                         • Copy/paste from XRI Default controllers<br>
                         • Create or import .inputactions file
                     </td>
-                    <td><span style="color: red;">❌ High</span></td>
+                    <td><span style="color: red;"> High</span></td>
                 </tr>
                 <tr>
                     <td><strong>Interactions</strong></td>
@@ -1073,12 +1059,12 @@ XR Origin (XR Rig)<br>
                         • Manual priority management<br>
                         • Collision sphere configuration
                     </td>
-                    <td><span style="color: red;">❌ High</span></td>
+                    <td><span style="color: red;"> High</span></td>
                 </tr>
                 <tr>
                     <td><strong>Total Setup Steps</strong></td>
                     <td>~15-20 steps per hand</td>
-                    <td><span style="color: red;">❌ Time-consuming</span></td>
+                    <td><span style="color: red;"> Time-consuming</span></td>
                 </tr>
             </table>
 
@@ -1096,7 +1082,7 @@ XR Origin (XR Rig)<br>
                         • <strong>Use Complete Rig Prefab from Starter Assets</strong><br>
                         • Drag and drop - instant setup
                     </td>
-                    <td><span style="color: green;">✓ Easy</span></td>
+                    <td><span style="color: green;"> Easy</span></td>
                 </tr>
                 <tr>
                     <td><strong>Input Handling</strong></td>
@@ -1106,7 +1092,7 @@ XR Origin (XR Rig)<br>
                         • No manual references needed<br>
                         • ActionBasedController DEPRECATED
                     </td>
-                    <td><span style="color: green;">✓ Easy</span></td>
+                    <td><span style="color: green;"> Easy</span></td>
                 </tr>
                 <tr>
                     <td><strong>Interactions</strong></td>
@@ -1116,12 +1102,12 @@ XR Origin (XR Rig)<br>
                         • Built-in collision detection<br>
                         • Intelligent behavior
                     </td>
-                    <td><span style="color: green;">✓ Easy</span></td>
+                    <td><span style="color: green;"> Easy</span></td>
                 </tr>
                 <tr>
                     <td><strong>Total Setup Steps</strong></td>
                     <td>~3 steps (drag prefab, configure hand nodes, done)</td>
-                    <td><span style="color: green;">✓ Fast</span></td>
+                    <td><span style="color: green;"> Fast</span></td>
                 </tr>
             </table>
         </div>
@@ -1138,9 +1124,9 @@ XR Origin (XR Rig)<br>
             </ul>
             <p style="margin-top: 10px;"><strong>What you should do instead:</strong></p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="checkmark">✓</span> Use the Complete Rig prefab from Starter Assets</li>
-                <li><span class="checkmark">✓</span> Or use Near-Far Interactors with automatic Input Readers</li>
-                <li><span class="checkmark">✓</span> Skip the entire copy/paste workflow</li>
+                <li><span class="checkmark"></span> Use the Complete Rig prefab from Starter Assets</li>
+                <li><span class="checkmark"></span> Or use Near-Far Interactors with automatic Input Readers</li>
+                <li><span class="checkmark"></span> Skip the entire copy/paste workflow</li>
             </ul>
         </div>
 
@@ -1196,40 +1182,40 @@ XR Origin (XR Rig)<br>
             </tr>
             <tr>
                 <td><strong>ActionBasedController</strong></td>
-                <td style="color: red;">❌ Deprecated - removed from packages</td>
+                <td style="color: red;"> Deprecated - removed from packages</td>
                 <td><strong>Input Readers</strong> (embedded in interactors)</td>
             </tr>
             <tr>
                 <td><strong>Action Based XR Rig Prefab</strong></td>
-                <td style="color: red;">❌ Removed from GameObject menu</td>
+                <td style="color: red;"> Removed from GameObject menu</td>
                 <td><strong>Complete Rig Prefab</strong> from Starter Assets</td>
             </tr>
             <tr>
                 <td><strong>Manual Input Action Copying</strong></td>
-                <td style="color: orange;">⚠️ Still possible but unnecessary</td>
+                <td style="color: orange;"> Still possible but unnecessary</td>
                 <td><strong>Automatic Input Readers</strong></td>
             </tr>
             <tr>
                 <td><strong>Separate Direct + Ray Interactors</strong></td>
-                <td style="color: orange;">⚠️ Still functional but legacy</td>
+                <td style="color: orange;"> Still functional but legacy</td>
                 <td><strong>Near-Far Interactor</strong> (unified component)</td>
             </tr>
             <tr>
                 <td><strong>Affordance System</strong></td>
-                <td style="color: red;">❌ Deprecated - replacement coming</td>
+                <td style="color: red;"> Deprecated - replacement coming</td>
                 <td>New feedback system in future release</td>
             </tr>
         </table>
 
         <div class="highlight-green">
-            <h4>✅ LEGACY CONTEXT CHECKPOINT</h4>
+            <h4> LEGACY CONTEXT CHECKPOINT</h4>
             <p><strong>You should now understand:</strong></p>
             <ul style="margin-left: 20px; margin-top: 5px;">
-                <li><span class="checkmark">✓</span> How XRIT has evolved from 2.x to 3.0</li>
-                <li><span class="checkmark">✓</span> Why ActionBasedController was deprecated</li>
-                <li><span class="checkmark">✓</span> What to do when encountering old tutorials</li>
-                <li><span class="checkmark">✓</span> How to work with existing XRIT 2.x projects</li>
-                <li><span class="checkmark">✓</span> Which components are legacy vs modern</li>
+                <li><span class="checkmark"></span> How XRIT has evolved from 2.x to 3.0</li>
+                <li><span class="checkmark"></span> Why ActionBasedController was deprecated</li>
+                <li><span class="checkmark"></span> What to do when encountering old tutorials</li>
+                <li><span class="checkmark"></span> How to work with existing XRIT 2.x projects</li>
+                <li><span class="checkmark"></span> Which components are legacy vs modern</li>
             </ul>
         </div>
 
@@ -1240,7 +1226,7 @@ XR Origin (XR Rig)<br>
 
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>🎨 PART 5: WORKING WITH UNITY UI IN VR</h2>
+                <h2> PART 5: WORKING WITH UNITY UI IN VR</h2>
             </summary>
             <div class="accordion-content">
 
@@ -1333,7 +1319,7 @@ XR Origin (XR Rig)<br>
         </div>
 
         <div class="modern-box">
-            <p><strong>💡 Near-Far Interactor + UI:</strong> The Near-Far Interactor automatically activates its ray when pointing at UI elements. The transition is seamless - no extra configuration needed!</p>
+            <p><strong> Near-Far Interactor + UI:</strong> The Near-Far Interactor automatically activates its ray when pointing at UI elements. The transition is seamless - no extra configuration needed!</p>
         </div>
 
         <p>&nbsp;</p>
@@ -1344,19 +1330,19 @@ XR Origin (XR Rig)<br>
         <!-- TUTORIAL SUMMARY -->
         <details class="accordion">
             <summary class="accordion-summary">
-                <h2>🎓 TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
+                <h2> TUTORIAL SUMMARY: KEY TAKEAWAYS</h2>
             </summary>
             <div class="accordion-content">
                 <div class="comparison-box">
 
             <h3>What You've Accomplished:</h3>
             <ul style="margin-left: 20px;">
-                <li><span class="checkmark">✓</span> Understood the legacy XRIT 2.x architecture and component structure</li>
-                <li><span class="checkmark">✓</span> Created a working VR scene from scratch using legacy components</li>
-                <li><span class="checkmark">✓</span> Implemented ActionBasedController for input handling (legacy approach)</li>
-                <li><span class="checkmark">✓</span> Set up separate XR Direct Interactor and XR Ray Interactor</li>
-                <li><span class="checkmark">✓</span> Built world-space UI interactions with Tracked Device support</li>
-                <li><span class="checkmark">✓</span> Learned why XRIT evolved to version 3.0</li>
+                <li><span class="checkmark"></span> Understood the legacy XRIT 2.x architecture and component structure</li>
+                <li><span class="checkmark"></span> Created a working VR scene from scratch using legacy components</li>
+                <li><span class="checkmark"></span> Implemented ActionBasedController for input handling (legacy approach)</li>
+                <li><span class="checkmark"></span> Set up separate XR Direct Interactor and XR Ray Interactor</li>
+                <li><span class="checkmark"></span> Built world-space UI interactions with Tracked Device support</li>
+                <li><span class="checkmark"></span> Learned why XRIT evolved to version 3.0</li>
             </ul>
 
             <h3>Key Concepts Mastered:</h3>
@@ -1409,7 +1395,7 @@ XR Origin (XR Rig)<br>
             </ol>
 
                 <div class="modern-box">
-                    <h4>🔄 Next: Move to XRIT 3.0</h4>
+                    <h4> Next: Move to XRIT 3.0</h4>
                     <p>Now that you understand the <strong>legacy foundation</strong>, Tutorial 05 introduces the <strong>modern XRIT 3.0</strong> approach. You'll see how the same goals are achieved with:</p>
                     <ul style="margin-left: 20px; margin-top: 5px;">
                         <li>Near-Far Interactor (unified, simpler)</li>
@@ -1420,7 +1406,7 @@ XR Origin (XR Rig)<br>
                 </div>
 
                 <div class="highlight-green">
-                    <h3>🎯 Next Steps:</h3>
+                    <h3> Next Steps:</h3>
                     <ol style="margin-left: 20px; margin-top: 10px;">
                         <li><strong>Review:</strong> Compare this tutorial's components to the XRIT 3.0 equivalents in Tutorial 05</li>
                         <li><strong>Experiment:</strong> Create the same scene in both XRIT 2.x and XRIT 3.0 to understand the differences</li>
@@ -1429,7 +1415,7 @@ XR Origin (XR Rig)<br>
                     </ol>
                 </div>
 
-                <h3>📖 Additional Documentation & Resources</h3>
+                <h3> Additional Documentation & Resources</h3>
                 <ul>
                     <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@2.5/manual/index.html">XRIT 2.5 Official Documentation (Legacy)</a></li>
                     <li><a href="https://docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit@3.0/manual/upgrade-guide-3.0.html">XRIT 3.0 Upgrade Guide (How to Migrate)</a></li>
@@ -1440,7 +1426,7 @@ XR Origin (XR Rig)<br>
 
                 <p>&nbsp;</p>
                 <p style="text-align: center; font-size: 12pt; font-weight: bold; margin-top: 30px;">
-                    🎉 Congratulations! You've completed Tutorial 04! 🎉
+                     Congratulations! You've completed Tutorial 04! 
                 </p>
                 <p style="text-align: center; font-style: italic; color: #666;">
                     You now understand the legacy XRIT 2.x architecture and have the foundation to work with existing projects. Ready to explore the modern XRIT 3.0 in Tutorial 05!
