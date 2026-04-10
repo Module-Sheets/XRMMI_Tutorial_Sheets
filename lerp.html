@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Tutorial: Using Lerp (Unity 6000.0.58f2 + XRIT 3.0.10)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 0;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        p, li {
+            color: #1f1f1f;
+        }
+        a {
+            color: #467886;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ol, ul {
+            margin-left: 22px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        code, pre {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 14px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 10px 0 0;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        .note {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-box {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 14px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .resource-box {
+            background-color: #f4f8ff;
+            border-left: 4px solid #0F4761;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-adapt.css">
+    <script src="mobile-adapt.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Lerp in Unity (Unity 6000.0.58f2) with XR Interaction Toolkit (XRIT 3.0.10)</h1>
+
+        <div class="note">
+            <strong>Target setup:</strong> Unity 6000.0.58f2, OpenXR, XR Interaction Toolkit 3.0.10, and Starter Assets.
+        </div>
+
+        <p>
+            <strong>Linear interpolation</strong> ("lerp") is a standard technique for smoothly blending between two values.
+            In Unity, you commonly use:
+        </p>
+        <ul>
+            <li><code>Mathf.Lerp(a, b, t)</code> for floats</li>
+            <li><code>Vector3.Lerp(a, b, t)</code> for positions/directions</li>
+            <li><code>Color.Lerp(a, b, t)</code> for colors</li>
+            <li><code>Quaternion.Lerp(a, b, t)</code> for rotations (often better: <code>Quaternion.Slerp</code>)</li>
+        </ul>
+
+        <details class="accordion" open>
+            <summary class="accordion-summary">
+                <h2>Core idea: the t parameter</h2>
+            </summary>
+            <div class="accordion-content">
+                <p>Lerp uses a <code>t</code> parameter, usually in the range <code>[0, 1]</code>:</p>
+                <ul>
+                    <li><code>t = 0</code> gives the start value</li>
+                    <li><code>t = 1</code> gives the end value</li>
+                    <li><code>t = 0.5</code> gives a halfway blend</li>
+                </ul>
+                <div class="note">
+                    <strong>Important:</strong> Unity's Lerp methods clamp <code>t</code> to <code>[0,1]</code> in many cases
+                    (e.g., <code>Color.Lerp</code>, <code>Vector3.Lerp</code>). If you want extrapolation beyond the endpoints,
+                    use the <code>*LerpUnclamped</code> variants (e.g., <code>Mathf.LerpUnclamped</code>).
+                </div>
+                <div class="step-box">
+                    <h3>Setup (XRIT context)</h3>
+                    <p>This tutorial assumes you have:</p>
+                    <ul>
+                        <li>An XR scene with an <strong>XR Origin (Action-based)</strong> and controllers set up using XRIT 3.x</li>
+                        <li>Some interactable objects in the scene</li>
+                    </ul>
+                    <div class="note">
+                        <strong>Note:</strong> None of the examples below require deep XRIT APIs. We'll just use XR transforms (like the
+                        controller or HMD) as "targets" to drive <code>t</code>, positions, colors, and UI.
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Example 1 — Material colour changes with proximity (Color.Lerp)</h2>
+            </summary>
+            <div class="accordion-content">
+                <p>
+                    Goal: An object smoothly changes from <strong>farColor</strong> to <strong>nearColor</strong> as the user's
+                    hand/controller approaches it.
+                </p>
+
+                <h3>Scene steps</h3>
+                <ol>
+                    <li>Create a Cube (or any mesh) and assign a material.</li>
+                    <li>Drag your controller transform (e.g., RightHand Controller) into the script's <code>proximitySource</code>.</li>
+                    <li>Attach this script to the object whose material should change.</li>
+                </ol>
+
+<pre><code>using UnityEngine;
+
+public class ProximityColorLerp : MonoBehaviour
+{
+    [Header("Proximity Source (e.g., XR controller transform)")]
+    [SerializeField] private Transform proximitySource;
+
+    [Header("Distances (meters)")]
+    [SerializeField] private float nearDistance = 0.15f;
+    [SerializeField] private float farDistance  = 1.00f;
+
+    [Header("Colors")]
+    [SerializeField] private Color farColor  = new Color(0.2f, 0.6f, 1.0f, 1f);
+    [SerializeField] private Color nearColor = new Color(1.0f, 0.2f, 0.2f, 1f);
+
+    [Header("Material")]
+    [SerializeField] private Renderer targetRenderer;
+
+    // Optional: choose which color property to set
+    [SerializeField] private string colorProperty = "_BaseColor"; // URP Lit uses _BaseColor
+
+    private Material _mat;
+
+    private void Awake()
+    {
+        if (!targetRenderer) targetRenderer = GetComponent&lt;Renderer&gt;();
+        // Instantiate so we don't edit a shared material asset at runtime
+        _mat = targetRenderer.material;
+    }
+
+    private void Update()
+    {
+        if (!proximitySource || !_mat) return;
+
+        float d = Vector3.Distance(proximitySource.position, transform.position);
+
+        // Convert distance to a 0..1 "closeness" t:
+        // d &lt;= nearDistance =&gt; t = 1
+        // d &gt;= farDistance  =&gt; t = 0
+        float t = Mathf.InverseLerp(farDistance, nearDistance, d);
+
+        // Blend color
+        Color c = Color.Lerp(farColor, nearColor, t);
+
+        _mat.SetColor(colorProperty, c);
+    }
+}</code></pre>
+
+                <div class="note">
+                    <strong>Why InverseLerp?</strong> <code>Mathf.InverseLerp(a, b, value)</code> maps a value to 0..1.
+                    Here we intentionally swap <code>a</code> and <code>b</code> so that closer distance becomes larger <code>t</code>.
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Example 2 — Smoothly move an object to the user's hand (Vector3.Lerp)</h2>
+            </summary>
+            <div class="accordion-content">
+                <p>
+                    Goal: When you press a key (desktop test) or flip a boolean (you can wire this to an XR input event later),
+                    an object "homes" toward the controller smoothly instead of teleporting.
+                </p>
+
+                <h3>Scene steps</h3>
+                <ol>
+                    <li>Create a small sphere (the follower object) and place it in front of the XR Origin.</li>
+                    <li>Assign the controller transform as <code>target</code>.</li>
+                    <li>Press <code>F</code> in Play Mode to toggle follow on/off (simple test trigger).</li>
+                </ol>
+
+<pre><code>using UnityEngine;
+
+public class SmoothFollowLerp : MonoBehaviour
+{
+    [SerializeField] private Transform target;  // e.g., XR controller
+    [SerializeField] private float followSpeed = 8f; // higher = snappier
+    [SerializeField] private Vector3 positionOffset = new Vector3(0, 0, 0);
+
+    [Header("Test toggle (replace with XR input later)")]
+    [SerializeField] private bool followEnabled = true;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+            followEnabled = !followEnabled;
+
+        if (!followEnabled || !target) return;
+
+        Vector3 desired = target.position + positionOffset;
+
+        // Convert speed to a frame-rate independent lerp factor.
+        // This is a common pattern: t = 1 - exp(-k * dt)
+        float t = 1f - Mathf.Exp(-followSpeed * Time.deltaTime);
+
+        transform.position = Vector3.Lerp(transform.position, desired, t);
+    }
+}</code></pre>
+
+                <div class="note">
+                    <strong>Why not use <code>t = followSpeed * Time.deltaTime</code>?</strong> You can, but it depends on framerate and can overshoot 1.
+                    The exponential form keeps the feel consistent across frame rates and avoids needing to clamp.
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Example 3 — Smooth "fill" UI feedback for grab distance (Mathf.Lerp)</h2>
+            </summary>
+            <div class="accordion-content">
+                <p>
+                    Goal: A world-space UI bar smoothly fills as your controller gets close to an object. This is useful in XR to
+                    communicate "you're in range to interact."
+                </p>
+
+                <h3>Scene steps</h3>
+                <ol>
+                    <li>Create a Canvas set to <strong>World Space</strong>.</li>
+                    <li>Add a UI Image set to <strong>Filled</strong> (Type: Filled, Fill Method: Horizontal).</li>
+                    <li>Put the Canvas near the object, or make it a child of the object.</li>
+                    <li>Assign the Image to <code>fillImage</code> and the controller to <code>proximitySource</code>.</li>
+                </ol>
+
+<pre><code>using UnityEngine;
+using UnityEngine.UI;
+
+public class ProximityFillBar : MonoBehaviour
+{
+    [SerializeField] private Transform proximitySource; // XR controller
+    [SerializeField] private Transform targetObject;    // object we're approaching
+
+    [Header("Distances (meters)")]
+    [SerializeField] private float nearDistance = 0.20f;
+    [SerializeField] private float farDistance  = 1.20f;
+
+    [Header("UI")]
+    [SerializeField] private Image fillImage; // Image.type = Filled
+
+    [Header("Smoothing")]
+    [SerializeField] private float uiSmoothSpeed = 10f;
+
+    private float _currentFill; // 0..1
+
+    private void Update()
+    {
+        if (!proximitySource || !targetObject || !fillImage) return;
+
+        float d = Vector3.Distance(proximitySource.position, targetObject.position);
+
+        // Raw target fill (0 far .. 1 near)
+        float targetFill = Mathf.InverseLerp(farDistance, nearDistance, d);
+
+        // Smooth the displayed fill
+        float t = 1f - Mathf.Exp(-uiSmoothSpeed * Time.deltaTime);
+        _currentFill = Mathf.Lerp(_currentFill, targetFill, t);
+
+        fillImage.fillAmount = _currentFill;
+    }
+}</code></pre>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Common mistakes (quick checklist)</h2>
+            </summary>
+            <div class="accordion-content">
+                <ul>
+                    <li>
+                        <strong>Confusing "percentage" with "per second":</strong> Lerp's <code>t</code> is not automatically time-based.
+                        If you want "move there in 0.5 seconds," you must compute <code>t</code> from elapsed time.
+                    </li>
+                    <li>
+                        <strong>Calling Lerp with a constant <code>t</code> each frame:</strong> If you do
+                        <code>pos = Lerp(start, end, 0.1f)</code> every frame but keep <code>start</code> constant, it will not animate.
+                        Use the current value as the start (like the examples), or use elapsed-time interpolation.
+                    </li>
+                    <li>
+                        <strong>Editing shared materials:</strong> If you change <code>renderer.sharedMaterial</code> you may edit the asset for all objects.
+                        Use <code>renderer.material</code> (creates an instance) for per-object runtime changes.
+                    </li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>Adjustments to try</h2>
+            </summary>
+            <div class="accordion-content">
+                <ol>
+                    <li>Modify Example 1 so the object also scales up when the controller is near (use <code>Vector3.Lerp</code> on <code>transform.localScale</code>).</li>
+                    <li>In Example 2, add rotation smoothing toward the controller using <code>Quaternion.Slerp</code>.</li>
+                    <li>In Example 3, change the fill color from green (far) to red (near) using <code>Color.Lerp</code> on the Image color.</li>
+                </ol>
+            </div>
+        </details>
+
+<!--         <div class="resource-box">
+            <p><strong>Built for:</strong> Unity 6000.0.58f2, OpenXR, XR Interaction Toolkit 3.0.10, Starter Assets.</p>
+        </div> -->
+    </div>
+</body>
+</html>
