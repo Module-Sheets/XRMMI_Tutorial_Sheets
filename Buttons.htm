@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons: Direct Button Access</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0F4761;
+            border-bottom: 3px solid #0F4761;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0F4761;
+            margin-top: 0;
+        }
+        h3 {
+            color: #467886;
+            margin-top: 20px;
+        }
+        p,
+        li {
+            color: #1f1f1f;
+        }
+        a {
+            color: #467886;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ol,
+        ul {
+            margin-left: 22px;
+            margin-bottom: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        code,
+        pre {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 10px 0 0;
+        }
+        .note {
+            background-color: #E8F4F8;
+            border-left: 4px solid #467886;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tag {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid #9db8c5;
+            color: #0F4761;
+            font-size: 12px;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+        .imported-content {
+            margin-top: 14px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        .accordion {
+            border: 1px solid #0F4761;
+            border-radius: 4px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+        }
+        .accordion-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 15px;
+            user-select: none;
+            background-color: #f0f0f0;
+            border-radius: 4px 4px 0 0;
+        }
+        .accordion-summary:hover {
+            background-color: #e5e5e5;
+        }
+        .accordion-summary h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .accordion-summary::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 6px solid #0F4761;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .accordion[open] .accordion-summary::before {
+            transform: rotate(90deg);
+        }
+        .accordion-content {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+    <link rel="stylesheet" href="mobile-adapt.css">
+    <script src="mobile-adapt.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Buttons: Direct Button Access in Unity XR (OpenXR)</h1>
+
+        <div class="note">
+            Tutorials for <strong>Unity 6000.0.58f2</strong> with <strong>XR Interaction Toolkit 3.0.10</strong>, assuming a Starter XR Rig (XR Origin / Action-based).
+        </div>
+
+        <details class="accordion" open>
+            <summary class="accordion-summary">
+                <h2>Overview and Assumptions</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <p><strong>Assumption:</strong> You are using OpenXR with XR Interaction Toolkit Starter Assets, usually with <em>XR Controller (Action-based)</em> and Input System.</p>
+                    <h3>Quick Decision Guide</h3>
+                    <ul>
+                        <li><strong>Option 1 (Action-based XRI):</strong> best default and aligned with Starter rig.</li>
+                        <li><strong>Option 3 (Input System direct):</strong> great for extra gameplay buttons without touching Select/Activate.</li>
+                        <li><strong>Option 4 (Raw InputDevice):</strong> useful for diagnostics and raw values.</li>
+                        <li><strong>Option 2 (Device-based XRI):</strong> works but usually less flexible across OpenXR profiles.</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>1) Action-Based XRI <span class="tag">Recommended</span></h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <h3>Goal</h3>
+                    <p>Read a controller button via the existing <code>XR Controller (Action-based)</code> in the Starter rig.</p>
+
+                    <h3>Steps</h3>
+                    <ol>
+                        <li>Find a hand object under XR Origin (for example RightHand Controller).</li>
+                        <li>Confirm it has <strong>XR Controller (Action-based)</strong>.</li>
+                        <li>Choose an action such as Select, Activate, or UI Press.</li>
+                        <li>Attach script and assign the controller reference in Inspector.</li>
+                    </ol>
+
+                    <h3>Script</h3>
+                    <pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+
+public class ReadXRIActionBased : MonoBehaviour
+{
+    [SerializeField] XRController controller;
+
+    void Update()
+    {
+        if (controller == null) return;
+
+        InputAction action = controller.activateAction.action;
+
+        if (action != null &amp;&amp; action.WasPressedThisFrame())
+        {
+            Debug.Log("Activate pressed this frame (Action-based XRI).");
+        }
+    }
+}</code></pre>
+
+                    <h3>Notes</h3>
+                    <ul>
+                        <li>This stays consistent with rig bindings and interaction setup.</li>
+                        <li>Switch to <code>controller.selectAction.action</code> if needed.</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>2) Device-Based XRI</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <h3>Goal</h3>
+                    <p>Use <code>XR Controller (Device-based)</code> and read controller features rather than Input Actions.</p>
+
+                    <h3>Steps</h3>
+                    <ol>
+                        <li>Create or select a test object under XR Origin.</li>
+                        <li>Add <strong>XR Controller (Device-based)</strong>.</li>
+                        <li>Configure trigger, grip, and buttons as needed.</li>
+                        <li>For reliable raw reads in OpenXR, query device state directly (Option 4).</li>
+                    </ol>
+
+                    <div class="note">
+                        Exact access patterns can differ by XRIT version and setup, so raw InputDevice checks are often used for direct state reads.
+                    </div>
+
+                    <h3>When to Use</h3>
+                    <ul>
+                        <li>Quick prototypes</li>
+                        <li>Minimal Input System setup</li>
+                    </ul>
+
+                    <h3>Tradeoffs</h3>
+                    <ul>
+                        <li>Usually less flexible than action-based mappings across OpenXR profiles.</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>3) Input System Direct</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <h3>Goal</h3>
+                    <p>Create your own Input Action such as <code>PrimaryButton</code> without changing XRI Select/Activate actions.</p>
+
+                    <h3>Steps</h3>
+                    <ol>
+                        <li>Create Input Actions asset.</li>
+                        <li>Create Action Map <code>Gameplay</code>.</li>
+                        <li>Create button action <code>PrimaryButton</code>.</li>
+                        <li>Add bindings like <code>&lt;XRController&gt;{RightHand}/primaryButton</code>.</li>
+                        <li>Assign an <strong>InputActionReference</strong> to your script.</li>
+                    </ol>
+
+                    <h3>Script</h3>
+                    <pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class ReadInputSystemDirect : MonoBehaviour
+{
+    [SerializeField] private InputActionReference primaryButton;
+
+    private void OnEnable()
+    {
+        if (primaryButton != null)
+            primaryButton.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (primaryButton != null)
+            primaryButton.action.Disable();
+    }
+
+    void Update()
+    {
+        if (primaryButton != null &amp;&amp; primaryButton.action.WasPressedThisFrame())
+            Debug.Log("Primary button pressed (Input System direct).");
+    }
+}</code></pre>
+
+                    <h3>Notes</h3>
+                    <ul>
+                        <li>Good for pause/menu/flashlight style actions.</li>
+                        <li>Portable under OpenXR when bindings include sensible fallbacks.</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>4) Raw XR Device State (InputDevice / XRNode)</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <h3>Goal</h3>
+                    <p>Query raw controller state directly from the OpenXR runtime.</p>
+
+                    <h3>Steps</h3>
+                    <ol>
+                        <li>Add script to XR Origin or another scene object.</li>
+                        <li>Select hand with <code>XRNode.LeftHand</code> or <code>XRNode.RightHand</code>.</li>
+                        <li>Use <code>TryGetFeatureValue</code> for button and axis values.</li>
+                    </ol>
+
+                    <h3>Script</h3>
+                    <pre><code>using UnityEngine;
+using UnityEngine.XR;
+
+public class ReadXRInputDevice : MonoBehaviour
+{
+    [SerializeField] private XRNode hand = XRNode.RightHand;
+
+    void Update()
+    {
+        var device = InputDevices.GetDeviceAtXRNode(hand);
+        if (!device.isValid)
+            return;
+
+        if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryDown) &amp;&amp; primaryDown)
+        {
+            Debug.Log($"{hand}: primaryButton is down (raw InputDevice).");
+        }
+
+        if (device.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerPressed) &amp;&amp; triggerPressed)
+        {
+            Debug.Log($"{hand}: triggerButton is pressed (raw).");
+        }
+
+        if (device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) &amp;&amp; triggerValue &gt; 0.8f)
+        {
+            Debug.Log($"{hand}: trigger axis &gt; 0.8 (raw axis).");
+        }
+    }
+}</code></pre>
+
+                    <h3>Notes / Caveats</h3>
+                    <ul>
+                        <li>Not all controllers expose identical CommonUsages values.</li>
+                        <li>Best for debugging, animation, or truly raw input needs.</li>
+                    </ul>
+                </div>
+            </div>
+        </details>
+
+        <details class="accordion">
+            <summary class="accordion-summary">
+                <h2>What Button Do You Mean?</h2>
+            </summary>
+            <div class="accordion-content">
+                <div class="imported-content">
+                    <p>If needed, tailor bindings and code paths for:</p>
+                    <ul>
+                        <li>Primary and Secondary buttons (A/X, B/Y)</li>
+                        <li>Menu button</li>
+                        <li>Thumbstick click vs thumbstick axis</li>
+                        <li>Trigger press (button) vs trigger value (float)</li>
+                    </ul>
+
+                    <div class="note">
+                        You can combine action-based reads with a raw-device fallback when an action is not bound.
+                    </div>
+                </div>
+            </div>
+        </details>
+
+   <!--      <div class="note">
+            Document created for Unity 6000.0.58f2 with XR Interaction Toolkit 3.0.10 and OpenXR runtime. Exact behavior can vary by installed package versions.
+        </div> -->
+    </div>
+</body>
+</html>

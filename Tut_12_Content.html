@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VR Exercises — Unity 6000 + OpenXR + XR Interaction Toolkit 3.0.10</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #111a33;
+      --text: #e8ecff;
+      --muted: #b9c2ff;
+      --accent: #7aa2ff;
+      --accent2: #5ef0c5;
+      --warn: #ffd166;
+      --border: rgba(255,255,255,0.12);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --maxw: 980px;
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background: radial-gradient(1000px 600px at 20% 0%, rgba(122,162,255,0.25), transparent 55%),
+                  radial-gradient(800px 500px at 85% 15%, rgba(94,240,197,0.18), transparent 60%),
+                  var(--bg);
+      line-height: 1.55;
+    }
+    header {
+      padding: 36px 18px 18px;
+    }
+    .wrap { max-width: var(--maxw); margin: 0 auto; }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: 0.2px;
+    }
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      max-width: 75ch;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .pill {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    main { padding: 10px 18px 50px; }
+    .card {
+      background: rgba(17,26,51,0.92);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin: 14px 0;
+    }
+    h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+    h3 {
+      margin: 14px 0 8px;
+      font-size: 16px;
+      color: var(--accent);
+    }
+    ul, ol { margin: 8px 0 0 18px; }
+    li { margin: 6px 0; }
+    code, pre {
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+    pre {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 12px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 10px 0 0;
+    }
+    .note {
+      border-left: 4px solid var(--warn);
+      padding: 10px 12px;
+      margin: 10px 0 0;
+      background: rgba(255,209,102,0.10);
+      color: var(--text);
+      border-radius: 10px;
+    }
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .check {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+    }
+    .check input {
+      margin-top: 3px;
+      accent-color: var(--accent2);
+    }
+    footer {
+      padding: 0 18px 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f5f7ff;
+        --card: #ffffff;
+        --text: #0b1020;
+        --muted: #3b4a7a;
+        --border: rgba(11,16,32,0.12);
+        --shadow: 0 10px 26px rgba(0,0,0,0.08);
+      }
+      body {
+        background: radial-gradient(900px 520px at 20% 0%, rgba(122,162,255,0.18), transparent 55%),
+                    radial-gradient(800px 520px at 85% 15%, rgba(94,240,197,0.16), transparent 60%),
+                    var(--bg);
+      }
+      pre { background: rgba(11,16,32,0.06); }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <h1>VR Exercises (XR Interaction Toolkit)</h1>
+      <p class="sub">
+        Exercises for <strong>Unity 6000.0.58f2</strong> + <strong>OpenXR</strong> + <strong>XR Interaction Toolkit 3.0.10</strong>,
+        using <strong>Starter Assets</strong>. These tasks extend the lecture topics (movement, triggers/collisions, ray interaction,
+        and smoothing via Lerp/MoveTowards/LookAt) in a VR-first way.
+      </p>
+      <div class="meta">
+        <span class="pill">Target: Any OpenXR headset</span>
+        <span class="pill">Locomotion: Teleport + Continuous</span>
+        <span class="pill">Input: Action-based (Starter Assets)</span>
+        <span class="pill">Difficulty: Intermediate beginner</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <section class="card" id="before-you-start">
+        <h2>Before you start</h2>
+        <ul>
+          <li>Project uses <strong>XR Plug-in Management</strong> with <strong>OpenXR</strong> enabled.</li>
+          <li>Scene has an <strong>XR Origin (Action-based)</strong> rig from the XRIT Starter Assets.</li>
+          <li>Controllers include at least one <strong>XR Ray Interactor</strong> (and optionally <strong>XR Direct Interactor</strong>).</li>
+          <li>Locomotion providers are present: <strong>Teleportation Provider</strong> and <strong>Continuous Move Provider (Action-based)</strong>,
+              plus a turn provider (Snap Turn recommended).</li>
+        </ul>
+
+        <div class="note">
+          <strong>Comfort note (VR):</strong> Prefer <em>Snap Turn</em> as the default turning mode. Continuous turning can cause motion sickness
+          for some users.
+        </div>
+      </section>
+
+      <section class="card" id="exercise-1">
+        <h2>Exercise 1 — Trigger-controlled sliding door (hand-only)</h2>
+        <p>
+          Build a kinematic “sliding door” that opens only when a <strong>hand collider</strong> enters the trigger zone
+          (not when a random physics cube enters).
+        </p>
+
+        <h3>Requirements</h3>
+        <ol>
+          <li>Create a <strong>Door</strong> object with a collider and a <strong>kinematic Rigidbody</strong>.</li>
+          <li>Create a separate <strong>Trigger Zone</strong> (BoxCollider with <code>Is Trigger</code> enabled).</li>
+          <li>Door should move using <code>Vector3.MoveTowards</code> or a Lerp-over-time pattern.</li>
+          <li>Door opens only for “hand” objects.</li>
+        </ol>
+
+        <h3>Suggested “hand-only” detection approaches (pick one)</h3>
+        <ul>
+          <li><strong>Tag-based:</strong> Tag your hand collider objects as <code>PlayerHand</code>, then check <code>other.CompareTag("PlayerHand")</code>.</li>
+          <li><strong>Layer-based:</strong> Put hand colliders on a <code>Hands</code> layer and use layer checks / layer masks.</li>
+          <li><strong>Component-based:</strong> Add a small marker component <code>HandMarker</code> to hand objects and check <code>other.GetComponentInParent&lt;HandMarker&gt;()</code>.</li>
+        </ul>
+
+        <h3>Checklist</h3>
+        <div class="checklist">
+          <label class="check"><input type="checkbox"> Door has <strong>Rigidbody</strong> with <strong>Is Kinematic</strong> enabled</label>
+          <label class="check"><input type="checkbox"> Trigger Zone collider has <strong>Is Trigger</strong> enabled</label>
+          <label class="check"><input type="checkbox"> Door motion uses <strong>Time.deltaTime</strong> (frame-rate independent)</label>
+          <label class="check"><input type="checkbox"> Trigger logic filters to <strong>hands only</strong> (tag/layer/component)</label>
+        </div>
+
+        <div class="note">
+          <strong>Tip:</strong> If your trigger callbacks never fire, ensure at least one of the two colliding objects
+          (trigger zone or hand) has a Rigidbody on it. In XR setups, the hand/controller proxy often has one (commonly kinematic).
+        </div>
+      </section>
+
+      <section class="card" id="exercise-2">
+        <h2>Exercise 2 — Ray hover highlight (XR Ray Interactor)</h2>
+        <p>
+          When the controller ray points at an object, highlight it (e.g., change its material color).
+          When the ray leaves, restore the original appearance.
+        </p>
+
+        <h3>Requirements</h3>
+        <ol>
+          <li>Use an <strong>XR Ray Interactor</strong> (do not rely only on <code>Physics.Raycast</code> unless you justify it).</li>
+          <li>Highlight should work on “hover” (not only on select/grab).</li>
+          <li>Restore the original material/color on hover exit.</li>
+        </ol>
+
+        <h3>Implementation hints</h3>
+        <ul>
+          <li>Option A: Use XRIT interaction events on interactables (hover entered/exited).</li>
+          <li>Option B: Poll the ray’s current 3D hit and track changes (advanced).</li>
+        </ul>
+
+        <div class="note">
+          <strong>Marking hint:</strong> You should demonstrate you understand the difference between XRIT’s built-in ray interaction
+          pipeline and manual raycasting. XRIT is the default VR approach.
+        </div>
+      </section>
+
+      <section class="card" id="exercise-3">
+        <h2>Exercise 3 — Locomotion mode toggle UI (Teleport ↔ Continuous)</h2>
+        <p>
+          Add a world-space UI panel that lets the user toggle between locomotion modes:
+          <strong>Teleport Enabled</strong> vs <strong>Continuous Move Enabled</strong>.
+        </p>
+
+        <h3>Requirements</h3>
+        <ol>
+          <li>Create a world-space Canvas that the user can interact with (ray-based UI interaction).</li>
+          <li>Add two toggles or buttons:
+            <ul>
+              <li><em>Teleport</em> ON/OFF</li>
+              <li><em>Continuous Move</em> ON/OFF</li>
+            </ul>
+          </li>
+          <li>Update the locomotion providers at runtime (enable/disable components or switch action bindings).</li>
+        </ol>
+
+        <h3>Checklist</h3>
+        <div class="checklist">
+          <label class="check"><input type="checkbox"> UI is <strong>world-space</strong> and readable at comfortable distance</label>
+          <label class="check"><input type="checkbox"> UI is interactable with <strong>XR Ray Interactor</strong> (UI module configured)</label>
+          <label class="check"><input type="checkbox"> Teleport provider can be toggled without breaking the rig</label>
+          <label class="check"><input type="checkbox"> Continuous move provider can be toggled without breaking the rig</label>
+        </div>
+
+        <div class="note">
+          <strong>Comfort note:</strong> If both are enabled simultaneously, decide which “wins” and document your decision.
+          Many apps expose one locomotion mode at a time to reduce accidental movement.
+        </div>
+      </section>
+
+      <section class="card" id="exercise-4">
+        <h2>Exercise 4 — VR-safe LookAt (Yaw-only billboard)</h2>
+        <p>
+          Create a label or UI panel that always faces the user, but rotates only around the <strong>Y axis</strong> (yaw),
+          so it doesn’t tilt up/down unnaturally.
+        </p>
+
+        <h3>Requirements</h3>
+        <ol>
+          <li>Get the HMD/camera transform (e.g., XR Origin’s Camera).</li>
+          <li>Compute a look direction projected onto the horizontal plane.</li>
+          <li>Rotate the label so it faces the user without pitch/roll.</li>
+        </ol>
+
+        <h3>Example approach (pseudocode)</h3>
+        <pre><code>// dir = hmd.position - label.position
+// dir.y = 0
+// if dir != 0: label.rotation = Quaternion.LookRotation(dir)</code></pre>
+
+        <div class="note">
+          <strong>Why yaw-only?</strong> In VR, constantly tilting UI to match head pitch can be uncomfortable and looks odd.
+          Yaw-only “billboarding” is common for signs, name tags, and tooltips.
+        </div>
+      </section>
+
+      <section class="card" id="submission">
+        <h2>Submission (suggested)</h2>
+        <ul>
+          <li>Short screen recording (30–90s) demonstrating each exercise.</li>
+          <li>Unity package or repo link with:
+            <ul>
+              <li>Scenes folder</li>
+              <li>Scripts folder</li>
+              <li>Any custom prefabs/materials</li>
+            </ul>
+          </li>
+          <li>A brief README describing:
+            <ul>
+              <li>How to test without a headset (if you used XR Device Simulator)</li>
+              <li>Comfort choices (snap vs continuous turn, locomotion toggles)</li>
+              <li>Any known limitations</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        Built for: Unity 6000.0.58f2 · OpenXR · XR Interaction Toolkit 3.0.10 · Starter Assets.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

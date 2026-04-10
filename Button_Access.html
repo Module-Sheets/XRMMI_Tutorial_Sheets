@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unity XR (OpenXR) — Direct Button Access Tutorials (XRIT 3.0.10 Starter XR Rig)</title>
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --panel:#121a2a;
+      --text:#e8eefc;
+      --muted:#b6c2e2;
+      --accent:#7aa2ff;
+      --border:#23304a;
+      --code:#0a1222;
+    }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    header, main, footer{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    header h1{ margin:0 0 8px 0; font-size:1.55rem; }
+    header p{ margin:0; color:var(--muted); }
+    a{ color:var(--accent); }
+    .note{
+      background: rgba(122,162,255,0.08);
+      border: 1px solid rgba(122,162,255,0.25);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: var(--text);
+      margin-top: 14px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    @media (min-width: 900px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+      .span2{ grid-column: 1 / -1; }
+    }
+    section.card{
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 18px 14px;
+    }
+    section.card h2{
+      margin: 0 0 8px 0;
+      font-size: 1.15rem;
+    }
+    section.card h3{
+      margin: 16px 0 6px 0;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    section.card p, section.card li{
+      color: var(--muted);
+    }
+    ul, ol{ margin: 8px 0 0 22px; }
+    pre{
+      background: var(--code);
+      border: 1px solid var(--border);
+      padding: 12px 12px;
+      border-radius: 12px;
+      overflow: auto;
+      margin: 10px 0 0 0;
+    }
+    code, pre{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.92rem;
+      color: #dbe7ff;
+    }
+    .tag{
+      display:inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      margin-left: 8px;
+      font-size: 0.82rem;
+      vertical-align: middle;
+    }
+    footer{
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Direct Button Access in Unity XR (OpenXR)</h1>
+  <p>
+    Tutorials for <strong>Unity 6000.0.58f2</strong> + <strong>XR Interaction Toolkit 3.0.10</strong>,
+    assuming the <strong>Starter XR Rig</strong> (XR Origin / Action-based by default).
+  </p>
+
+  <div class="note">
+    <strong>Assumption:</strong> You’re using OpenXR with the XR Interaction Toolkit Starter Assets rig, which typically uses
+    <em>XR Controller (Action-based)</em> and the Input System under the hood.
+  </div>
+</header>
+
+<main>
+  <section class="card span2">
+    <h2>Quick decision guide</h2>
+    <ul>
+      <li><strong>Option 1 (Action-based XRI)</strong>: Best default—portable and aligned with the Starter rig.</li>
+      <li><strong>Option 3 (Input System direct)</strong>: Great for “extra gameplay buttons” without touching Select/Activate.</li>
+      <li><strong>Option 4 (Raw InputDevice)</strong>: Best for diagnostics / raw values / controller-driven animation.</li>
+      <li><strong>Option 2 (Device-based XRI)</strong>: Works, but tends to be less flexible/portable under OpenXR.</li>
+    </ul>
+  </section>
+
+  <div class="grid">
+    <!-- Option 1 -->
+    <section class="card">
+      <h2>1) Action-based XRI: Read the same actions the rig uses <span class="tag">Recommended</span></h2>
+
+      <h3>Goal</h3>
+      <p>Read a controller “button” via the <code>XR Controller (Action-based)</code> component already on the Starter rig.</p>
+
+      <h3>Steps</h3>
+      <ol>
+        <li>In the Hierarchy, locate your hand object (e.g., <em>RightHand Controller</em> under <em>XR Origin</em>).</li>
+        <li>Confirm it has <strong>XR Controller (Action-based)</strong>.</li>
+        <li>Pick an action to read (common ones): <em>Select</em>, <em>Activate</em>, <em>UI Press</em>.</li>
+        <li>Add the script below to the same GameObject and assign the controller reference in the Inspector.</li>
+      </ol>
+
+      <h3>Script</h3>
+      <pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+
+public class ReadXRIActionBased : MonoBehaviour
+{
+    [SerializeField] XRController controller; // XR Controller (Action-based)
+
+    void Update()
+    {
+        if (controller == null) return;
+
+        // Example: read "Activate" (often trigger press)
+        InputAction action = controller.activateAction.action;
+
+        if (action != null &amp;&amp; action.WasPressedThisFrame())
+        {
+            Debug.Log("Activate pressed this frame (Action-based XRI).");
+        }
+    }
+}</code></pre>
+
+      <h3>Notes</h3>
+      <ul>
+        <li>This reads the same action XRI uses for interactions, so it stays consistent with your rig’s bindings.</li>
+        <li>You can switch to <code>controller.selectAction.action</code> (grip/select) as needed.</li>
+      </ul>
+    </section>
+
+    <!-- Option 2 -->
+    <section class="card">
+      <h2>2) Device-based XRI: XR Controller (Device-based)</h2>
+
+      <h3>Goal</h3>
+      <p>Use <code>XR Controller (Device-based)</code> and read controller state via “device features” rather than Input Actions.</p>
+
+      <h3>Steps</h3>
+      <ol>
+        <li>Create a test GameObject under <em>XR Origin</em> (or use a spare hand controller object).</li>
+        <li>Add component: <strong>XR Controller (Device-based)</strong>.</li>
+        <li>In the component, configure the inputs you care about (trigger, grip, primary button, etc.).</li>
+        <li>For OpenXR projects, the most reliable “device-based” read is usually to query the XR device directly (see Option 4), using the same hand (<code>XRNode</code>).</li>
+      </ol>
+
+      <div class="note">
+        <strong>Why no single universal code snippet here?</strong><br />
+        The exact serialized fields and access patterns of the device-based controller component can differ between XRI versions and setups.
+        Under OpenXR, it’s common to configure device-based components for XRI behavior, but read raw values using <code>InputDevice.TryGetFeatureValue</code>
+        when you truly need “direct button state.”
+      </div>
+
+      <h3>When to use</h3>
+      <ul>
+        <li>Quick prototypes</li>
+        <li>Minimal Input System setup</li>
+      </ul>
+
+      <h3>Tradeoffs</h3>
+      <ul>
+        <li>Less flexible than action-based mappings across different OpenXR interaction profiles.</li>
+      </ul>
+    </section>
+
+    <!-- Option 3 -->
+    <section class="card">
+      <h2>3) Input System direct: Your own action, separate from XRI</h2>
+
+      <h3>Goal</h3>
+      <p>Add a new Input Action (e.g. “PrimaryButton”) and read it in your own script, without modifying XRI Select/Activate.</p>
+
+      <h3>Steps</h3>
+      <ol>
+        <li>Create an Input Actions asset: <em>Create &gt; Input Actions</em>.</li>
+        <li>Create an Action Map named <code>Gameplay</code>.</li>
+        <li>Create an Action named <code>PrimaryButton</code> (Action Type: <strong>Button</strong>).</li>
+        <li>Add bindings for OpenXR/XRController paths, for example:
+          <ul>
+            <li><code>&lt;XRController&gt;{RightHand}/primaryButton</code></li>
+            <li>(optional) <code>&lt;XRController&gt;{LeftHand}/primaryButton</code></li>
+          </ul>
+        </li>
+        <li>Create an <strong>InputActionReference</strong> to the action and assign it to the script below.</li>
+      </ol>
+
+      <h3>Script</h3>
+      <pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class ReadInputSystemDirect : MonoBehaviour
+{
+    [SerializeField] private InputActionReference primaryButton;
+
+    private void OnEnable()
+    {
+        if (primaryButton != null)
+            primaryButton.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (primaryButton != null)
+            primaryButton.action.Disable();
+    }
+
+    void Update()
+    {
+        if (primaryButton != null &amp;&amp; primaryButton.action.WasPressedThisFrame())
+            Debug.Log("Primary button pressed (Input System direct).");
+    }
+}</code></pre>
+
+      <h3>Notes</h3>
+      <ul>
+        <li>Great for “Pause/Menu/Flashlight” style actions that shouldn’t interfere with grab/teleport.</li>
+        <li>Still portable under OpenXR if your bindings include sensible fallbacks.</li>
+      </ul>
+    </section>
+
+    <!-- Option 4 -->
+    <section class="card">
+      <h2>4) Raw XR device state: UnityEngine.XR InputDevice / XRNode</h2>
+
+      <h3>Goal</h3>
+      <p>Query raw controller state directly from the XR runtime (OpenXR).</p>
+
+      <h3>Steps</h3>
+      <ol>
+        <li>Add the script below to any object (often <em>XR Origin</em>).</li>
+        <li>Choose <code>XRNode.LeftHand</code> or <code>XRNode.RightHand</code>.</li>
+        <li>Query features with <code>TryGetFeatureValue</code> (buttons/axes).</li>
+      </ol>
+
+      <h3>Script</h3>
+      <pre><code>using UnityEngine;
+using UnityEngine.XR;
+
+public class ReadXRInputDevice : MonoBehaviour
+{
+    [SerializeField] private XRNode hand = XRNode.RightHand;
+
+    void Update()
+    {
+        var device = InputDevices.GetDeviceAtXRNode(hand);
+        if (!device.isValid)
+            return;
+
+        // Button example (A/X on many controllers)
+        if (device.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryDown) &amp;&amp; primaryDown)
+        {
+            Debug.Log($"{hand}: primaryButton is down (raw InputDevice).");
+        }
+
+        // Trigger pressed as a button
+        if (device.TryGetFeatureValue(CommonUsages.triggerButton, out bool triggerPressed) &amp;&amp; triggerPressed)
+        {
+            Debug.Log($"{hand}: triggerButton is pressed (raw).");
+        }
+
+        // Trigger analog value
+        if (device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) &amp;&amp; triggerValue &gt; 0.8f)
+        {
+            Debug.Log($"{hand}: trigger axis &gt; 0.8 (raw axis).");
+        }
+    }
+}</code></pre>
+
+      <h3>Notes / Caveats (OpenXR)</h3>
+      <ul>
+        <li>Not all controllers expose the same <code>CommonUsages</code> consistently.</li>
+        <li>Best used for debugging/animation or when you truly need raw, unabstracted values.</li>
+      </ul>
+    </section>
+
+    <!-- Extra -->
+    <section class="card span2">
+      <h2>What “button” do you mean?</h2>
+      <p>
+        If you tell me which you want, I can tailor the bindings and code paths:
+      </p>
+      <ul>
+        <li><strong>Primary / Secondary</strong> (A/X, B/Y)</li>
+        <li><strong>Menu</strong> (often left-hand only; varies)</li>
+        <li><strong>Thumbstick click</strong> vs thumbstick axis</li>
+        <li><strong>Trigger</strong>: “press” (button) vs “value” (float)</li>
+      </ul>
+      <div class="note">
+        If you want, I can also provide a “single script” that supports both
+        <strong>Option 1</strong> (action-based) with a fallback to <strong>Option 4</strong> (raw)
+        when an action isn’t bound.
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>
+    Document created for Unity 6000.0.58f2 + XR Interaction Toolkit 3.0.10, OpenXR runtime.
+    Tested patterns may vary slightly depending on your installed XR packages and the Starter Assets version.
+  </p>
+</footer>
+</body>
+</html>
